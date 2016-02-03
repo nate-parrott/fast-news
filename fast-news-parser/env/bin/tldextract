@@ -1,0 +1,10 @@
+#!/Users/nateparrott/Documents/SW/fast-news/fast-news-parser/env/bin/python3.5
+# EASY-INSTALL-ENTRY-SCRIPT: 'tldextract==1.7.4','console_scripts','tldextract'
+__requires__ = 'tldextract==1.7.4'
+import sys
+from pkg_resources import load_entry_point
+
+if __name__ == '__main__':
+    sys.exit(
+        load_entry_point('tldextract==1.7.4', 'console_scripts', 'tldextract')()
+    )

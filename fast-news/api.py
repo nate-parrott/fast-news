@@ -25,5 +25,15 @@ def subscribe(uid, url):
     return source.json(include_articles=True)
 
 def feed(uid):
-    subscriptions = Source.query(Source.uid == uid).order(-Source.most_recent_article_added_date).fetch(100)
-    
+    print 'UID', uid
+    subscriptions = Subscription.query(Subscription.uid == uid).fetch(100)
+    source_json = []
+    if len(subscriptions) > 0:
+        
+        subscription_urls = set([s.url for s in subscriptions])
+        sources = Source.query(Source.url.IN(list(subscription_urls))).order(-Source.most_recent_article_added_date).fetch(len(subscription_urls))
+        source_promises = [src.json(include_articles=True, article_limit=10, return_promise=True) for src in sources]
+        source_json = [p() for p in source_promises]
+    return {
+        "sources": source_json
+    }

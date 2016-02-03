@@ -31,15 +31,20 @@ class Source(ndb.Model):
     def from_url(cls, url):
         return ndb.Key(cls.id_for_source(url)).get()
     
-    def json(self, include_articles=False):
-        d = {
-            "url": self.url,
-            "title": self.title
-        }
+    def json(self, include_articles=False, article_limit=50, return_promise=False):
+        articles_future = None
         if include_articles:
-            articles = Article.query(Article.source == self.key).order(-Article.added_date, Article.added_order).fetch(20)
-            d['articles'] = [a.json() for a in articles]
-        return d
+            # this returns an async wrapper:
+            articles_future = Article.query(Article.source == self.key).order(-Article.added_date, Article.added_order).fetch_async(article_limit)
+        def promise():
+            d = {
+                "url": self.url,
+                "title": self.title
+            }
+            if include_articles:
+                d['articles'] = [a.json() for a in articles_future.get_result()]
+            return d
+        return promise if return_promise else promise()
 
 class Article(ndb.Model):
     source = ndb.KeyProperty(kind=Source)
@@ -74,8 +79,15 @@ class Article(ndb.Model):
             "fetch_failed": self.fetch_failed
         }
         if include_content:
-            d['data'] = self.data
+            d['data'] = self.data()
         return d
+    
+    def data(self):
+        return {
+            "article_html": self.article_html,
+            "article_title": self.article_title,
+            "top_image": self.top_image
+        }
 
 from source_fetch import source_fetch
 from article_fetch import article_fetch

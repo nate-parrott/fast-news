@@ -42,7 +42,7 @@ class ArticleHandler(webapp2.RequestHandler):
 
 class FeedHandler(webapp2.RequestHandler):
     def get(self):
-        uid = self.request.get('id')
+        uid = self.request.get('uid')
         self.response.write(json.dumps(api.feed(uid)))
 
 app = webapp2.WSGIApplication([

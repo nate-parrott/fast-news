@@ -16,3 +16,15 @@ indexes:
   - name: added_date
     direction: desc
   - name: added_order
+
+- kind: Source
+  properties:
+  - name: url
+  - name: most_recent_article_added_date
+    direction: desc
+
+- kind: Subscription
+  properties:
+  - name: uid
+  - name: most_recent_article_added_date
+    direction: desc

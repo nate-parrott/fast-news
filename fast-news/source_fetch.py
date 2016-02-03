@@ -10,6 +10,7 @@ from canonical_url import canonical_url
 import feedparser
 from pprint import pprint
 from urlparse import urljoin
+import random
 
 def source_fetch(source):
     result = _source_fetch(source)
@@ -30,7 +31,8 @@ def source_fetch(source):
                 article.url = canonical_url(entry['url'])
                 article.title = entry['title']
                 article.put()
-                article.enqueue_fetch()
+                delay = random.randint(0, 60)
+                article.enqueue_fetch(delay=delay)
         
     if latest_date:
         source.most_recent_article_added_date = latest_date

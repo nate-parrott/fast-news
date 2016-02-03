@@ -64,8 +64,8 @@ class Article(ndb.Model):
     def fetch_now(self):
         article_fetch(self)
     
-    def enqueue_fetch(self):
-        taskqueue.add(url='/tasks/articles/fetch', params={'id': self.key.id()})
+    def enqueue_fetch(self, delay=0):
+        taskqueue.add(url='/tasks/articles/fetch', params={'id': self.key.id()}, countdown=delay)
     
     def json(self, include_content=False):
         d = {

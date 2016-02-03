@@ -11,7 +11,7 @@ def hello():
 def parse():
     url = request.args['url']
     article = newspaper.Article(url, keep_article_html=True)
-    article.download()
+    article.download(request_timeout=5)
     article.parse()
     d = {
         "title": article.title,
@@ -25,4 +25,5 @@ def parse():
     return jsonify(**d)
 
 if __name__ == "__main__":
-    app.run(debug = 'debug' in sys.argv)
+    # app.run(debug = 'debug' in sys.argv)
+    app.run(debug=True)

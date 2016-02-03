@@ -9,14 +9,15 @@ from util import get_or_insert, url_fetch
 from canonical_url import canonical_url
 import feedparser
 from pprint import pprint
+from urlparse import urljoin
 
 def source_fetch(source):
     result = _source_fetch(source)
+    latest_date = None
     if result:
         if result.feed_title:
             source.title = result.feed_title
         
-        latest_date = None
         for i, entry in enumerate(result.entries):
             id = Article.id_for_article(entry['url'], source.url)
             article, inserted = get_or_insert(Article, id)
@@ -51,7 +52,7 @@ def _source_fetch(source):
         markup = url_fetch(source.url).read()
         result = None
         for fn in [rss_fetch, fetch_linked_rss]:
-            result = fn(source, markup)
+            result = fn(source, markup, source.url)
             if result: break
         if result:
             print "Fetched {0} as {1} source".format(source.url, result.method)
@@ -62,7 +63,7 @@ def _source_fetch(source):
         print "URL error fetching {0}: {1}".format(source.url, e)
     return None
 
-def rss_fetch(source, markup):    
+def rss_fetch(source, markup, url):    
     parsed = feedparser.parse(markup)
     pprint(parsed)
     
@@ -74,21 +75,21 @@ def rss_fetch(source, markup):
     latest_date = None
     for entry in parsed['entries']:
         if 'link' in entry:
-            url = entry['link'].strip()
+            link_url = urljoin(url, entry['link'].strip())
             title = entry['title']
-            entries.append({"title": title, "url": url})
+            entries.append({"title": title, "url": link_url})
     
     return FetchResult('rss', feed_title, entries)
 
-def fetch_linked_rss(source, markup):
+def fetch_linked_rss(source, markup, url):
     soup = BeautifulSoup(markup, 'lxml')
-    link = soup.find('link', attrs={'rel': 'alternate', 'type': 'application/rss+xml'})
+    link = soup.find('link', attrs={'rel': 'alternate', 'type': ['application/rss+xml', 'application/atom+xml']})
     if link and type(link) == bs4.element.Tag and link['href']:
-        feed_url = link['href']
+        feed_url = urljoin(url, link['href'])
         print 'Found rss URL: ', feed_url
         try:
             feed_markup = url_fetch(feed_url).read()
-            result = rss_fetch(source, feed_markup)
+            result = rss_fetch(source, feed_markup, feed_url)
             if result:
                 result.method = 'linked_rss'
                 return result

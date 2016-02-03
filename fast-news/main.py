@@ -55,14 +55,14 @@ class TestHandler(webapp2.RequestHandler):
         html = """
         <form method=POST action='/subscribe'>
             <h1>Test subscribe</h1>
-            <input type=hidden name=test value=source>
+            <input type=hidden name=test value=subscribe>
             <input name=url placeholder=url>
             <input name=uid placeholder=uid>
             <input type=submit>
         </form>
         <form method=POST>
             <h1>Test source fetch</h1>
-            <input type=hidden name=test value=subscribe>
+            <input type=hidden name=test value=source>
             <input name=url>
             <input type=submit>
         </form>

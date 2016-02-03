@@ -32,9 +32,9 @@ def rss_fetch(source):
             source.title = parsed.find('title').text if parsed.find('title') else None
             now = datetime.datetime.now()
             for i, item in enumerate(parsed.find_all('item')):
-                print item.link, item.link.next_sibling, type(item.link.next_sibling)
+                # print item.link, item.link.next_sibling, type(item.link.next_sibling)
                 if item.link and item.link.next_sibling and type(item.link.next_sibling) == bs4.element.NavigableString:
-                    url = unicode(item.link.next_sibling)
+                    url = unicode(item.link.next_sibling).strip()
                     id = Article.id_for_article(url, source.url)
                     title = item.find('title').text if item.find('title') else None
                     article, inserted = get_or_insert(Article, id)

@@ -44,7 +44,9 @@ class Source(ndb.Model):
 class Article(ndb.Model):
     source = ndb.KeyProperty(kind=Source)
     url = ndb.StringProperty()
-    html_content = ndb.TextProperty()
+    html = ndb.TextProperty()
+    article_html = ndb.TextProperty()
+    article_text = ndb.TextProperty()
     added_date = ndb.DateTimeProperty()
     added_order = ndb.IntegerProperty()
     data = ndb.JsonProperty()

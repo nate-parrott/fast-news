@@ -50,14 +50,11 @@ class Article(ndb.Model):
     source = ndb.KeyProperty(kind=Source)
     url = ndb.StringProperty()
     html = ndb.TextProperty()
-    article_html = ndb.TextProperty()
-    article_text = ndb.TextProperty()
     added_date = ndb.DateTimeProperty()
     added_order = ndb.IntegerProperty()
-    data = ndb.JsonProperty()
     fetch_date = ndb.DateTimeProperty()
+    parsed = ndb.JsonProperty()
     title = ndb.TextProperty()
-    thumbnail_url = ndb.StringProperty()
     fetch_failed = ndb.BooleanProperty()
         
     @classmethod
@@ -75,18 +72,17 @@ class Article(ndb.Model):
             "id": self.key.id(),
             "url": self.url,
             "title": self.title,
-            "thumbnail_url": self.thumbnail_url,
             "fetch_failed": self.fetch_failed
         }
         if include_content:
-            d['data'] = self.data()
+            d['content'] = self.content()
         return d
     
-    def data(self):
+    def content(self):
+        if self.parsed == None: return None
         return {
-            "article_html": self.article_html,
-            "article_title": self.article_title,
-            "top_image": self.top_image
+            "article_html": self.parsed['article_html'],
+            "top_image": self.parsed['top_image']
         }
 
 from source_fetch import source_fetch

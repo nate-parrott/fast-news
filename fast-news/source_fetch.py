@@ -5,51 +5,99 @@ import datetime
 from model import Article, Source
 from google.appengine.ext import ndb
 from model import Article
-from util import get_or_insert
+from util import get_or_insert, url_fetch
 from canonical_url import canonical_url
+import feedparser
+from pprint import pprint
 
 def source_fetch(source):
-    try:
-        fetch_type = None
-        if rss_fetch(source):
-            fetch_type = 'rss'
-        print "Fetched {0} as {1} source".format(source.url, fetch_type)
-    except urllib2.URLError as e:
-        print "URL error fetching {0}: {1}".format(source.url, e)
+    result = _source_fetch(source)
+    if result:
+        if result.feed_title:
+            source.title = result.feed_title
+        
+        latest_date = None
+        for i, entry in enumerate(result.entries):
+            id = Article.id_for_article(entry['url'], source.url)
+            article, inserted = get_or_insert(Article, id)
+            if inserted:
+                article.added_date = datetime.datetime.now()
+                if latest_date == None or article.added_date > latest_date:
+                    latest_date = article.added_date
+                article.added_order = i
+                article.source = source.key
+                article.url = canonical_url(entry['url'])
+                article.title = entry['title']
+                article.put()
+                article.enqueue_fetch()
+        
+    if latest_date:
+        source.most_recent_article_added_date = latest_date
     source.last_fetched = datetime.datetime.now()
     source.put()
 
-def rss_fetch(source):
-    # assume `source` will be `put()` after call
-    markup = urllib2.urlopen(source.url).read()
-    parsed = BeautifulSoup(markup, 'lxml')
+class FetchResult(object):
+    def __init__(self, method, feed_title, entries):
+        self.method = method
+        self.feed_title = feed_title
+        self.entries = entries # {"url": url, "title": title}
+    
+    def __repr__(self):
+        return "FetchResult.{0}('{1}'): {2} ".format(self.method, self.feed_title, self.entries)
+
+def _source_fetch(source):
+    try:
+        fetch_type = None
+        markup = url_fetch(source.url).read()
+        result = None
+        for fn in [rss_fetch, fetch_linked_rss]:
+            result = fn(source, markup)
+            if result: break
+        if result:
+            print "Fetched {0} as {1} source".format(source.url, result.method)
+        else:
+            print "Couldn't fetch {0} using any method".format(source.url)
+        return result
+    except urllib2.URLError as e:
+        print "URL error fetching {0}: {1}".format(source.url, e)
+    return None
+
+def rss_fetch(source, markup):    
+    parsed = feedparser.parse(markup)
+    pprint(parsed)
+    
+    if parsed['bozo'] != 0 or (len(parsed['feed']) == 0 and len(parsed['entries']) == 0):
+        return None
+    
+    feed_title = parsed['feed']['title']
+    entries = []
     latest_date = None
-    if parsed.find('body'):
-        body = parsed.find('body')
-        children = list(body.children)
-        if len(children) == 1 and children[0].name.lower() == 'rss':
-            # this is rss
-            source.title = parsed.find('title').text if parsed.find('title') else None
-            now = datetime.datetime.now()
-            for i, item in enumerate(parsed.find_all('item')):
-                # print item.link, item.link.next_sibling, type(item.link.next_sibling)
-                if item.link and item.link.next_sibling and type(item.link.next_sibling) == bs4.element.NavigableString:
-                    url = unicode(item.link.next_sibling).strip()
-                    id = Article.id_for_article(url, source.url)
-                    title = item.find('title').text if item.find('title') else None
-                    article, inserted = get_or_insert(Article, id)
-                    if inserted:
-                        article.added_date = datetime.datetime.now()
-                        if latest_date == None or article.added_date > latest_date:
-                            latest_date = article.added_date
-                        article.added_order = i
-                        article.source = source.key
-                        article.url = canonical_url(url)
-                    article.title = title
-                    article.put()
-                    if inserted:
-                        article.enqueue_fetch()
-            if latest_date:
-                source.most_recent_article_added_date = latest_date
-            return True
-    return False
+    for entry in parsed['entries']:
+        if 'link' in entry:
+            url = entry['link'].strip()
+            title = entry['title']
+            entries.append({"title": title, "url": url})
+    
+    return FetchResult('rss', feed_title, entries)
+
+def fetch_linked_rss(source, markup):
+    soup = BeautifulSoup(markup, 'lxml')
+    link = soup.find('link', attrs={'rel': 'alternate', 'type': 'application/rss+xml'})
+    if link and type(link) == bs4.element.Tag and link['href']:
+        feed_url = link['href']
+        print 'Found rss URL: ', feed_url
+        try:
+            feed_markup = url_fetch(feed_url).read()
+            result = rss_fetch(source, feed_markup)
+            if result:
+                result.method = 'linked_rss'
+                return result
+            else:
+                print 'failed to parse markup'
+                print 'MARKUP:'
+                print feed_markup
+        except urllib2.URLError as e:
+            print "Error fetching linked rss {0}: {1}".format(feed_url, e) 
+    return None
+    
+    

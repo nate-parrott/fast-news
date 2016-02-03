@@ -4,16 +4,8 @@ from canonical_url import canonical_url
 from google.appengine.ext import ndb
 
 def subscribe(uid, url):
-    url = canonical_url(url)
-    
-    # create source if not yet created:
-    source_id = Source.id_for_source(url)
-    source, inserted = get_or_insert(Source, source_id)
-    if inserted:
-        source.url = url
-        source.put()
-        source.fetch_now()
-        source.enqueue_fetch()
+    source = ensure_source(url)
+    url = source.url
     
     id = Subscription.id_for_subscription(url, uid)
     sub, inserted = get_or_insert(Subscription, id)
@@ -23,6 +15,17 @@ def subscribe(uid, url):
         sub.put()
     
     return source.json(include_articles=True)
+
+def ensure_source(url):
+    url = canonical_url(url)
+    source_id = Source.id_for_source(url)
+    source, inserted = get_or_insert(Source, source_id)
+    if inserted:
+        source.url = url
+        source.put()
+        source.fetch_now()
+        source.enqueue_fetch()
+    return source
 
 def feed(uid):
     print 'UID', uid

@@ -19,6 +19,7 @@ import api
 from model import Source, Article, Subscription
 from google.appengine.ext import ndb
 import json
+from pprint import pprint
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
@@ -28,27 +29,62 @@ class SubscribeHandler(webapp2.RequestHandler):
     def post(self):
         url = self.request.get('url')
         uid = self.request.get('uid')
+        self.response.headers.add_header('Content-Type', 'application/json')
         self.response.write(json.dumps(api.subscribe(uid, url)))
 
 class SourceHandler(webapp2.RequestHandler):
     def get(self):
         id = self.request.get('id')
+        self.response.headers.add_header('Content-Type', 'application/json')
         self.response.write(json.dumps(ndb.Key('Source', id).get().json()))
 
 class ArticleHandler(webapp2.RequestHandler):
     def get(self):
         id = self.request.get('id')
-        self.response.write(json.dumps(ndb.Key('Article', id).get().json()))
+        self.response.headers.add_header('Content-Type', 'application/json')
+        self.response.write(json.dumps(ndb.Key('Article', id).get().json(include_content=True)))
 
 class FeedHandler(webapp2.RequestHandler):
     def get(self):
         uid = self.request.get('uid')
+        self.response.headers.add_header('Content-Type', 'application/json')
         self.response.write(json.dumps(api.feed(uid)))
+
+class TestHandler(webapp2.RequestHandler):
+    def get(self):
+        html = """
+        <form method=POST action='/subscribe'>
+            <h1>Test subscribe</h1>
+            <input type=hidden name=test value=source>
+            <input name=url placeholder=url>
+            <input name=uid placeholder=uid>
+            <input type=submit>
+        </form>
+        <form method=POST>
+            <h1>Test source fetch</h1>
+            <input type=hidden name=test value=subscribe>
+            <input name=url>
+            <input type=submit>
+        </form>
+        """
+        self.response.write(html)
+    
+    def post(self):
+        test = self.request.get('test')
+        if test == 'source':
+            from source_fetch import _source_fetch
+            from api import ensure_source
+            url = self.request.get('url')
+            source = ensure_source(url)
+            self.response.headers.add_header('Content-Type', 'text/plain')
+            pprint(_source_fetch(source), self.response.out)
+        
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
     ('/subscribe', SubscribeHandler),
     ('/article', ArticleHandler),
     ('/source', SourceHandler),
-    ('/feed', FeedHandler)
+    ('/feed', FeedHandler),
+    ('/test', TestHandler)
 ], debug=True)

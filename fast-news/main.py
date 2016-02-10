@@ -36,7 +36,7 @@ class SourceHandler(webapp2.RequestHandler):
     def get(self):
         id = self.request.get('id')
         self.response.headers.add_header('Content-Type', 'application/json')
-        self.response.write(json.dumps(ndb.Key('Source', id).get().json()))
+        self.response.write(json.dumps(ndb.Key('Source', id).get().json(include_articles=True)))
 
 class ArticleHandler(webapp2.RequestHandler):
     def get(self):

@@ -53,7 +53,7 @@ def _source_fetch(source):
     markup = url_fetch(source.url)
     if markup:
         result = None
-        for fn in [rss_fetch, fetch_linked_rss, fetch_wordpress_default_rss]:
+        for fn in [rss_fetch, fetch_wordpress_default_rss, fetch_linked_rss]:
             result = fn(source, markup, source.url)
             if result: break
         if result:

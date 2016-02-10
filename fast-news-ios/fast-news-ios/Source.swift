@@ -23,7 +23,7 @@ class Source: APIObject {
     
     override func jsonPath() -> (String, [String : String]?)? {
         if let id = self.id {
-            return ("/sources", ["id": id])
+            return ("/source", ["id": id])
         } else {
             return nil
         }
@@ -31,5 +31,11 @@ class Source: APIObject {
     
     override class func typeName() -> String {
         return "source"
+    }
+    
+    var highlightedArticle: Article? {
+        get {
+            return articles?.first
+        }
     }
 }

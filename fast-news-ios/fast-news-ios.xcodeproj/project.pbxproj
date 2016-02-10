@@ -23,6 +23,9 @@
 		5F5706731C65E18300140078 /* Subscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5706721C65E18300140078 /* Subscription.swift */; };
 		5F5706771C6636C400140078 /* SubscriptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5706761C6636C400140078 /* SubscriptionsViewController.swift */; };
 		5FCDF4401C6BCD6700A50A75 /* CommonExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCDF43F1C6BCD6700A50A75 /* CommonExtensions.swift */; };
+		5FCDF4421C6BF75F00A50A75 /* ArticleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCDF4411C6BF75F00A50A75 /* ArticleViewController.swift */; };
+		5FCDF4441C6BF77000A50A75 /* SourceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCDF4431C6BF77000A50A75 /* SourceViewController.swift */; };
+		5FCDF4481C6BFAFB00A50A75 /* ArticleCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCDF4471C6BFAFB00A50A75 /* ArticleCollectionViewController.swift */; };
 		725D858EB45B62776BD1EC87 /* Pods_fast_news_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B28AF43A8234C24ACECEB84 /* Pods_fast_news_ios.framework */; };
 /* End PBXBuildFile section */
 
@@ -45,6 +48,9 @@
 		5F5706721C65E18300140078 /* Subscription.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Subscription.swift; sourceTree = "<group>"; };
 		5F5706761C6636C400140078 /* SubscriptionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionsViewController.swift; sourceTree = "<group>"; };
 		5FCDF43F1C6BCD6700A50A75 /* CommonExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonExtensions.swift; sourceTree = "<group>"; };
+		5FCDF4411C6BF75F00A50A75 /* ArticleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleViewController.swift; sourceTree = "<group>"; };
+		5FCDF4431C6BF77000A50A75 /* SourceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SourceViewController.swift; sourceTree = "<group>"; };
+		5FCDF4471C6BFAFB00A50A75 /* ArticleCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleCollectionViewController.swift; sourceTree = "<group>"; };
 		7B28AF43A8234C24ACECEB84 /* Pods_fast_news_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_fast_news_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0848AEAC746D72B580AA7EF /* Pods-fast-news-ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fast-news-ios.debug.xcconfig"; path = "Pods/Target Support Files/Pods-fast-news-ios/Pods-fast-news-ios.debug.xcconfig"; sourceTree = "<group>"; };
 		C8692EA5BF694EAB0375ECAB /* Pods-fast-news-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fast-news-ios.release.xcconfig"; path = "Pods/Target Support Files/Pods-fast-news-ios/Pods-fast-news-ios.release.xcconfig"; sourceTree = "<group>"; };
@@ -94,22 +100,49 @@
 				5F4A71401C6319E000676F91 /* AppDelegate.swift */,
 				5F4A71421C6319E000676F91 /* MasterViewController.swift */,
 				5F4A71441C6319E000676F91 /* DetailViewController.swift */,
-				5F57066E1C63C74400140078 /* FeedViewController.swift */,
-				5F5706761C6636C400140078 /* SubscriptionsViewController.swift */,
-				5F4A71541C631E9400676F91 /* APIObject.swift */,
-				5F4A71581C63237300676F91 /* Feed.swift */,
-				5F4A71561C63236C00676F91 /* Source.swift */,
-				5F4A715A1C63237B00676F91 /* Article.swift */,
-				5F5706701C65E17C00140078 /* SubscriptionsList.swift */,
-				5F5706721C65E18300140078 /* Subscription.swift */,
-				5F4A715C1C63288000676F91 /* Pusher.swift */,
-				5FCDF43F1C6BCD6700A50A75 /* CommonExtensions.swift */,
+				5F8D9F2A1C6BFF7300F0FFBE /* View controllers */,
+				5F8D9F291C6BFF6C00F0FFBE /* Models */,
+				5F8D9F2B1C6BFF7B00F0FFBE /* Utilities */,
 				5F4A71461C6319E000676F91 /* Main.storyboard */,
 				5F4A71491C6319E000676F91 /* Assets.xcassets */,
 				5F4A714B1C6319E000676F91 /* LaunchScreen.storyboard */,
 				5F4A714E1C6319E000676F91 /* Info.plist */,
 			);
 			path = "fast-news-ios";
+			sourceTree = "<group>";
+		};
+		5F8D9F291C6BFF6C00F0FFBE /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				5F4A71541C631E9400676F91 /* APIObject.swift */,
+				5F4A71581C63237300676F91 /* Feed.swift */,
+				5F4A71561C63236C00676F91 /* Source.swift */,
+				5F4A715A1C63237B00676F91 /* Article.swift */,
+				5F5706701C65E17C00140078 /* SubscriptionsList.swift */,
+				5F5706721C65E18300140078 /* Subscription.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		5F8D9F2A1C6BFF7300F0FFBE /* View controllers */ = {
+			isa = PBXGroup;
+			children = (
+				5FCDF4471C6BFAFB00A50A75 /* ArticleCollectionViewController.swift */,
+				5F57066E1C63C74400140078 /* FeedViewController.swift */,
+				5FCDF4431C6BF77000A50A75 /* SourceViewController.swift */,
+				5FCDF4411C6BF75F00A50A75 /* ArticleViewController.swift */,
+				5F5706761C6636C400140078 /* SubscriptionsViewController.swift */,
+			);
+			name = "View controllers";
+			sourceTree = "<group>";
+		};
+		5F8D9F2B1C6BFF7B00F0FFBE /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				5F4A715C1C63288000676F91 /* Pusher.swift */,
+				5FCDF43F1C6BCD6700A50A75 /* CommonExtensions.swift */,
+			);
+			name = Utilities;
 			sourceTree = "<group>";
 		};
 		E317CF0C2C82A3FB71929AB1 /* Pods */ = {
@@ -248,14 +281,17 @@
 				5F4A71451C6319E000676F91 /* DetailViewController.swift in Sources */,
 				5F4A71591C63237300676F91 /* Feed.swift in Sources */,
 				5F5706731C65E18300140078 /* Subscription.swift in Sources */,
+				5FCDF4441C6BF77000A50A75 /* SourceViewController.swift in Sources */,
 				5F5706771C6636C400140078 /* SubscriptionsViewController.swift in Sources */,
 				5F4A71431C6319E000676F91 /* MasterViewController.swift in Sources */,
 				5F4A71411C6319E000676F91 /* AppDelegate.swift in Sources */,
 				5F5706711C65E17C00140078 /* SubscriptionsList.swift in Sources */,
+				5FCDF4421C6BF75F00A50A75 /* ArticleViewController.swift in Sources */,
 				5F4A71571C63236C00676F91 /* Source.swift in Sources */,
 				5F4A715D1C63288000676F91 /* Pusher.swift in Sources */,
 				5FCDF4401C6BCD6700A50A75 /* CommonExtensions.swift in Sources */,
 				5F4A71551C631E9400676F91 /* APIObject.swift in Sources */,
+				5FCDF4481C6BFAFB00A50A75 /* ArticleCollectionViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

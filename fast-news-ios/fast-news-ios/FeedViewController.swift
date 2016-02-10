@@ -8,64 +8,68 @@
 
 import UIKit
 
-class FeedViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+class FeedViewController: ArticleCollectionViewController {
     let feed = Feed.objectsForIDs(["shared"]).first! as! Feed
-    var _feedSub: Subscription?
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        collectionView!.registerClass(FeedCell.self, forCellWithReuseIdentifier: "Cell")
-        _feedSub = feed.onUpdate.subscribe { [weak self] (state) -> () in
-            self?._update()
-        }
-        _update()
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "_foreground:", name: UIApplicationWillEnterForegroundNotification, object: nil)
-    }
-    
-    let _preferredRecency: CFAbsoluteTime = 5 * 60
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        feed.ensureRecency(_preferredRecency)
-    }
-    
-    func _foreground(notif: NSNotification) {
-        feed.ensureRecency(_preferredRecency)
-    }
-    
-    func _update() {
-        collectionView?.reloadData()
-        
-        switch feed.loadingState {
-        case .Error(_):
-            title = NSLocalizedString("Offline", comment: "")
-        case .Loading(_):
-            title = NSLocalizedString("Refreshing…", comment: "")
-        default:
-            title = NSLocalizedString("fast-news", comment: "")
+    override func applyModelToCell(cell: UICollectionViewCell, model: APIObject) {
+        super.applyModelToCell(cell, model: model)
+        let feedCell = cell as! FeedCell
+        feedCell.source = (model as! Source)
+        feedCell.onTappedSourceName = {
+            [weak self] (let source) in
+            self?.showSource(source)
         }
     }
     
-    // MARK: CollectionView
-    
-    override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return feed.sources?.count ?? 0
+    override var modelTitle: String {
+        get {
+            return NSLocalizedString("Latest Stories", comment: "")
+        }
     }
     
-    override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! FeedCell
-        cell.source = feed.sources![indexPath.item]
-        return cell
+    override var model: APIObject! {
+        get {
+            return feed
+        }
+    }
+    override var collectionModels: [APIObject] {
+        get {
+            return feed.sources ?? []
+        }
     }
     
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        return CGSizeMake(collectionView.bounds.size.width, 100)
+    // MARK: Navigation
+    
+    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        let source = feed.sources![indexPath.item]
+        if let article = source.highlightedArticle {
+            showArticle(article)
+        } else {
+            showSource(source)
+        }
+    }
+    
+    func showArticle(article: Article) {
+        let articleVC = storyboard!.instantiateViewControllerWithIdentifier("Article") as! ArticleViewController
+        articleVC.article = article
+        let nav = UINavigationController(rootViewController: articleVC)
+        // articleVC.navigationItem.leftBarButtonItem = splitViewController!.displayModeButtonItem()
+        showDetailViewController(nav, sender: true)
+    }
+    
+    func showSource(source: Source) {
+        let sourceVC = storyboard!.instantiateViewControllerWithIdentifier("Source") as! SourceViewController
+        sourceVC.source = source
+        navigationController!.pushViewController(sourceVC, animated: true)
     }
 }
 
 class FeedCell: UICollectionViewCell {
-    let label = UILabel()
+    let sourceName = UILabel()
+    let articleHighlight = UILabel()
     var _sub: Subscription?
+    
+    var onTappedSourceName: ((source: Source) -> ())?
     
     var source: Source? {
         didSet {
@@ -80,18 +84,30 @@ class FeedCell: UICollectionViewCell {
     }
     
     func _setupIfNeeded() {
-        if label.superview == nil {
-            addSubview(label)
+        if sourceName.superview == nil {
+            addSubview(sourceName)
+            addSubview(articleHighlight)
+            sourceName.userInteractionEnabled = true
+            sourceName.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "_tappedSourceName:"))
             backgroundColor = UIColor.whiteColor()
+        }
+    }
+    
+    func _tappedSourceName(tapRec: UITapGestureRecognizer) {
+        if let t = onTappedSourceName {
+            t(source: source!)
         }
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        label.frame = bounds
+        sourceName.sizeToFit()
+        sourceName.frame = CGRectMake(0, 0, bounds.size.width, sourceName.frame.size.height + 6)
+        articleHighlight.frame = CGRectMake(0, sourceName.frame.origin.y + sourceName.frame.size.height, bounds.size.width, bounds.size.height - sourceName.frame.origin.y + sourceName.frame.size.height)
     }
     
     func _update() {
-        label.text = source?.title
+        sourceName.text = source?.title
+        articleHighlight.text = source?.highlightedArticle?.title
     }
 }

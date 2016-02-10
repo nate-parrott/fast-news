@@ -33,6 +33,7 @@ class SubscriptionsViewController: UITableViewController, UITextFieldDelegate {
     }
     
     func _update() {
+        var title = navigationItem.title
         if _addsInProgress > 0 {
             title = NSLocalizedString("Adding…", comment: "")
         } else {
@@ -42,6 +43,7 @@ class SubscriptionsViewController: UITableViewController, UITextFieldDelegate {
             default: title = NSLocalizedString("News Subscriptions", comment: "")
             }
         }
+        navigationItem.title = title
         tableView.reloadData()
     }
     

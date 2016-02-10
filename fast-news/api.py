@@ -14,7 +14,15 @@ def subscribe(uid, url):
         sub.uid = uid
         sub.put()
     
-    return source.json(include_articles=True)
+    return {"source": source.json(include_articles=True), "subscription": sub.json()}
+
+def unsubscribe(uid, url):
+    ndb.Key(Subscription, Subscription.id_for_subscription(url, uid)).delete()
+    return True
+
+def subscriptions(uid):
+    subs = Subscription.query(Subscription.uid == uid).fetch()
+    return {"subscriptions": [sub.json() for sub in subs]}
 
 def ensure_source(url):
     url = canonical_url(url)
@@ -28,7 +36,6 @@ def ensure_source(url):
     return source
 
 def feed(uid):
-    print 'UID', uid
     subscriptions = Subscription.query(Subscription.uid == uid).fetch(100)
     source_json = []
     if len(subscriptions) > 0:

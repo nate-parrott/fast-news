@@ -1,0 +1,6 @@
+framework module Pods_fast_news_ios {
+  umbrella header "Pods-fast-news-ios-umbrella.h"
+
+  export *
+  module * { export * }
+}

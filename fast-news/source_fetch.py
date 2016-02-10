@@ -49,11 +49,11 @@ class FetchResult(object):
         return "FetchResult.{0}('{1}'): {2} ".format(self.method, self.feed_title, self.entries)
 
 def _source_fetch(source):
-    try:
-        fetch_type = None
-        markup = url_fetch(source.url).read()
+    fetch_type = None
+    markup = url_fetch(source.url)
+    if markup:
         result = None
-        for fn in [rss_fetch, fetch_linked_rss]:
+        for fn in [rss_fetch, fetch_linked_rss, fetch_wordpress_default_rss]:
             result = fn(source, markup, source.url)
             if result: break
         if result:
@@ -61,15 +61,15 @@ def _source_fetch(source):
         else:
             print "Couldn't fetch {0} using any method".format(source.url)
         return result
-    except urllib2.URLError as e:
-        print "URL error fetching {0}: {1}".format(source.url, e)
+    else:
+        print "URL error fetching {0}".format(source.url)
     return None
 
 def rss_fetch(source, markup, url):    
     parsed = feedparser.parse(markup)
-    pprint(parsed)
+    # pprint(parsed)
     
-    if parsed['bozo'] != 0 or (len(parsed['feed']) == 0 and len(parsed['entries']) == 0):
+    if len(parsed['entries']) == 0:
         return None
     
     feed_title = parsed['feed']['title']
@@ -89,18 +89,26 @@ def fetch_linked_rss(source, markup, url):
     if link and type(link) == bs4.element.Tag and link['href']:
         feed_url = urljoin(url, link['href'])
         print 'Found rss URL: ', feed_url
-        try:
-            feed_markup = url_fetch(feed_url).read()
+        feed_markup = url_fetch(feed_url)
+        if feed_markup:
             result = rss_fetch(source, feed_markup, feed_url)
             if result:
                 result.method = 'linked_rss'
                 return result
             else:
                 print 'failed to parse markup'
-                print 'MARKUP:'
-                print feed_markup
-        except urllib2.URLError as e:
-            print "Error fetching linked rss {0}: {1}".format(feed_url, e) 
+        else:
+            print "Error fetching linked rss {0}".format(feed_url) 
     return None
-    
-    
+
+def fetch_wordpress_default_rss(source, markup, url):
+    link = url + "/?feed=rss"
+    print "Trying", link
+    feed_markup = url_fetch(link)
+    # print "MARKUP:", feed_markup
+    if feed_markup:
+        res = rss_fetch(source, feed_markup, link)
+        print 'res', res
+        if res:
+            res.method = 'wordpress_default_rss'
+            return res

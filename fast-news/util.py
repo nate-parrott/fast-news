@@ -1,5 +1,6 @@
 from google.appengine.ext import ndb
 import urllib2
+from httplib import HTTPException
 
 @ndb.transactional
 def get_or_insert(cls, id, **kwds):
@@ -12,7 +13,13 @@ def get_or_insert(cls, id, **kwds):
   ent.put()
   return (ent, True)  # True meaning "created"
 
-def url_fetch(url): # returns file-like object
+def url_fetch(url):
     headers = {"User-Agent": "fast-news-bot"}
     req = urllib2.Request(url, None, headers)
-    return urllib2.urlopen(req)
+    try:
+        return urllib2.urlopen(req).read()
+    except HTTPException as e:
+        print "{0}: {1}".format(url, e)
+    except urllib2.URLError as e:
+        print "{0}: {1}".format(url, e)
+    return None

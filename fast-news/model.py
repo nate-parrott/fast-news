@@ -10,6 +10,14 @@ class Subscription(ndb.Model):
     @classmethod
     def id_for_subscription(cls, url, uid):
         return canonical_url(url) + u" " + uid
+    
+    def json(self):
+        source = Source.from_url(self.url)
+        return {
+            "id": self.key.id(),
+            "source": source.json(),
+            "url": source.url
+        }
 
 class Source(ndb.Model):
     url = ndb.StringProperty()
@@ -29,7 +37,7 @@ class Source(ndb.Model):
         
     @classmethod
     def from_url(cls, url):
-        return ndb.Key(cls.id_for_source(url)).get()
+        return ndb.Key(Source, cls.id_for_source(url)).get()
     
     def json(self, include_articles=False, article_limit=50, return_promise=False):
         articles_future = None
@@ -38,6 +46,7 @@ class Source(ndb.Model):
             articles_future = Article.query(Article.source == self.key).order(-Article.added_date, Article.added_order).fetch_async(article_limit)
         def promise():
             d = {
+                "id": self.key.id(),
                 "url": self.url,
                 "title": self.title
             }
@@ -64,6 +73,10 @@ class Article(ndb.Model):
     def fetch_now(self):
         article_fetch(self)
     
+    def fetch_if_needed(self):
+        if not self.data and not self.fetch_failed:
+            self.fetch_now()
+    
     def enqueue_fetch(self, delay=0):
         taskqueue.add(url='/tasks/articles/fetch', params={'id': self.key.id()}, countdown=delay)
     
@@ -82,6 +95,7 @@ class Article(ndb.Model):
         if self.parsed == None: return None
         return {
             "article_html": self.parsed['article_html'],
+            "article_text": self.parsed['article_text'],
             "top_image": self.parsed['top_image']
         }
 

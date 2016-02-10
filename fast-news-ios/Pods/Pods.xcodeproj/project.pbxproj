@@ -1,0 +1,700 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		06720679C6BD36C2E1FFE62C744A07E6 /* SPDYStream.m in Sources */ = {isa = PBXBuildFile; fileRef = F208471C9507C6C7E935A9A07B5BDFDA /* SPDYStream.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		0A0FC3ED016960600D05AFAE607B5F05 /* SPDYSession.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B3D64CE9B97ADFA0F1E07FA70283144 /* SPDYSession.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0B6553E4CFCFD697CC0D8B8C23C8AF93 /* SPDYFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FBFEEB0CE23DB5663034F1B0C287AA9 /* SPDYFrame.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		1688D5026E84DDC0C6B3E01E10870EE0 /* SPDYStreamManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DD0957080B6E0901336D640925E877D /* SPDYStreamManager.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		17A6F858D9B209873804A5C62394859B /* SPDYSocket.h in Headers */ = {isa = PBXBuildFile; fileRef = 243F3CC6B650305CBF17C4FC37BFA11B /* SPDYSocket.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		195317999F501D6F10F5ED95A0F20DBE /* SPDYFrameEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 50B33645210576E4C529E4897803258E /* SPDYFrameEncoder.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		1E960202A79996C2412DA40ED2158C78 /* NSURLRequest+SPDYURLRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = A7635CEE38671309CCED0D529EEE2CB0 /* NSURLRequest+SPDYURLRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1EEE38BE863EBCFDBCACDB255840ABF6 /* SPDYStreamManager.h in Headers */ = {isa = PBXBuildFile; fileRef = A7825E1AAB4955EC82CB99AE74120636 /* SPDYStreamManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1F3C3A99C21B283B45A83ABB0AB0237C /* SPDYFrame.h in Headers */ = {isa = PBXBuildFile; fileRef = BC8D688A219BF1BFF025B9C422D3E98E /* SPDYFrame.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2A06D72AA012211941AF415C7C58DACF /* SPDYOriginEndpoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 482F894EBF2F761CA2A28399C17C3A0E /* SPDYOriginEndpoint.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		2D2A2E4F0F15317BB599989FF6B94FFD /* SPDYSettingsStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 929CBFE34076248B4698CDA3DC051CB7 /* SPDYSettingsStore.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		2DBD7DB9FD907643D4A97475987126BE /* SPDYStopwatch.h in Headers */ = {isa = PBXBuildFile; fileRef = C4D04D715E0CA8D84DE763F972F45EAD /* SPDYStopwatch.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2FC5CA392331B2E8FA206257A1D9B4B4 /* SPDYFrameDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = F2468C90F65C25261AD2A846B32AC032 /* SPDYFrameDecoder.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		30A6BD2DF4110A8F099845B304D618DE /* SPDYStopwatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CE52E59B4DE46D0C39D47B97F3F0E4 /* SPDYStopwatch.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		32042C63B857C655091E84C8F5E35B5D /* SPDYCommonLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = B8E477598BCD8F50E314ADBBE714D7A4 /* SPDYCommonLogger.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		34E12003D767297956B7E2CE3D8B0C28 /* SPDYSessionManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 176CE46C29A5308E70DBB305C1C512F4 /* SPDYSessionManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		47E6A539C4B85BD828DA5E4B46E2D5C0 /* NSURLRequest+SPDYURLRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 34234A029F3B0F5D7AB159251841B38A /* NSURLRequest+SPDYURLRequest.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		4BB5D3A3C15EB744ED370740CF42AEDD /* SPDYFrameDecoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 8D38641C6C92C1DF1F2B5ADB7894690D /* SPDYFrameDecoder.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4E11C1AAEA15BF7A4274DE34930AD57F /* SPDYCanonicalRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = ED1F6798026847964B421EE8E4539F20 /* SPDYCanonicalRequest.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		55CE2327C8B0226945A8E7D7D9C4BE30 /* CocoaSPDY-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 98894F61171B0853EAFA3C4E438551C9 /* CocoaSPDY-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		56BAC1171A70190FD32ECD60D206BBF0 /* SPDYMetadata+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = B9AC5CFBAB2594CAD6AAE6CC978D9594 /* SPDYMetadata+Utils.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		5787A15C62392E64C8B4B78DCD16F220 /* SPDYSessionPool.m in Sources */ = {isa = PBXBuildFile; fileRef = FB17A11F0BAA55387E65BE84A6682F51 /* SPDYSessionPool.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		59BBD275E19E7AC0C5E6195DA5C61008 /* SPDYSocketOps.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E1D5E218262AEC6445327EC2DCA8734 /* SPDYSocketOps.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5E8BA168CCF99E6D3982D85A5BCCD2AF /* SPDYTLSTrustEvaluator.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CE1E9A32B3D5252FD6E0D69951A851E /* SPDYTLSTrustEvaluator.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6117C89590B7D3BFF5A9DCA8D3350FD3 /* SPDYSettingsStore.h in Headers */ = {isa = PBXBuildFile; fileRef = EB3DC0D220BC71FB784F4DB1E4825806 /* SPDYSettingsStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		63B3047B55D3217DC39A63FA81A416DA /* Pods-fast-news-ios-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 71C8A796D0C3E0F02DE04D2B026CD147 /* Pods-fast-news-ios-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6BB066D1067EC153ABCEA1357D3716F4 /* SPDYDefinitions.h in Headers */ = {isa = PBXBuildFile; fileRef = A7911B4FA217AF6110DB67A6E1E96F72 /* SPDYDefinitions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		76E8BA502B75D5F7094BD7BE2C6B9B2D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1830145CF1F6809BE1B3D5F36CCC2BC2 /* Foundation.framework */; };
+		806265DB1E271223C0A668F09D8208C8 /* SPDYProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 523983F3C3684E6339A81FF32AC48DB2 /* SPDYProtocol.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		82C8F701CF0FA7053030787A6DFD071E /* SPDYError.h in Headers */ = {isa = PBXBuildFile; fileRef = 80F80A7E7DB08E233C069A432580C79D /* SPDYError.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8823AE338EA585B456A61553E04550D9 /* SPDYCommonLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = D4C3A9ED1FEB3783D275D70FA74234FB /* SPDYCommonLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8DF4AF7E9E081108B3824B01D555F04C /* SPDYHeaderBlockCompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = C8E2F1B11B82A5B439C6424CB166097B /* SPDYHeaderBlockCompressor.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		8F0414CC5E38E19501F099B93EBB436C /* SPDYProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 58CEB1F019657DEF11E1F1244E40188D /* SPDYProtocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		907E7DD361A01E676B748281C7523C92 /* SPDYSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BC8C7AAA1596443979E688D63E1657 /* SPDYSession.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		977F2D1038B8C26D2F90765BB1AF8799 /* SPDYOrigin.h in Headers */ = {isa = PBXBuildFile; fileRef = 114F340835015DC69B8BC0B1A258E7B2 /* SPDYOrigin.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		98F080830AB63DC3B28B248A4BB009E7 /* SPDYFrameEncoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F55EB51D593468ECAAFA4F5A961D930 /* SPDYFrameEncoder.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9C034D93486F0614AED425C8A10D27AD /* SPDYHeaderBlockDecompressor.h in Headers */ = {isa = PBXBuildFile; fileRef = E768235A62DE416A5349BD8D93CE4BAC /* SPDYHeaderBlockDecompressor.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A1C4DA9E5B1E42AE3FE3CD676C7A0E82 /* SPDYCanonicalRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = F9BC2B0CC5E071BEA8566060190A9A62 /* SPDYCanonicalRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A482FFD5ED3C480A86F11F9338DA0226 /* SPDYOriginEndpointManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 437457CFA347A1C261530D17CAC8463C /* SPDYOriginEndpointManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AAB5B45DAADEA9423B26DFB36558638C /* Pods-fast-news-ios-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BEAE3533D407224C79EC3526AA93995 /* Pods-fast-news-ios-dummy.m */; };
+		ACF32E76B017B414F07A1F5C5A331BD5 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62BD1DE0DAC7AF9BD8C1EA3758E5F3AC /* CFNetwork.framework */; };
+		AF62E20FDE8BC6E92C412B25F859BE26 /* SPDYStream.h in Headers */ = {isa = PBXBuildFile; fileRef = 171BC0CDEF6288FA2B0F3819C1C7F49B /* SPDYStream.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B50989F070FD9923ED286162C4BB68EF /* SPDYSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = A3D9BB9CBBD4AB1B9BBCFDB9DA5CFA60 /* SPDYSocket.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		B6F8FC6C196333BAC10BFCA075FB9830 /* SPDYProtocol+Project.h in Headers */ = {isa = PBXBuildFile; fileRef = 57CA42783740021EC4E146EA7E993F21 /* SPDYProtocol+Project.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C817AAA0580E4AB764FAF839FB7A9EF3 /* SPDYZLibCommon.h in Headers */ = {isa = PBXBuildFile; fileRef = BC89F981176923BF861AECA978ECF50E /* SPDYZLibCommon.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CDA6D7CF65DC959D26808178B3BFDDA9 /* SPDYSocketOps.m in Sources */ = {isa = PBXBuildFile; fileRef = FA6094F49C0EB1B61C313F300C1343C6 /* SPDYSocketOps.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		CE39DFACDF792882E8587FA63C18973C /* SPDYOriginEndpoint.h in Headers */ = {isa = PBXBuildFile; fileRef = B4D97F2EA8B0B779D6D2970036404B06 /* SPDYOriginEndpoint.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D049ECF4FB20D367951CBE441BF36BE4 /* SPDYHeaderBlockCompressor.h in Headers */ = {isa = PBXBuildFile; fileRef = 0EA1F4E697E930601ADA1F9978756300 /* SPDYHeaderBlockCompressor.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4F91577EC9057C5C11CCD7C6E415BF7 /* SPDYSessionPool.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C20955734AE681B463F04FC61D59733 /* SPDYSessionPool.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DDA26580B81E966EF14B29110B977A3E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1830145CF1F6809BE1B3D5F36CCC2BC2 /* Foundation.framework */; };
+		E6DD42839E55F595994F7A45402D6B56 /* SPDYOrigin.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E49B421E584CEC8CF98D4D8402CDF7 /* SPDYOrigin.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		E7F005893DBD2F1FB5C6589ECE3C420C /* CocoaSPDY-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = D5D694415F30693A7995702D5C59F6F3 /* CocoaSPDY-dummy.m */; };
+		EA045785457F2743039572A214E46155 /* SPDYOriginEndpointManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D025D3B8ECE28A8DD7C7DA71B09CE98B /* SPDYOriginEndpointManager.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		EE72374298FA0E2BCAD8AC8DA078254A /* SPDYSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A33B84758D47C53063A2679499CFCFD0 /* SPDYSessionManager.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		EE942170BC974C9B0FA3065053D2B81F /* SPDYLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F9B38BC540426AFC44D9ECF0FD01F28 /* SPDYLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F5CFE05FBB6480710DC681B3CDA62185 /* SPDYHeaderBlockDecompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = 075AE630B79B693996893E021A255EF5 /* SPDYHeaderBlockDecompressor.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		FCFE9DFDC031336E74EEAC0D64FBD47B /* SPDYMetadata+Utils.h in Headers */ = {isa = PBXBuildFile; fileRef = 88645C298D612666C68E7C78269F075E /* SPDYMetadata+Utils.h */; settings = {ATTRIBUTES = (Public, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		DA1AEF4972220B55AA5D383CE55C76C0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1876A6C18DC99C0B45DF464D31BE4FB9;
+			remoteInfo = CocoaSPDY;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		02BCA61D28BB6D50252C2BE2230A58E0 /* Pods-fast-news-ios-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-fast-news-ios-acknowledgements.plist"; sourceTree = "<group>"; };
+		04C6A3174B9558264B88420350F4E7D2 /* Pods_fast_news_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_fast_news_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		075AE630B79B693996893E021A255EF5 /* SPDYHeaderBlockDecompressor.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SPDYHeaderBlockDecompressor.m; path = SPDY/SPDYHeaderBlockDecompressor.m; sourceTree = "<group>"; };
+		0873C5C5271DC5FF6A6BE957C649ED77 /* CocoaSPDY.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = CocoaSPDY.modulemap; sourceTree = "<group>"; };
+		0E1D5E218262AEC6445327EC2DCA8734 /* SPDYSocketOps.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPDYSocketOps.h; path = SPDY/SPDYSocketOps.h; sourceTree = "<group>"; };
+		0EA1F4E697E930601ADA1F9978756300 /* SPDYHeaderBlockCompressor.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPDYHeaderBlockCompressor.h; path = SPDY/SPDYHeaderBlockCompressor.h; sourceTree = "<group>"; };
+		114F340835015DC69B8BC0B1A258E7B2 /* SPDYOrigin.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPDYOrigin.h; path = SPDY/SPDYOrigin.h; sourceTree = "<group>"; };
+		14E49B421E584CEC8CF98D4D8402CDF7 /* SPDYOrigin.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SPDYOrigin.m; path = SPDY/SPDYOrigin.m; sourceTree = "<group>"; };
+		171BC0CDEF6288FA2B0F3819C1C7F49B /* SPDYStream.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPDYStream.h; path = SPDY/SPDYStream.h; sourceTree = "<group>"; };
+		176CE46C29A5308E70DBB305C1C512F4 /* SPDYSessionManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPDYSessionManager.h; path = SPDY/SPDYSessionManager.h; sourceTree = "<group>"; };
+		1830145CF1F6809BE1B3D5F36CCC2BC2 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		1954FE8E2FC20E2754CD23828FF06B24 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		243F3CC6B650305CBF17C4FC37BFA11B /* SPDYSocket.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPDYSocket.h; path = SPDY/SPDYSocket.h; sourceTree = "<group>"; };
+		2C20955734AE681B463F04FC61D59733 /* SPDYSessionPool.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPDYSessionPool.h; path = SPDY/SPDYSessionPool.h; sourceTree = "<group>"; };
+		2CE1E9A32B3D5252FD6E0D69951A851E /* SPDYTLSTrustEvaluator.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPDYTLSTrustEvaluator.h; path = SPDY/SPDYTLSTrustEvaluator.h; sourceTree = "<group>"; };
+		34234A029F3B0F5D7AB159251841B38A /* NSURLRequest+SPDYURLRequest.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSURLRequest+SPDYURLRequest.m"; path = "SPDY/NSURLRequest+SPDYURLRequest.m"; sourceTree = "<group>"; };
+		3B3D64CE9B97ADFA0F1E07FA70283144 /* SPDYSession.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPDYSession.h; path = SPDY/SPDYSession.h; sourceTree = "<group>"; };
+		3B987F5DF2DD399EB6C0FB7037317416 /* Pods-fast-news-ios-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-fast-news-ios-frameworks.sh"; sourceTree = "<group>"; };
+		3BCB3C437A522C404045A05032A15728 /* Pods-fast-news-ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-fast-news-ios.debug.xcconfig"; sourceTree = "<group>"; };
+		3F55EB51D593468ECAAFA4F5A961D930 /* SPDYFrameEncoder.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPDYFrameEncoder.h; path = SPDY/SPDYFrameEncoder.h; sourceTree = "<group>"; };
+		437457CFA347A1C261530D17CAC8463C /* SPDYOriginEndpointManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPDYOriginEndpointManager.h; path = SPDY/SPDYOriginEndpointManager.h; sourceTree = "<group>"; };
+		46BC8C7AAA1596443979E688D63E1657 /* SPDYSession.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SPDYSession.m; path = SPDY/SPDYSession.m; sourceTree = "<group>"; };
+		482F894EBF2F761CA2A28399C17C3A0E /* SPDYOriginEndpoint.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SPDYOriginEndpoint.m; path = SPDY/SPDYOriginEndpoint.m; sourceTree = "<group>"; };
+		4986835A846B28854859C105F5683CE4 /* Pods-fast-news-ios-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-fast-news-ios-acknowledgements.markdown"; sourceTree = "<group>"; };
+		4A27B571C0BC495713531A276A503F02 /* Pods-fast-news-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-fast-news-ios.release.xcconfig"; sourceTree = "<group>"; };
+		4BEAE3533D407224C79EC3526AA93995 /* Pods-fast-news-ios-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-fast-news-ios-dummy.m"; sourceTree = "<group>"; };
+		50B33645210576E4C529E4897803258E /* SPDYFrameEncoder.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SPDYFrameEncoder.m; path = SPDY/SPDYFrameEncoder.m; sourceTree = "<group>"; };
+		523983F3C3684E6339A81FF32AC48DB2 /* SPDYProtocol.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SPDYProtocol.m; path = SPDY/SPDYProtocol.m; sourceTree = "<group>"; };
+		57CA42783740021EC4E146EA7E993F21 /* SPDYProtocol+Project.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "SPDYProtocol+Project.h"; path = "SPDY/SPDYProtocol+Project.h"; sourceTree = "<group>"; };
+		58CEB1F019657DEF11E1F1244E40188D /* SPDYProtocol.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPDYProtocol.h; path = SPDY/SPDYProtocol.h; sourceTree = "<group>"; };
+		60CE52E59B4DE46D0C39D47B97F3F0E4 /* SPDYStopwatch.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SPDYStopwatch.m; path = SPDY/SPDYStopwatch.m; sourceTree = "<group>"; };
+		62BD1DE0DAC7AF9BD8C1EA3758E5F3AC /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/CFNetwork.framework; sourceTree = DEVELOPER_DIR; };
+		6DD0957080B6E0901336D640925E877D /* SPDYStreamManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SPDYStreamManager.m; path = SPDY/SPDYStreamManager.m; sourceTree = "<group>"; };
+		71C8A796D0C3E0F02DE04D2B026CD147 /* Pods-fast-news-ios-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-fast-news-ios-umbrella.h"; sourceTree = "<group>"; };
+		7CD19208DC18A22B276055A7BB1BC9F4 /* CocoaSPDY.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CocoaSPDY.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7FBFEEB0CE23DB5663034F1B0C287AA9 /* SPDYFrame.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SPDYFrame.m; path = SPDY/SPDYFrame.m; sourceTree = "<group>"; };
+		80F80A7E7DB08E233C069A432580C79D /* SPDYError.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPDYError.h; path = SPDY/SPDYError.h; sourceTree = "<group>"; };
+		88645C298D612666C68E7C78269F075E /* SPDYMetadata+Utils.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "SPDYMetadata+Utils.h"; path = "SPDY/SPDYMetadata+Utils.h"; sourceTree = "<group>"; };
+		8D38641C6C92C1DF1F2B5ADB7894690D /* SPDYFrameDecoder.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPDYFrameDecoder.h; path = SPDY/SPDYFrameDecoder.h; sourceTree = "<group>"; };
+		929CBFE34076248B4698CDA3DC051CB7 /* SPDYSettingsStore.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SPDYSettingsStore.m; path = SPDY/SPDYSettingsStore.m; sourceTree = "<group>"; };
+		98894F61171B0853EAFA3C4E438551C9 /* CocoaSPDY-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "CocoaSPDY-umbrella.h"; sourceTree = "<group>"; };
+		9F9B38BC540426AFC44D9ECF0FD01F28 /* SPDYLogger.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPDYLogger.h; path = SPDY/SPDYLogger.h; sourceTree = "<group>"; };
+		A33B84758D47C53063A2679499CFCFD0 /* SPDYSessionManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SPDYSessionManager.m; path = SPDY/SPDYSessionManager.m; sourceTree = "<group>"; };
+		A3D9BB9CBBD4AB1B9BBCFDB9DA5CFA60 /* SPDYSocket.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SPDYSocket.m; path = SPDY/SPDYSocket.m; sourceTree = "<group>"; };
+		A7635CEE38671309CCED0D529EEE2CB0 /* NSURLRequest+SPDYURLRequest.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSURLRequest+SPDYURLRequest.h"; path = "SPDY/NSURLRequest+SPDYURLRequest.h"; sourceTree = "<group>"; };
+		A7825E1AAB4955EC82CB99AE74120636 /* SPDYStreamManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPDYStreamManager.h; path = SPDY/SPDYStreamManager.h; sourceTree = "<group>"; };
+		A7911B4FA217AF6110DB67A6E1E96F72 /* SPDYDefinitions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPDYDefinitions.h; path = SPDY/SPDYDefinitions.h; sourceTree = "<group>"; };
+		AA04B1CDFCD99A90A65D403B915EF987 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B4D97F2EA8B0B779D6D2970036404B06 /* SPDYOriginEndpoint.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPDYOriginEndpoint.h; path = SPDY/SPDYOriginEndpoint.h; sourceTree = "<group>"; };
+		B8E477598BCD8F50E314ADBBE714D7A4 /* SPDYCommonLogger.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SPDYCommonLogger.m; path = SPDY/SPDYCommonLogger.m; sourceTree = "<group>"; };
+		B9AC5CFBAB2594CAD6AAE6CC978D9594 /* SPDYMetadata+Utils.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "SPDYMetadata+Utils.m"; path = "SPDY/SPDYMetadata+Utils.m"; sourceTree = "<group>"; };
+		BA6428E9F66FD5A23C0A2E06ED26CD2F /* Podfile */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		BC89F981176923BF861AECA978ECF50E /* SPDYZLibCommon.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPDYZLibCommon.h; path = SPDY/SPDYZLibCommon.h; sourceTree = "<group>"; };
+		BC8D688A219BF1BFF025B9C422D3E98E /* SPDYFrame.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPDYFrame.h; path = SPDY/SPDYFrame.h; sourceTree = "<group>"; };
+		C4D04D715E0CA8D84DE763F972F45EAD /* SPDYStopwatch.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPDYStopwatch.h; path = SPDY/SPDYStopwatch.h; sourceTree = "<group>"; };
+		C8E2F1B11B82A5B439C6424CB166097B /* SPDYHeaderBlockCompressor.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SPDYHeaderBlockCompressor.m; path = SPDY/SPDYHeaderBlockCompressor.m; sourceTree = "<group>"; };
+		D025D3B8ECE28A8DD7C7DA71B09CE98B /* SPDYOriginEndpointManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SPDYOriginEndpointManager.m; path = SPDY/SPDYOriginEndpointManager.m; sourceTree = "<group>"; };
+		D4C3A9ED1FEB3783D275D70FA74234FB /* SPDYCommonLogger.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPDYCommonLogger.h; path = SPDY/SPDYCommonLogger.h; sourceTree = "<group>"; };
+		D5D694415F30693A7995702D5C59F6F3 /* CocoaSPDY-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "CocoaSPDY-dummy.m"; sourceTree = "<group>"; };
+		E76351EF6AFCB1A6ADFE9AC8C4C640E2 /* CocoaSPDY-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "CocoaSPDY-prefix.pch"; sourceTree = "<group>"; };
+		E768235A62DE416A5349BD8D93CE4BAC /* SPDYHeaderBlockDecompressor.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPDYHeaderBlockDecompressor.h; path = SPDY/SPDYHeaderBlockDecompressor.h; sourceTree = "<group>"; };
+		EB3DC0D220BC71FB784F4DB1E4825806 /* SPDYSettingsStore.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPDYSettingsStore.h; path = SPDY/SPDYSettingsStore.h; sourceTree = "<group>"; };
+		ED1F6798026847964B421EE8E4539F20 /* SPDYCanonicalRequest.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SPDYCanonicalRequest.m; path = SPDY/SPDYCanonicalRequest.m; sourceTree = "<group>"; };
+		F09B7A22CCAA0308FCE33AFA0C9E3C8A /* Pods-fast-news-ios-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-fast-news-ios-resources.sh"; sourceTree = "<group>"; };
+		F1FCFC6F7B0FF0E631793A74E45EC1DB /* Pods-fast-news-ios.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-fast-news-ios.modulemap"; sourceTree = "<group>"; };
+		F208471C9507C6C7E935A9A07B5BDFDA /* SPDYStream.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SPDYStream.m; path = SPDY/SPDYStream.m; sourceTree = "<group>"; };
+		F2468C90F65C25261AD2A846B32AC032 /* SPDYFrameDecoder.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SPDYFrameDecoder.m; path = SPDY/SPDYFrameDecoder.m; sourceTree = "<group>"; };
+		F49BE0EFAD2857A485D96CC2D8F49075 /* CocoaSPDY.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = CocoaSPDY.xcconfig; sourceTree = "<group>"; };
+		F9BC2B0CC5E071BEA8566060190A9A62 /* SPDYCanonicalRequest.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPDYCanonicalRequest.h; path = SPDY/SPDYCanonicalRequest.h; sourceTree = "<group>"; };
+		FA6094F49C0EB1B61C313F300C1343C6 /* SPDYSocketOps.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SPDYSocketOps.m; path = SPDY/SPDYSocketOps.m; sourceTree = "<group>"; };
+		FB17A11F0BAA55387E65BE84A6682F51 /* SPDYSessionPool.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SPDYSessionPool.m; path = SPDY/SPDYSessionPool.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8DF537F4CDE7089CE0A4979382E93B6C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DDA26580B81E966EF14B29110B977A3E /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AB7B8544EE1C8713CC42D62996218A8C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ACF32E76B017B414F07A1F5C5A331BD5 /* CFNetwork.framework in Frameworks */,
+				76E8BA502B75D5F7094BD7BE2C6B9B2D /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2774AF41C8EC4C48906DBC5E73A09101 /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				4167CD2E25388356D9D62C431A8AFB97 /* Pods-fast-news-ios */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		4167CD2E25388356D9D62C431A8AFB97 /* Pods-fast-news-ios */ = {
+			isa = PBXGroup;
+			children = (
+				AA04B1CDFCD99A90A65D403B915EF987 /* Info.plist */,
+				F1FCFC6F7B0FF0E631793A74E45EC1DB /* Pods-fast-news-ios.modulemap */,
+				4986835A846B28854859C105F5683CE4 /* Pods-fast-news-ios-acknowledgements.markdown */,
+				02BCA61D28BB6D50252C2BE2230A58E0 /* Pods-fast-news-ios-acknowledgements.plist */,
+				4BEAE3533D407224C79EC3526AA93995 /* Pods-fast-news-ios-dummy.m */,
+				3B987F5DF2DD399EB6C0FB7037317416 /* Pods-fast-news-ios-frameworks.sh */,
+				F09B7A22CCAA0308FCE33AFA0C9E3C8A /* Pods-fast-news-ios-resources.sh */,
+				71C8A796D0C3E0F02DE04D2B026CD147 /* Pods-fast-news-ios-umbrella.h */,
+				3BCB3C437A522C404045A05032A15728 /* Pods-fast-news-ios.debug.xcconfig */,
+				4A27B571C0BC495713531A276A503F02 /* Pods-fast-news-ios.release.xcconfig */,
+			);
+			name = "Pods-fast-news-ios";
+			path = "Target Support Files/Pods-fast-news-ios";
+			sourceTree = "<group>";
+		};
+		433CD3331B6C3787F473C941B61FC68F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FFF9046D2410B3E36331C4861D1F7945 /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4BAE666197B00250CAC4F6E174673BC8 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				8D7FC01BD873D4620566059686FF5D11 /* CocoaSPDY */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		7DB346D0F39D3F0E887471402A8071AB = {
+			isa = PBXGroup;
+			children = (
+				BA6428E9F66FD5A23C0A2E06ED26CD2F /* Podfile */,
+				433CD3331B6C3787F473C941B61FC68F /* Frameworks */,
+				4BAE666197B00250CAC4F6E174673BC8 /* Pods */,
+				ACA023986FE81EFDED123FF87E7D1BC0 /* Products */,
+				2774AF41C8EC4C48906DBC5E73A09101 /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		8D7FC01BD873D4620566059686FF5D11 /* CocoaSPDY */ = {
+			isa = PBXGroup;
+			children = (
+				A7635CEE38671309CCED0D529EEE2CB0 /* NSURLRequest+SPDYURLRequest.h */,
+				34234A029F3B0F5D7AB159251841B38A /* NSURLRequest+SPDYURLRequest.m */,
+				F9BC2B0CC5E071BEA8566060190A9A62 /* SPDYCanonicalRequest.h */,
+				ED1F6798026847964B421EE8E4539F20 /* SPDYCanonicalRequest.m */,
+				D4C3A9ED1FEB3783D275D70FA74234FB /* SPDYCommonLogger.h */,
+				B8E477598BCD8F50E314ADBBE714D7A4 /* SPDYCommonLogger.m */,
+				A7911B4FA217AF6110DB67A6E1E96F72 /* SPDYDefinitions.h */,
+				80F80A7E7DB08E233C069A432580C79D /* SPDYError.h */,
+				BC8D688A219BF1BFF025B9C422D3E98E /* SPDYFrame.h */,
+				7FBFEEB0CE23DB5663034F1B0C287AA9 /* SPDYFrame.m */,
+				8D38641C6C92C1DF1F2B5ADB7894690D /* SPDYFrameDecoder.h */,
+				F2468C90F65C25261AD2A846B32AC032 /* SPDYFrameDecoder.m */,
+				3F55EB51D593468ECAAFA4F5A961D930 /* SPDYFrameEncoder.h */,
+				50B33645210576E4C529E4897803258E /* SPDYFrameEncoder.m */,
+				0EA1F4E697E930601ADA1F9978756300 /* SPDYHeaderBlockCompressor.h */,
+				C8E2F1B11B82A5B439C6424CB166097B /* SPDYHeaderBlockCompressor.m */,
+				E768235A62DE416A5349BD8D93CE4BAC /* SPDYHeaderBlockDecompressor.h */,
+				075AE630B79B693996893E021A255EF5 /* SPDYHeaderBlockDecompressor.m */,
+				9F9B38BC540426AFC44D9ECF0FD01F28 /* SPDYLogger.h */,
+				88645C298D612666C68E7C78269F075E /* SPDYMetadata+Utils.h */,
+				B9AC5CFBAB2594CAD6AAE6CC978D9594 /* SPDYMetadata+Utils.m */,
+				114F340835015DC69B8BC0B1A258E7B2 /* SPDYOrigin.h */,
+				14E49B421E584CEC8CF98D4D8402CDF7 /* SPDYOrigin.m */,
+				B4D97F2EA8B0B779D6D2970036404B06 /* SPDYOriginEndpoint.h */,
+				482F894EBF2F761CA2A28399C17C3A0E /* SPDYOriginEndpoint.m */,
+				437457CFA347A1C261530D17CAC8463C /* SPDYOriginEndpointManager.h */,
+				D025D3B8ECE28A8DD7C7DA71B09CE98B /* SPDYOriginEndpointManager.m */,
+				58CEB1F019657DEF11E1F1244E40188D /* SPDYProtocol.h */,
+				523983F3C3684E6339A81FF32AC48DB2 /* SPDYProtocol.m */,
+				57CA42783740021EC4E146EA7E993F21 /* SPDYProtocol+Project.h */,
+				3B3D64CE9B97ADFA0F1E07FA70283144 /* SPDYSession.h */,
+				46BC8C7AAA1596443979E688D63E1657 /* SPDYSession.m */,
+				176CE46C29A5308E70DBB305C1C512F4 /* SPDYSessionManager.h */,
+				A33B84758D47C53063A2679499CFCFD0 /* SPDYSessionManager.m */,
+				2C20955734AE681B463F04FC61D59733 /* SPDYSessionPool.h */,
+				FB17A11F0BAA55387E65BE84A6682F51 /* SPDYSessionPool.m */,
+				EB3DC0D220BC71FB784F4DB1E4825806 /* SPDYSettingsStore.h */,
+				929CBFE34076248B4698CDA3DC051CB7 /* SPDYSettingsStore.m */,
+				243F3CC6B650305CBF17C4FC37BFA11B /* SPDYSocket.h */,
+				A3D9BB9CBBD4AB1B9BBCFDB9DA5CFA60 /* SPDYSocket.m */,
+				0E1D5E218262AEC6445327EC2DCA8734 /* SPDYSocketOps.h */,
+				FA6094F49C0EB1B61C313F300C1343C6 /* SPDYSocketOps.m */,
+				C4D04D715E0CA8D84DE763F972F45EAD /* SPDYStopwatch.h */,
+				60CE52E59B4DE46D0C39D47B97F3F0E4 /* SPDYStopwatch.m */,
+				171BC0CDEF6288FA2B0F3819C1C7F49B /* SPDYStream.h */,
+				F208471C9507C6C7E935A9A07B5BDFDA /* SPDYStream.m */,
+				A7825E1AAB4955EC82CB99AE74120636 /* SPDYStreamManager.h */,
+				6DD0957080B6E0901336D640925E877D /* SPDYStreamManager.m */,
+				2CE1E9A32B3D5252FD6E0D69951A851E /* SPDYTLSTrustEvaluator.h */,
+				BC89F981176923BF861AECA978ECF50E /* SPDYZLibCommon.h */,
+				BE45AC2AE55B56586726D3ABC387B7DF /* Support Files */,
+			);
+			path = CocoaSPDY;
+			sourceTree = "<group>";
+		};
+		ACA023986FE81EFDED123FF87E7D1BC0 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7CD19208DC18A22B276055A7BB1BC9F4 /* CocoaSPDY.framework */,
+				04C6A3174B9558264B88420350F4E7D2 /* Pods_fast_news_ios.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		BE45AC2AE55B56586726D3ABC387B7DF /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				0873C5C5271DC5FF6A6BE957C649ED77 /* CocoaSPDY.modulemap */,
+				F49BE0EFAD2857A485D96CC2D8F49075 /* CocoaSPDY.xcconfig */,
+				D5D694415F30693A7995702D5C59F6F3 /* CocoaSPDY-dummy.m */,
+				E76351EF6AFCB1A6ADFE9AC8C4C640E2 /* CocoaSPDY-prefix.pch */,
+				98894F61171B0853EAFA3C4E438551C9 /* CocoaSPDY-umbrella.h */,
+				1954FE8E2FC20E2754CD23828FF06B24 /* Info.plist */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/CocoaSPDY";
+			sourceTree = "<group>";
+		};
+		FFF9046D2410B3E36331C4861D1F7945 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				62BD1DE0DAC7AF9BD8C1EA3758E5F3AC /* CFNetwork.framework */,
+				1830145CF1F6809BE1B3D5F36CCC2BC2 /* Foundation.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		95C88A6C44BE3735D24A3CECD8CDFBE9 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				55CE2327C8B0226945A8E7D7D9C4BE30 /* CocoaSPDY-umbrella.h in Headers */,
+				1E960202A79996C2412DA40ED2158C78 /* NSURLRequest+SPDYURLRequest.h in Headers */,
+				A1C4DA9E5B1E42AE3FE3CD676C7A0E82 /* SPDYCanonicalRequest.h in Headers */,
+				8823AE338EA585B456A61553E04550D9 /* SPDYCommonLogger.h in Headers */,
+				6BB066D1067EC153ABCEA1357D3716F4 /* SPDYDefinitions.h in Headers */,
+				82C8F701CF0FA7053030787A6DFD071E /* SPDYError.h in Headers */,
+				1F3C3A99C21B283B45A83ABB0AB0237C /* SPDYFrame.h in Headers */,
+				4BB5D3A3C15EB744ED370740CF42AEDD /* SPDYFrameDecoder.h in Headers */,
+				98F080830AB63DC3B28B248A4BB009E7 /* SPDYFrameEncoder.h in Headers */,
+				D049ECF4FB20D367951CBE441BF36BE4 /* SPDYHeaderBlockCompressor.h in Headers */,
+				9C034D93486F0614AED425C8A10D27AD /* SPDYHeaderBlockDecompressor.h in Headers */,
+				EE942170BC974C9B0FA3065053D2B81F /* SPDYLogger.h in Headers */,
+				FCFE9DFDC031336E74EEAC0D64FBD47B /* SPDYMetadata+Utils.h in Headers */,
+				977F2D1038B8C26D2F90765BB1AF8799 /* SPDYOrigin.h in Headers */,
+				CE39DFACDF792882E8587FA63C18973C /* SPDYOriginEndpoint.h in Headers */,
+				A482FFD5ED3C480A86F11F9338DA0226 /* SPDYOriginEndpointManager.h in Headers */,
+				B6F8FC6C196333BAC10BFCA075FB9830 /* SPDYProtocol+Project.h in Headers */,
+				8F0414CC5E38E19501F099B93EBB436C /* SPDYProtocol.h in Headers */,
+				0A0FC3ED016960600D05AFAE607B5F05 /* SPDYSession.h in Headers */,
+				34E12003D767297956B7E2CE3D8B0C28 /* SPDYSessionManager.h in Headers */,
+				D4F91577EC9057C5C11CCD7C6E415BF7 /* SPDYSessionPool.h in Headers */,
+				6117C89590B7D3BFF5A9DCA8D3350FD3 /* SPDYSettingsStore.h in Headers */,
+				17A6F858D9B209873804A5C62394859B /* SPDYSocket.h in Headers */,
+				59BBD275E19E7AC0C5E6195DA5C61008 /* SPDYSocketOps.h in Headers */,
+				2DBD7DB9FD907643D4A97475987126BE /* SPDYStopwatch.h in Headers */,
+				AF62E20FDE8BC6E92C412B25F859BE26 /* SPDYStream.h in Headers */,
+				1EEE38BE863EBCFDBCACDB255840ABF6 /* SPDYStreamManager.h in Headers */,
+				5E8BA168CCF99E6D3982D85A5BCCD2AF /* SPDYTLSTrustEvaluator.h in Headers */,
+				C817AAA0580E4AB764FAF839FB7A9EF3 /* SPDYZLibCommon.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		982E6EBD1CF62B95D8F5FC2A111F598C /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				63B3047B55D3217DC39A63FA81A416DA /* Pods-fast-news-ios-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		1876A6C18DC99C0B45DF464D31BE4FB9 /* CocoaSPDY */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F45E6AEF70A3B0432FE36C9A1313D06A /* Build configuration list for PBXNativeTarget "CocoaSPDY" */;
+			buildPhases = (
+				70CDD75B143C7B04BD547BB26A4EED8D /* Sources */,
+				AB7B8544EE1C8713CC42D62996218A8C /* Frameworks */,
+				95C88A6C44BE3735D24A3CECD8CDFBE9 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CocoaSPDY;
+			productName = CocoaSPDY;
+			productReference = 7CD19208DC18A22B276055A7BB1BC9F4 /* CocoaSPDY.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		C4F1D325510A89F5433627D888D3F8B9 /* Pods-fast-news-ios */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E39DBB86A261CA8686924956967BBE85 /* Build configuration list for PBXNativeTarget "Pods-fast-news-ios" */;
+			buildPhases = (
+				531D273433ADB5EA12CB943ABCA9F23D /* Sources */,
+				8DF537F4CDE7089CE0A4979382E93B6C /* Frameworks */,
+				982E6EBD1CF62B95D8F5FC2A111F598C /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				71A542906EB8F0E4E421B1F5EF037380 /* PBXTargetDependency */,
+			);
+			name = "Pods-fast-news-ios";
+			productName = "Pods-fast-news-ios";
+			productReference = 04C6A3174B9558264B88420350F4E7D2 /* Pods_fast_news_ios.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D41D8CD98F00B204E9800998ECF8427E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0700;
+				LastUpgradeCheck = 0700;
+			};
+			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
+			productRefGroup = ACA023986FE81EFDED123FF87E7D1BC0 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1876A6C18DC99C0B45DF464D31BE4FB9 /* CocoaSPDY */,
+				C4F1D325510A89F5433627D888D3F8B9 /* Pods-fast-news-ios */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		531D273433ADB5EA12CB943ABCA9F23D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AAB5B45DAADEA9423B26DFB36558638C /* Pods-fast-news-ios-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		70CDD75B143C7B04BD547BB26A4EED8D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E7F005893DBD2F1FB5C6589ECE3C420C /* CocoaSPDY-dummy.m in Sources */,
+				47E6A539C4B85BD828DA5E4B46E2D5C0 /* NSURLRequest+SPDYURLRequest.m in Sources */,
+				4E11C1AAEA15BF7A4274DE34930AD57F /* SPDYCanonicalRequest.m in Sources */,
+				32042C63B857C655091E84C8F5E35B5D /* SPDYCommonLogger.m in Sources */,
+				0B6553E4CFCFD697CC0D8B8C23C8AF93 /* SPDYFrame.m in Sources */,
+				2FC5CA392331B2E8FA206257A1D9B4B4 /* SPDYFrameDecoder.m in Sources */,
+				195317999F501D6F10F5ED95A0F20DBE /* SPDYFrameEncoder.m in Sources */,
+				8DF4AF7E9E081108B3824B01D555F04C /* SPDYHeaderBlockCompressor.m in Sources */,
+				F5CFE05FBB6480710DC681B3CDA62185 /* SPDYHeaderBlockDecompressor.m in Sources */,
+				56BAC1171A70190FD32ECD60D206BBF0 /* SPDYMetadata+Utils.m in Sources */,
+				E6DD42839E55F595994F7A45402D6B56 /* SPDYOrigin.m in Sources */,
+				2A06D72AA012211941AF415C7C58DACF /* SPDYOriginEndpoint.m in Sources */,
+				EA045785457F2743039572A214E46155 /* SPDYOriginEndpointManager.m in Sources */,
+				806265DB1E271223C0A668F09D8208C8 /* SPDYProtocol.m in Sources */,
+				907E7DD361A01E676B748281C7523C92 /* SPDYSession.m in Sources */,
+				EE72374298FA0E2BCAD8AC8DA078254A /* SPDYSessionManager.m in Sources */,
+				5787A15C62392E64C8B4B78DCD16F220 /* SPDYSessionPool.m in Sources */,
+				2D2A2E4F0F15317BB599989FF6B94FFD /* SPDYSettingsStore.m in Sources */,
+				B50989F070FD9923ED286162C4BB68EF /* SPDYSocket.m in Sources */,
+				CDA6D7CF65DC959D26808178B3BFDDA9 /* SPDYSocketOps.m in Sources */,
+				30A6BD2DF4110A8F099845B304D618DE /* SPDYStopwatch.m in Sources */,
+				06720679C6BD36C2E1FFE62C744A07E6 /* SPDYStream.m in Sources */,
+				1688D5026E84DDC0C6B3E01E10870EE0 /* SPDYStreamManager.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		71A542906EB8F0E4E421B1F5EF037380 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = CocoaSPDY;
+			target = 1876A6C18DC99C0B45DF464D31BE4FB9 /* CocoaSPDY */;
+			targetProxy = DA1AEF4972220B55AA5D383CE55C76C0 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		280865A70A7ADC7DF4F8180850B28804 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F49BE0EFAD2857A485D96CC2D8F49075 /* CocoaSPDY.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/CocoaSPDY/CocoaSPDY-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/CocoaSPDY/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/CocoaSPDY/CocoaSPDY.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = CocoaSPDY;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		2892ACE0232FA29BD2A3FA45A49673B7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4A27B571C0BC495713531A276A503F02 /* Pods-fast-news-ios.release.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-fast-news-ios/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-fast-news-ios/Pods-fast-news-ios.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_NAME = Pods_fast_news_ios;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		5F7A114FF730D151FD3AC82EE353AB1D /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F49BE0EFAD2857A485D96CC2D8F49075 /* CocoaSPDY.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/CocoaSPDY/CocoaSPDY-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/CocoaSPDY/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/CocoaSPDY/CocoaSPDY.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = CocoaSPDY;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		8D1534490D941DCA47C62AC4314182AF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				ONLY_ACTIVE_ARCH = YES;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Debug;
+		};
+		C5A18280E9321A9268D1C80B7DA43967 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = "RELEASE=1";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		EE32EDF1325503B257E7CD2D9FD2274D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3BCB3C437A522C404045A05032A15728 /* Pods-fast-news-ios.debug.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-fast-news-ios/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-fast-news-ios/Pods-fast-news-ios.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_NAME = Pods_fast_news_ios;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8D1534490D941DCA47C62AC4314182AF /* Debug */,
+				C5A18280E9321A9268D1C80B7DA43967 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E39DBB86A261CA8686924956967BBE85 /* Build configuration list for PBXNativeTarget "Pods-fast-news-ios" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EE32EDF1325503B257E7CD2D9FD2274D /* Debug */,
+				2892ACE0232FA29BD2A3FA45A49673B7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F45E6AEF70A3B0432FE36C9A1313D06A /* Build configuration list for PBXNativeTarget "CocoaSPDY" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				280865A70A7ADC7DF4F8180850B28804 /* Debug */,
+				5F7A114FF730D151FD3AC82EE353AB1D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+}

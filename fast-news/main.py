@@ -41,8 +41,10 @@ class SourceHandler(webapp2.RequestHandler):
 class ArticleHandler(webapp2.RequestHandler):
     def get(self):
         id = self.request.get('id')
+        article = ndb.Key('Article', id).get()
+        article.fetch_if_needed()
         self.response.headers.add_header('Content-Type', 'application/json')
-        self.response.write(json.dumps(ndb.Key('Article', id).get().json(include_content=True)))
+        self.response.write(json.dumps(article.json(include_content=True)))
 
 class FeedHandler(webapp2.RequestHandler):
     def get(self):
@@ -50,12 +52,28 @@ class FeedHandler(webapp2.RequestHandler):
         self.response.headers.add_header('Content-Type', 'application/json')
         self.response.write(json.dumps(api.feed(uid)))
 
+class SubscriptionsHandler(webapp2.RequestHandler):
+    def get(self):
+        uid = self.request.get('uid')
+        self.response.headers.add_header('Content-Type', 'application/json')
+        self.response.write(json.dumps(api.subscriptions(uid)))
+
+class UnsubscribeHandler(webapp2.RequestHandler):
+    def post(self):
+        self.delete()
+    
+    def delete(self):
+        uid = self.request.get('uid')
+        url = self.request.get('url')
+        api.unsubscribe(uid, url)
+        self.response.headers.add_header('Content-Type', 'application/json')
+        self.response.write(json.dumps({"success": True}))
+
 class TestHandler(webapp2.RequestHandler):
     def get(self):
         html = """
-        <form method=POST action='/subscribe'>
+        <form method=POST action='subscriptions/add'>
             <h1>Test subscribe</h1>
-            <input type=hidden name=test value=subscribe>
             <input name=url placeholder=url>
             <input name=uid placeholder=uid>
             <input type=submit>
@@ -64,6 +82,12 @@ class TestHandler(webapp2.RequestHandler):
             <h1>Test source fetch</h1>
             <input type=hidden name=test value=source>
             <input name=url>
+            <input type=submit>
+        </form>
+        <form method=POST action='/subscriptions/delete'>
+            <h1>Test unsubscribe</h1>
+            <input name=url placeholder=url>
+            <input name=uid placeholder=uid>
             <input type=submit>
         </form>
         """
@@ -82,9 +106,11 @@ class TestHandler(webapp2.RequestHandler):
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
-    ('/subscribe', SubscribeHandler),
     ('/article', ArticleHandler),
     ('/source', SourceHandler),
     ('/feed', FeedHandler),
+    ('/subscriptions', SubscriptionsHandler),
+    ('/subscriptions/add', SubscribeHandler),
+    ('/subscriptions/delete', UnsubscribeHandler),
     ('/test', TestHandler)
 ], debug=True)

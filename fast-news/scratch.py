@@ -7,7 +7,7 @@ def url_fetch(url): # returns file-like object
     return urllib2.urlopen(req)
 
 if __name__ == '__main__':
-    feed = url_fetch('http://feeds.browndailyherald.com/BrownDailyHerald').read()
+    feed = url_fetch('http://feeds.browndailyherald.com/BrownDailyHerald')
     parsed = feedparser.parse(feed)
     pprint.pprint(parsed)
     

@@ -74,7 +74,7 @@ class Article(ndb.Model):
         article_fetch(self)
     
     def fetch_if_needed(self):
-        if not self.data and not self.fetch_failed:
+        if not self.parsed and not self.fetch_failed:
             self.fetch_now()
     
     def enqueue_fetch(self, delay=0):

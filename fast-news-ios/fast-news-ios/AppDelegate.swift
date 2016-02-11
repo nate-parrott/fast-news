@@ -8,13 +8,12 @@
 
 import UIKit
 
-let FN_USE_PRODUCTION = true
+let FN_USE_PRODUCTION = false
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate {
 
     var window: UIWindow?
-
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         if FN_USE_PRODUCTION {

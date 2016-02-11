@@ -58,14 +58,16 @@ class ArticleCollectionViewController: UICollectionViewController, UICollectionV
     func update() {
         collectionView?.reloadData()
         
+        var title = ""
         switch model.loadingState {
         case .Error(_):
             title = NSLocalizedString("Offline", comment: "")
         case .Loading(_):
             title = NSLocalizedString("Refreshing…", comment: "")
         default:
-            title = NSLocalizedString("fast-news", comment: "")
+            title = NSLocalizedString("Subscribed", comment: "")
         }
+        navigationItem.title = title.uppercaseString
     }
     
     // MARK: Collection

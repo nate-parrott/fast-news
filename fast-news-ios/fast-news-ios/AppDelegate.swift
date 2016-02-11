@@ -19,6 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         if FN_USE_PRODUCTION {
             EnableSPDY.enableSPDY()
         }
+        applyTheme()
         // Override point for customization after application launch.
         let tabViewController = window!.rootViewController as! UITabBarController
         tabViewController.tabBar.tintColor = UIColor.whiteColor()
@@ -60,6 +61,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         } else {
             return false
         }
+    }
+    
+    func applyTheme() {
+        let font = "DINAlternate-Bold"
+        UINavigationBar.appearance().titleTextAttributes = [NSFontAttributeName: UIFont(name: font, size: 18)!]
+        UIBarButtonItem.appearance().setTitleTextAttributes([NSFontAttributeName: UIFont(name: font, size: 16)!], forState: .Normal)
+        UITabBarItem.appearance().setTitleTextAttributes([NSFontAttributeName: UIFont(name: font, size: 12)!], forState: .Normal)
     }
 }
 

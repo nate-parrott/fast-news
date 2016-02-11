@@ -15,6 +15,7 @@ class FeedCell: UICollectionViewCell {
     let chevron = UIImageView(image: UIImage(named: "Chevron")?.imageWithRenderingMode(.AlwaysTemplate))
     let sourceRowBackground = UIView()
     var articleImage = NetImageView()
+    let divider = UIView()
     
     var _sub: Subscription?
     
@@ -37,13 +38,13 @@ class FeedCell: UICollectionViewCell {
         if !_setupYet {
             _setupYet = true
             
-            for v in [articleImage, sourceRowBackground, sourceName, headline, sourceCountView, chevron] {
+            for v in [articleImage, sourceRowBackground, sourceName, headline, sourceCountView, chevron, divider] {
                 addSubview(v)
             }
             for v in [sourceName, sourceCountView] {
                 v.font = UIFont.boldSystemFontOfSize(13)
             }
-            sourceRowBackground.backgroundColor = UIColor(white: 0.1, alpha: 0.12)
+            sourceRowBackground.backgroundColor = UIColor(white: 0.1, alpha: 0.05)
             sourceName.userInteractionEnabled = false
             sourceCountView.userInteractionEnabled = false
             sourceRowBackground.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "_tappedSourceName:"))
@@ -52,6 +53,7 @@ class FeedCell: UICollectionViewCell {
             articleImage.contentMode = .ScaleAspectFill
             articleImage.backgroundColor = UIColor.whiteColor()
             articleImage.clipsToBounds = true
+            divider.backgroundColor = UIColor(white: 0.5, alpha: 0.5)
         }
     }
     
@@ -78,8 +80,10 @@ class FeedCell: UICollectionViewCell {
             articleImage.url = nil
         }
         
-        backgroundColor = source?.backgroundColor ?? UIColor(white: 1, alpha: 1)
-        let textColor = source?.textColor ?? UIColor.blackColor()
+        // backgroundColor = UIColor.whiteColor() // source?.backgroundColor ?? UIColor(white: 1, alpha: 1)
+        // let textColor = source?.textColor ?? UIColor.blackColor()
+        backgroundColor = source?.textColor ?? UIColor(white: 0.1, alpha: 1)
+        let textColor = source?.backgroundColor ?? UIColor.whiteColor()
         for label in [sourceName, headline, sourceCountView] {
             label.textColor = textColor
         }
@@ -100,12 +104,14 @@ class FeedCell: UICollectionViewCell {
         
         let showImage = (articleImage.url != nil)
         let headlineWidth = width - padding * 2 - (showImage ? imageSize : 0)
-        let headlineHeight = max(headline.sizeThatFits(CGSizeMake(headlineWidth, 1000)).height, showImage ? imageSize : 0)
-        headline.frame = CGRectMake(padding, sourceHeight + padding, headlineWidth, headlineHeight)
+        let headlineZoneHeight = max(headline.sizeThatFits(CGSizeMake(headlineWidth, 1000)).height + padding*2, showImage ? imageSize : 0)
+        headline.frame = CGRectMake(padding, sourceHeight + padding, headlineWidth, headlineZoneHeight - padding*2)
         articleImage.hidden = !showImage
         if showImage {
             articleImage.frame = CGRectMake(width - imageSize, sourceHeight, imageSize, headline.frame.bottom + padding - sourceHeight)
         }
+        
+        divider.frame = CGRectMake(0, bounds.size.height - 0.5, bounds.size.width, 0.5)
         
         return headline.frame.bottom + padding
     }
@@ -114,7 +120,7 @@ class FeedCell: UICollectionViewCell {
         return CGSizeMake(size.width, _layout(size.width))
     }
     
-    let padding: CGFloat = 8
-    let imageSize: CGFloat = 80
+    let padding: CGFloat = 6
+    let imageSize: CGFloat = 120
 }
 

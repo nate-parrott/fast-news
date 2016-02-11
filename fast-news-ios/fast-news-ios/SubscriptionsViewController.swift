@@ -63,9 +63,8 @@ class SubscriptionsViewController: UITableViewController, UITextFieldDelegate {
                     self.showError(NSLocalizedString("Couldn't add that news source.", comment: ""))
                 }
             })
-        } else {
-            textField.text = ""
         }
+        textField.text = ""
         textField.resignFirstResponder()
         return false
     }

@@ -11,12 +11,16 @@ import Foundation
 class Article: APIObject {
     var title: String?
     var text: String?
+    var articleDescription: String?
+    var imageURL: String?
     override func importJson(json: [String : AnyObject]) {
         super.importJson(json)
         self.title = json["title"] as? String ?? self.title
         if let content = json["content"] as? [String: AnyObject] {
             self.text = content["article_text"] as? String ?? self.text
         }
+        self.imageURL = json["top_image"] as? String ?? self.imageURL
+        self.articleDescription = json["description"] as? String ?? self.articleDescription
     }
     
     override func jsonPath() -> (String, [String : String]?)? {

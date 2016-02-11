@@ -1,10 +1,15 @@
 PODS:
+  - ChameleonFramework (2.1.0):
+    - ChameleonFramework/Default (= 2.1.0)
+  - ChameleonFramework/Default (2.1.0)
   - CocoaSPDY (1.2)
 
 DEPENDENCIES:
+  - ChameleonFramework
   - CocoaSPDY
 
 SPEC CHECKSUMS:
+  ChameleonFramework: d21a3cc247abfe5e37609a283a8238b03575cf64
   CocoaSPDY: c920d4ba67587f011c888506148f7f6fc6ae6467
 
 COCOAPODS: 0.39.0

@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>ChameleonFramework.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>CocoaSPDY.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -22,7 +27,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C4F1D325510A89F5433627D888D3F8B9</key>
+		<key>370850E2ADD2F56A0B66AEEBF94CF027</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>9B57F4EE4746045CEAE2D933A3C8EC9E</key>
 		<dict>
 			<key>primary</key>
 			<true/>

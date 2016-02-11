@@ -12,12 +12,22 @@ class Source: APIObject {
     var title: String?
     var url: String?
     var articles: [Article]?
+    var textColor: UIColor?
+    var backgroundColor: UIColor?
     override func importJson(json: [String : AnyObject]) {
         super.importJson(json)
         self.title = json["title"] as? String ?? self.title
         self.url = json["url"] as? String ?? self.url
         if let articles = json["articles"] as? [[String: AnyObject]] {
             self.articles = APIObjectsFromDictionaries(articles)
+        }
+        if let brand = json["brand"] as? [String: AnyObject], let colors = brand["colors"] as? [String: AnyObject] {
+            if let hex = colors["text"] as? String, let color = UIColor(hexString: hex) {
+                textColor = color
+            }
+            if let hex = colors["background"] as? String, let color = UIColor(hexString: hex) {
+                backgroundColor = color
+            }
         }
     }
     

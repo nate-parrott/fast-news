@@ -12,7 +12,7 @@ class FeedCell: UICollectionViewCell {
     let sourceName = UILabel()
     let headline = UILabel()
     let sourceCountView = UILabel()
-    let chevron = UIImageView(image: UIImage(named: "Chevron"))
+    let chevron = UIImageView(image: UIImage(named: "Chevron")?.imageWithRenderingMode(.AlwaysTemplate))
     let sourceRowBackground = UIView()
     var articleImage = NetImageView()
     
@@ -36,23 +36,22 @@ class FeedCell: UICollectionViewCell {
     func _setupIfNeeded() {
         if !_setupYet {
             _setupYet = true
-            backgroundColor = UIColor.whiteColor()
             
-            for v in [sourceRowBackground, sourceName, headline, sourceCountView, articleImage, chevron] {
+            for v in [articleImage, sourceRowBackground, sourceName, headline, sourceCountView, chevron] {
                 addSubview(v)
             }
             for v in [sourceName, sourceCountView] {
                 v.font = UIFont.boldSystemFontOfSize(13)
             }
-            sourceRowBackground.backgroundColor = UIColor(white: 0.2, alpha: 0.4)
+            sourceRowBackground.backgroundColor = UIColor(white: 0.1, alpha: 0.12)
             sourceName.userInteractionEnabled = false
             sourceCountView.userInteractionEnabled = false
             sourceRowBackground.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "_tappedSourceName:"))
-            headline.font = UIFont.boldSystemFontOfSize(20)
+            headline.font = UIFont.systemFontOfSize(18)
             headline.numberOfLines = 0
             articleImage.contentMode = .ScaleAspectFill
-            articleImage.layer.masksToBounds = true
-            articleImage.layer.cornerRadius = 4
+            articleImage.backgroundColor = UIColor.whiteColor()
+            articleImage.clipsToBounds = true
         }
     }
     
@@ -71,6 +70,21 @@ class FeedCell: UICollectionViewCell {
         sourceName.text = source?.title?.uppercaseString
         headline.text = source?.highlightedArticle?.title
         sourceCountView.text = "22"
+        if let url = source?.highlightedArticle?.imageURL, let nsURL = NSURL(string: url) {
+            if nsURL != articleImage.url {
+                articleImage.url = nsURL
+            }
+        } else {
+            articleImage.url = nil
+        }
+        
+        backgroundColor = source?.backgroundColor ?? UIColor(white: 1, alpha: 1)
+        let textColor = source?.textColor ?? UIColor.blackColor()
+        for label in [sourceName, headline, sourceCountView] {
+            label.textColor = textColor
+        }
+        chevron.tintColor = textColor
+        
         setNeedsLayout()
     }
     
@@ -84,13 +98,13 @@ class FeedCell: UICollectionViewCell {
         sourceName.frame = CGRectMake(padding, padding, sourceCountView.frame.origin.x - padding*2, sourceName.frame.height)
         sourceRowBackground.frame = CGRectMake(0, 0, width, sourceHeight)
         
-        let showImage = true
-        let headlineWidth = width - padding * 2 - (showImage ? imageSize + padding : 0)
+        let showImage = (articleImage.url != nil)
+        let headlineWidth = width - padding * 2 - (showImage ? imageSize : 0)
         let headlineHeight = max(headline.sizeThatFits(CGSizeMake(headlineWidth, 1000)).height, showImage ? imageSize : 0)
         headline.frame = CGRectMake(padding, sourceHeight + padding, headlineWidth, headlineHeight)
         articleImage.hidden = !showImage
-        if !showImage {
-            articleImage.frame = CGRectMake(headline.frame.right + padding, sourceHeight + headline.frame.height / 2 - imageSize/2, imageSize, imageSize)
+        if showImage {
+            articleImage.frame = CGRectMake(width - imageSize, sourceHeight, imageSize, headline.frame.bottom + padding - sourceHeight)
         }
         
         return headline.frame.bottom + padding
@@ -101,6 +115,6 @@ class FeedCell: UICollectionViewCell {
     }
     
     let padding: CGFloat = 8
-    let imageSize: CGFloat = 50
+    let imageSize: CGFloat = 80
 }
 

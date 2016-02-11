@@ -84,8 +84,10 @@ strip_invalid_archs() {
 
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
+  install_framework "Pods-fast-news-ios/ChameleonFramework.framework"
   install_framework "Pods-fast-news-ios/CocoaSPDY.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
+  install_framework "Pods-fast-news-ios/ChameleonFramework.framework"
   install_framework "Pods-fast-news-ios/CocoaSPDY.framework"
 fi

@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '119A565E0CD38BFA4026F030'
+               BlueprintIdentifier = 'D8D9AB4D84793DFB4BE15E44'
                BlueprintName = 'CocoaSPDY'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'CocoaSPDY.framework'>

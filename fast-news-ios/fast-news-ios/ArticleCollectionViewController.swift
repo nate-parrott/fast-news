@@ -36,6 +36,7 @@ class ArticleCollectionViewController: UICollectionViewController, UICollectionV
         }
         update()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "_foreground:", name: UIApplicationWillEnterForegroundNotification, object: nil)
+        // navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "AbrilFatface-Regular", size: 20)!]
     }
     
     let _preferredRecency: CFAbsoluteTime = 5 * 60
@@ -74,8 +75,12 @@ class ArticleCollectionViewController: UICollectionViewController, UICollectionV
     }
     
     // MARK: Layout
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+    /*func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         return CGSizeMake(collectionView.bounds.size.width, 100)
-    }
+    }*/
     
+    override func viewDidLayoutSubviews() {
+        let flow = collectionView!.collectionViewLayout as! UICollectionViewFlowLayout
+        flow.estimatedItemSize = CGSizeMake(view.bounds.size.width, 200)
+    }
 }

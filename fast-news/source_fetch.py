@@ -19,7 +19,6 @@ def source_fetch(source):
     if result:
         if result.feed_title:
             source.title = result.feed_title
-        print 'RESULT BRAND', result.brand
         if result.brand:
             source.brand = result.brand
         
@@ -65,7 +64,8 @@ def _source_fetch(source):
             print "Fetched {0} as {1} source".format(source.url, result.method)
         else:
             print "Couldn't fetch {0} using any method".format(source.url)
-        result.brand = extract_brand(markup, source.url)
+        if result:
+            result.brand = extract_brand(markup, source.url)
         return result
     else:
         print "URL error fetching {0}".format(source.url)

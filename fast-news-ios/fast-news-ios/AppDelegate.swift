@@ -21,6 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         }
         // Override point for customization after application launch.
         let tabViewController = window!.rootViewController as! UITabBarController
+        tabViewController.tabBar.tintColor = UIColor.whiteColor()
         let splitViewController = tabViewController.viewControllers!.first as! UISplitViewController
         // let navigationController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as! UINavigationController
         splitViewController.delegate = self

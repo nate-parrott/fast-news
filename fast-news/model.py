@@ -90,8 +90,8 @@ class Article(ndb.Model):
             "fetch_failed": self.fetch_failed,
         }
         if self.parsed:
-            d['description'] = self.parsed['description']
-            d['top_image'] = self.parsed['top_image']
+            d['description'] = self.parsed.get('description')
+            d['top_image'] = self.parsed.get('top_image')
         if include_content:
             d['content'] = self.content()
         return d

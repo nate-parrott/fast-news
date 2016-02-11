@@ -38,6 +38,11 @@
 		<string>Asap-MediumItalic.otf</string>
 		<string>Asap-Regular.otf</string>
 		<string>AbrilFatface-Regular.otf</string>
+		<string>RobotoMono-Bold.ttf</string>
+		<string>RobotoMono-BoldItalic.ttf</string>
+		<string>RobotoMono-Regular.ttf</string>
+		<string>RobotoMono-Italic.ttf</string>
+		<string></string>
 	</array>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>

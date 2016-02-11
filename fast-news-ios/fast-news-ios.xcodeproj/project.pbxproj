@@ -19,6 +19,7 @@
 		5F0CC62C1C6C5A1F0071A026 /* NetImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F0CC62B1C6C5A1F0071A026 /* NetImageView.swift */; };
 		5F0CC62E1C6C5A320071A026 /* FeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F0CC62D1C6C5A320071A026 /* FeedCell.swift */; };
 		5F0CC6311C6C5FD20071A026 /* Queues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F0CC6301C6C5FD20071A026 /* Queues.swift */; };
+		5F0CC6331C6C661A0071A026 /* CGMath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F0CC6321C6C661A0071A026 /* CGMath.swift */; };
 		5F4A71411C6319E000676F91 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4A71401C6319E000676F91 /* AppDelegate.swift */; };
 		5F4A71431C6319E000676F91 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4A71421C6319E000676F91 /* MasterViewController.swift */; };
 		5F4A71451C6319E000676F91 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4A71441C6319E000676F91 /* DetailViewController.swift */; };
@@ -56,6 +57,7 @@
 		5F0CC62B1C6C5A1F0071A026 /* NetImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetImageView.swift; sourceTree = "<group>"; };
 		5F0CC62D1C6C5A320071A026 /* FeedCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedCell.swift; sourceTree = "<group>"; };
 		5F0CC6301C6C5FD20071A026 /* Queues.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Queues.swift; sourceTree = "<group>"; };
+		5F0CC6321C6C661A0071A026 /* CGMath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGMath.swift; sourceTree = "<group>"; };
 		5F4A713D1C6319E000676F91 /* fast-news-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "fast-news-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F4A71401C6319E000676F91 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5F4A71421C6319E000676F91 /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
@@ -202,6 +204,7 @@
 				5F0CC6241C6C551E0071A026 /* FNSplitViewController.swift */,
 				5F0CC6281C6C59CB0071A026 /* EVComplexLayout.h */,
 				5F0CC6291C6C59CB0071A026 /* EVComplexLayout.m */,
+				5F0CC6321C6C661A0071A026 /* CGMath.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -359,6 +362,7 @@
 				5FCDF4421C6BF75F00A50A75 /* ArticleViewController.swift in Sources */,
 				5F0CC6251C6C551E0071A026 /* FNSplitViewController.swift in Sources */,
 				5F0CC62E1C6C5A320071A026 /* FeedCell.swift in Sources */,
+				5F0CC6331C6C661A0071A026 /* CGMath.swift in Sources */,
 				5F8D9F321C6C0AFE00F0FFBE /* EnableSPDY.m in Sources */,
 				5F4A71571C63236C00676F91 /* Source.swift in Sources */,
 				5F0CC6311C6C5FD20071A026 /* Queues.swift in Sources */,

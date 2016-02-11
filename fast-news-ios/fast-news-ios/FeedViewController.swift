@@ -21,6 +21,10 @@ class FeedViewController: ArticleCollectionViewController {
         }
     }
     
+    override var cellClass: UICollectionViewCell.Type {
+        return FeedCell.self
+    }
+    
     override var modelTitle: String {
         get {
             return NSLocalizedString("Latest Stories", comment: "")

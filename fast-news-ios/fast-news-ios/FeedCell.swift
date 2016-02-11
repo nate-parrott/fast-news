@@ -9,11 +9,12 @@
 import UIKit
 
 class FeedCell: UICollectionViewCell {
-    @IBOutlet var sourceName: UILabel!
-    @IBOutlet var articleHighlight: UILabel!
-    @IBOutlet var sourceCountView: UILabel!
-    @IBOutlet var articleImage: NetImageView!
-    @IBOutlet var sourceRowContainer: UIView!
+    let sourceName = UILabel()
+    let headline = UILabel()
+    let sourceCountView = UILabel()
+    let chevron = UIImageView(image: UIImage(named: "Chevron"))
+    let sourceRowBackground = UIView()
+    var articleImage = NetImageView()
     
     var _sub: Subscription?
     
@@ -34,8 +35,24 @@ class FeedCell: UICollectionViewCell {
     var _setupYet = false
     func _setupIfNeeded() {
         if !_setupYet {
-            sourceRowContainer.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "_tappedSourceName:"))
+            _setupYet = true
             backgroundColor = UIColor.whiteColor()
+            
+            for v in [sourceRowBackground, sourceName, headline, sourceCountView, articleImage, chevron] {
+                addSubview(v)
+            }
+            for v in [sourceName, sourceCountView] {
+                v.font = UIFont.boldSystemFontOfSize(13)
+            }
+            sourceRowBackground.backgroundColor = UIColor(white: 0.2, alpha: 0.4)
+            sourceName.userInteractionEnabled = false
+            sourceCountView.userInteractionEnabled = false
+            sourceRowBackground.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "_tappedSourceName:"))
+            headline.font = UIFont.boldSystemFontOfSize(20)
+            headline.numberOfLines = 0
+            articleImage.contentMode = .ScaleAspectFill
+            articleImage.layer.masksToBounds = true
+            articleImage.layer.cornerRadius = 4
         }
     }
     
@@ -47,29 +64,43 @@ class FeedCell: UICollectionViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        sourceName.sizeToFit()
-        sourceName.frame = CGRectMake(0, 0, bounds.size.width, sourceName.frame.size.height + 6)
-        articleHighlight.frame = CGRectMake(0, sourceName.frame.origin.y + sourceName.frame.size.height, bounds.size.width, bounds.size.height - sourceName.frame.origin.y + sourceName.frame.size.height)
+        _layout(bounds.size.width)
     }
     
     func _update() {
-        sourceName.text = source?.title
-        articleHighlight.text = source?.highlightedArticle?.title
+        sourceName.text = source?.title?.uppercaseString
+        headline.text = source?.highlightedArticle?.title
+        sourceCountView.text = "22"
+        setNeedsLayout()
     }
     
-    override func preferredLayoutAttributesFittingAttributes(layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
-        let attr: UICollectionViewLayoutAttributes = layoutAttributes.copy() as! UICollectionViewLayoutAttributes
+    func _layout(width: CGFloat) -> CGFloat {
+        chevron.sizeToFit()
+        sourceCountView.sizeToFit()
+        sourceName.sizeToFit()
+        let sourceHeight = sourceName.frame.height + padding * 2
+        chevron.center = CGPointMake(width - chevron.frame.width/2 - padding, sourceHeight/2)
+        sourceCountView.frame = CGRectMake(chevron.frame.origin.x - sourceCountView.frame.width - padding, sourceHeight/2 - sourceCountView.frame.height/2, sourceCountView.frame.width, sourceCountView.frame.height)
+        sourceName.frame = CGRectMake(padding, padding, sourceCountView.frame.origin.x - padding*2, sourceName.frame.height)
+        sourceRowBackground.frame = CGRectMake(0, 0, width, sourceHeight)
         
-        var newFrame = attr.frame
-        self.frame = newFrame
+        let showImage = true
+        let headlineWidth = width - padding * 2 - (showImage ? imageSize + padding : 0)
+        let headlineHeight = max(headline.sizeThatFits(CGSizeMake(headlineWidth, 1000)).height, showImage ? imageSize : 0)
+        headline.frame = CGRectMake(padding, sourceHeight + padding, headlineWidth, headlineHeight)
+        articleImage.hidden = !showImage
+        if !showImage {
+            articleImage.frame = CGRectMake(headline.frame.right + padding, sourceHeight + headline.frame.height / 2 - imageSize/2, imageSize, imageSize)
+        }
         
-        self.setNeedsLayout()
-        self.layoutIfNeeded()
-        
-        let desiredHeight: CGFloat = self.contentView.systemLayoutSizeFittingSize(UILayoutFittingCompressedSize).height
-        newFrame.size.height = desiredHeight
-        attr.frame = newFrame
-        return attr
+        return headline.frame.bottom + padding
     }
+    
+    override func sizeThatFits(size: CGSize) -> CGSize {
+        return CGSizeMake(size.width, _layout(size.width))
+    }
+    
+    let padding: CGFloat = 8
+    let imageSize: CGFloat = 50
 }
 

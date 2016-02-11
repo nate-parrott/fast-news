@@ -25,6 +25,9 @@ class ArticleCollectionViewController: UICollectionViewController, UICollectionV
     var modelTitle: String {
         return ""
     }
+    var cellClass: UICollectionViewCell.Type {
+        return UICollectionViewCell.self
+    }
     
     // MARK: Loading
     var _modelSub: Subscription?
@@ -34,6 +37,8 @@ class ArticleCollectionViewController: UICollectionViewController, UICollectionV
         _modelSub = model.onUpdate.subscribe { [weak self] (state) -> () in
             self?.update()
         }
+        collectionView!.registerClass(cellClass, forCellWithReuseIdentifier: "Cell")
+        _sizingCell = cellClass.init()
         update()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "_foreground:", name: UIApplicationWillEnterForegroundNotification, object: nil)
         // navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "AbrilFatface-Regular", size: 20)!]
@@ -64,6 +69,7 @@ class ArticleCollectionViewController: UICollectionViewController, UICollectionV
     }
     
     // MARK: Collection
+    var _sizingCell: UICollectionViewCell!
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return collectionModels.count
     }
@@ -75,12 +81,15 @@ class ArticleCollectionViewController: UICollectionViewController, UICollectionV
     }
     
     // MARK: Layout
-    /*func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        return CGSizeMake(collectionView.bounds.size.width, 100)
-    }*/
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        let model = collectionModels[indexPath.item]
+        applyModelToCell(_sizingCell, model: model)
+        return _sizingCell.sizeThatFits(CGSizeMake(collectionView.bounds.size.width, 1000))
+    }
     
-    override func viewDidLayoutSubviews() {
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
         let flow = collectionView!.collectionViewLayout as! UICollectionViewFlowLayout
-        flow.estimatedItemSize = CGSizeMake(view.bounds.size.width, 200)
+        flow.estimatedItemSize = CGSizeMake(view.bounds.size.width * 0.7, 200)
     }
 }

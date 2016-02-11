@@ -24,15 +24,16 @@ def subscriptions(uid):
     subs = Subscription.query(Subscription.uid == uid).fetch()
     return {"subscriptions": [sub.json() for sub in subs]}
 
-def ensure_source(url):
+def ensure_source(url, force_fetch=False):
     url = canonical_url(url)
     source_id = Source.id_for_source(url)
     source, inserted = get_or_insert(Source, source_id)
     if inserted:
         source.url = url
         source.put()
-        source.fetch_now()
         source.enqueue_fetch()
+    if force_fetch or inserted:
+        source.fetch_now()
     return source
 
 def feed(uid):

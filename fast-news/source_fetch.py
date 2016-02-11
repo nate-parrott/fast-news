@@ -11,6 +11,7 @@ import feedparser
 from pprint import pprint
 from urlparse import urljoin
 import random
+from brand import extract_brand
 
 def source_fetch(source):
     result = _source_fetch(source)
@@ -18,6 +19,9 @@ def source_fetch(source):
     if result:
         if result.feed_title:
             source.title = result.feed_title
+        print 'RESULT BRAND', result.brand
+        if result.brand:
+            source.brand = result.brand
         
         for i, entry in enumerate(result.entries):
             id = Article.id_for_article(entry['url'], source.url)
@@ -44,6 +48,7 @@ class FetchResult(object):
         self.method = method
         self.feed_title = feed_title
         self.entries = entries # {"url": url, "title": title}
+        self.brand = None
     
     def __repr__(self):
         return "FetchResult.{0}('{1}'): {2} ".format(self.method, self.feed_title, self.entries)
@@ -60,6 +65,7 @@ def _source_fetch(source):
             print "Fetched {0} as {1} source".format(source.url, result.method)
         else:
             print "Couldn't fetch {0} using any method".format(source.url)
+        result.brand = extract_brand(markup, source.url)
         return result
     else:
         print "URL error fetching {0}".format(source.url)

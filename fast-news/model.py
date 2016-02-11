@@ -24,6 +24,7 @@ class Source(ndb.Model):
     last_fetched = ndb.DateTimeProperty()
     title = ndb.TextProperty()
     most_recent_article_added_date = ndb.DateTimeProperty()
+    brand = ndb.JsonProperty()
     
     def fetch_now(self):
         source_fetch(self)
@@ -48,7 +49,8 @@ class Source(ndb.Model):
             d = {
                 "id": self.key.id(),
                 "url": self.url,
-                "title": self.title
+                "title": self.title,
+                "brand": self.brand
             }
             if include_articles:
                 d['articles'] = [a.json() for a in articles_future.get_result()]
@@ -85,8 +87,11 @@ class Article(ndb.Model):
             "id": self.key.id(),
             "url": self.url,
             "title": self.title,
-            "fetch_failed": self.fetch_failed
+            "fetch_failed": self.fetch_failed,
         }
+        if self.parsed:
+            d['description'] = self.parsed['description']
+            d['top_image'] = self.parsed['top_image']
         if include_content:
             d['content'] = self.content()
         return d

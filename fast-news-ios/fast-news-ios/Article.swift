@@ -14,12 +14,14 @@ class Article: APIObject {
     override func importJson(json: [String : AnyObject]) {
         super.importJson(json)
         self.title = json["title"] as? String ?? self.title
-        self.text = json["article_text"] as? String ?? self.text
+        if let content = json["content"] as? [String: AnyObject] {
+            self.text = content["article_text"] as? String ?? self.text
+        }
     }
     
     override func jsonPath() -> (String, [String : String]?)? {
         if let id = self.id {
-            return ("/artices", ["id": id])
+            return ("/article", ["id": id])
         } else {
             return nil
         }

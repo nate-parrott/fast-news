@@ -10,9 +10,20 @@ import UIKit
 
 class ArticleViewController: UIViewController {
     var article: Article!
+    var _articleSub: Subscription?
+    
+    @IBOutlet var textView: UITextView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        _articleSub = article.onUpdate.subscribe({ [weak self] (_) -> () in
+            self?.update()
+        })
+        update()
+        article.ensureRecency(3 * 60 * 60)
+    }
+    func update() {
         title = article.title
+        textView.text = article.text
     }
 }

@@ -22,6 +22,7 @@
 		5F5706711C65E17C00140078 /* SubscriptionsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5706701C65E17C00140078 /* SubscriptionsList.swift */; };
 		5F5706731C65E18300140078 /* Subscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5706721C65E18300140078 /* Subscription.swift */; };
 		5F5706771C6636C400140078 /* SubscriptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5706761C6636C400140078 /* SubscriptionsViewController.swift */; };
+		5F8D9F321C6C0AFE00F0FFBE /* EnableSPDY.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F8D9F311C6C0AFE00F0FFBE /* EnableSPDY.m */; };
 		5FCDF4401C6BCD6700A50A75 /* CommonExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCDF43F1C6BCD6700A50A75 /* CommonExtensions.swift */; };
 		5FCDF4421C6BF75F00A50A75 /* ArticleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCDF4411C6BF75F00A50A75 /* ArticleViewController.swift */; };
 		5FCDF4441C6BF77000A50A75 /* SourceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCDF4431C6BF77000A50A75 /* SourceViewController.swift */; };
@@ -47,6 +48,9 @@
 		5F5706701C65E17C00140078 /* SubscriptionsList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionsList.swift; sourceTree = "<group>"; };
 		5F5706721C65E18300140078 /* Subscription.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Subscription.swift; sourceTree = "<group>"; };
 		5F5706761C6636C400140078 /* SubscriptionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionsViewController.swift; sourceTree = "<group>"; };
+		5F8D9F2C1C6C08DC00F0FFBE /* fast-news-ios-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "fast-news-ios-Bridging-Header.h"; sourceTree = "<group>"; };
+		5F8D9F301C6C0AFE00F0FFBE /* EnableSPDY.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnableSPDY.h; sourceTree = "<group>"; };
+		5F8D9F311C6C0AFE00F0FFBE /* EnableSPDY.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EnableSPDY.m; sourceTree = "<group>"; };
 		5FCDF43F1C6BCD6700A50A75 /* CommonExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonExtensions.swift; sourceTree = "<group>"; };
 		5FCDF4411C6BF75F00A50A75 /* ArticleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleViewController.swift; sourceTree = "<group>"; };
 		5FCDF4431C6BF77000A50A75 /* SourceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SourceViewController.swift; sourceTree = "<group>"; };
@@ -106,6 +110,7 @@
 				5F4A71461C6319E000676F91 /* Main.storyboard */,
 				5F4A71491C6319E000676F91 /* Assets.xcassets */,
 				5F4A714B1C6319E000676F91 /* LaunchScreen.storyboard */,
+				5F8D9F2C1C6C08DC00F0FFBE /* fast-news-ios-Bridging-Header.h */,
 				5F4A714E1C6319E000676F91 /* Info.plist */,
 			);
 			path = "fast-news-ios";
@@ -139,6 +144,8 @@
 		5F8D9F2B1C6BFF7B00F0FFBE /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				5F8D9F301C6C0AFE00F0FFBE /* EnableSPDY.h */,
+				5F8D9F311C6C0AFE00F0FFBE /* EnableSPDY.m */,
 				5F4A715C1C63288000676F91 /* Pusher.swift */,
 				5FCDF43F1C6BCD6700A50A75 /* CommonExtensions.swift */,
 			);
@@ -287,6 +294,7 @@
 				5F4A71411C6319E000676F91 /* AppDelegate.swift in Sources */,
 				5F5706711C65E17C00140078 /* SubscriptionsList.swift in Sources */,
 				5FCDF4421C6BF75F00A50A75 /* ArticleViewController.swift in Sources */,
+				5F8D9F321C6C0AFE00F0FFBE /* EnableSPDY.m in Sources */,
 				5F4A71571C63236C00676F91 /* Source.swift in Sources */,
 				5F4A715D1C63288000676F91 /* Pusher.swift in Sources */,
 				5FCDF4401C6BCD6700A50A75 /* CommonExtensions.swift in Sources */,
@@ -405,10 +413,14 @@
 			baseConfigurationReference = C0848AEAC746D72B580AA7EF /* Pods-fast-news-ios.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = "fast-news-ios/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.nateparrott.fast-news-ios";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "fast-news-ios/fast-news-ios-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -417,10 +429,13 @@
 			baseConfigurationReference = C8692EA5BF694EAB0375ECAB /* Pods-fast-news-ios.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = "fast-news-ios/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.nateparrott.fast-news-ios";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "fast-news-ios/fast-news-ios-Bridging-Header.h";
 			};
 			name = Release;
 		};

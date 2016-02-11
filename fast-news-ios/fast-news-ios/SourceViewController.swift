@@ -30,5 +30,19 @@ class SourceViewController: ArticleCollectionViewController {
     }
     override func applyModelToCell(cell: UICollectionViewCell, model: APIObject) {
         super.applyModelToCell(cell, model: model)
+        let label = cell.viewWithTag(1) as! UILabel
+        label.text = (model as! Article).title
+    }
+    
+    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        showArticle(collectionModels[indexPath.item] as! Article)
+    }
+    
+    func showArticle(article: Article) {
+        let articleVC = storyboard!.instantiateViewControllerWithIdentifier("Article") as! ArticleViewController
+        articleVC.article = article
+        let nav = UINavigationController(rootViewController: articleVC)
+        // articleVC.navigationItem.leftBarButtonItem = splitViewController!.displayModeButtonItem()
+        showDetailViewController(nav, sender: true)
     }
 }

@@ -96,6 +96,4 @@ class ArticleCollectionViewController: UICollectionViewController, UICollectionV
         let flow = collectionView!.collectionViewLayout as! UICollectionViewFlowLayout
         flow.estimatedItemSize = CGSizeMake(view.bounds.size.width * 0.7, 200)
     }
-    
-    
 }

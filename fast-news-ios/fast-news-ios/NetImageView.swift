@@ -11,7 +11,7 @@ import UIKit
 class NetImageView: UIImageView {
     var url: NSURL? {
         willSet(newVal) {
-            print("\(newVal)")
+            // print("\(newVal)")
             image = nil
             if newVal != url {
                 _task?.cancel()

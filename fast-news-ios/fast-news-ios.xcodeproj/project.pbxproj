@@ -40,6 +40,8 @@
 		5F5706711C65E17C00140078 /* SubscriptionsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5706701C65E17C00140078 /* SubscriptionsList.swift */; };
 		5F5706731C65E18300140078 /* Subscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5706721C65E18300140078 /* Subscription.swift */; };
 		5F5706771C6636C400140078 /* SubscriptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5706761C6636C400140078 /* SubscriptionsViewController.swift */; };
+		5F5E4D981C6E434C009C3446 /* BookmarksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5E4D971C6E434C009C3446 /* BookmarksViewController.swift */; };
+		5F5E4D9A1C6E45A1009C3446 /* ArticleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5E4D991C6E45A1009C3446 /* ArticleView.swift */; };
 		5F8D9F321C6C0AFE00F0FFBE /* EnableSPDY.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F8D9F311C6C0AFE00F0FFBE /* EnableSPDY.m */; };
 		5FCDF4401C6BCD6700A50A75 /* CommonExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCDF43F1C6BCD6700A50A75 /* CommonExtensions.swift */; };
 		5FCDF4421C6BF75F00A50A75 /* ArticleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCDF4411C6BF75F00A50A75 /* ArticleViewController.swift */; };
@@ -85,6 +87,8 @@
 		5F5706701C65E17C00140078 /* SubscriptionsList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionsList.swift; sourceTree = "<group>"; };
 		5F5706721C65E18300140078 /* Subscription.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Subscription.swift; sourceTree = "<group>"; };
 		5F5706761C6636C400140078 /* SubscriptionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionsViewController.swift; sourceTree = "<group>"; };
+		5F5E4D971C6E434C009C3446 /* BookmarksViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookmarksViewController.swift; sourceTree = "<group>"; };
+		5F5E4D991C6E45A1009C3446 /* ArticleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleView.swift; sourceTree = "<group>"; };
 		5F8D9F2C1C6C08DC00F0FFBE /* fast-news-ios-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "fast-news-ios-Bridging-Header.h"; sourceTree = "<group>"; };
 		5F8D9F301C6C0AFE00F0FFBE /* EnableSPDY.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnableSPDY.h; sourceTree = "<group>"; };
 		5F8D9F311C6C0AFE00F0FFBE /* EnableSPDY.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EnableSPDY.m; sourceTree = "<group>"; };
@@ -141,8 +145,10 @@
 				5FCDF4471C6BFAFB00A50A75 /* ArticleCollectionViewController.swift */,
 				5F57066E1C63C74400140078 /* FeedViewController.swift */,
 				5F0CC62D1C6C5A320071A026 /* FeedCell.swift */,
+				5F5E4D991C6E45A1009C3446 /* ArticleView.swift */,
 				5F0CC63C1C6D6BEB0071A026 /* ArticleCell.swift */,
 				5FCDF4431C6BF77000A50A75 /* SourceViewController.swift */,
+				5F5E4D971C6E434C009C3446 /* BookmarksViewController.swift */,
 			);
 			name = Feeds;
 			sourceTree = "<group>";
@@ -366,6 +372,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5F5E4D981C6E434C009C3446 /* BookmarksViewController.swift in Sources */,
 				5F4A715B1C63237B00676F91 /* Article.swift in Sources */,
 				5F57066F1C63C74400140078 /* FeedViewController.swift in Sources */,
 				5F0CC62A1C6C59CB0071A026 /* EVComplexLayout.m in Sources */,
@@ -376,6 +383,7 @@
 				5FCDF4441C6BF77000A50A75 /* SourceViewController.swift in Sources */,
 				5F0CC63D1C6D6BEB0071A026 /* ArticleCell.swift in Sources */,
 				5F5706771C6636C400140078 /* SubscriptionsViewController.swift in Sources */,
+				5F5E4D9A1C6E45A1009C3446 /* ArticleView.swift in Sources */,
 				5F4A71431C6319E000676F91 /* MasterViewController.swift in Sources */,
 				5F4A71411C6319E000676F91 /* AppDelegate.swift in Sources */,
 				5F5706711C65E17C00140078 /* SubscriptionsList.swift in Sources */,

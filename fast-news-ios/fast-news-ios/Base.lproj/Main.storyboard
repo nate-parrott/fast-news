@@ -25,12 +25,12 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8fS-aE-onr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-20.266666666666666" y="-596.39999999999998"/>
+            <point key="canvasLocation" x="151" y="-843"/>
         </scene>
         <!--Feed-->
         <scene sceneID="gXW-mz-UOM">
             <objects>
-                <collectionViewController id="5FY-Hm-8g5" customClass="FeedViewController" customModule="Subscribed" customModuleProvider="target" sceneMemberID="viewController">
+                <collectionViewController id="5FY-Hm-8g5" customClass="FeedViewController" customModule="fast_news_ios" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="fRn-dw-tqq">
                         <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -51,7 +51,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fZO-Bh-cfj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="373" y="-596"/>
+            <point key="canvasLocation" x="545" y="-842"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="O8W-TA-0bP">
@@ -67,18 +67,19 @@
                     </tabBar>
                     <connections>
                         <segue destination="H1p-Uh-vWS" kind="relationship" relationship="viewControllers" id="cbc-LT-dEg"/>
+                        <segue destination="g0T-YU-sDB" kind="relationship" relationship="viewControllers" id="q8i-Sy-XGr"/>
                         <segue destination="5lS-0O-PNm" kind="relationship" relationship="viewControllers" id="NbN-VL-xZc"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oeh-Q4-Z2P" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-866" y="-313"/>
+            <point key="canvasLocation" x="-920" y="-329"/>
         </scene>
-        <!--News-->
+        <!--Split View Controller-->
         <scene sceneID="Nki-YV-4Qg">
             <objects>
-                <splitViewController extendedLayoutIncludesOpaqueBars="YES" automaticallyAdjustsScrollViewInsets="NO" id="H1p-Uh-vWS" customClass="FNSplitViewController" customModule="Subscribed" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="News" id="Wqg-Ti-VZP"/>
+                <splitViewController extendedLayoutIncludesOpaqueBars="YES" automaticallyAdjustsScrollViewInsets="NO" id="H1p-Uh-vWS" customClass="FNSplitViewController" customModule="fast_news_ios" customModuleProvider="target" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" systemItem="mostRecent" id="Wqg-Ti-VZP"/>
                     <toolbarItems/>
                     <connections>
                         <segue destination="RMx-3f-FxP" kind="relationship" relationship="masterViewController" id="BlO-5A-QYV"/>
@@ -92,7 +93,7 @@
         <!--Sources-->
         <scene sceneID="jcb-Fu-qwX">
             <objects>
-                <tableViewController title="Sources" id="Zh7-eV-mo5" customClass="SubscriptionsViewController" customModule="Subscribed" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Sources" id="Zh7-eV-mo5" customClass="SubscriptionsViewController" customModule="fast_news_ios" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="uuq-rJ-Fgl">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -145,13 +146,48 @@
                     </connections>
                 </textField>
             </objects>
-            <point key="canvasLocation" x="-643" y="371"/>
+            <point key="canvasLocation" x="-615" y="937"/>
         </scene>
-        <!--Subscriptions-->
+        <!--Bookmarks-->
+        <scene sceneID="zPf-vz-wSR">
+            <objects>
+                <collectionViewController title="Bookmarks" id="g0T-YU-sDB" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="t78-HA-geg">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Sdo-BR-zU9">
+                            <size key="itemSize" width="50" height="50"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="eNF-hq-cQS">
+                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                            </collectionViewCell>
+                        </cells>
+                        <connections>
+                            <outlet property="dataSource" destination="g0T-YU-sDB" id="Fdi-Lt-j0v"/>
+                            <outlet property="delegate" destination="g0T-YU-sDB" id="EMC-rO-SFf"/>
+                        </connections>
+                    </collectionView>
+                    <tabBarItem key="tabBarItem" systemItem="bookmarks" id="Dyr-rd-dWD"/>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yt0-ZS-yFE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="17" y="602"/>
+        </scene>
+        <!--Navigation Controller-->
         <scene sceneID="5sM-21-YFy">
             <objects>
                 <navigationController id="5lS-0O-PNm" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Subscriptions" id="Tfj-If-mXn"/>
+                    <tabBarItem key="tabBarItem" systemItem="mostViewed" id="Tfj-If-mXn"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="FCf-rQ-HUJ">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -162,7 +198,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="N1W-ge-Icb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1107" y="377"/>
+            <point key="canvasLocation" x="-1079" y="943"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="r7l-gg-dq7">
@@ -182,7 +218,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SLD-UC-DBI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-24" y="122.12"/>
+            <point key="canvasLocation" x="26" y="-116"/>
         </scene>
         <!--Unused-->
         <scene sceneID="Fcl-73-2aV">
@@ -201,12 +237,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jIZ-Lq-BUW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-21" y="917"/>
+            <point key="canvasLocation" x="383" y="-116"/>
         </scene>
         <!--Source View Controller-->
         <scene sceneID="yqO-Dv-DH3">
             <objects>
-                <collectionViewController storyboardIdentifier="Source" id="HE0-BP-aGi" customClass="SourceViewController" customModule="Subscribed" customModuleProvider="target" sceneMemberID="viewController">
+                <collectionViewController storyboardIdentifier="Source" id="HE0-BP-aGi" customClass="SourceViewController" customModule="fast_news_ios" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="d7Z-si-Biw">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -226,12 +262,12 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="H9G-Q1-HOn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="410" y="245"/>
+            <point key="canvasLocation" x="790" y="-116"/>
         </scene>
         <!--Article View Controller-->
         <scene sceneID="Zdw-JL-moN">
             <objects>
-                <viewController storyboardIdentifier="Article" id="XLv-32-XDD" customClass="ArticleViewController" customModule="Subscribed" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Article" id="XLv-32-XDD" customClass="ArticleViewController" customModule="fast_news_ios" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jbv-RZ-E6K"/>
                         <viewControllerLayoutGuide type="bottom" id="Wwx-Qj-gaC"/>
@@ -263,7 +299,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gar-oa-bDE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="758" y="243"/>
+            <point key="canvasLocation" x="1138" y="-118"/>
         </scene>
     </scenes>
 </document>

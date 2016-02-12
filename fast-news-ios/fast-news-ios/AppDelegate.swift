@@ -66,7 +66,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     func applyTheme() {
         UINavigationBar.appearance().titleTextAttributes = [NSFontAttributeName: UIFont(name: "RobotoMono-Bold", size: 18)!]
         UIBarButtonItem.appearance().setTitleTextAttributes([NSFontAttributeName: UIFont(name: "RobotoMono-Regular", size: 16)!], forState: .Normal)
-        UITabBarItem.appearance().setTitleTextAttributes([NSFontAttributeName: UIFont(name: "RobotoMono-Regular", size: 12)!], forState: .Normal)
+        UITabBarItem.appearance().setTitleTextAttributes([NSFontAttributeName: UIFont(name: "RobotoMono-Regular", size: 12)!, NSForegroundColorAttributeName: UIColor.whiteColor()], forState: .Selected)
+        UITabBarItem.appearance().setTitleTextAttributes([NSFontAttributeName: UIFont(name: "RobotoMono-Regular", size: 12)!, NSForegroundColorAttributeName: UIColor(white: 1, alpha: 0.5)], forState: .Normal)
+
     }
 }
 

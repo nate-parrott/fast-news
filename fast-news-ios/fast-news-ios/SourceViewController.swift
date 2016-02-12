@@ -41,6 +41,11 @@ class SourceViewController: ArticleCollectionViewController {
         showArticle(collectionModels[indexPath.item] as! Article)
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        collectionView!.contentInset = UIEdgeInsetsMake(8, 0, 0, 0)
+    }
+    
     func showArticle(article: Article) {
         let articleVC = storyboard!.instantiateViewControllerWithIdentifier("Article") as! ArticleViewController
         articleVC.article = article

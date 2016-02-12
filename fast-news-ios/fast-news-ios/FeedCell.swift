@@ -63,8 +63,7 @@ class FeedCell: UICollectionViewCell {
         if let src = source {
             articleView.article = src.highlightedArticle
             articleView.hidden = (articleView.article == nil)
-            let t = src.title ?? "this subscription"
-            sourceName.text = articleView.article == nil ?  "Articles from \(t)" : "More from \(t)"
+            sourceName.text = src.title
         }
         setNeedsLayout()
     }
@@ -72,19 +71,22 @@ class FeedCell: UICollectionViewCell {
     func _layout(width: CGFloat) -> CGFloat {
         let padding: CGFloat = 8
         let xPadding: CGFloat = 0
-        var y: CGFloat = 0
+        var y: CGFloat = padding
+        
+        sourceName.sizeToFit()
+        sourceName.frame = CGRectMake(padding, y, sourceName.frame.width, sourceName.frame.height)
+        chevron.sizeToFit()
+        chevron.center = CGPointMake(sourceName.frame.origin.x + sourceName.frame.size.width + padding + chevron.frame.size.width/2, sourceName.center.y)
+        sourceTapView.frame = CGRectMake(0, sourceName.frame.origin.y - padding, width, sourceName.frame.bottom + padding - (sourceName.frame.origin.y - padding))
+        y = sourceTapView.frame.bottom
+        
         if !articleView.hidden {
             let articleWidth = width - xPadding * 2
             let articleHeight = articleView.sizeThatFits(CGSizeMake(articleWidth, 1000)).height
             articleView.frame = CGRectMake(xPadding, y, articleWidth, articleHeight)
-            y = articleView.frame.bottom + padding
+            y = articleView.frame.bottom
         }
-        sourceName.sizeToFit()
-        sourceName.center = CGPointMake(width/2, y + sourceName.frame.size.height/2)
-        chevron.sizeToFit()
-        chevron.center = CGPointMake(sourceName.frame.origin.x + sourceName.frame.size.width + padding + chevron.frame.size.width/2, sourceName.center.y)
-        sourceTapView.frame = CGRectMake(0, sourceName.frame.origin.y - padding, width, sourceName.frame.bottom + padding - (sourceName.frame.origin.y - padding))
-        return sourceName.frame.bottom + padding
+        return y
     }
     
     override func sizeThatFits(size: CGSize) -> CGSize {
@@ -97,7 +99,7 @@ class ArticleView: UIView {
         didSet {
             _setup()
             if let a = article {
-                headline.text = a.title
+                headline.attributedText = getPreviewText()
                 if let url = a.imageURL {
                     imageView.url = NSURL(string: url)
                 } else {
@@ -105,6 +107,18 @@ class ArticleView: UIView {
                 }
             }
         }
+    }
+    func getPreviewText() -> NSAttributedString {
+        let headline = NSAttributedString(string: (article?.title ?? ""), attributes: [NSFontAttributeName: UIFont.boldSystemFontOfSize(17), NSForegroundColorAttributeName: UIColor(white: 0, alpha: 1)])
+        let description = NSAttributedString(string: (article?.articleDescription ?? ""), attributes: [NSFontAttributeName: UIFont.systemFontOfSize(12), NSForegroundColorAttributeName: UIColor(white: 0, alpha: 0.5)])
+        
+        let all = headline.mutableCopy() as! NSMutableAttributedString
+        if description.length > 0 {
+            all.appendAttributedString(NSAttributedString(string: "\n"))
+            all.appendAttributedString(description)
+        }
+        return all
+        
     }
     let imageView = NetImageView()
     let headline = UILabel()
@@ -124,12 +138,14 @@ class ArticleView: UIView {
     }
     
     func _layout(width: CGFloat) -> CGFloat {
+        let maxLabelHeight: CGFloat = 124
+        let minLabelHeight: CGFloat = 56
         let imageSize: CGFloat = 120
         let padding: CGFloat = 4
         let hasImage = imageView.url != nil
         let headlineWidth = hasImage ? width - imageSize - padding * 2 : width - padding * 2
-        let headlineHeight = headline.sizeThatFits(CGSizeMake(headlineWidth, 200)).height
-        let height = max(headlineHeight + padding * 2, hasImage ? imageSize : 0)
+        let headlineHeight = min(maxLabelHeight, headline.sizeThatFits(CGSizeMake(headlineWidth, maxLabelHeight)).height)
+        let height = max(headlineHeight + padding * 2, hasImage ? imageSize : 0, minLabelHeight)
         imageView.hidden = !hasImage
         imageView.frame = CGRectMake(width - imageSize, 0, imageSize, height)
         headline.frame = CGRectMake(padding, padding, headlineWidth, height - padding * 2)

@@ -34,6 +34,7 @@ class ArticleCollectionViewController: UICollectionViewController, UICollectionV
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        automaticallyAdjustsScrollViewInsets = false
         _modelSub = model.onUpdate.subscribe { [weak self] (state) -> () in
             self?.update()
         }
@@ -42,8 +43,7 @@ class ArticleCollectionViewController: UICollectionViewController, UICollectionV
         update()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "_foreground:", name: UIApplicationWillEnterForegroundNotification, object: nil)
         // navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "AbrilFatface-Regular", size: 20)!]
-        let layout = collectionView!.collectionViewLayout as! UICollectionViewFlowLayout
-        layout.sectionInset = UIEdgeInsetsMake(8, 0, 0, 0)
+        // let layout = collectionView!.collectionViewLayout as! UICollectionViewFlowLayout
     }
     
     let _preferredRecency: CFAbsoluteTime = 5 * 60
@@ -96,4 +96,6 @@ class ArticleCollectionViewController: UICollectionViewController, UICollectionV
         let flow = collectionView!.collectionViewLayout as! UICollectionViewFlowLayout
         flow.estimatedItemSize = CGSizeMake(view.bounds.size.width * 0.7, 200)
     }
+    
+    
 }

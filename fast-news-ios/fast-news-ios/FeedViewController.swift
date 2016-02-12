@@ -27,7 +27,7 @@ class FeedViewController: ArticleCollectionViewController {
     
     override var modelTitle: String {
         get {
-            return NSLocalizedString("Latest Stories", comment: "")
+            return NSLocalizedString("Subscribed", comment: "")
         }
     }
     

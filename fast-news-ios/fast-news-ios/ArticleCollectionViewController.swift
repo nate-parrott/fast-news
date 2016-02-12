@@ -67,7 +67,7 @@ class ArticleCollectionViewController: UICollectionViewController, UICollectionV
         case .Loading(_):
             title = NSLocalizedString("Refreshing…", comment: "")
         default:
-            title = NSLocalizedString("Subscribed", comment: "")
+            title = modelTitle
         }
         navigationItem.title = title
     }

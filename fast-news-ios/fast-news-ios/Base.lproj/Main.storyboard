@@ -30,7 +30,7 @@
         <!--Feed-->
         <scene sceneID="gXW-mz-UOM">
             <objects>
-                <collectionViewController id="5FY-Hm-8g5" customClass="FeedViewController" customModule="fast_news_ios" customModuleProvider="target" sceneMemberID="viewController">
+                <collectionViewController id="5FY-Hm-8g5" customClass="FeedViewController" customModule="Subscribed" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="fRn-dw-tqq">
                         <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -77,7 +77,7 @@
         <!--News-->
         <scene sceneID="Nki-YV-4Qg">
             <objects>
-                <splitViewController extendedLayoutIncludesOpaqueBars="YES" automaticallyAdjustsScrollViewInsets="NO" id="H1p-Uh-vWS" customClass="FNSplitViewController" customModule="fast_news_ios" customModuleProvider="target" sceneMemberID="viewController">
+                <splitViewController extendedLayoutIncludesOpaqueBars="YES" automaticallyAdjustsScrollViewInsets="NO" id="H1p-Uh-vWS" customClass="FNSplitViewController" customModule="Subscribed" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="News" id="Wqg-Ti-VZP"/>
                     <toolbarItems/>
                     <connections>
@@ -92,7 +92,7 @@
         <!--Sources-->
         <scene sceneID="jcb-Fu-qwX">
             <objects>
-                <tableViewController title="Sources" id="Zh7-eV-mo5" customClass="SubscriptionsViewController" customModule="fast_news_ios" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Sources" id="Zh7-eV-mo5" customClass="SubscriptionsViewController" customModule="Subscribed" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="uuq-rJ-Fgl">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -206,7 +206,7 @@
         <!--Source View Controller-->
         <scene sceneID="yqO-Dv-DH3">
             <objects>
-                <collectionViewController storyboardIdentifier="Source" id="HE0-BP-aGi" customClass="SourceViewController" customModule="fast_news_ios" customModuleProvider="target" sceneMemberID="viewController">
+                <collectionViewController storyboardIdentifier="Source" id="HE0-BP-aGi" customClass="SourceViewController" customModule="Subscribed" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="d7Z-si-Biw">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -231,7 +231,7 @@
         <!--Article View Controller-->
         <scene sceneID="Zdw-JL-moN">
             <objects>
-                <viewController storyboardIdentifier="Article" id="XLv-32-XDD" customClass="ArticleViewController" customModule="fast_news_ios" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Article" id="XLv-32-XDD" customClass="ArticleViewController" customModule="Subscribed" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jbv-RZ-E6K"/>
                         <viewControllerLayoutGuide type="bottom" id="Wwx-Qj-gaC"/>

@@ -13,7 +13,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="0.0" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="barTintColor" red="0.041923735290765762" green="0.12945614755153656" blue="0.15379218757152557" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" red="0.2609575092792511" green="0.26094970107078552" blue="0.2609541118144989" alpha="1" colorSpace="calibratedRGB"/>
                         <textAttributes key="titleTextAttributes">
                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                             <color key="textColor" red="1" green="0.99997437000274658" blue="0.99999129772186279" alpha="1" colorSpace="calibratedRGB"/>
@@ -34,6 +34,7 @@
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="fRn-dw-tqq">
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.91252946853637695" green="0.91250216960906982" blue="0.91251760721206665" alpha="1" colorSpace="calibratedRGB"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="13a-TJ-bf6">
                             <size key="itemSize" width="313" height="86"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>

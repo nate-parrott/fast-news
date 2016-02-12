@@ -42,6 +42,8 @@ class ArticleCollectionViewController: UICollectionViewController, UICollectionV
         update()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "_foreground:", name: UIApplicationWillEnterForegroundNotification, object: nil)
         // navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "AbrilFatface-Regular", size: 20)!]
+        let layout = collectionView!.collectionViewLayout as! UICollectionViewFlowLayout
+        layout.sectionInset = UIEdgeInsetsMake(8, 0, 0, 0)
     }
     
     let _preferredRecency: CFAbsoluteTime = 5 * 60
@@ -67,7 +69,7 @@ class ArticleCollectionViewController: UICollectionViewController, UICollectionV
         default:
             title = NSLocalizedString("Subscribed", comment: "")
         }
-        navigationItem.title = title.uppercaseString
+        navigationItem.title = title
     }
     
     // MARK: Collection

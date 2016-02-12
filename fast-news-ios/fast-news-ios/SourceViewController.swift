@@ -17,6 +17,10 @@ class SourceViewController: ArticleCollectionViewController {
         }
     }
     
+    override var cellClass: UICollectionViewCell.Type {
+        return ArticleCell.self
+    }
+    
     override var modelTitle: String {
         get {
             return source.title ?? NSLocalizedString("Articles", comment: "")
@@ -30,8 +34,7 @@ class SourceViewController: ArticleCollectionViewController {
     }
     override func applyModelToCell(cell: UICollectionViewCell, model: APIObject) {
         super.applyModelToCell(cell, model: model)
-        let label = cell.viewWithTag(1) as! UILabel
-        label.text = (model as! Article).title
+        (cell as! ArticleCell).article = (model as! Article)
     }
     
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {

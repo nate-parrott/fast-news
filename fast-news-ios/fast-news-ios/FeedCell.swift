@@ -9,13 +9,10 @@
 import UIKit
 
 class FeedCell: UICollectionViewCell {
+    let articleView = ArticleView()
     let sourceName = UILabel()
-    let headline = UILabel()
-    let sourceCountView = UILabel()
     let chevron = UIImageView(image: UIImage(named: "Chevron")?.imageWithRenderingMode(.AlwaysTemplate))
-    let sourceRowBackground = UIView()
-    var articleImage = NetImageView()
-    let divider = UIView()
+    let sourceTapView = UIView()
     
     var _sub: Subscription?
     
@@ -38,22 +35,16 @@ class FeedCell: UICollectionViewCell {
         if !_setupYet {
             _setupYet = true
             
-            for v in [articleImage, sourceRowBackground, sourceName, headline, sourceCountView, chevron, divider] {
+            for v in [articleView, sourceName, chevron, sourceTapView] {
                 addSubview(v)
             }
-            for v in [sourceName, sourceCountView] {
-                v.font = UIFont.boldSystemFontOfSize(13)
-            }
-            sourceRowBackground.backgroundColor = UIColor(white: 0.1, alpha: 0.05)
-            sourceName.userInteractionEnabled = false
-            sourceCountView.userInteractionEnabled = false
-            sourceRowBackground.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "_tappedSourceName:"))
-            headline.font = UIFont.systemFontOfSize(18)
-            headline.numberOfLines = 0
-            articleImage.contentMode = .ScaleAspectFill
-            articleImage.backgroundColor = UIColor.whiteColor()
-            articleImage.clipsToBounds = true
-            divider.backgroundColor = UIColor(white: 0.5, alpha: 0.5)
+            let outerTextColor = UIColor.blackColor()
+            chevron.tintColor = outerTextColor
+            chevron.alpha = 0.4
+            sourceName.textColor = outerTextColor
+            sourceName.font = UIFont(name: "RobotoMono-Regular", size: 14)
+            sourceTapView.backgroundColor = UIColor.clearColor()
+            sourceTapView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "_tappedSourceName:"))
         }
     }
     
@@ -69,58 +60,89 @@ class FeedCell: UICollectionViewCell {
     }
     
     func _update() {
-        sourceName.text = source?.title?.uppercaseString
-        headline.text = source?.highlightedArticle?.title
-        sourceCountView.text = "22"
-        if let url = source?.highlightedArticle?.imageURL, let nsURL = NSURL(string: url) {
-            if nsURL != articleImage.url {
-                articleImage.url = nsURL
-            }
-        } else {
-            articleImage.url = nil
+        if let src = source {
+            articleView.article = src.highlightedArticle
+            articleView.hidden = (articleView.article == nil)
+            let t = src.title ?? "this subscription"
+            sourceName.text = articleView.article == nil ?  "Articles from \(t)" : "More from \(t)"
         }
-        
-        // backgroundColor = UIColor.whiteColor() // source?.backgroundColor ?? UIColor(white: 1, alpha: 1)
-        // let textColor = source?.textColor ?? UIColor.blackColor()
-        backgroundColor = source?.textColor ?? UIColor(white: 0.1, alpha: 1)
-        let textColor = source?.backgroundColor ?? UIColor.whiteColor()
-        for label in [sourceName, headline, sourceCountView] {
-            label.textColor = textColor
-        }
-        chevron.tintColor = textColor
-        
         setNeedsLayout()
     }
     
     func _layout(width: CGFloat) -> CGFloat {
-        chevron.sizeToFit()
-        sourceCountView.sizeToFit()
-        sourceName.sizeToFit()
-        let sourceHeight = sourceName.frame.height + padding * 2
-        chevron.center = CGPointMake(width - chevron.frame.width/2 - padding, sourceHeight/2)
-        sourceCountView.frame = CGRectMake(chevron.frame.origin.x - sourceCountView.frame.width - padding, sourceHeight/2 - sourceCountView.frame.height/2, sourceCountView.frame.width, sourceCountView.frame.height)
-        sourceName.frame = CGRectMake(padding, padding, sourceCountView.frame.origin.x - padding*2, sourceName.frame.height)
-        sourceRowBackground.frame = CGRectMake(0, 0, width, sourceHeight)
-        
-        let showImage = (articleImage.url != nil)
-        let headlineWidth = width - padding * 2 - (showImage ? imageSize : 0)
-        let headlineZoneHeight = max(headline.sizeThatFits(CGSizeMake(headlineWidth, 1000)).height + padding*2, showImage ? imageSize : 0)
-        headline.frame = CGRectMake(padding, sourceHeight + padding, headlineWidth, headlineZoneHeight - padding*2)
-        articleImage.hidden = !showImage
-        if showImage {
-            articleImage.frame = CGRectMake(width - imageSize, sourceHeight, imageSize, headline.frame.bottom + padding - sourceHeight)
+        let padding: CGFloat = 8
+        let xPadding: CGFloat = 0
+        var y: CGFloat = 0
+        if !articleView.hidden {
+            let articleWidth = width - xPadding * 2
+            let articleHeight = articleView.sizeThatFits(CGSizeMake(articleWidth, 1000)).height
+            articleView.frame = CGRectMake(xPadding, y, articleWidth, articleHeight)
+            y = articleView.frame.bottom + padding
         }
-        
-        divider.frame = CGRectMake(0, bounds.size.height - 0.5, bounds.size.width, 0.5)
-        
-        return headline.frame.bottom + padding
+        sourceName.sizeToFit()
+        sourceName.center = CGPointMake(width/2, y + sourceName.frame.size.height/2)
+        chevron.sizeToFit()
+        chevron.center = CGPointMake(sourceName.frame.origin.x + sourceName.frame.size.width + padding + chevron.frame.size.width/2, sourceName.center.y)
+        sourceTapView.frame = CGRectMake(0, sourceName.frame.origin.y - padding, width, sourceName.frame.bottom + padding - (sourceName.frame.origin.y - padding))
+        return sourceName.frame.bottom + padding
+    }
+    
+    override func sizeThatFits(size: CGSize) -> CGSize {
+        return CGSizeMake(size.width, _layout(size.width))
+    }
+}
+
+class ArticleView: UIView {
+    var article: Article? {
+        didSet {
+            _setup()
+            if let a = article {
+                headline.text = a.title
+                if let url = a.imageURL {
+                    imageView.url = NSURL(string: url)
+                } else {
+                    imageView.url = nil
+                }
+            }
+        }
+    }
+    let imageView = NetImageView()
+    let headline = UILabel()
+    var _setupYet = false
+    func _setup() {
+        if !_setupYet {
+            _setupYet = true
+            for v in [imageView, headline] {
+                addSubview(v)
+            }
+            headline.numberOfLines = 0
+            headline.font = UIFont.boldSystemFontOfSize(17)
+            backgroundColor = UIColor.whiteColor()
+            imageView.contentMode = .ScaleAspectFill
+            imageView.clipsToBounds = true
+        }
+    }
+    
+    func _layout(width: CGFloat) -> CGFloat {
+        let imageSize: CGFloat = 120
+        let padding: CGFloat = 4
+        let hasImage = imageView.url != nil
+        let headlineWidth = hasImage ? width - imageSize - padding * 2 : width - padding * 2
+        let headlineHeight = headline.sizeThatFits(CGSizeMake(headlineWidth, 200)).height
+        let height = max(headlineHeight + padding * 2, hasImage ? imageSize : 0)
+        imageView.hidden = !hasImage
+        imageView.frame = CGRectMake(width - imageSize, 0, imageSize, height)
+        headline.frame = CGRectMake(padding, padding, headlineWidth, height - padding * 2)
+        return height
     }
     
     override func sizeThatFits(size: CGSize) -> CGSize {
         return CGSizeMake(size.width, _layout(size.width))
     }
     
-    let padding: CGFloat = 6
-    let imageSize: CGFloat = 120
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        _layout(bounds.size.width)
+    }
 }
 

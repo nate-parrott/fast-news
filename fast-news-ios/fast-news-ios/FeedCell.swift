@@ -101,7 +101,9 @@ class ArticleView: UIView {
             if let a = article {
                 headline.attributedText = getPreviewText()
                 if let url = a.imageURL {
-                    imageView.url = NSURL(string: url)
+                    let scale = UIScreen.mainScreen().scale * 2
+                    imageView.url = imageView.mirroredURLForImage(url, size: CGSizeMake(ArticleView.ImageSize * scale, (ArticleView.MaxLabelHeight + ArticleView.Padding * 2) * scale))
+                    // imageView.url = NSURL(string: url)
                 } else {
                     imageView.url = nil
                 }
@@ -114,7 +116,7 @@ class ArticleView: UIView {
         
         let all = headline.mutableCopy() as! NSMutableAttributedString
         if description.length > 0 {
-            all.appendAttributedString(NSAttributedString(string: "\n"))
+            all.appendAttributedString(NSAttributedString(string: "\n\n", attributes: [NSFontAttributeName: UIFont.systemFontOfSize(1)]))
             all.appendAttributedString(description)
         }
         return all
@@ -137,17 +139,20 @@ class ArticleView: UIView {
         }
     }
     
+    static let ImageSize: CGFloat = 120
+    static let Padding: CGFloat = 4
+    static let MaxLabelHeight: CGFloat = 124
+    
     func _layout(width: CGFloat) -> CGFloat {
-        let maxLabelHeight: CGFloat = 124
+        let maxLabelHeight: CGFloat = ArticleView.MaxLabelHeight
         let minLabelHeight: CGFloat = 56
-        let imageSize: CGFloat = 120
-        let padding: CGFloat = 4
+        let padding: CGFloat = ArticleView.Padding
         let hasImage = imageView.url != nil
-        let headlineWidth = hasImage ? width - imageSize - padding * 2 : width - padding * 2
+        let headlineWidth = hasImage ? width - ArticleView.ImageSize - padding * 2 : width - padding * 2
         let headlineHeight = min(maxLabelHeight, headline.sizeThatFits(CGSizeMake(headlineWidth, maxLabelHeight)).height)
-        let height = max(headlineHeight + padding * 2, hasImage ? imageSize : 0, minLabelHeight)
+        let height = max(headlineHeight + padding * 2, hasImage ? ArticleView.ImageSize : 0, minLabelHeight)
         imageView.hidden = !hasImage
-        imageView.frame = CGRectMake(width - imageSize, 0, imageSize, height)
+        imageView.frame = CGRectMake(width - ArticleView.ImageSize, 0, ArticleView.ImageSize, height)
         headline.frame = CGRectMake(padding, padding, headlineWidth, height - padding * 2)
         return height
     }

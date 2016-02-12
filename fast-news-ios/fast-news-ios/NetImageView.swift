@@ -11,6 +11,7 @@ import UIKit
 class NetImageView: UIImageView {
     var url: NSURL? {
         willSet(newVal) {
+            print("\(newVal)")
             image = nil
             if newVal != url {
                 _task?.cancel()
@@ -44,5 +45,11 @@ class NetImageView: UIImageView {
         didSet {
             backgroundColor = loadInProgress ? UIColor(white: 0.5, alpha: 0.5) : UIColor.clearColor()
         }
+    }
+    
+    func mirroredURLForImage(imageURL: String, size: CGSize) -> NSURL {
+        let comps = NSURLComponents(string: "https://surfboard-services.appspot.com/mirror")!
+        comps.queryItems = [NSURLQueryItem(name: "url", value: imageURL), NSURLQueryItem(name: "resize", value: "\(size.width),\(size.height)")]
+        return comps.URL!
     }
 }

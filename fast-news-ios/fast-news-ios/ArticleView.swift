@@ -16,14 +16,17 @@ class ArticleView: UIView {
             if let a = article {
                 headline.attributedText = getPreviewText()
                 if let url = a.imageURL {
-                    let scale = UIScreen.mainScreen().scale * 2
-                    imageView.url = imageView.mirroredURLForImage(url, size: CGSizeMake(ArticleView.ImageSize * scale, (ArticleView.MaxLabelHeight + ArticleView.Padding * 2) * scale))
+                    imageView.url = ArticleView.resizedURLForImageAtURL(url)
                     // imageView.url = NSURL(string: url)
                 } else {
                     imageView.url = nil
                 }
             }
         }
+    }
+    class func resizedURLForImageAtURL(url: String) -> NSURL {
+        let scale = UIScreen.mainScreen().scale * 2
+        return NetImageView.mirroredURLForImage(url, size: CGSizeMake(ArticleView.ImageSize * scale, (ArticleView.MaxLabelHeight + ArticleView.Padding * 2) * scale))
     }
     func getPreviewText() -> NSAttributedString {
         let headline = NSAttributedString(string: (article?.title ?? ""), attributes: [NSFontAttributeName: UIFont.boldSystemFontOfSize(17), NSForegroundColorAttributeName: UIColor(white: 0, alpha: 1)])

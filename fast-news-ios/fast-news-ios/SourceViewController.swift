@@ -32,9 +32,20 @@ class SourceViewController: ArticleCollectionViewController {
             return source.articles ?? []
         }
     }
+    
     override func applyModelToCell(cell: UICollectionViewCell, model: APIObject) {
         super.applyModelToCell(cell, model: model)
         (cell as! ArticleCell).article = (model as! Article)
+    }
+    
+    override func getPreloadObjectForModel(model: APIObject) -> AnyObject? {
+        if let imageUrl = (model as! Article).imageURL {
+            let netImage = NetImageView()
+            netImage.url = ArticleView.resizedURLForImageAtURL(imageUrl)
+            return netImage
+        } else {
+            return nil
+        }
     }
     
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {

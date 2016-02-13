@@ -41,6 +41,15 @@ class FeedViewController: ArticleCollectionViewController {
             return feed.sources ?? []
         }
     }
+    override func getPreloadObjectForModel(model: APIObject) -> AnyObject? {
+        if let article = (model as! Source).highlightedArticle, let imageUrl = article.imageURL {
+            let netImage = NetImageView()
+            netImage.url = ArticleView.resizedURLForImageAtURL(imageUrl)
+            return netImage
+        } else {
+            return nil
+        }
+    }
     
     // MARK: Navigation
     

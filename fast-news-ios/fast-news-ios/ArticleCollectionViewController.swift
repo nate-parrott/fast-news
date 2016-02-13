@@ -29,6 +29,10 @@ class ArticleCollectionViewController: UICollectionViewController, UICollectionV
         return UICollectionViewCell.self
     }
     
+    func getPreloadObjectForModel(model: APIObject) -> AnyObject? {
+        return nil
+    }
+    
     // MARK: Loading
     var _modelSub: Subscription?
     
@@ -84,6 +88,20 @@ class ArticleCollectionViewController: UICollectionViewController, UICollectionV
         return cell
     }
     
+    override func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
+        preloadImagesForVisibleRange(currentVisibleRange())
+    }
+    
+    func currentVisibleRange() -> NSRange {
+        let visibleIndices = collectionView!.indexPathsForVisibleItems().map({ $0.item })
+        if visibleIndices.count == 0 {
+            return NSMakeRange(0, 0)
+        } else {
+            let minIdx = visibleIndices.minElement()!
+            return NSMakeRange(minIdx, visibleIndices.maxElement()! - minIdx)
+        }
+    }
+    
     // MARK: Layout
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         let model = collectionModels[indexPath.item]
@@ -95,5 +113,46 @@ class ArticleCollectionViewController: UICollectionViewController, UICollectionV
         super.viewWillLayoutSubviews()
         let flow = collectionView!.collectionViewLayout as! UICollectionViewFlowLayout
         flow.estimatedItemSize = CGSizeMake(view.bounds.size.width * 0.7, 200)
+    }
+    
+    // MARK: Image preloading
+    let preloadCountInEachDirection = 4
+    var preloadObjectsForIndices = [Int: AnyObject]()
+    func preloadImagesForVisibleRange(range: NSRange) {
+        let indicesToRemove = preloadObjectsForIndices.keys.filter({ range.distanceFromValue($0) > self.preloadCountInEachDirection })
+        for idx in indicesToRemove {
+            preloadObjectsForIndices.removeValueForKey(idx)
+            // print("removing \(idx)")
+        }
+        var indices = [Int]()
+        let models = collectionModels
+        for i in 1..<(preloadCountInEachDirection+1) {
+            indices.append(range.location - i)
+            indices.append(range.location + range.length + i)
+        }
+        for i in indices {
+            if i >= 0 && i < models.count {
+                if preloadObjectsForIndices[i] == nil {
+                    if let obj = getPreloadObjectForModel(models[i]) {
+                        preloadObjectsForIndices[i] = obj
+                        // print("adding \(i)")
+                    } else {
+                        // print("nothing for \(i)")
+                    }
+                }
+            }
+        }
+    }
+}
+
+extension NSRange {
+    func distanceFromValue(val: Int) -> Int {
+        if val < location {
+            return location - val
+        } else if val > location + length {
+            return val - (location + length)
+        } else {
+            return 0
+        }
     }
 }

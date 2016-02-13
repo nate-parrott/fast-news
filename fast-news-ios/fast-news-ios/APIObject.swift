@@ -188,9 +188,13 @@ class Transaction {
         let task = NSURLSession.sharedSession().dataTaskWithRequest(req) { (let dataOpt, let responseOpt, let errorOpt) -> Void in
             if let cb = callback {
                 if let data = dataOpt, let json = try? NSJSONSerialization.JSONObjectWithData(data, options: []) {
-                    cb(json: json, error: nil, transaction: self)
+                    mainThread({ () -> Void in
+                        cb(json: json, error: nil, transaction: self)
+                    })
                 } else {
-                    cb(json: nil, error: errorOpt, transaction: self)
+                    mainThread({ () -> Void in
+                        cb(json: nil, error: errorOpt, transaction: self)
+                    })
                 }
             }
         }

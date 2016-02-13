@@ -174,7 +174,7 @@ class APIObject: NSObject {
 
 class Transaction {
     init() {
-        args["uid"] = "nate"
+        args["uid"] = APIIdentity.Shared.id
     }
     var endpoint: String!
     var method = "GET"

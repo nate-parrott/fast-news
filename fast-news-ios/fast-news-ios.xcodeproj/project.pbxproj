@@ -42,6 +42,7 @@
 		5F5706771C6636C400140078 /* SubscriptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5706761C6636C400140078 /* SubscriptionsViewController.swift */; };
 		5F5E4D981C6E434C009C3446 /* BookmarksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5E4D971C6E434C009C3446 /* BookmarksViewController.swift */; };
 		5F5E4D9A1C6E45A1009C3446 /* ArticleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5E4D991C6E45A1009C3446 /* ArticleView.swift */; };
+		5F5E4D9E1C6F0D29009C3446 /* UIImage+Resize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5E4D9D1C6F0D29009C3446 /* UIImage+Resize.swift */; };
 		5F8D9F321C6C0AFE00F0FFBE /* EnableSPDY.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F8D9F311C6C0AFE00F0FFBE /* EnableSPDY.m */; };
 		5FCDF4401C6BCD6700A50A75 /* CommonExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCDF43F1C6BCD6700A50A75 /* CommonExtensions.swift */; };
 		5FCDF4421C6BF75F00A50A75 /* ArticleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCDF4411C6BF75F00A50A75 /* ArticleViewController.swift */; };
@@ -89,6 +90,7 @@
 		5F5706761C6636C400140078 /* SubscriptionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionsViewController.swift; sourceTree = "<group>"; };
 		5F5E4D971C6E434C009C3446 /* BookmarksViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookmarksViewController.swift; sourceTree = "<group>"; };
 		5F5E4D991C6E45A1009C3446 /* ArticleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleView.swift; sourceTree = "<group>"; };
+		5F5E4D9D1C6F0D29009C3446 /* UIImage+Resize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Resize.swift"; sourceTree = "<group>"; };
 		5F8D9F2C1C6C08DC00F0FFBE /* fast-news-ios-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "fast-news-ios-Bridging-Header.h"; sourceTree = "<group>"; };
 		5F8D9F301C6C0AFE00F0FFBE /* EnableSPDY.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnableSPDY.h; sourceTree = "<group>"; };
 		5F8D9F311C6C0AFE00F0FFBE /* EnableSPDY.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EnableSPDY.m; sourceTree = "<group>"; };
@@ -220,6 +222,7 @@
 				5F8D9F311C6C0AFE00F0FFBE /* EnableSPDY.m */,
 				5F0CC62B1C6C5A1F0071A026 /* NetImageView.swift */,
 				5F0CC6301C6C5FD20071A026 /* Queues.swift */,
+				5F5E4D9D1C6F0D29009C3446 /* UIImage+Resize.swift */,
 				5F4A715C1C63288000676F91 /* Pusher.swift */,
 				5FCDF43F1C6BCD6700A50A75 /* CommonExtensions.swift */,
 				5F0CC6241C6C551E0071A026 /* FNSplitViewController.swift */,
@@ -392,6 +395,7 @@
 				5F0CC62E1C6C5A320071A026 /* FeedCell.swift in Sources */,
 				5F0CC6331C6C661A0071A026 /* CGMath.swift in Sources */,
 				5F8D9F321C6C0AFE00F0FFBE /* EnableSPDY.m in Sources */,
+				5F5E4D9E1C6F0D29009C3446 /* UIImage+Resize.swift in Sources */,
 				5F4A71571C63236C00676F91 /* Source.swift in Sources */,
 				5F0CC6311C6C5FD20071A026 /* Queues.swift in Sources */,
 				5F4A715D1C63288000676F91 /* Pusher.swift in Sources */,

@@ -8,6 +8,7 @@ target 'fast-news-ios' do
 # pod 'RealmSwift'
 pod 'CocoaSPDY'
 pod 'ChameleonFramework'
+pod 'SloppySwiper'
 
 end
 

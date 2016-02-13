@@ -5,7 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <scenes>
-        <!--Master-->
+        <!--Navigation Controller-->
         <scene sceneID="pY4-Hu-kfo">
             <objects>
                 <navigationController title="Master" id="RMx-3f-FxP" sceneMemberID="viewController">
@@ -20,10 +20,16 @@
                         </textAttributes>
                     </navigationBar>
                     <connections>
+                        <outlet property="delegate" destination="gUR-G4-SpC" id="KJh-8Z-WZY"/>
                         <segue destination="5FY-Hm-8g5" kind="relationship" relationship="rootViewController" id="CqV-F6-2Oc"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8fS-aE-onr" sceneMemberID="firstResponder"/>
+                <customObject id="gUR-G4-SpC" customClass="SloppySwiper">
+                    <connections>
+                        <outlet property="navigationController" destination="RMx-3f-FxP" id="zcH-Pc-eNP"/>
+                    </connections>
+                </customObject>
             </objects>
             <point key="canvasLocation" x="151" y="-843"/>
         </scene>

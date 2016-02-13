@@ -19,6 +19,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>SloppySwiper.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
@@ -27,12 +32,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>370850E2ADD2F56A0B66AEEBF94CF027</key>
+		<key>4EC287ECAFD867A0DB57FA4D311D47C9</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>9B57F4EE4746045CEAE2D933A3C8EC9E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D84965A621A7ADA6F8FB11B3547EA3DC</key>
 		<dict>
 			<key>primary</key>
 			<true/>

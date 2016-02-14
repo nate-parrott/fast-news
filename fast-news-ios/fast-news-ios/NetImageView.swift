@@ -31,7 +31,9 @@ class NetImageView: UIImageView {
                                 if let self_ = self, data = dataOpt, let image = UIImage(data: data) {
                                     mainThread({ () -> Void in
                                         if self_.url == url_ {
-                                            self_.image = image
+                                            UIView.transitionWithView(self_, duration: 0.1, options: [.AllowUserInteraction, .TransitionCrossDissolve], animations: { () -> Void in
+                                                self_.image = image
+                                                }, completion: nil)
                                             
                                             let weakImage = WeakImage()
                                             weakImage.image = image

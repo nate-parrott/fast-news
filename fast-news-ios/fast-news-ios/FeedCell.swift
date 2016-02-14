@@ -11,7 +11,7 @@ import UIKit
 class FeedCell: UICollectionViewCell {
     let articleView = ArticleView()
     let sourceName = UILabel()
-    let chevron = UIImageView(image: UIImage(named: "Chevron")?.imageWithRenderingMode(.AlwaysTemplate))
+    let chevron = UIImageView(image: UIImage(named: "ThinChevron")?.imageWithRenderingMode(.AlwaysTemplate))
     let sourceTapView = UIView()
     
     var _sub: Subscription?

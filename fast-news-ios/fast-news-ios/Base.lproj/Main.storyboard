@@ -40,7 +40,7 @@
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="fRn-dw-tqq">
                         <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.91252946853637695" green="0.91250216960906982" blue="0.91251760721206665" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="0.95999999999999996" alpha="1" colorSpace="calibratedWhite"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="13a-TJ-bf6">
                             <size key="itemSize" width="313" height="86"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -252,7 +252,7 @@
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="d7Z-si-Biw">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.91252946850000005" green="0.91250216959999997" blue="0.91251760719999997" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="0.95999999999999996" alpha="1" colorSpace="calibratedWhite"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="bM5-ap-qRb">
                             <size key="itemSize" width="284" height="78"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>

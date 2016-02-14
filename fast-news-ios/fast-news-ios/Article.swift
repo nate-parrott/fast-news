@@ -12,10 +12,14 @@ class Article: APIObject {
     var title: String?
     var text: String?
     var articleDescription: String?
+    var url: String?
     var imageURL: String?
+    weak var source: Source?
+    var differentWebsiteFromSource: Bool?
     override func importJson(json: [String : AnyObject]) {
         super.importJson(json)
         self.title = json["title"] as? String ?? self.title
+        self.url = json["url"] as? String ?? self.url
         if let content = json["content"] as? [String: AnyObject] {
             self.text = content["article_text"] as? String ?? self.text
         }

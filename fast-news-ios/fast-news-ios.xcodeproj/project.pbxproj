@@ -43,6 +43,9 @@
 		5F5E4D9E1C6F0D29009C3446 /* UIImage+Resize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5E4D9D1C6F0D29009C3446 /* UIImage+Resize.swift */; };
 		5F5E4DA31C6FDE79009C3446 /* NSData+MD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5E4DA21C6FDE79009C3446 /* NSData+MD5.swift */; };
 		5F5E4DA51C6FDEA7009C3446 /* APIIdentity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5E4DA41C6FDEA7009C3446 /* APIIdentity.swift */; };
+		5F5E4DA91C700D7E009C3446 /* SwipeAwayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5E4DA81C700D7E009C3446 /* SwipeAwayViewController.swift */; };
+		5F5E4DAC1C71014D009C3446 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5E4DAB1C71014D009C3446 /* Utils.swift */; };
+		5F5E4DAE1C710162009C3446 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5E4DAD1C710162009C3446 /* Theme.swift */; };
 		5F8D9F321C6C0AFE00F0FFBE /* EnableSPDY.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F8D9F311C6C0AFE00F0FFBE /* EnableSPDY.m */; };
 		5FCDF4401C6BCD6700A50A75 /* CommonExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCDF43F1C6BCD6700A50A75 /* CommonExtensions.swift */; };
 		5FCDF4421C6BF75F00A50A75 /* ArticleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCDF4411C6BF75F00A50A75 /* ArticleViewController.swift */; };
@@ -92,6 +95,10 @@
 		5F5E4DA11C6FD4AB009C3446 /* fast-news-ios.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "fast-news-ios.entitlements"; sourceTree = "<group>"; };
 		5F5E4DA21C6FDE79009C3446 /* NSData+MD5.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSData+MD5.swift"; sourceTree = "<group>"; };
 		5F5E4DA41C6FDEA7009C3446 /* APIIdentity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIIdentity.swift; sourceTree = "<group>"; };
+		5F5E4DA81C700D7E009C3446 /* SwipeAwayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeAwayViewController.swift; sourceTree = "<group>"; };
+		5F5E4DAA1C701BE6009C3446 /* SSWDirectionalPanGestureRecognizer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SSWDirectionalPanGestureRecognizer.h; sourceTree = "<group>"; };
+		5F5E4DAB1C71014D009C3446 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		5F5E4DAD1C710162009C3446 /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		5F8D9F2C1C6C08DC00F0FFBE /* fast-news-ios-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "fast-news-ios-Bridging-Header.h"; sourceTree = "<group>"; };
 		5F8D9F301C6C0AFE00F0FFBE /* EnableSPDY.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnableSPDY.h; sourceTree = "<group>"; };
 		5F8D9F311C6C0AFE00F0FFBE /* EnableSPDY.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EnableSPDY.m; sourceTree = "<group>"; };
@@ -211,6 +218,7 @@
 			children = (
 				5F0CC62F1C6C5A410071A026 /* Feeds */,
 				5FCDF4411C6BF75F00A50A75 /* ArticleViewController.swift */,
+				5F5E4DA81C700D7E009C3446 /* SwipeAwayViewController.swift */,
 				5F5706761C6636C400140078 /* SubscriptionsViewController.swift */,
 			);
 			name = "View controllers";
@@ -219,6 +227,7 @@
 		5F8D9F2B1C6BFF7B00F0FFBE /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				5F5E4DAA1C701BE6009C3446 /* SSWDirectionalPanGestureRecognizer.h */,
 				5F8D9F301C6C0AFE00F0FFBE /* EnableSPDY.h */,
 				5F8D9F311C6C0AFE00F0FFBE /* EnableSPDY.m */,
 				5F0CC62B1C6C5A1F0071A026 /* NetImageView.swift */,
@@ -231,6 +240,8 @@
 				5F0CC6291C6C59CB0071A026 /* EVComplexLayout.m */,
 				5F0CC6321C6C661A0071A026 /* CGMath.swift */,
 				5F5E4DA21C6FDE79009C3446 /* NSData+MD5.swift */,
+				5F5E4DAB1C71014D009C3446 /* Utils.swift */,
+				5F5E4DAD1C710162009C3446 /* Theme.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -384,12 +395,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				5F5E4D981C6E434C009C3446 /* BookmarksViewController.swift in Sources */,
+				5F5E4DA91C700D7E009C3446 /* SwipeAwayViewController.swift in Sources */,
 				5F4A715B1C63237B00676F91 /* Article.swift in Sources */,
 				5F57066F1C63C74400140078 /* FeedViewController.swift in Sources */,
 				5F0CC62A1C6C59CB0071A026 /* EVComplexLayout.m in Sources */,
 				5F4A71591C63237300676F91 /* Feed.swift in Sources */,
 				5F5706731C65E18300140078 /* Subscription.swift in Sources */,
 				5F5E4DA31C6FDE79009C3446 /* NSData+MD5.swift in Sources */,
+				5F5E4DAC1C71014D009C3446 /* Utils.swift in Sources */,
 				5F5E4DA51C6FDEA7009C3446 /* APIIdentity.swift in Sources */,
 				5F0CC62C1C6C5A1F0071A026 /* NetImageView.swift in Sources */,
 				5FCDF4441C6BF77000A50A75 /* SourceViewController.swift in Sources */,
@@ -408,6 +421,7 @@
 				5F0CC6311C6C5FD20071A026 /* Queues.swift in Sources */,
 				5F4A715D1C63288000676F91 /* Pusher.swift in Sources */,
 				5FCDF4401C6BCD6700A50A75 /* CommonExtensions.swift in Sources */,
+				5F5E4DAE1C710162009C3446 /* Theme.swift in Sources */,
 				5F4A71551C631E9400676F91 /* APIObject.swift in Sources */,
 				5FCDF4481C6BFAFB00A50A75 /* ArticleCollectionViewController.swift in Sources */,
 			);

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ArticleViewController: UIViewController {
+class ArticleViewController: SwipeAwayViewController {
     var article: Article!
     var _articleSub: Subscription?
     
@@ -25,5 +25,8 @@ class ArticleViewController: UIViewController {
     func update() {
         title = article.title
         textView.text = article.text
+    }
+    override func prefersStatusBarHidden() -> Bool {
+        return true
     }
 }

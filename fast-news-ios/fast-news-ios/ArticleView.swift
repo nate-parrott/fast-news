@@ -29,15 +29,30 @@ class ArticleView: UIView {
         return NetImageView.mirroredURLForImage(url, size: CGSizeMake(ArticleView.ImageSize * scale, (ArticleView.MaxLabelHeight + ArticleView.Padding * 2) * scale))
     }
     func getPreviewText() -> NSAttributedString {
-        let headline = NSAttributedString(string: (article?.title ?? ""), attributes: [NSFontAttributeName: UIFont.boldSystemFontOfSize(17), NSForegroundColorAttributeName: UIColor(white: 0, alpha: 1)])
-        let description = NSAttributedString(string: (article?.articleDescription ?? ""), attributes: [NSFontAttributeName: UIFont.systemFontOfSize(12), NSForegroundColorAttributeName: UIColor(white: 0, alpha: 0.5)])
+        let headlineAttributes = [NSFontAttributeName: UIFont.boldSystemFontOfSize(17), NSForegroundColorAttributeName: UIColor(white: 0, alpha: 1)]
+        let secondLineFont = UIFont.systemFontOfSize(12)
+        let descriptionAttributes = [NSFontAttributeName: secondLineFont, NSForegroundColorAttributeName: UIColor(white: 0, alpha: 0.5)]
+        let hostAttributes = [NSFontAttributeName: UIFont.systemFontOfSize(12), NSForegroundColorAttributeName: Theme.darkBlue]
         
-        let all = headline.mutableCopy() as! NSMutableAttributedString
-        if description.length > 0 {
-            all.appendAttributedString(NSAttributedString(string: "\n\n", attributes: [NSFontAttributeName: UIFont.systemFontOfSize(1)]))
-            all.appendAttributedString(description)
+        let headline = NSAttributedString(string: (article?.title ?? ""), attributes: headlineAttributes)
+        
+        var secondLine = [NSAttributedString]()
+        if let diff = article?.differentWebsiteFromSource,
+            let url = article?.url,
+            let host = Utils.HostFromURLString(url) where diff {
+                secondLine.append(NSAttributedString(string: host, attributes: hostAttributes))
         }
-        return all
+        if let desc = article?.articleDescription {
+            secondLine.append(NSAttributedString(string: desc, attributes: descriptionAttributes))
+        }
+        let secondLineJoiner = NSAttributedString(string: " ", attributes: [NSFontAttributeName: secondLineFont])
+        
+        let lines = [
+            headline,
+            Utils.JoinAttributedStrings(secondLine, joint: secondLineJoiner)
+        ]
+        let lineJoiner = NSAttributedString(string: "\n\n", attributes: [NSFontAttributeName: UIFont.systemFontOfSize(1)])
+        return Utils.JoinAttributedStrings(lines, joint: lineJoiner)
         
     }
     let imageView = NetImageView()

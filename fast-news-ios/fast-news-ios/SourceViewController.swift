@@ -60,8 +60,9 @@ class SourceViewController: ArticleCollectionViewController {
     func showArticle(article: Article) {
         let articleVC = storyboard!.instantiateViewControllerWithIdentifier("Article") as! ArticleViewController
         articleVC.article = article
-        let nav = UINavigationController(rootViewController: articleVC)
+        articleVC.presentFrom(self)
+        // let nav = UINavigationController(rootViewController: articleVC)
         // articleVC.navigationItem.leftBarButtonItem = splitViewController!.displayModeButtonItem()
-        showDetailViewController(nav, sender: true)
+        // showDetailViewController(nav, sender: true)
     }
 }

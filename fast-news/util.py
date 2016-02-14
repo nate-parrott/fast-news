@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from google.appengine.ext import ndb
 import urllib2
 from httplib import HTTPException
@@ -23,3 +26,13 @@ def url_fetch(url):
     except urllib2.URLError as e:
         print "{0}: {1}".format(url, e)
     return None
+
+def truncate(text, words=None):
+    # ensure we're operating on unicode strings:
+    if type(text) == str:
+        return truncate(text.decode('utf-8'), words, chars).encode('utf-8')
+    
+    split = text.split(' ')
+    if words and len(split) > words:
+        return u" ".join(split[:words]) + u"…"
+    return text

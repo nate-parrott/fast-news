@@ -65,9 +65,10 @@ class FeedViewController: ArticleCollectionViewController {
     func showArticle(article: Article) {
         let articleVC = storyboard!.instantiateViewControllerWithIdentifier("Article") as! ArticleViewController
         articleVC.article = article
-        let nav = UINavigationController(rootViewController: articleVC)
+        // let nav = UINavigationController(rootViewController: articleVC)
         // articleVC.navigationItem.leftBarButtonItem = splitViewController!.displayModeButtonItem()
-        showDetailViewController(nav, sender: true)
+        // showDetailViewController(nav, sender: true)
+        articleVC.presentFrom(self)
     }
     
     func showSource(source: Source) {

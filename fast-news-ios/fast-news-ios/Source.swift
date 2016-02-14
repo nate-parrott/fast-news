@@ -16,10 +16,21 @@ class Source: APIObject {
     var backgroundColor: UIColor?
     override func importJson(json: [String : AnyObject]) {
         super.importJson(json)
+        
         self.title = json["title"] as? String ?? self.title
         self.url = json["url"] as? String ?? self.url
+        
+        let sourceHost = url != nil ? Utils.HostFromURLString(url!) : nil
+        
         if let articles = json["articles"] as? [[String: AnyObject]] {
             self.articles = APIObjectsFromDictionaries(articles)
+            for a in self.articles ?? [] {
+                a.source = self
+                let articleHost = a.url != nil ? Utils.HostFromURLString(a.url!) : nil
+                if let host1 = articleHost, let host2 = sourceHost {
+                    a.differentWebsiteFromSource = !Utils.TopLevelDomainsMatch(host1, host2: host2)
+                }
+            }
         }
         if let brand = json["brand"] as? [String: AnyObject], let colors = brand["colors"] as? [String: AnyObject] {
             if let hex = colors["text"] as? String, let color = UIColor(hexString: hex) {

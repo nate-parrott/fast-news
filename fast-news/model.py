@@ -1,6 +1,7 @@
 from google.appengine.ext import ndb
 from canonical_url import canonical_url
 from google.appengine.api import taskqueue
+from util import truncate
 
 class Subscription(ndb.Model):
     url = ndb.StringProperty()
@@ -90,11 +91,18 @@ class Article(ndb.Model):
             "fetch_failed": self.fetch_failed,
         }
         if self.parsed:
-            d['description'] = self.parsed.get('description')
+            d['description'] = self.short_description()
             d['top_image'] = self.parsed.get('top_image')
         if include_content:
             d['content'] = self.content()
         return d
+    
+    def short_description(self):
+        if self.parsed:
+            if self.parsed.get('description') and len(self.parsed.get('description')) > 0:
+                return truncate(self.parsed.get('description'), words=60)
+            elif self.parsed.get('article_text') and len(self.parsed.get('article_text')) > 0:
+                return truncate(self.parsed.get('article_text'), words=40)
     
     def content(self):
         if self.parsed == None: return None

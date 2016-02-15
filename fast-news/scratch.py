@@ -7,9 +7,9 @@ def url_fetch(url): # returns file-like object
     return urllib2.urlopen(req)
 
 if __name__ == '__main__':
-    feed = url_fetch('http://feeds.browndailyherald.com/BrownDailyHerald')
+    feed = url_fetch('http://feeds.arstechnica.com/arstechnica/index')
     parsed = feedparser.parse(feed)
-    pprint.pprint(parsed)
+    # pprint.pprint(parsed)
     
     if len(parsed['feed']) == 0 and len(parsed['entries']) == 0:
         print 'none'
@@ -19,7 +19,8 @@ if __name__ == '__main__':
     # print title
     # pprint.pprint(parsed)
     for entry in parsed['entries']:
-        print 'hey'
+        # print 'hey'
         # print entry
         if 'link' in entry:
             print entry['link']
+        print entry.get('published_parsed')

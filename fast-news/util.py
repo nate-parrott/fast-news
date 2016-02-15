@@ -4,6 +4,7 @@
 from google.appengine.ext import ndb
 import urllib2
 from httplib import HTTPException
+import calendar
 
 @ndb.transactional
 def get_or_insert(cls, id, **kwds):
@@ -36,3 +37,6 @@ def truncate(text, words=None):
     if words and len(split) > words:
         return u" ".join(split[:words]) + u"…"
     return text
+
+def timestamp_from_datetime(adatetime):
+    return calendar.timegm(adatetime.utctimetuple())

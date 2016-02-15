@@ -1,7 +1,7 @@
 from google.appengine.ext import ndb
 from canonical_url import canonical_url
 from google.appengine.api import taskqueue
-from util import truncate
+from util import truncate, timestamp_from_datetime
 
 class Subscription(ndb.Model):
     url = ndb.StringProperty()
@@ -68,6 +68,7 @@ class Article(ndb.Model):
     parsed = ndb.JsonProperty()
     title = ndb.TextProperty()
     fetch_failed = ndb.BooleanProperty()
+    published = ndb.DateTimeProperty()
         
     @classmethod
     def id_for_article(cls, url, source_url):
@@ -89,7 +90,10 @@ class Article(ndb.Model):
             "url": self.url,
             "title": self.title,
             "fetch_failed": self.fetch_failed,
+            "published": None
         }
+        if self.published:
+            d['published'] = timestamp_from_datetime(self.published)
         if self.parsed:
             d['description'] = self.short_description()
             d['top_image'] = self.parsed.get('top_image')

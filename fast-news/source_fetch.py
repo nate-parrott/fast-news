@@ -12,10 +12,13 @@ from pprint import pprint
 from urlparse import urljoin
 import random
 from brand import extract_brand
+from time import mktime
+import datetime
 
 def source_fetch(source):
     result = _source_fetch(source)
-    latest_date = None
+    added_any = False
+    now = datetime.datetime.now()
     if result:
         if result.feed_title:
             source.title = result.feed_title
@@ -26,27 +29,30 @@ def source_fetch(source):
             id = Article.id_for_article(entry['url'], source.url)
             article, inserted = get_or_insert(Article, id)
             if inserted:
-                article.added_date = datetime.datetime.now()
-                if latest_date == None or article.added_date > latest_date:
-                    latest_date = article.added_date
+                added_any = True
+                article.added_date = now
                 article.added_order = i
                 article.source = source.key
                 article.url = canonical_url(entry['url'])
+                if entry['published']:
+                    article.published = entry['published']
+                else:
+                    article.published = datetime.datetime()
                 article.title = entry['title']
                 article.put()
                 delay = random.randint(0, 60)
                 article.enqueue_fetch(delay=delay)
         
-    if latest_date:
-        source.most_recent_article_added_date = latest_date
-    source.last_fetched = datetime.datetime.now()
+    if added_any:
+        source.most_recent_article_added_date = now
+    source.last_fetched = now
     source.put()
 
 class FetchResult(object):
     def __init__(self, method, feed_title, entries):
         self.method = method
         self.feed_title = feed_title
-        self.entries = entries # {"url": url, "title": title}
+        self.entries = entries # {"url": url, "title": title, "published": datetime}
         self.brand = None
     
     def __repr__(self):
@@ -85,7 +91,13 @@ def rss_fetch(source, markup, url):
         if 'link' in entry:
             link_url = urljoin(url, entry['link'].strip())
             title = entry['title']
-            entries.append({"title": title, "url": link_url})
+            
+            pub_time = entry.get('published_parsed')
+            if pub_time:
+                published = datetime.datetime.fromtimestamp(mktime(pub_time))
+            else:
+                published = None
+            entries.append({"title": title, "url": link_url, "published": published})
     
     return FetchResult('rss', feed_title, entries)
 

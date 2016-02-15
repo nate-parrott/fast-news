@@ -18,13 +18,46 @@ class SwipeAwayViewController: UIViewController, UIViewControllerAnimatedTransit
     }
     
     func _swiped(rec: SSWDirectionalPanGestureRecognizer) {
-        if rec.translationInView(view).x > 150 {
-            dismissViewControllerAnimated(true, completion: nil)
+        let progress = max(0, min(1, (rec.translationInView(view.superview).x - 10) / view.bounds.size.width))
+        if rec.state == .Changed && progress > 0 {
+            if !isBeingDismissed() {
+                dismissViewControllerAnimated(true, completion: nil)
+            }
+            _percentDrivenTransition?.updateInteractiveTransition(progress)
+        } else if rec.state == .Ended && isBeingDismissed() {
+            let velocity = rec.velocityInView(view.superview).x
+            let stationary = (velocity == 0)
+            let willCompleteTransition = velocity > 0 || (velocity == 0 && progress > 0.5)
+            print("Will complete: \(willCompleteTransition)")
+            // _percentDrivenTransition?.completionCurve = stationary ? .EaseInOut : .EaseOut
+            
+            if stationary {
+                _percentDrivenTransition?.completionCurve = .EaseInOut
+            } else {
+                _percentDrivenTransition?.completionCurve = .Linear
+                let distanceToTravel = willCompleteTransition ? (1 - progress) : progress
+                // duration / k * velocity = distanceToTravel
+                // 1 / k = distanceToTravel / velocity / duration
+                // k = velocity * duration / distanceToTravel
+                if let p = _percentDrivenTransition {
+                    if distanceToTravel > 0 {
+                        p.completionSpeed = (abs(velocity) / view.bounds.size.width) * p.duration / distanceToTravel
+                    }
+                }
+            }
+            
+            if willCompleteTransition {
+                // _percentDrivenTransition?.completionSpeed = max(0.1, velocity / view.bounds.size.width)
+                _percentDrivenTransition?.finishInteractiveTransition()
+            } else {
+                // _percentDrivenTransition?.completionSpeed = max(0.1, -(velocity / view.bounds.size.width))
+                _percentDrivenTransition?.cancelInteractiveTransition()
+            }
         }
     }
     
     func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
-        return 0.3
+        return (transitionContext?.isInteractive() ?? false) ? 0.3 : 0.2
     }
     
     func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
@@ -35,7 +68,7 @@ class SwipeAwayViewController: UIViewController, UIViewControllerAnimatedTransit
         let duration = transitionDuration(transitionContext)
         let darkBackdrop = UIView()
         darkBackdrop.frame = root.bounds
-        darkBackdrop.backgroundColor = UIColor.blackColor()
+        darkBackdrop.backgroundColor = UIColor(white: 0, alpha: 0.7)
         
         if presenting {
             root.addSubview(darkBackdrop)
@@ -46,8 +79,8 @@ class SwipeAwayViewController: UIViewController, UIViewControllerAnimatedTransit
             UIView.animateWithDuration(duration, delay: 0, options: [.CurveEaseOut], animations: { () -> Void in
                 toVC.view.transform = CGAffineTransformIdentity
                 darkBackdrop.alpha = 1
-                }, completion: { (let completed) -> Void in
-                    transitionContext.completeTransition(completed)
+                }, completion: { (_) -> Void in
+                    transitionContext.completeTransition(true)
                     darkBackdrop.removeFromSuperview()
             })
         } else {
@@ -55,15 +88,16 @@ class SwipeAwayViewController: UIViewController, UIViewControllerAnimatedTransit
             root.insertSubview(toVC.view, atIndex: 0)
             root.insertSubview(darkBackdrop, aboveSubview: toVC.view)
             toVC.view.frame = transitionContext.finalFrameForViewController(toVC)
-            UIView.animateWithDuration(duration, delay: 0, options: [.CurveEaseIn], animations: { () -> Void in
+            UIView.animateWithDuration(duration, delay: 0, options: transitionContext.isInteractive() ? [.CurveLinear] : [.CurveEaseOut], animations: { () -> Void in
                 self.view.transform = CGAffineTransformMakeTranslation(toVC.view.bounds.size.width, 0)
                 darkBackdrop.alpha = 0
-                }, completion: { (let completed) -> Void in
-                    if completed {
+                }, completion: { (_) -> Void in
+                    let cancelled = transitionContext.transitionWasCancelled()
+                    if !cancelled {
                         self.view.removeFromSuperview()
                     }
                     darkBackdrop.removeFromSuperview()
-                    transitionContext.completeTransition(completed)
+                    transitionContext.completeTransition(!cancelled)
             })
         }
     }
@@ -87,5 +121,13 @@ class SwipeAwayViewController: UIViewController, UIViewControllerAnimatedTransit
     func presentFrom(parent: UIViewController) {
         transitioningDelegate = self
         parent.presentViewController(self, animated: true, completion: nil)
+    }
+    
+    var _percentDrivenTransition: UIPercentDrivenInteractiveTransition? // TODO: make weak
+    
+    func interactionControllerForDismissal(animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+        let t = UIPercentDrivenInteractiveTransition()
+        _percentDrivenTransition = t
+        return t
     }
 }

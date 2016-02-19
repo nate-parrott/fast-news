@@ -22,8 +22,8 @@ def article_fetch(article):
     if markup:
         markup_soup = BeautifulSoup(markup, 'lxml')
         doc = readability.Document(markup)
-        title = doc.short_title()
-        if title:
+        
+        if title and not article.title:
             article.title = title
         article_html = doc.summary()
         article_soup = BeautifulSoup(article_html, 'lxml')
@@ -36,11 +36,12 @@ def article_fetch(article):
         
         article_text = unicode(article_soup.get_text()).strip()
         
+        article.title = first_present([article.title, doc.short_title(), og_title])
+        
         article.parsed = {
             "article_text": article_text,
             "article_html": article_html,
             "description": og_description,
-            "title": first_present([og_title]),
             "top_image": first_present([og_image])
         }
         article.fetch_failed = False

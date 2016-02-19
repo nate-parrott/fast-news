@@ -44,7 +44,7 @@ class ArticleHandler(webapp2.RequestHandler):
     def get(self):
         id = self.request.get('id')
         article = ndb.Key('Article', id).get()
-        article.fetch_if_needed()
+        article.fetch_if_needed(ignore_previous_failure=True)
         
         include_article_json = self.request.get('article_json') != None
         include_content = not include_article_json

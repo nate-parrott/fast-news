@@ -77,12 +77,15 @@ class Article(ndb.Model):
     def fetch_now(self):
         article_fetch(self)
     
-    def fetch_if_needed(self):
-        if not self.parsed and not self.fetch_failed:
+    def fetch_if_needed(self, ignore_previous_failure=False):
+        if not self.parsed and (ignore_previous_failure or not self.fetch_failed):
             self.fetch_now()
     
-    def enqueue_fetch(self, delay=0):
-        taskqueue.add(url='/tasks/articles/fetch', params={'id': self.key.id()}, countdown=delay)
+    def create_fetch_task(self, delay=0):
+        return taskqueue.Task(url='/tasks/articles/fetch', params={'id': self.key.id()}, countdown=delay)
+    
+    def enqueue_fetch(self, **kwargs):
+        taskqueue.Queue().add_async(self.create_fetch_task(**kwargs))
     
     def json(self, include_content=False, include_article_json=False):
         d = {

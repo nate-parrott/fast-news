@@ -36,6 +36,8 @@ class ArticleViewController: SwipeAwayViewController {
                 }
             }
             textView.attributedText = allText
+        } else if let failed = article.fetchFailed where failed {
+            textView.text = "fetch failed"
         } else {
             textView.text = "hold your breath"
         }

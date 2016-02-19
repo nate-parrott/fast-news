@@ -5,6 +5,7 @@ from google.appengine.ext import ndb
 import urllib2
 from httplib import HTTPException
 import calendar
+from cookielib import CookieJar
 
 @ndb.transactional
 def get_or_insert(cls, id, **kwds):
@@ -18,10 +19,12 @@ def get_or_insert(cls, id, **kwds):
   return (ent, True)  # True meaning "created"
 
 def url_fetch(url):
-    headers = {"User-Agent": "fast-news-bot"}
-    req = urllib2.Request(url, None, headers)
+    cj = CookieJar()
+    opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cj))
+    opener.addheaders.append(("User-Agent", "fast-news-bot"))
+    print "url_fetch('{0}')".format(url)
     try:
-        return urllib2.urlopen(req).read()
+        return opener.open(url).read()
     except HTTPException as e:
         print "{0}: {1}".format(url, e)
     except urllib2.URLError as e:

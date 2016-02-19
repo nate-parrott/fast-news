@@ -14,18 +14,21 @@ import random
 from brand import extract_brand
 from time import mktime
 import datetime
+from google.appengine.api import taskqueue
 
 def source_fetch(source):
     result = _source_fetch(source)
     added_any = False
     now = datetime.datetime.now()
+    to_put = []
+    tasks_to_enqueue = []
     if result:
         if result.feed_title:
             source.title = result.feed_title
         if result.brand:
             source.brand = result.brand
         
-        for i, entry in enumerate(result.entries):
+        for i, entry in enumerate(result.entries[:min(25, len(result.entries))]):
             id = Article.id_for_article(entry['url'], source.url)
             article, inserted = get_or_insert(Article, id)
             if inserted:
@@ -39,9 +42,14 @@ def source_fetch(source):
                 else:
                     article.published = datetime.datetime()
                 article.title = entry['title']
-                article.put()
+                to_put.append(article)
                 delay = random.randint(0, 60)
-                article.enqueue_fetch(delay=delay)
+                tasks_to_enqueue.append(article.create_fetch_task(delay=delay))
+    
+    if len(to_put):
+        ndb.put_multi(to_put)
+    if len(tasks_to_enqueue):
+        taskqueue.Queue().add_async(tasks_to_enqueue)
         
     if added_any:
         source.most_recent_article_added_date = now
@@ -63,7 +71,7 @@ def _source_fetch(source):
     markup = url_fetch(source.url)
     if markup:
         result = None
-        for fn in [rss_fetch, fetch_wordpress_default_rss, fetch_linked_rss]:
+        for fn in [fetch_hardcoded_rss_url, rss_fetch, fetch_wordpress_default_rss, fetch_linked_rss]:
             result = fn(source, markup, source.url)
             if result: break
         if result:
@@ -129,4 +137,15 @@ def fetch_wordpress_default_rss(source, markup, url):
         print 'res', res
         if res:
             res.method = 'wordpress_default_rss'
+            return res
+
+def fetch_hardcoded_rss_url(source, markup, url):
+    rss_url = None
+    if url in ('http://news.ycombinator.com', 'https://news.ycombinator.com'):
+        rss_url = "http://hnrss.org/newest?points=25"
+    if rss_url:
+        feed_markup = url_fetch(rss_url)
+        res = rss_fetch(source, feed_markup, rss_url)
+        if res:
+            res.method = 'hardcoded_rss'
             return res

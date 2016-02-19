@@ -20,19 +20,21 @@ def article_fetch(article):
     markup = url_fetch(article.url)
     # print 'markup', markup
     if markup:
+        markup_soup = BeautifulSoup(markup, 'lxml')
         doc = readability.Document(markup)
         title = doc.short_title()
         if title:
             article.title = title
         article_html = doc.summary()
+        article_soup = BeautifulSoup(article_html, 'lxml')
         
         soup = BeautifulSoup(article_html, 'lxml')
         
-        og_title = find_meta_value(soup, 'og:title')
-        og_image = find_meta_value(soup, 'og:image')
-        og_description = find_meta_value(soup, 'og:description')
+        og_title = find_meta_value(markup_soup, 'og:title')
+        og_image = find_meta_value(markup_soup, 'og:image')
+        og_description = find_meta_value(markup_soup, 'og:description')
         
-        article_text = unicode(soup.get_text()).strip()
+        article_text = unicode(article_soup.get_text()).strip()
         
         article.parsed = {
             "article_text": article_text,

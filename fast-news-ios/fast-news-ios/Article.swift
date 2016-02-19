@@ -13,6 +13,7 @@ class Article: APIObject {
     var text: String?
     var articleDescription: String?
     var url: String?
+    var fetchFailed: Bool?
     var imageURL: String?
     weak var source: Source?
     var differentWebsiteFromSource: Bool?
@@ -29,6 +30,7 @@ class Article: APIObject {
         if let articleJson = json["article_json"] as? [String: AnyObject] {
             content = ArticleContent(json: articleJson)
         }
+        fetchFailed = (json["fetch_failed"] as? Bool) ?? fetchFailed
     }
     
     override func jsonPath() -> (String, [String : String]?)? {

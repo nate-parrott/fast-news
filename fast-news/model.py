@@ -2,6 +2,7 @@ from google.appengine.ext import ndb
 from canonical_url import canonical_url
 from google.appengine.api import taskqueue
 from util import truncate, timestamp_from_datetime
+from article_json import article_json
 
 class Subscription(ndb.Model):
     url = ndb.StringProperty()
@@ -61,7 +62,6 @@ class Source(ndb.Model):
 class Article(ndb.Model):
     source = ndb.KeyProperty(kind=Source)
     url = ndb.StringProperty()
-    html = ndb.TextProperty()
     added_date = ndb.DateTimeProperty()
     added_order = ndb.IntegerProperty()
     fetch_date = ndb.DateTimeProperty()
@@ -84,7 +84,7 @@ class Article(ndb.Model):
     def enqueue_fetch(self, delay=0):
         taskqueue.add(url='/tasks/articles/fetch', params={'id': self.key.id()}, countdown=delay)
     
-    def json(self, include_content=False):
+    def json(self, include_content=False, include_article_json=False):
         d = {
             "id": self.key.id(),
             "url": self.url,
@@ -99,6 +99,8 @@ class Article(ndb.Model):
             d['top_image'] = self.parsed.get('top_image')
         if include_content:
             d['content'] = self.content()
+        if include_article_json:
+            d['article_json'] = article_json(self)
         return d
     
     def short_description(self):

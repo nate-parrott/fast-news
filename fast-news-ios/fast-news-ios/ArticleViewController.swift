@@ -24,9 +24,26 @@ class ArticleViewController: SwipeAwayViewController {
     }
     func update() {
         title = article.title
-        textView.text = article.text
+        if let content = article.content {
+            let allText = NSMutableAttributedString()
+            for seg in content.segments {
+                if let textSeg = seg as? ArticleContent.TextSegment {
+                    let segText = NSMutableAttributedString()
+                    textSeg.span.appendToAttributedString(segText)
+                    segText.stripWhitespace()
+                    segText.appendAttributedString(NSAttributedString(string: "\n", attributes: segText.attributesAtIndex(segText.length - 1, effectiveRange: nil)))
+                    allText.appendAttributedString(segText)
+                }
+            }
+            textView.attributedText = allText
+        } else {
+            textView.text = "hold your breath"
+        }
     }
     override func prefersStatusBarHidden() -> Bool {
         return true
+    }
+    @IBAction func share(sender: AnyObject) {
+        presentViewController(UIActivityViewController(activityItems: [NSURL(string: article.url!)!], applicationActivities: nil), animated: true, completion: nil)
     }
 }

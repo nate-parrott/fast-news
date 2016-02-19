@@ -16,6 +16,7 @@ class Article: APIObject {
     var imageURL: String?
     weak var source: Source?
     var differentWebsiteFromSource: Bool?
+    var content: ArticleContent?
     override func importJson(json: [String : AnyObject]) {
         super.importJson(json)
         self.title = json["title"] as? String ?? self.title
@@ -25,11 +26,14 @@ class Article: APIObject {
         }
         self.imageURL = json["top_image"] as? String ?? self.imageURL
         self.articleDescription = json["description"] as? String ?? self.articleDescription
+        if let articleJson = json["article_json"] as? [String: AnyObject] {
+            content = ArticleContent(json: articleJson)
+        }
     }
     
     override func jsonPath() -> (String, [String : String]?)? {
         if let id = self.id {
-            return ("/article", ["id": id])
+            return ("/article", ["id": id, "article_json": "1"])
         } else {
             return nil
         }

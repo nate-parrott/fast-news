@@ -26,7 +26,7 @@ def first_present(items):
 @app.route('/parse')
 def parse():
     url = request.args['url']
-    article = newspaper.Article(url, keep_article_html=True, request_timeout=4, fetch_images=False)
+    article = newspaper.Article(url, keep_article_html=True, fetch_images=True)
     print('article')
     article.download()
     soup = BeautifulSoup(article.html, 'lxml')

@@ -20,6 +20,8 @@ from model import Source, Article, Subscription
 from google.appengine.ext import ndb
 import json
 from pprint import pprint
+import testing
+from article_json import article_json
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
@@ -43,8 +45,12 @@ class ArticleHandler(webapp2.RequestHandler):
         id = self.request.get('id')
         article = ndb.Key('Article', id).get()
         article.fetch_if_needed()
+        
+        include_article_json = self.request.get('article_json') != None
+        include_content = not include_article_json
+        
         self.response.headers.add_header('Content-Type', 'application/json')
-        self.response.write(json.dumps(article.json(include_content=True)))
+        self.response.write(json.dumps(article.json(include_content=include_content, include_article_json=include_article_json)))
 
 class FeedHandler(webapp2.RequestHandler):
     def get(self):
@@ -69,6 +75,24 @@ class UnsubscribeHandler(webapp2.RequestHandler):
         self.response.headers.add_header('Content-Type', 'application/json')
         self.response.write(json.dumps({"success": True}))
 
+class ArticleTestFetchHandler(webapp2.RequestHandler):
+    def post(self):
+        url = self.request.get('url')
+        article = testing.fetch_article(url)
+        type = self.request.get('type')
+        if type == 'html':
+            self.response.write(article.parsed['article_html'])
+        elif type == 'article_json':
+            self.response.headers.add_header('Content-Type', 'application/json')
+            self.response.write(json.dumps({
+                "article": article_json(article)
+            }))
+        else:
+            self.response.headers.add_header('Content-Type', 'application/json')
+            self.response.write(json.dumps({
+                "article": article.json(include_content=True)
+            }))
+
 class TestHandler(webapp2.RequestHandler):
     def get(self):
         html = """
@@ -88,6 +112,14 @@ class TestHandler(webapp2.RequestHandler):
             <h1>Test unsubscribe</h1>
             <input name=url placeholder=url>
             <input name=uid placeholder=uid>
+            <input type=submit>
+        </form>
+        <form method=POST action='test/article_fetch'>
+            <h1>Test article fetch</h1>
+            <input name=url placeholder=url>
+            <p><input type=radio name=type value=default checked>Default json</p>
+            <p><input type=radio name=type value=html>Extracted HTML</p>
+            <p><input type=radio name=type value=article_json>Article JSON</p>
             <input type=submit>
         </form>
         """
@@ -112,5 +144,6 @@ app = webapp2.WSGIApplication([
     ('/subscriptions', SubscriptionsHandler),
     ('/subscriptions/add', SubscribeHandler),
     ('/subscriptions/delete', UnsubscribeHandler),
-    ('/test', TestHandler)
+    ('/test', TestHandler),
+    ('/test/article_fetch', ArticleTestFetchHandler)
 ], debug=True)

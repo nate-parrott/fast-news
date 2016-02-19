@@ -1,14 +1,24 @@
 import time
-# time.clock()
 import bs4
 from pprint import pprint
 import urlparse
+from util import url_fetch
+from StringIO import StringIO
+from PIL import Image
+from tinyimg import tinyimg
 
-def article_json(article):
-    if article.parsed and article.parsed['article_html']:
-        return _article_json(article.parsed['article_html'], article.url)
-    else:
-        return None
+def article_json(article, content):
+    print 'article json'
+    if content and content.html:
+        print 'has html'
+        return _article_json(content.html, article.url)
+    return None
+
+def url_fetch_and_time(url, timeout):
+    t1 = time.time()
+    res = url_fetch(url)
+    t2 = time.time()
+    return res, (t2 - t1)
 
 MAX_TIME_FOR_EXTERNAL_FETCHES = 4.0
 
@@ -31,9 +41,6 @@ class Segment(object):
     
     def json(self):
         return {"type": None}
-    
-    def stripped(self):
-        return self # TODO: support text stuff
     
     def is_empty(self):
         return True
@@ -90,12 +97,14 @@ class ImageSegment(Segment):
         super(ImageSegment, self).__init__()
         self.src = src
         self.size = size
+        self.tiny = None
     
     def json(self):
         j = super(ImageSegment, self).json()
         j['type'] = 'image'
         j['src'] = self.src
         j['size'] = self.size
+        j['tiny'] = self.tiny
         return j
     
     def is_empty(self):
@@ -108,6 +117,8 @@ def _article_json(html, root_url='http://example.com'):
             return urlparse.urljoin(root_url, url)
         else:
             return None
+    
+    time_left = 14
     
     soup = bs4.BeautifulSoup(html, 'lxml')
     segments = []
@@ -128,6 +139,20 @@ def _article_json(html, root_url='http://example.com'):
             elif data.name == 'img':
                 # TODO: fetch aspect ratio
                 cur_segment = ImageSegment(process_url(data.get('src')))
+                if cur_segment.src and time_left > 0:
+                    result, elapsed = url_fetch_and_time(cur_segment.src, time_left)
+                    print "ELAPSED", elapsed
+                    time_left -= elapsed
+                    if result:
+                        try:
+                            f = StringIO(result)
+                            image = Image.open(f)
+                            cur_segment.size = image.size
+                            cur_segment.tiny = tinyimg(image)
+                        except IOError as e:
+                            print "IO error during image fetch: {0}".format(e)
+                    else:
+                        print "Failed to fetch image at url:", cur_segment.src
                 segments.append(cur_segment)
             else:
                 # this is an inline (text) tag:

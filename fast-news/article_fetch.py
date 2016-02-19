@@ -1,9 +1,11 @@
 import urllib2, urllib
 import datetime
 import json
-from util import url_fetch
+from util import url_fetch, first_present, truncate
 import readability
 from bs4 import BeautifulSoup
+from model import ArticleContent
+from article_json import article_json
 # also look at https://github.com/seomoz/dragnet/blob/master/README.md
 
 def find_meta_value(soup, prop):
@@ -11,43 +13,47 @@ def find_meta_value(soup, prop):
     if tag:
         return tag['content']
 
-def first_present(items):
-    for item in items:
-        if item:
-            return item
-
 def article_fetch(article):
+    if article.content:
+        content = article.content.get()
+    else:
+        content = ArticleContent()
+        content.put()
+        print 'KEY', content.key
+        article.content = content.key
+    
     markup = url_fetch(article.url)
-    # print 'markup', markup
     if markup:
+        # process markup:
         markup_soup = BeautifulSoup(markup, 'lxml')
-        doc = readability.Document(markup)
-        
-        if title and not article.title:
-            article.title = title
-        article_html = doc.summary()
-        article_soup = BeautifulSoup(article_html, 'lxml')
-        
-        soup = BeautifulSoup(article_html, 'lxml')
-        
         og_title = find_meta_value(markup_soup, 'og:title')
         og_image = find_meta_value(markup_soup, 'og:image')
         og_description = find_meta_value(markup_soup, 'og:description')
         
-        article_text = unicode(article_soup.get_text()).strip()
+        # parse and process article content:
+        doc = readability.Document(markup)
+        content.html = doc.summary()
+        doc_soup = BeautifulSoup(content.html, 'lxml')
+        content.text = unicode(doc_soup.get_text()).strip()
         
         article.title = first_present([article.title, doc.short_title(), og_title])
+        article.top_image = first_present([article.top_image, og_image])
         
-        article.parsed = {
-            "article_text": article_text,
-            "article_html": article_html,
-            "description": og_description,
-            "top_image": first_present([og_image])
-        }
+        # compute description:
+        description = None
+        if og_description and len(og_description.strip()):
+            description = truncate(og_description.strip(), words=60)
+        elif content.text and len(content.text.strip()) > 0:
+            description = truncate(content.text, words=60)
+        article.description = description
+        
+        content.article_json = article_json(article, content)
+        
         article.fetch_failed = False
     else:
         article.fetch_failed = True
     article.fetch_date = datetime.datetime.now()
+    content.put()
     article.put()
 
 def article_fetch_old(article):

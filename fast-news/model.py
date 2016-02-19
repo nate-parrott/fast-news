@@ -59,16 +59,24 @@ class Source(ndb.Model):
             return d
         return promise if return_promise else promise()
 
+class ArticleContent(ndb.Model):
+    html = ndb.TextProperty()
+    text = ndb.TextProperty()
+    article_json = ndb.JsonProperty()
+
 class Article(ndb.Model):
     source = ndb.KeyProperty(kind=Source)
     url = ndb.StringProperty()
     added_date = ndb.DateTimeProperty()
     added_order = ndb.IntegerProperty()
-    fetch_date = ndb.DateTimeProperty()
-    parsed = ndb.JsonProperty()
     title = ndb.TextProperty()
-    fetch_failed = ndb.BooleanProperty()
     published = ndb.DateTimeProperty()
+    top_image = ndb.TextProperty()
+    description = ndb.TextProperty()
+    
+    fetch_failed = ndb.BooleanProperty()
+    fetch_date = ndb.DateTimeProperty()
+    content = ndb.KeyProperty(kind=ArticleContent)
         
     @classmethod
     def id_for_article(cls, url, source_url):
@@ -87,39 +95,20 @@ class Article(ndb.Model):
     def enqueue_fetch(self, **kwargs):
         taskqueue.Queue().add_async(self.create_fetch_task(**kwargs))
     
-    def json(self, include_content=False, include_article_json=False):
+    def json(self, include_article_json=False):
         d = {
             "id": self.key.id(),
             "url": self.url,
             "title": self.title,
             "fetch_failed": self.fetch_failed,
-            "published": None
+            "top_image": self.top_image,
+            "published": timestamp_from_datetime(self.published) if self.published else None,
+            "description": self.description
         }
-        if self.published:
-            d['published'] = timestamp_from_datetime(self.published)
-        if self.parsed:
-            d['description'] = self.short_description()
-            d['top_image'] = self.parsed.get('top_image')
-        if include_content:
-            d['content'] = self.content()
         if include_article_json:
-            d['article_json'] = article_json(self)
+            print 'getting json; j: ', (not not self.content)
+            d['article_json'] = self.content.get().article_json if self.content else None
         return d
-    
-    def short_description(self):
-        if self.parsed:
-            if self.parsed.get('description') and len(self.parsed.get('description')) > 0:
-                return truncate(self.parsed.get('description'), words=60)
-            elif self.parsed.get('article_text') and len(self.parsed.get('article_text')) > 0:
-                return truncate(self.parsed.get('article_text'), words=40)
-    
-    def content(self):
-        if self.parsed == None: return None
-        return {
-            "article_html": self.parsed.get('article_html'),
-            "article_text": self.parsed.get('article_text'),
-            "top_image": self.parsed.get('top_image')
-        }
 
 from source_fetch import source_fetch
 from article_fetch import article_fetch

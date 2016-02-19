@@ -18,13 +18,18 @@ def get_or_insert(cls, id, **kwds):
   ent.put()
   return (ent, True)  # True meaning "created"
 
-def url_fetch(url):
+def first_present(items):
+    for item in items:
+        if item:
+            return item
+
+def url_fetch(url, timeout=10):
     cj = CookieJar()
     opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cj))
     opener.addheaders.append(("User-Agent", "fast-news-bot"))
     print "url_fetch('{0}')".format(url)
     try:
-        return opener.open(url).read()
+        return opener.open(url, timeout=timeout).read()
     except HTTPException as e:
         print "{0}: {1}".format(url, e)
     except urllib2.URLError as e:
@@ -34,7 +39,7 @@ def url_fetch(url):
 def truncate(text, words=None):
     # ensure we're operating on unicode strings:
     if type(text) == str:
-        return truncate(text.decode('utf-8'), words, chars).encode('utf-8')
+        return truncate(text.decode('utf-8'), words).encode('utf-8')
     
     split = text.split(' ')
     if words and len(split) > words:

@@ -46,11 +46,8 @@ class ArticleHandler(webapp2.RequestHandler):
         article = ndb.Key('Article', id).get()
         article.fetch_if_needed(ignore_previous_failure=True)
         
-        include_article_json = self.request.get('article_json') != None
-        include_content = not include_article_json
-        
         self.response.headers.add_header('Content-Type', 'application/json')
-        self.response.write(json.dumps(article.json(include_content=include_content, include_article_json=include_article_json)))
+        self.response.write(json.dumps(article.json(include_article_json=True)))
 
 class FeedHandler(webapp2.RequestHandler):
     def get(self):
@@ -81,16 +78,16 @@ class ArticleTestFetchHandler(webapp2.RequestHandler):
         article = testing.fetch_article(url)
         type = self.request.get('type')
         if type == 'html':
-            self.response.write(article.parsed['article_html'])
+            self.response.write(article.content.get().html)
         elif type == 'article_json':
             self.response.headers.add_header('Content-Type', 'application/json')
             self.response.write(json.dumps({
-                "article": article_json(article)
+                "article": article_json(article, article.content.get())
             }))
         else:
             self.response.headers.add_header('Content-Type', 'application/json')
             self.response.write(json.dumps({
-                "article": article.json(include_content=True)
+                "article": article.json(include_article_json=True)
             }))
 
 class TestHandler(webapp2.RequestHandler):

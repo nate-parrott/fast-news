@@ -113,9 +113,9 @@ class Article(ndb.Model):
     def content(self):
         if self.parsed == None: return None
         return {
-            "article_html": self.parsed['article_html'],
-            "article_text": self.parsed['article_text'],
-            "top_image": self.parsed['top_image']
+            "article_html": self.parsed.get('article_html'),
+            "article_text": self.parsed.get('article_text'),
+            "top_image": self.parsed.get('top_image')
         }
 
 from source_fetch import source_fetch

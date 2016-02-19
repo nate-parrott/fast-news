@@ -66,7 +66,7 @@ class FeedCell: UICollectionViewCell {
             sourceName.text = src.title
             let stillSyncing = src.id == nil
             if stillSyncing {
-                sourceName.text = "Syncing \(src.title)…"
+                sourceName.text = "Syncing \(src.title ?? "")…"
             }
             chevron.hidden = stillSyncing
             userInteractionEnabled = !stillSyncing

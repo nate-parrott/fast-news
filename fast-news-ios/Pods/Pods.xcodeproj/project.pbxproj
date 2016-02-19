@@ -694,6 +694,11 @@
 			attributes = {
 				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0700;
+				TargetAttributes = {
+					4EC287ECAFD867A0DB57FA4D311D47C9 = {
+						DevelopmentTeam = VPN8ZW6EAC;
+					};
+				};
 			};
 			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -870,6 +875,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5BD734392373B0A6E34BF05B7BAA048F /* SloppySwiper.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -885,6 +891,7 @@
 				MODULEMAP_FILE = "Target Support Files/SloppySwiper/SloppySwiper.modulemap";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = SloppySwiper;
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -897,6 +904,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5BD734392373B0A6E34BF05B7BAA048F /* SloppySwiper.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -912,6 +920,7 @@
 				MODULEMAP_FILE = "Target Support Files/SloppySwiper/SloppySwiper.modulemap";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = SloppySwiper;
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";

@@ -31,6 +31,7 @@ class AddSubscriptionTransaction: Transaction {
         // add optimistic data models:
         optimisticSource = Source.optimisticObject() as! Source
         optimisticSource.title = url
+        optimisticSource.url = url
         optimisticSub = SourceSubscription(id: nil)
         optimisticSub.source = optimisticSource
         if let f = feed {

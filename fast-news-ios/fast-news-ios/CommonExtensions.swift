@@ -25,6 +25,7 @@ extension String {
 extension UIViewController {
     func showError(message: String?) {
         let alert = UIAlertController(title: NSLocalizedString("Error", comment: ""), message: message, preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: NSLocalizedString("Okay", comment: ""), style: .Default, handler: nil))
         presentViewController(alert, animated: true, completion: nil)
     }
 }

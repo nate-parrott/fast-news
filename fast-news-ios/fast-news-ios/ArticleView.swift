@@ -73,7 +73,7 @@ class ArticleView: UIView {
     }
     
     static let ImageSize: CGFloat = 120
-    static let Padding: CGFloat = 4
+    static let Padding: CGFloat = 8
     static let MaxLabelHeight: CGFloat = 124
     
     func _layout(width: CGFloat) -> CGFloat {

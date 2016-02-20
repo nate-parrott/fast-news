@@ -9,48 +9,57 @@
 import UIKit
 
 class NetImageView: UIImageView {
+    private var _url: NSURL?
     var url: NSURL? {
-        willSet(newVal) {
-            // print("\(newVal)")
-            if newVal != url {
-                image = nil
-                NetImageView.cleanImageCache()
-                _task?.cancel()
-                _task = nil
-                loadInProgress = false
-                
-                if let url_ = newVal {
-                    let cacheID = url_.absoluteString
-                    if let cached = NetImageView.imageCache[cacheID]?.image {
-                        image = cached
-                    } else {
-                        loadInProgress = true
-                        let req = NSURLRequest(URL: url_)
-                        _task = NSURLSession.sharedSession().dataTaskWithRequest(req, completionHandler: { [weak self] (let dataOpt, let responseOpt, let errorOpt) -> Void in
-                            backgroundThread({ () -> Void in
-                                if let self_ = self, data = dataOpt, let image = UIImage(data: data) {
-                                    mainThread({ () -> Void in
-                                        if self_.url == url_ {
-                                            UIView.transitionWithView(self_, duration: 0.1, options: [.AllowUserInteraction, .TransitionCrossDissolve], animations: { () -> Void in
-                                                self_.image = image
-                                                }, completion: nil)
-                                            
-                                            let weakImage = WeakImage()
-                                            weakImage.image = image
-                                            NetImageView.imageCache[cacheID] = weakImage
-                                            
-                                            self_.loadInProgress = false
-                                        }
-                                    })
-                                }
-                            })
-                            })
-                        _task!.resume()
-                    }
+        set(val) {
+            setURL(val, placeholder: nil)
+        }
+        get {
+            return _url
+        }
+    }
+    
+    func setURL(newURL: NSURL?, placeholder: UIImage?) {
+        if newURL != _url {
+            _url = newURL
+            image = placeholder
+            NetImageView.cleanImageCache()
+            _task?.cancel()
+            _task = nil
+            loadInProgress = false
+            
+            if let url_ = newURL {
+                let cacheID = url_.absoluteString
+                if let cached = NetImageView.imageCache[cacheID]?.image {
+                    image = cached
+                } else {
+                    loadInProgress = true
+                    let req = NSURLRequest(URL: url_)
+                    _task = NSURLSession.sharedSession().dataTaskWithRequest(req, completionHandler: { [weak self] (let dataOpt, let responseOpt, let errorOpt) -> Void in
+                        backgroundThread({ () -> Void in
+                            sleep(1)
+                            if let self_ = self, data = dataOpt, let image = UIImage(data: data) {
+                                mainThread({ () -> Void in
+                                    if self_.url == url_ {
+                                        UIView.transitionWithView(self_, duration: 0.1, options: [.AllowUserInteraction, .TransitionCrossDissolve], animations: { () -> Void in
+                                            self_.image = image
+                                            }, completion: nil)
+                                        
+                                        let weakImage = WeakImage()
+                                        weakImage.image = image
+                                        NetImageView.imageCache[cacheID] = weakImage
+                                        
+                                        self_.loadInProgress = false
+                                    }
+                                })
+                            }
+                        })
+                        })
+                    self._task!.resume()
                 }
-            } else {
-                loadInProgress = false
             }
+        } else {
+            loadInProgress = false
         }
     }
     

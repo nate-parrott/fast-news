@@ -38,6 +38,8 @@
 		5F5706711C65E17C00140078 /* SubscriptionsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5706701C65E17C00140078 /* SubscriptionsList.swift */; };
 		5F5706731C65E18300140078 /* Subscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5706721C65E18300140078 /* Subscription.swift */; };
 		5F5706771C6636C400140078 /* SubscriptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5706761C6636C400140078 /* SubscriptionsViewController.swift */; };
+		5F59D8AA1C791B1F00C3E1C3 /* UIImage+Tiny.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F59D8A91C791B1F00C3E1C3 /* UIImage+Tiny.swift */; };
+		5F59D8AC1C791D7600C3E1C3 /* Pixel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F59D8AB1C791D7600C3E1C3 /* Pixel.swift */; };
 		5F5E4D981C6E434C009C3446 /* BookmarksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5E4D971C6E434C009C3446 /* BookmarksViewController.swift */; };
 		5F5E4D9A1C6E45A1009C3446 /* ArticleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5E4D991C6E45A1009C3446 /* ArticleView.swift */; };
 		5F5E4D9E1C6F0D29009C3446 /* UIImage+Resize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5E4D9D1C6F0D29009C3446 /* UIImage+Resize.swift */; };
@@ -93,6 +95,8 @@
 		5F5706701C65E17C00140078 /* SubscriptionsList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionsList.swift; sourceTree = "<group>"; };
 		5F5706721C65E18300140078 /* Subscription.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Subscription.swift; sourceTree = "<group>"; };
 		5F5706761C6636C400140078 /* SubscriptionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionsViewController.swift; sourceTree = "<group>"; };
+		5F59D8A91C791B1F00C3E1C3 /* UIImage+Tiny.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Tiny.swift"; sourceTree = "<group>"; };
+		5F59D8AB1C791D7600C3E1C3 /* Pixel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pixel.swift; sourceTree = "<group>"; };
 		5F5E4D971C6E434C009C3446 /* BookmarksViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookmarksViewController.swift; sourceTree = "<group>"; };
 		5F5E4D991C6E45A1009C3446 /* ArticleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleView.swift; sourceTree = "<group>"; };
 		5F5E4D9D1C6F0D29009C3446 /* UIImage+Resize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Resize.swift"; sourceTree = "<group>"; };
@@ -262,6 +266,8 @@
 				5F5E4DAB1C71014D009C3446 /* Utils.swift */,
 				5F5E4DAD1C710162009C3446 /* Theme.swift */,
 				5F73F1781C76A8DE00DA2981 /* NSAttributedString+TrimWhitespace.swift */,
+				5F59D8A91C791B1F00C3E1C3 /* UIImage+Tiny.swift */,
+				5F59D8AB1C791D7600C3E1C3 /* Pixel.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -418,11 +424,13 @@
 				5F5E4DA91C700D7E009C3446 /* SwipeAwayViewController.swift in Sources */,
 				5F4A715B1C63237B00676F91 /* Article.swift in Sources */,
 				5F57066F1C63C74400140078 /* FeedViewController.swift in Sources */,
+				5F59D8AC1C791D7600C3E1C3 /* Pixel.swift in Sources */,
 				5F0CC62A1C6C59CB0071A026 /* EVComplexLayout.m in Sources */,
 				5F4A71591C63237300676F91 /* Feed.swift in Sources */,
 				5F73F1791C76A8DF00DA2981 /* NSAttributedString+TrimWhitespace.swift in Sources */,
 				5F5706731C65E18300140078 /* Subscription.swift in Sources */,
 				5F5E4DA31C6FDE79009C3446 /* NSData+MD5.swift in Sources */,
+				5F59D8AA1C791B1F00C3E1C3 /* UIImage+Tiny.swift in Sources */,
 				5F5E4DAC1C71014D009C3446 /* Utils.swift in Sources */,
 				5F5E4DA51C6FDEA7009C3446 /* APIIdentity.swift in Sources */,
 				5F0CC62C1C6C5A1F0071A026 /* NetImageView.swift in Sources */,

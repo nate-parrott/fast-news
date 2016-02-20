@@ -18,6 +18,7 @@ class ImageSegmentTableViewCell: UITableViewCell {
             // do some setup:
             contentView.addSubview(netImageView)
             netImageView.contentMode = .ScaleAspectFill
+            netImageView.clipsToBounds = true
         }
     }
     
@@ -57,7 +58,8 @@ class ImageSegmentTableViewCell: UITableViewCell {
     }
     func _load() {
         if let url = _imageURL {
-            netImageView.url = NetImageView.mirroredURLForImage(url.absoluteString, size: _imageSize * UIScreen.mainScreen().scale)
+            let mirrored = NetImageView.mirroredURLForImage(url.absoluteString, size: _imageSize * UIScreen.mainScreen().scale)
+            netImageView.setURL(mirrored, placeholder: segment?.tinyImage)
         }
     }
 }

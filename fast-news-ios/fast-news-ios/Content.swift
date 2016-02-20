@@ -78,9 +78,13 @@ class ArticleContent {
             if let sizeArray = json["size"] as? [CGFloat] where sizeArray.count == 2 {
                 size = CGSizeMake(sizeArray[0], sizeArray[1])
             }
+            if let tiny = json["tiny"] as? [String: AnyObject] {
+                tinyImage = UIImage.fromTinyJson(tiny)
+            }
         }
         var url: String?
         var size: CGSize?
+        var tinyImage: UIImage?
     }
     
     class Span {

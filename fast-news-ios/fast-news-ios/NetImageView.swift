@@ -37,7 +37,7 @@ class NetImageView: UIImageView {
                     let req = NSURLRequest(URL: url_)
                     _task = NSURLSession.sharedSession().dataTaskWithRequest(req, completionHandler: { [weak self] (let dataOpt, let responseOpt, let errorOpt) -> Void in
                         backgroundThread({ () -> Void in
-                            sleep(1)
+                            // sleep(1)
                             if let self_ = self, data = dataOpt, let image = UIImage(data: data) {
                                 mainThread({ () -> Void in
                                     if self_.url == url_ {

@@ -36,22 +36,28 @@ class ArticleContent {
         }
     }
     
+    static let LinkAttributeName = "FNLinkAttributeName"
+    
     class TextSegment: Segment {
         override init(json: [String: AnyObject]) {
             kind = json["kind"] as? String ?? "p"
+            var attrs = Span.defaultAttrs()
+            let paragraphStyle = attrs[NSParagraphStyleAttributeName] as! NSMutableParagraphStyle
             var fontOptions = FontOptions()
             switch kind {
                 case "h1":
                     fontOptions.size = 3
                     fontOptions.bold = true
+                    paragraphStyle.lineHeightMultiple = 1
                 case "h2":
                     fontOptions.size = 2
                     fontOptions.bold = true
+                    paragraphStyle.lineHeightMultiple = 1
                 case "h3":
                     fontOptions.bold = true
+                    paragraphStyle.lineHeightMultiple = 1
             default: ()
             }
-            var attrs = Span.defaultAttrs()
             attrs[NSFontAttributeName] = fontOptions.font
             
             if let spanJson = json["content"] as? [AnyObject] where spanJson.count >= 1 {
@@ -68,8 +74,8 @@ class ArticleContent {
     class ImageSegment: Segment {
         override init(json: [String : AnyObject]) {
             super.init(json: json)
-            url = json["url"] as? String
-            if let sizeArray = json["sizes"] as? [CGFloat] where sizeArray.count == 2 {
+            url = json["src"] as? String
+            if let sizeArray = json["size"] as? [CGFloat] where sizeArray.count == 2 {
                 size = CGSizeMake(sizeArray[0], sizeArray[1])
             }
         }
@@ -90,7 +96,9 @@ class ArticleContent {
                         fontOptions.italic = italic
                     }
                     if let link = dict["link"] as? String, let url = NSURL(string: link) {
-                        attrs[NSLinkAttributeName] = url
+                        attrs[LinkAttributeName] = url
+                        attrs[NSUnderlineStyleAttributeName] = NSUnderlineStyle.StyleSingle.rawValue
+                        // attrs[NSForegroundColorAttributeName] = Span.defaultTextColor()
                     }
                 }
             }
@@ -110,15 +118,18 @@ class ArticleContent {
         static func defaultAttrs() -> [String: AnyObject] {
             var attrs = [String: AnyObject]()
             attrs[NSFontAttributeName] = FontOptions().font
-            attrs[NSForegroundColorAttributeName] = UIColor(white: 0.1, alpha: 1)
+            attrs[NSForegroundColorAttributeName] = defaultTextColor()
             attrs[NSUnderlineStyleAttributeName] = 0
             let para = NSParagraphStyle.defaultParagraphStyle().mutableCopy() as! NSMutableParagraphStyle
             para.lineHeightMultiple = 1.4
-            para.paragraphSpacingBefore = 5
-            para.paragraphSpacing = 5
+            para.paragraphSpacingBefore = 20
+            para.paragraphSpacing = 20
             para.alignment = .Left
             attrs[NSParagraphStyleAttributeName] = para
             return attrs
+        }
+        static func defaultTextColor() -> UIColor {
+            return UIColor(white: 0.25, alpha: 1)
         }
         let attrs: [String: AnyObject]
         let fontOptions: FontOptions
@@ -154,8 +165,8 @@ class ArticleContent {
             var fontSize: CGFloat!
             switch size {
             case 3: fontSize = 24
-            case 2: fontSize = 18
-            default: fontSize = 14
+            case 2: fontSize = 20
+            default: fontSize = 16
             }
             return UIFont(name: name, size: fontSize)!
         }

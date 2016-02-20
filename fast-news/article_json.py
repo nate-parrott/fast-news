@@ -45,6 +45,9 @@ class Segment(object):
     
     def is_empty(self):
         return True
+    
+    def text_content(self):
+        return ""
 
 class TextSegment(Segment):
     def __init__(self, kind):
@@ -81,18 +84,23 @@ class TextSegment(Segment):
         if len(self.stack) > 1:
             self.stack.pop()
     
+    def text_content(self):
+        def _traverse(content):
+            t = ""
+            for child in content[1:]:
+                if type(child) in (unicode, str):
+                    t += child
+                else:
+                    t += _traverse(child)
+            return t
+        return _traverse(self.content)
+    
     def json(self):
         j = super(TextSegment, self).json()
         j['type'] = 'text'
         j['kind'] = self.kind
         j['content'] = self.content
         return j
-    
-    def total_text(self):
-        pass # TODO
-    
-    def strippped(self):
-        return self # TODO 
 
 class ImageSegment(Segment):
     def __init__(self, src, size=None):
@@ -144,15 +152,6 @@ def _article_json(html, article):
     soup = bs4.BeautifulSoup(html, 'lxml')
     segments = []
     
-    if article.top_image:
-        top_image = ImageSegment(article.top_image)
-        time_left -= top_image.fetch_image_data(time_left)
-        segments.append(top_image)
-    if article.title:
-        title = TextSegment('h1')
-        title.add_text(article.title)
-        segments.append(title)
-    
     cur_segment = None
     block_elements = set(['p', 'div', 'table', 'header', 'section', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'caption'])
     text_tag_attributes = {'strong': {'bold': True}, 'b': {'bold': True}, 'em': {'italic': True}, 'i': {'italic': True}, 'a': {}}
@@ -192,7 +191,27 @@ def _article_json(html, article):
                 cur_segment = None
             elif data.name in text_tag_attributes and cur_segment != None and cur_segment.is_text_segment():
                 cur_segment.close_text_section()
+    
     segments = [s for s in segments if not s.is_empty()]
+    
+    # discard small images:
+    segments = [s for s in segments if not (isinstance(s, ImageSegment) and s.size and s.size[0] * s.size[1] < (50 * 50))]
+    
+    title_already_exists = article.title and len([seg for seg in segments[:min(3,len(segments))] if seg.text_content().lower() == article.title.lower()]) > 0
+    has_early_h1 = len([seg for seg in segments[:min(3,len(segments))] if seg.is_text_segment() and seg.kind == 'h1'])
+    
+    has_early_image = len([seg for seg in segments[:min(3,len(segments))] if isinstance(seg, ImageSegment)]) > 0
+    
+    if article.title and not (title_already_exists or has_early_h1):
+        title = TextSegment('h1')
+        title.add_text(article.title)
+        segments = [title] + segments
+    
+    if article.top_image and not has_early_image:
+        top_image = ImageSegment(article.top_image)
+        time_left -= top_image.fetch_image_data(time_left)
+        segments = [top_image] + segments
+    
     return {"segments": [s.json() for s in segments]}
 
 if __name__ == '__main__':

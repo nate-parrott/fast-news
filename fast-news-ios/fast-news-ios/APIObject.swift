@@ -167,7 +167,9 @@ class APIObject: NSObject {
     }
     
     func updated() {
-        onUpdate.push(self)
+        mainThread { () -> Void in
+            self.onUpdate.push(self)
+        }
     }
     let onUpdate = Pusher<APIObject>()
 }

@@ -12,7 +12,8 @@ def fetch_article(url):
         article.added_order = 0
     article.url = canonical_url(url)
     article.published = datetime.datetime.now()
-    article.title = "A test"
+    # article.title = "A test"
+    article.title = None
     article.put()
     article.fetch_now()
     return article

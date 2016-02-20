@@ -9,16 +9,20 @@
 import UIKit
 
 class TextSegmentTableViewCell: UITableViewCell {
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
+        
+    class func heightForString(string: NSAttributedString, width: CGFloat) -> CGFloat {
+        return string.boundingRectWithSize(CGSizeMake(width - ArticleViewController.Margin * 2, 2000), options: .UsesLineFragmentOrigin, context: nil).size.height
     }
-
-    override func setSelected(selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    
+    var string: NSAttributedString? {
+        didSet {
+            setNeedsDisplay()
+        }
     }
-
+    
+    override func drawRect(rect: CGRect) {
+        if let str = string {
+            str.drawInRect(CGRectInset(bounds, ArticleViewController.Margin, 0))
+        }
+    }
 }

@@ -48,6 +48,8 @@
 		5F5E4DAE1C710162009C3446 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5E4DAD1C710162009C3446 /* Theme.swift */; };
 		5F5E4DDC1C743389009C3446 /* Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5E4DDB1C743389009C3446 /* Content.swift */; };
 		5F73F1791C76A8DF00DA2981 /* NSAttributedString+TrimWhitespace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F73F1781C76A8DE00DA2981 /* NSAttributedString+TrimWhitespace.swift */; };
+		5F73F17B1C77C91600DA2981 /* TextSegmentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F73F17A1C77C91600DA2981 /* TextSegmentTableViewCell.swift */; };
+		5F73F17D1C77C92300DA2981 /* ImageSegmentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F73F17C1C77C92300DA2981 /* ImageSegmentTableViewCell.swift */; };
 		5F8D9F321C6C0AFE00F0FFBE /* EnableSPDY.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F8D9F311C6C0AFE00F0FFBE /* EnableSPDY.m */; };
 		5FCDF4401C6BCD6700A50A75 /* CommonExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCDF43F1C6BCD6700A50A75 /* CommonExtensions.swift */; };
 		5FCDF4421C6BF75F00A50A75 /* ArticleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCDF4411C6BF75F00A50A75 /* ArticleViewController.swift */; };
@@ -103,6 +105,8 @@
 		5F5E4DAD1C710162009C3446 /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		5F5E4DDB1C743389009C3446 /* Content.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Content.swift; sourceTree = "<group>"; };
 		5F73F1781C76A8DE00DA2981 /* NSAttributedString+TrimWhitespace.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSAttributedString+TrimWhitespace.swift"; sourceTree = "<group>"; };
+		5F73F17A1C77C91600DA2981 /* TextSegmentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextSegmentTableViewCell.swift; sourceTree = "<group>"; };
+		5F73F17C1C77C92300DA2981 /* ImageSegmentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageSegmentTableViewCell.swift; sourceTree = "<group>"; };
 		5F8D9F2C1C6C08DC00F0FFBE /* fast-news-ios-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "fast-news-ios-Bridging-Header.h"; sourceTree = "<group>"; };
 		5F8D9F301C6C0AFE00F0FFBE /* EnableSPDY.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnableSPDY.h; sourceTree = "<group>"; };
 		5F8D9F311C6C0AFE00F0FFBE /* EnableSPDY.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EnableSPDY.m; sourceTree = "<group>"; };
@@ -203,6 +207,16 @@
 			path = "fast-news-ios";
 			sourceTree = "<group>";
 		};
+		5F73F17E1C77C92700DA2981 /* Reading */ = {
+			isa = PBXGroup;
+			children = (
+				5FCDF4411C6BF75F00A50A75 /* ArticleViewController.swift */,
+				5F73F17A1C77C91600DA2981 /* TextSegmentTableViewCell.swift */,
+				5F73F17C1C77C92300DA2981 /* ImageSegmentTableViewCell.swift */,
+			);
+			name = Reading;
+			sourceTree = "<group>";
+		};
 		5F8D9F291C6BFF6C00F0FFBE /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -222,7 +236,7 @@
 			isa = PBXGroup;
 			children = (
 				5F0CC62F1C6C5A410071A026 /* Feeds */,
-				5FCDF4411C6BF75F00A50A75 /* ArticleViewController.swift */,
+				5F73F17E1C77C92700DA2981 /* Reading */,
 				5F5E4DA81C700D7E009C3446 /* SwipeAwayViewController.swift */,
 				5F5706761C6636C400140078 /* SubscriptionsViewController.swift */,
 			);
@@ -420,6 +434,7 @@
 				5F5706711C65E17C00140078 /* SubscriptionsList.swift in Sources */,
 				5F5E4DDC1C743389009C3446 /* Content.swift in Sources */,
 				5FCDF4421C6BF75F00A50A75 /* ArticleViewController.swift in Sources */,
+				5F73F17B1C77C91600DA2981 /* TextSegmentTableViewCell.swift in Sources */,
 				5F0CC6251C6C551E0071A026 /* FNSplitViewController.swift in Sources */,
 				5F0CC62E1C6C5A320071A026 /* FeedCell.swift in Sources */,
 				5F0CC6331C6C661A0071A026 /* CGMath.swift in Sources */,
@@ -428,6 +443,7 @@
 				5F4A71571C63236C00676F91 /* Source.swift in Sources */,
 				5F0CC6311C6C5FD20071A026 /* Queues.swift in Sources */,
 				5F4A715D1C63288000676F91 /* Pusher.swift in Sources */,
+				5F73F17D1C77C92300DA2981 /* ImageSegmentTableViewCell.swift in Sources */,
 				5FCDF4401C6BCD6700A50A75 /* CommonExtensions.swift in Sources */,
 				5F5E4DAE1C710162009C3446 /* Theme.swift in Sources */,
 				5F4A71551C631E9400676F91 /* APIObject.swift in Sources */,

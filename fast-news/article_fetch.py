@@ -5,6 +5,7 @@ from util import url_fetch, first_present, truncate
 import readability
 from bs4 import BeautifulSoup
 from model import ArticleContent
+from urlparse import urljoin
 from article_json import article_json
 # also look at https://github.com/seomoz/dragnet/blob/master/README.md
 
@@ -22,6 +23,9 @@ def article_fetch(article):
         print 'KEY', content.key
         article.content = content.key
     
+    def make_url_absolute(url):
+        return urljoin(article.url, url) if url else None
+    
     markup = url_fetch(article.url)
     if markup:
         # process markup:
@@ -37,7 +41,7 @@ def article_fetch(article):
         content.text = unicode(doc_soup.get_text()).strip()
         
         article.title = first_present([article.title, doc.short_title(), og_title])
-        article.top_image = first_present([article.top_image, og_image])
+        article.top_image = make_url_absolute(first_present([article.top_image, og_image]))
         
         # compute description:
         description = None

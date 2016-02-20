@@ -6,12 +6,13 @@ from util import url_fetch
 from StringIO import StringIO
 from PIL import Image
 from tinyimg import tinyimg
+import re
 
 def article_json(article, content):
     print 'article json'
     if content and content.html:
         print 'has html'
-        return _article_json(content.html, article.url)
+        return _article_json(content.html, article)
     return None
 
 def url_fetch_and_time(url, timeout):
@@ -73,6 +74,7 @@ class TextSegment(Segment):
         self.stack.append(section)
     
     def add_text(self, text):
+        text = re.sub(r"\s+", " ", text)
         self.stack[-1].append(text)
     
     def close_text_section(self):
@@ -107,10 +109,29 @@ class ImageSegment(Segment):
         j['tiny'] = self.tiny
         return j
     
+    def fetch_image_data(self, time_left):
+        elapsed = 0
+        if self.src and time_left > 0:
+            result, elapsed = url_fetch_and_time(self.src, time_left)
+            # print "ELAPSED", elapsed
+            time_left -= elapsed
+            if result:
+                try:
+                    f = StringIO(result)
+                    image = Image.open(f)
+                    self.size = image.size
+                    self.tiny = tinyimg(image)
+                except IOError as e:
+                    print "IO error during image fetch: {0}".format(e)
+            else:
+                print "Failed to fetch image at url:", self.src
+        return elapsed
+    
     def is_empty(self):
         return (self.src == None)
 
-def _article_json(html, root_url='http://example.com'):
+def _article_json(html, article):
+    root_url = article.url
     
     def process_url(url):
         if url:
@@ -122,6 +143,16 @@ def _article_json(html, root_url='http://example.com'):
     
     soup = bs4.BeautifulSoup(html, 'lxml')
     segments = []
+    
+    if article.top_image:
+        top_image = ImageSegment(article.top_image)
+        time_left -= top_image.fetch_image_data(time_left)
+        segments.append(top_image)
+    if article.title:
+        title = TextSegment('h1')
+        title.add_text(article.title)
+        segments.append(title)
+    
     cur_segment = None
     block_elements = set(['p', 'div', 'table', 'header', 'section', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'caption'])
     text_tag_attributes = {'strong': {'bold': True}, 'b': {'bold': True}, 'em': {'italic': True}, 'i': {'italic': True}, 'a': {}}
@@ -139,20 +170,7 @@ def _article_json(html, root_url='http://example.com'):
             elif data.name == 'img':
                 # TODO: fetch aspect ratio
                 cur_segment = ImageSegment(process_url(data.get('src')))
-                if cur_segment.src and time_left > 0:
-                    result, elapsed = url_fetch_and_time(cur_segment.src, time_left)
-                    print "ELAPSED", elapsed
-                    time_left -= elapsed
-                    if result:
-                        try:
-                            f = StringIO(result)
-                            image = Image.open(f)
-                            cur_segment.size = image.size
-                            cur_segment.tiny = tinyimg(image)
-                        except IOError as e:
-                            print "IO error during image fetch: {0}".format(e)
-                    else:
-                        print "Failed to fetch image at url:", cur_segment.src
+                time_left -= cur_segment.fetch_image_data(time_left)
                 segments.append(cur_segment)
             else:
                 # this is an inline (text) tag:

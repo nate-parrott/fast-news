@@ -86,7 +86,7 @@ class Article(ndb.Model):
         article_fetch(self)
     
     def fetch_if_needed(self, ignore_previous_failure=False):
-        if not self.parsed and (ignore_previous_failure or not self.fetch_failed):
+        if not self.content and (ignore_previous_failure or not self.fetch_failed):
             self.fetch_now()
     
     def create_fetch_task(self, delay=0):

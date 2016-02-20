@@ -257,7 +257,6 @@
 				5F0CC6301C6C5FD20071A026 /* Queues.swift */,
 				5F5E4D9D1C6F0D29009C3446 /* UIImage+Resize.swift */,
 				5F4A715C1C63288000676F91 /* Pusher.swift */,
-				5FCDF43F1C6BCD6700A50A75 /* CommonExtensions.swift */,
 				5F0CC6241C6C551E0071A026 /* FNSplitViewController.swift */,
 				5F0CC6281C6C59CB0071A026 /* EVComplexLayout.h */,
 				5F0CC6291C6C59CB0071A026 /* EVComplexLayout.m */,
@@ -266,6 +265,7 @@
 				5F5E4DAB1C71014D009C3446 /* Utils.swift */,
 				5F5E4DAD1C710162009C3446 /* Theme.swift */,
 				5F73F1781C76A8DE00DA2981 /* NSAttributedString+TrimWhitespace.swift */,
+				5FCDF43F1C6BCD6700A50A75 /* CommonExtensions.swift */,
 				5F59D8A91C791B1F00C3E1C3 /* UIImage+Tiny.swift */,
 				5F59D8AB1C791D7600C3E1C3 /* Pixel.swift */,
 			);

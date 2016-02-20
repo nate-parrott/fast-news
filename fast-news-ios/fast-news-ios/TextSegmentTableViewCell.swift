@@ -20,9 +20,17 @@ class TextSegmentTableViewCell: UITableViewCell {
         }
     }
     
+    var topOffset: CGFloat = 0 {
+        didSet {
+            setNeedsDisplay()
+        }
+    }
+    
     override func drawRect(rect: CGRect) {
         if let str = string {
-            str.drawInRect(CGRectInset(bounds, ArticleViewController.Margin, 0))
+            var rect = CGRectInset(bounds, ArticleViewController.Margin, 0)
+            rect.origin.y += topOffset
+            str.drawInRect(rect)
         }
     }
 }

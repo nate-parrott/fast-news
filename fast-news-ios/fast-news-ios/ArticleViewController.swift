@@ -85,15 +85,17 @@ class ArticleViewController: SwipeAwayViewController, UITableViewDelegate, UITab
     
     @IBOutlet var tableView: UITableView!
     enum RowModel {
-        case Text(NSAttributedString)
+        case Text(string: NSAttributedString, margins: (CGFloat, CGFloat))
         case Image(ArticleContent.ImageSegment)
     }
     
     func _createRowModelsFromSegments(segments: [ArticleContent.Segment]) -> [RowModel] {
         var models = [RowModel]()
+        var trailingMargin = false
         for seg in segments {
             if let image = seg as? ArticleContent.ImageSegment {
                 models.append(RowModel.Image(image))
+                trailingMargin = false
             } else if let text = seg as? ArticleContent.TextSegment {
                 let attributedString = NSMutableAttributedString()
                 text.span.appendToAttributedString(attributedString)
@@ -102,7 +104,10 @@ class ArticleViewController: SwipeAwayViewController, UITableViewDelegate, UITab
                     let take = min(attributedString.length, maxCharLen)
                     let substring = attributedString.attributedSubstringFromRange(NSMakeRange(0, take))
                     attributedString.deleteCharactersInRange(NSMakeRange(0, take))
-                    models.append(RowModel.Text(substring))
+                    let marginTop = trailingMargin ? 0 : ArticleViewController.Margin
+                    let marginBottom = ArticleViewController.Margin
+                    models.append(RowModel.Text(string: substring, margins: (marginTop, marginBottom)))
+                    trailingMargin = true
                 }
             }
         }
@@ -127,7 +132,7 @@ class ArticleViewController: SwipeAwayViewController, UITableViewDelegate, UITab
         let model = rowModels![indexPath.row]
         switch model {
         case .Image(let segment): return ceil(ImageSegmentTableViewCell.heightForSegment(segment, width: tableView.bounds.size.width, maxHeight: tableView.bounds.size.height))
-        case .Text(let text): return ceil(TextSegmentTableViewCell.heightForString(text, width: tableView.bounds.size.width))
+        case .Text(let text, let margins): return ceil(TextSegmentTableViewCell.heightForString(text, width: tableView.bounds.size.width)) + margins.0 + margins.1
         }
     }
     
@@ -138,9 +143,10 @@ class ArticleViewController: SwipeAwayViewController, UITableViewDelegate, UITab
             let cell = tableView.dequeueReusableCellWithIdentifier("Image") as! ImageSegmentTableViewCell
             cell.segment = segment
             return cell
-        case .Text(let string):
+        case .Text(let string, let margins):
             let cell = tableView.dequeueReusableCellWithIdentifier("Text") as! TextSegmentTableViewCell
             cell.string = string
+            cell.topOffset = margins.0
             return cell
         }
     }

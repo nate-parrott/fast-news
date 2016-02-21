@@ -146,7 +146,7 @@ class ArticleViewController: SwipeAwayViewController, UITableViewDelegate, UITab
     }
     
     func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 100
+        return 500
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {

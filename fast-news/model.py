@@ -28,6 +28,8 @@ class Source(ndb.Model):
     most_recent_article_added_date = ndb.DateTimeProperty()
     brand = ndb.JsonProperty()
     
+    shared_title_suffix = ndb.TextProperty()
+    
     def fetch_now(self):
         source_fetch(self)
     
@@ -73,7 +75,7 @@ class Article(ndb.Model):
     published = ndb.DateTimeProperty()
     top_image = ndb.TextProperty()
     description = ndb.TextProperty()
-    
+        
     fetch_failed = ndb.BooleanProperty()
     fetch_date = ndb.DateTimeProperty()
     content = ndb.KeyProperty(kind=ArticleContent)

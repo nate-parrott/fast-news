@@ -6,6 +6,7 @@ from model import Article, Source
 from google.appengine.ext import ndb
 from model import Article
 from util import get_or_insert, url_fetch
+from shared_suffix import shared_suffix
 from canonical_url import canonical_url
 import feedparser
 from pprint import pprint
@@ -27,6 +28,9 @@ def source_fetch(source):
             source.title = result.feed_title
         if result.brand:
             source.brand = result.brand
+        
+        titles = [entry['title'] for entry in result.entries if entry['title']]
+        source.shared_title_suffix = shared_suffix(titles)
         
         for i, entry in enumerate(result.entries[:min(25, len(result.entries))]):
             id = Article.id_for_article(entry['url'], source.url)

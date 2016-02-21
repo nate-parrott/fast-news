@@ -64,6 +64,10 @@ func ==(lhs: CGPoint, rhs: CGPoint) -> Bool {
     return lhs.x == rhs.x && lhs.y == rhs.y
 }
 
+func +(lhs: CGRect, rhs: CGPoint) -> CGRect {
+    return CGRectMake(lhs.origin.x + rhs.x, lhs.origin.y + rhs.y, lhs.size.width, lhs.size.height)
+}
+
 extension CGPoint {
     var magnitude: CGFloat {
         get {

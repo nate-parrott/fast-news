@@ -18,7 +18,7 @@ class ImageSegmentTableViewCell: UITableViewCell {
             // do some setup:
             contentView.addSubview(netImageView)
             netImageView.contentMode = .ScaleAspectFill
-            netImageView.clipsToBounds = true
+            clipsToBounds = true
         }
     }
     
@@ -57,6 +57,7 @@ class ImageSegmentTableViewCell: UITableViewCell {
         super.prepareForReuse()
         upwardExpansion = 0
         translateY = 0
+        clipsToBounds = true
     }
     
     var _imageSize = CGSizeZero {

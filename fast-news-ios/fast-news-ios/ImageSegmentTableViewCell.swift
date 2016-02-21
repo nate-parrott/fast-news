@@ -52,6 +52,13 @@ class ImageSegmentTableViewCell: UITableViewCell {
         }
     }
     
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        upwardExpansion = 0
+        translateY = 0
+    }
+    
     var _imageSize = CGSizeZero {
         didSet {
             _load()

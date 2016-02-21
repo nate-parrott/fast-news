@@ -153,7 +153,9 @@ class ArticleViewController: SwipeAwayViewController, UITableViewDelegate, UITab
         let model = rowModels![indexPath.row]
         switch model {
         case .Image(let segment): return ceil(ImageSegmentTableViewCell.heightForSegment(segment, width: tableView.bounds.size.width, maxHeight: tableView.bounds.size.height))
-        case .Text(let text, let margins): return ceil(TextSegmentTableViewCell.heightForString(text, width: tableView.bounds.size.width)) + margins.0 + margins.1
+        case .Text(let text, let margins):
+            let margin = UIEdgeInsetsMake(margins.0, ArticleViewController.Margin, margins.1, ArticleViewController.Margin)
+            return ceil(TextSegmentTableViewCell.heightForString(text, width: tableView.bounds.size.width, margin: margin))
         }
     }
     
@@ -167,7 +169,7 @@ class ArticleViewController: SwipeAwayViewController, UITableViewDelegate, UITab
         case .Text(let string, let margins):
             let cell = tableView.dequeueReusableCellWithIdentifier("Text") as! TextSegmentTableViewCell
             cell.string = string
-            cell.topOffset = margins.0
+            cell.margin = UIEdgeInsetsMake(margins.0, ArticleViewController.Margin, margins.1, ArticleViewController.Margin)
             return cell
         }
     }
@@ -178,11 +180,13 @@ class ArticleViewController: SwipeAwayViewController, UITableViewDelegate, UITab
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
         if let top = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as? ImageSegmentTableViewCell {
-            let overscroll = -scrollView.contentOffset.y
-            top.upwardExpansion = max(0, overscroll)
             if scrollView.contentOffset.y > 0 {
-                // top.translateY = scrollView.contentOffset.y / 2
+                top.clipsToBounds = true
+                top.upwardExpansion = 0
+                top.translateY = scrollView.contentOffset.y / 2
             } else {
+                top.clipsToBounds = false
+                top.upwardExpansion = -scrollView.contentOffset.y
                 top.translateY = 0
             }
         }

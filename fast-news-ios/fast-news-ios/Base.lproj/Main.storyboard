@@ -297,6 +297,21 @@
                                     <outlet property="delegate" destination="XLv-32-XDD" id="ct2-kY-fgY"/>
                                 </connections>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y0E-Xo-oDU">
+                                <rect key="frame" x="150" y="274" width="20" height="20"/>
+                                <subviews>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="nm1-Tm-7cl">
+                                        <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
+                                    </activityIndicatorView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="nm1-Tm-7cl" secondAttribute="bottom" id="D3C-5D-iK6"/>
+                                    <constraint firstAttribute="trailing" secondItem="nm1-Tm-7cl" secondAttribute="trailing" id="WwV-rq-Jt9"/>
+                                    <constraint firstItem="nm1-Tm-7cl" firstAttribute="top" secondItem="y0E-Xo-oDU" secondAttribute="top" id="bB3-sa-cpW"/>
+                                    <constraint firstItem="nm1-Tm-7cl" firstAttribute="leading" secondItem="y0E-Xo-oDU" secondAttribute="leading" id="jTR-ii-r6Q"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.98431372549999996" green="0.98431372549999996" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -306,11 +321,15 @@
                             <constraint firstItem="CR4-7S-RuE" firstAttribute="centerX" secondItem="6WO-do-Uvu" secondAttribute="centerX" id="Ixb-ba-Iyb"/>
                             <constraint firstAttribute="trailing" secondItem="JdR-yL-kui" secondAttribute="trailing" id="WdE-ne-52g"/>
                             <constraint firstItem="JdR-yL-kui" firstAttribute="top" secondItem="6WO-do-Uvu" secondAttribute="top" id="mV3-JM-owf"/>
+                            <constraint firstItem="y0E-Xo-oDU" firstAttribute="centerY" secondItem="6WO-do-Uvu" secondAttribute="centerY" id="nxa-5V-pw1"/>
+                            <constraint firstItem="y0E-Xo-oDU" firstAttribute="centerX" secondItem="6WO-do-Uvu" secondAttribute="centerX" id="qYM-rh-VOf"/>
                         </constraints>
                     </view>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="errorView" destination="CR4-7S-RuE" id="ghG-mK-k2t"/>
+                        <outlet property="loadingContainer" destination="y0E-Xo-oDU" id="q6T-mX-8JP"/>
+                        <outlet property="loadingSpinner" destination="nm1-Tm-7cl" id="PBR-BO-gAU"/>
                         <outlet property="tableView" destination="JdR-yL-kui" id="E5o-Ix-g0c"/>
                     </connections>
                 </viewController>

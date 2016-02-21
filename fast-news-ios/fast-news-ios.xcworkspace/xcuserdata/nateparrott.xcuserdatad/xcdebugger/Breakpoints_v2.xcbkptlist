@@ -340,11 +340,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "fast-news-ios/ArticleViewController.swift"
-            timestampString = "477711808.958448"
+            timestampString = "477716688.351114"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "166"
-            endingLineNumber = "166"
+            startingLineNumber = "187"
+            endingLineNumber = "187"
             landmarkName = "share(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -458,6 +458,115 @@
             startingLineNumber = "44"
             endingLineNumber = "44"
             landmarkName = "ImageSegmentTableViewCell"
+            landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "fast-news-ios/ArticleViewController.swift"
+            timestampString = "477716688.351114"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "103"
+            endingLineNumber = "103"
+            landmarkName = "ArticleViewController"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "fast_news_ios.ArticleViewController.loadingSpinner.getter : Swift.ImplicitlyUnwrappedOptional&lt;__ObjC.UIActivityIndicatorView&gt;"
+                  moduleName = "fast-news-ios"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/nateparrott/Documents/SW/fast-news/fast-news-ios/fast-news-ios/ArticleViewController.swift"
+                  timestampString = "477716019.245194"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "12">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "fast_news_ios.ArticleViewController.loadingSpinner.setter : Swift.ImplicitlyUnwrappedOptional&lt;__ObjC.UIActivityIndicatorView&gt;"
+                  moduleName = "fast-news-ios"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/nateparrott/Documents/SW/fast-news/fast-news-ios/fast-news-ios/ArticleViewController.swift"
+                  timestampString = "477716019.245544"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "16">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "fast_news_ios.ArticleViewController.loadingSpinner.materializeForSet : Swift.ImplicitlyUnwrappedOptional&lt;__ObjC.UIActivityIndicatorView&gt;"
+                  moduleName = "fast-news-ios"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/nateparrott/Documents/SW/fast-news/fast-news-ios/fast-news-ios/ArticleViewController.swift"
+                  timestampString = "477716019.245845"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "12">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "fast_news_ios.ArticleViewController.init (fast_news_ios.ArticleViewController.Type)(nibName : Swift.Optional&lt;Swift.String&gt;, bundle : Swift.Optional&lt;__ObjC.NSBundle&gt;) -&gt; fast_news_ios.ArticleViewController"
+                  moduleName = "fast-news-ios"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/nateparrott/Documents/SW/fast-news/fast-news-ios/fast-news-ios/ArticleViewController.swift"
+                  timestampString = "477716019.246275"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "99"
+                  endingLineNumber = "99"
+                  offsetFromSymbolStart = "165">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "fast_news_ios.ArticleViewController.init (fast_news_ios.ArticleViewController.Type)(coder : __ObjC.NSCoder) -&gt; Swift.Optional&lt;fast_news_ios.ArticleViewController&gt;"
+                  moduleName = "fast-news-ios"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/nateparrott/Documents/SW/fast-news/fast-news-ios/fast-news-ios/ArticleViewController.swift"
+                  timestampString = "477716019.24658"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "99"
+                  endingLineNumber = "99"
+                  offsetFromSymbolStart = "134">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "fast-news-ios/ArticleViewController.swift"
+            timestampString = "477716688.351114"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "84"
+            endingLineNumber = "84"
+            landmarkName = "ArticleViewController"
             landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>

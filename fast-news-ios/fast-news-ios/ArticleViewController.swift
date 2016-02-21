@@ -18,6 +18,7 @@ class ArticleViewController: SwipeAwayViewController, UITableViewDelegate, UITab
         
         tableView.alpha = 0
         errorView.alpha = 0
+        loadingContainer.alpha = 0
         
         tableView.separatorColor = UIColor.clearColor()
         
@@ -38,7 +39,7 @@ class ArticleViewController: SwipeAwayViewController, UITableViewDelegate, UITab
         } else if article.fetchFailed ?? false {
             _viewState = .ShowError
         } else {
-            _viewState = .ShowNothing
+            _viewState = .ShowLoading
         }
     }
     // MARK: Layout
@@ -51,35 +52,55 @@ class ArticleViewController: SwipeAwayViewController, UITableViewDelegate, UITab
         case ShowNothing
         case ShowContent
         case ShowError
+        case ShowLoading
         var id: Int {
             get {
                 switch self {
                 case .ShowNothing: return 1
                 case .ShowContent: return 2
                 case .ShowError: return 3
+                case .ShowLoading: return 4
                 }
             }
         }
     }
     var _viewState = _ViewState.ShowNothing {
         willSet(newVal) {
+            
             if newVal.id != _viewState.id {
-                UIView.transitionWithView(self.view, duration: 0.15, options: [.TransitionCrossDissolve], animations: { () -> Void in
-                    var tableAlpha: CGFloat = 0
-                    var errorAlpha: CGFloat = 0
-                    switch newVal {
-                    case .ShowContent: tableAlpha = 1
-                    case .ShowError: errorAlpha = 1
-                    default: ()
-                    }
+                var tableAlpha: CGFloat = 0
+                var errorAlpha: CGFloat = 0
+                var loaderAlpha: CGFloat = 0
+                
+                loadingSpinner.stopAnimating()
+                
+                switch newVal {
+                case .ShowContent: tableAlpha = 1
+                case .ShowError: errorAlpha = 1
+                case .ShowLoading:
+                    loaderAlpha = 1
+                    loadingSpinner.startAnimating()
+                    loadingSpinner.alpha = 0
+                    delay(1.2, closure: { () -> () in
+                        UIView.animateWithDuration(0.7, delay: 0, options: .AllowUserInteraction, animations: { () -> Void in
+                            self.loadingSpinner.alpha = 1
+                            }, completion: nil)
+                    })
+                default: ()
+                }
+                
+                UIView.animateWithDuration(0.2, delay: 0, options: .AllowUserInteraction, animations: { () -> Void in
                     self.tableView.alpha = tableAlpha
                     self.errorView.alpha = errorAlpha
+                    self.loadingContainer.alpha = loaderAlpha
                     }, completion: nil)
             }
         }
     }
     
     @IBOutlet var errorView: UIView!
+    @IBOutlet var loadingContainer: UIView!
+    @IBOutlet var loadingSpinner: UIActivityIndicatorView!
     
     // MARK: Table
     

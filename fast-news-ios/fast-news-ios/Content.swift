@@ -56,18 +56,22 @@ class ArticleContent {
                     fontOptions.bold = true
                     paragraphStyle.lineHeightMultiple = 1
                 case "h3":
+                    fontOptions.uppercase = true
                     fontOptions.headingFont = true
                     fontOptions.bold = true
                     paragraphStyle.lineHeightMultiple = 1
                 case "h4":
+                    fontOptions.uppercase = true
                     fontOptions.headingFont = true
                     fontOptions.bold = true
                     paragraphStyle.lineHeightMultiple = 1
                 case "h5":
+                    fontOptions.uppercase = true
                     fontOptions.headingFont = true
                     fontOptions.bold = true
                     paragraphStyle.lineHeightMultiple = 1
                 case "h6":
+                    fontOptions.uppercase = true
                     fontOptions.headingFont = true
                     fontOptions.bold = true
                     paragraphStyle.lineHeightMultiple = 1
@@ -141,8 +145,8 @@ class ArticleContent {
             attrs[NSUnderlineStyleAttributeName] = 0
             let para = NSParagraphStyle.defaultParagraphStyle().mutableCopy() as! NSMutableParagraphStyle
             para.lineHeightMultiple = 1.4
-            para.paragraphSpacingBefore = 20
-            para.paragraphSpacing = 20
+            // para.paragraphSpacingBefore = 20
+            // para.paragraphSpacing = 20
             para.alignment = .Left
             attrs[NSParagraphStyleAttributeName] = para
             return attrs
@@ -160,7 +164,10 @@ class ArticleContent {
         func appendToAttributedString(str: NSMutableAttributedString) {
             for child in children {
                 switch child {
-                case .Text(let text):
+                case .Text(var text):
+                    if fontOptions.uppercase {
+                        text = text.uppercaseString
+                    }
                     str.appendAttributedString(NSAttributedString(string: text, attributes: attrs))
                 case .Span(let span):
                     span.appendToAttributedString(str)
@@ -172,6 +179,7 @@ class ArticleContent {
         var bold = false
         var italic = false
         var headingFont = false
+        var uppercase = false
         var size = 1 // h1 = 3, h2 = 2, else = 1
         var font: UIFont {
             var desc = UIFontDescriptor.preferredFontDescriptorWithTextStyle(UIFontTextStyleBody)

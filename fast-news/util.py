@@ -6,6 +6,7 @@ import urllib2
 from httplib import HTTPException
 import calendar
 from cookielib import CookieJar
+import unicodedata
 
 @ndb.transactional
 def get_or_insert(cls, id, **kwds):
@@ -48,3 +49,10 @@ def truncate(text, words=None):
 
 def timestamp_from_datetime(adatetime):
     return calendar.timegm(adatetime.utctimetuple())
+
+def normalized_compare(string1, string2):
+    def normalize(string):
+        if type(string) == str:
+            return normalize(string.decode('utf-8'))
+        return unicodedata.normalize('NFC', string.replace(u"\u00a0", " ").strip().lower())
+    return normalize(string1) == normalize(string2)

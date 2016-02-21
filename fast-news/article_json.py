@@ -2,7 +2,7 @@ import time
 import bs4
 from pprint import pprint
 import urlparse
-from util import url_fetch
+from util import url_fetch, normalized_compare
 from StringIO import StringIO
 from PIL import Image
 from tinyimg import tinyimg
@@ -197,9 +197,16 @@ def _article_json(html, article):
     # discard small images:
     segments = [s for s in segments if not (isinstance(s, ImageSegment) and s.size and s.size[0] * s.size[1] < (50 * 50))]
     
-    title_already_exists = article.title and len([seg for seg in segments[:min(3,len(segments))] if seg.text_content().lower() == article.title.lower()]) > 0
-    has_early_h1 = len([seg for seg in segments[:min(3,len(segments))] if seg.is_text_segment() and seg.kind == 'h1'])
+    existing_title_segment = None
+    if article.title:
+        for seg in segments[:min(3,len(segments))]:
+            if normalized_compare(seg.text_content(), article.title):
+                existing_title_segment = seg
+    title_already_exists = (existing_title_segment is not None)
+    if existing_title_segment:
+        existing_title_segment.kind = 'h1' # promote the title to H1
     
+    has_early_h1 = len([seg for seg in segments[:min(3,len(segments))] if seg.is_text_segment() and seg.kind == 'h1'])
     has_early_image = len([seg for seg in segments[:min(3,len(segments))] if isinstance(seg, ImageSegment)]) > 0
     
     if article.title and not (title_already_exists or has_early_h1):

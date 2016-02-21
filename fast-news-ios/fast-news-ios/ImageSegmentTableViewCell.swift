@@ -24,6 +24,7 @@ class ImageSegmentTableViewCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        netImageView.layer.anchorPoint = CGPointMake(0.5, 1)
         netImageView.frame = bounds
         _imageSize = bounds.size
     }
@@ -60,6 +61,13 @@ class ImageSegmentTableViewCell: UITableViewCell {
         if let url = _imageURL {
             let mirrored = NetImageView.mirroredURLForImage(url.absoluteString, size: _imageSize * UIScreen.mainScreen().scale)
             netImageView.setURL(mirrored, placeholder: segment?.tinyImage)
+        }
+    }
+    
+    var upwardExpansion: CGFloat = 0 {
+        didSet {
+            let scale = (bounds.size.height + upwardExpansion) / bounds.size.height
+            netImageView.transform = CGAffineTransformMakeScale(scale, scale)
         }
     }
 }

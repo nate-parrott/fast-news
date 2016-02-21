@@ -155,6 +155,12 @@ class ArticleViewController: SwipeAwayViewController, UITableViewDelegate, UITab
         return false
     }
     
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        if let top = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as? ImageSegmentTableViewCell {
+            top.upwardExpansion = max(0, -scrollView.contentOffset.y)
+        }
+    }
+    
     // MARK: Actions
     @IBAction func share(sender: AnyObject) {
         presentViewController(UIActivityViewController(activityItems: [NSURL(string: article.url!)!], applicationActivities: nil), animated: true, completion: nil)

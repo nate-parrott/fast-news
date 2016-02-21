@@ -46,14 +46,29 @@ class ArticleContent {
             var fontOptions = FontOptions()
             switch kind {
                 case "h1":
+                    fontOptions.headingFont = true
                     fontOptions.size = 3
                     fontOptions.bold = true
                     paragraphStyle.lineHeightMultiple = 1
                 case "h2":
+                    fontOptions.headingFont = true
                     fontOptions.size = 2
                     fontOptions.bold = true
                     paragraphStyle.lineHeightMultiple = 1
                 case "h3":
+                    fontOptions.headingFont = true
+                    fontOptions.bold = true
+                    paragraphStyle.lineHeightMultiple = 1
+                case "h4":
+                    fontOptions.headingFont = true
+                    fontOptions.bold = true
+                    paragraphStyle.lineHeightMultiple = 1
+                case "h5":
+                    fontOptions.headingFont = true
+                    fontOptions.bold = true
+                    paragraphStyle.lineHeightMultiple = 1
+                case "h6":
+                    fontOptions.headingFont = true
                     fontOptions.bold = true
                     paragraphStyle.lineHeightMultiple = 1
             default: ()
@@ -133,7 +148,7 @@ class ArticleContent {
             return attrs
         }
         static func defaultTextColor() -> UIColor {
-            return UIColor(white: 0.25, alpha: 1)
+            return UIColor(red: 0.146239966154, green:0.1462444067, blue:0.146241992712, alpha:1.0)
         }
         let attrs: [String: AnyObject]
         let fontOptions: FontOptions
@@ -156,23 +171,30 @@ class ArticleContent {
     struct FontOptions {
         var bold = false
         var italic = false
+        var headingFont = false
         var size = 1 // h1 = 3, h2 = 2, else = 1
         var font: UIFont {
-            var name = "IowanOldStyle-Roman"
-            if bold && italic {
-                name = "IowanOldStyle-BoldItalic"
-            } else if bold {
-                name = "IowanOldStyle-Bold"
-            } else if italic {
-                name = "IowanOldStyle-Italic"
+            var desc = UIFontDescriptor.preferredFontDescriptorWithTextStyle(UIFontTextStyleBody)
+            var traits: UIFontDescriptorSymbolicTraits = []
+            if bold {
+                traits.insert(.TraitBold)
             }
-            var fontSize: CGFloat!
+            if italic {
+                traits.insert(.TraitItalic)
+            }
+            desc = desc.fontDescriptorWithSymbolicTraits(traits)
+            var pointSize = desc.pointSize
             switch size {
-            case 3: fontSize = 24
-            case 2: fontSize = 20
-            default: fontSize = 16
+            case 3: pointSize = max(24, pointSize)
+            case 2: pointSize = max(20, pointSize)
+            default: ()
             }
-            return UIFont(name: name, size: fontSize)!
+            desc = desc.fontDescriptorWithSize(pointSize)
+            if headingFont {
+                return UIFont(name: "LeagueSpartan-Bold", size: pointSize)!
+            } else {
+                return UIFont(descriptor: desc, size: 0)
+            }
         }
     }
 }

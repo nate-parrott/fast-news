@@ -26,7 +26,7 @@ def first_present(items):
 def url_fetch(url, timeout=10):
     cj = CookieJar()
     opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cj))
-    opener.addheaders.append(("User-Agent", "fast-news-bot"))
+    opener.addheaders = [("User-Agent", "fast-news-bot")]
     print "url_fetch('{0}')".format(url)
     try:
         return opener.open(url, timeout=timeout).read()

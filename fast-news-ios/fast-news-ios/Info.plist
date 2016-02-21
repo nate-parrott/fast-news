@@ -31,6 +31,7 @@
 	</dict>
 	<key>UIAppFonts</key>
 	<array>
+		<string>LeagueSpartan-Bold.otf</string>
 		<string>Asap-Bold.otf</string>
 		<string>Asap-BoldItalic.otf</string>
 		<string>Asap-Italic.otf</string>

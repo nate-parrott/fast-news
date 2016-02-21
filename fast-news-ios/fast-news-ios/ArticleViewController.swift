@@ -42,7 +42,7 @@ class ArticleViewController: SwipeAwayViewController, UITableViewDelegate, UITab
         }
     }
     // MARK: Layout
-    static let Margin: CGFloat = 20
+    static let Margin: CGFloat = 18
     override func prefersStatusBarHidden() -> Bool {
         return true
     }

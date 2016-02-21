@@ -52,7 +52,7 @@ class Segment(object):
 class TextSegment(Segment):
     def __init__(self, kind):
         super(TextSegment, self).__init__()
-        self.kind = kind # 'p', 'h0', 'h1', 'h2', 'h3' only
+        self.kind = kind # 'p', 'h0', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6' only
         self.content = [{}] # [{attributes}, "text", "more text", [{attributes}, "some text"]]
         # attributes: {'bold': True, 'link': 'http://google.com', 'italic': True}
         self.stack = [self.content]
@@ -163,7 +163,7 @@ def _article_json(html, article):
         if event == 'enter':
             if data.name in block_elements:
                 # open a new block segment:
-                kind = {'h1': 'h1', 'h2': 'h2', 'h3': 'h3', 'h4': 'h3', 'h5': 'h3', 'h6': 'h6'}.get(data.name, 'p')
+                kind = {'h1': 'h1', 'h2': 'h2', 'h3': 'h3', 'h4': 'h4', 'h5': 'h5', 'h6': 'h6'}.get(data.name, 'p')
                 cur_segment = TextSegment(kind)
                 segments.append(cur_segment)
             elif data.name == 'img':

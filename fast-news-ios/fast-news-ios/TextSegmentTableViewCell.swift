@@ -42,11 +42,11 @@ class TextSegmentTableViewCell: UITableViewCell {
         textContainer.size = CGSizeMake(bounds.size.width - margin.left - margin.right, bounds.size.height - margin.top - margin.bottom)
         let textOrigin = CGPointMake(margin.left, margin.top)
         textLayoutManager.drawGlyphsForGlyphRange(textLayoutManager.glyphRangeForTextContainer(textContainer), atPoint: textOrigin)
-        for rect in lineRects() {
+        /*for rect in lineRects() {
             let path = UIBezierPath(rect: rect)
             path.lineWidth = 1
             path.stroke()
-        }
+        }*/
     }
     
     func lineRects() -> [CGRect] {
@@ -67,10 +67,10 @@ class TextSegmentTableViewCell: UITableViewCell {
     // MARK: Global sizing
     
     class func heightForString(string: NSAttributedString, width: CGFloat, margin: UIEdgeInsets) -> CGFloat {
-        return pagePointsForSegment(string, width: width, margin: margin).last!
+        return pageBreakPointsForSegment(string, width: width, margin: margin).last!
     }
     
-    class func pagePointsForSegment(string: NSAttributedString, width: CGFloat, margin: UIEdgeInsets) -> [CGFloat] {
+    class func pageBreakPointsForSegment(string: NSAttributedString, width: CGFloat, margin: UIEdgeInsets) -> [CGFloat] {
         _SizingCell.margin = margin
         _SizingCell.string = string
         _SizingCell.textContainer.size = CGSizeMake(width - margin.left - margin.right, 99999)

@@ -25,12 +25,18 @@ class ArticleViewController: SwipeAwayViewController, UITableViewDelegate, UITab
         tableView.registerClass(ImageSegmentTableViewCell.self, forCellReuseIdentifier: "Image")
         tableView.registerClass(TextSegmentTableViewCell.self, forCellReuseIdentifier: "Text")
         
+        tableView.decelerationRate = UIScrollViewDecelerationRateFast
+        
+        nextPageBar = UIView()
+        view.addSubview(nextPageBar)
+        
         _articleSub = article.onUpdate.subscribe({ [weak self] (_) -> () in
             self?._update()
         })
         _update()
         article.ensureRecency(3 * 60 * 60)
     }
+    
     func _update() {
         title = article.title
         if let content = article.content {
@@ -137,6 +143,7 @@ class ArticleViewController: SwipeAwayViewController, UITableViewDelegate, UITab
     
     var rowModels: [RowModel]? {
         didSet {
+            _layoutInfo = nil
             tableView.reloadData()
         }
     }
@@ -145,18 +152,9 @@ class ArticleViewController: SwipeAwayViewController, UITableViewDelegate, UITab
         return rowModels?.count ?? 0
     }
     
-    func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 500
-    }
-    
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        let model = rowModels![indexPath.row]
-        switch model {
-        case .Image(let segment): return ceil(ImageSegmentTableViewCell.heightForSegment(segment, width: tableView.bounds.size.width, maxHeight: tableView.bounds.size.height))
-        case .Text(let text, let margins):
-            let margin = UIEdgeInsetsMake(margins.0, ArticleViewController.Margin, margins.1, ArticleViewController.Margin)
-            return ceil(TextSegmentTableViewCell.heightForString(text, width: tableView.bounds.size.width, margin: margin))
-        }
+        let points = layoutInfo.pageBreakPoints[indexPath.row]
+        return points.last! - points.first!
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -191,6 +189,100 @@ class ArticleViewController: SwipeAwayViewController, UITableViewDelegate, UITab
             }
         }
     }
+    
+    func scrollViewWillEndDragging(scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        if velocity.y > 0 {
+            // return next page:
+            for pageY in layoutInfo.pageTopYValues {
+                if pageY > scrollView.contentOffset.y {
+                    targetContentOffset[0].y = pageY
+                    break
+                }
+            }
+        } else if velocity.y < 0 {
+            // return prev page:
+            for pageY in layoutInfo.pageTopYValues {
+                if pageY < scrollView.contentOffset.y {
+                    targetContentOffset[0].y = pageY
+                }
+            }
+        } else {
+            // return nearest page:
+            var closestPageY: CGFloat = 0
+            for pageY in layoutInfo.pageTopYValues {
+                if abs(pageY - scrollView.contentOffset.y) < abs(closestPageY - scrollView.contentOffset.y) {
+                    closestPageY = pageY
+                }
+            }
+            targetContentOffset[0].y = closestPageY
+        }
+    }
+    
+    // MARK: LayoutInfo
+    var _layoutInfo: _LayoutInfo?
+    var layoutInfo: _LayoutInfo {
+        get {
+            if let existing = _layoutInfo where existing.size == tableView.bounds.size {
+                return existing
+            } else {
+                _layoutInfo = _LayoutInfo()
+                _layoutInfo!.size = tableView.bounds.size
+                if let models = rowModels {
+                    _layoutInfo!.computeWithModels(models)
+                }
+                return _layoutInfo!
+            }
+        }
+    }
+    
+    class _LayoutInfo {
+        var size = CGSizeZero
+        var pageBreakPoints = [[CGFloat]]() // one array per cell; first item is the top y and last item is the bottom y
+        var pageTopYValues = [CGFloat]()
+        
+        func computeWithModels(models: [RowModel]) {
+            pageBreakPoints = []
+            for model in models {
+                var localPoints = pageBreakPointsForModel(model)
+                localPoints[localPoints.count-1] = ceil(localPoints.last!)
+                let cellOffset = pageBreakPoints.last?.last ?? 0
+                pageBreakPoints.append(localPoints.map({ $0 + cellOffset }))
+            }
+            let maxPageHeight = size.height - 44
+            pageTopYValues = [0]
+            let allPoints = pageBreakPoints.reduce([], combine: { $0 + $1 })
+            var i = 0
+            for pt in allPoints {
+                let proposedPageHeight = pt - pageTopYValues.last!
+                if proposedPageHeight > maxPageHeight && i > 0 {
+                    // create a new page:
+                    pageTopYValues.append(allPoints[i-1])
+                }
+                i++
+            }
+        }
+        
+        func heightForModel(model: RowModel) -> CGFloat {
+            switch model {
+            case .Image(let segment):
+                return ceil(ImageSegmentTableViewCell.heightForSegment(segment, width: size.width, maxHeight: size.height))
+            case .Text(let text, let margins):
+                let margin = UIEdgeInsetsMake(margins.0, ArticleViewController.Margin, margins.1, ArticleViewController.Margin)
+                return ceil(TextSegmentTableViewCell.heightForString(text, width: size.width, margin: margin))
+            }
+        }
+        func pageBreakPointsForModel(model: RowModel) -> [CGFloat] {
+            switch model {
+            case .Text(string: let str, margins: (let topMargin, let bottomMargin)):
+                return TextSegmentTableViewCell.pageBreakPointsForSegment(str, width: size.width, margin: UIEdgeInsetsMake(topMargin, ArticleViewController.Margin, bottomMargin, ArticleViewController.Margin))
+            default:
+                return [0, heightForModel(model)]
+            }
+        }
+    }
+    
+    // MARK: Pagination
+    var nextPageBar: UIView!
     
     // MARK: Actions
     @IBAction func share(sender: AnyObject) {

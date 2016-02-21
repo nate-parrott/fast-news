@@ -24,8 +24,13 @@ class ImageSegmentTableViewCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        netImageView.transform = CGAffineTransformIdentity
         netImageView.layer.anchorPoint = CGPointMake(0.5, 1)
         netImageView.frame = bounds
+        
+        let scale = (bounds.size.height + upwardExpansion) / bounds.size.height
+        netImageView.transform = CGAffineTransformTranslate(CGAffineTransformMakeScale(scale, scale), 0, translateY)
+        
         _imageSize = bounds.size
     }
     
@@ -66,8 +71,15 @@ class ImageSegmentTableViewCell: UITableViewCell {
     
     var upwardExpansion: CGFloat = 0 {
         didSet {
-            let scale = (bounds.size.height + upwardExpansion) / bounds.size.height
-            netImageView.transform = CGAffineTransformMakeScale(scale, scale)
+            setNeedsLayout()
+            layoutIfNeeded()
+        }
+    }
+    
+    var translateY: CGFloat = 0 {
+        didSet {
+            setNeedsLayout()
+            layoutIfNeeded()
         }
     }
 }

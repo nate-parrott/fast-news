@@ -178,7 +178,13 @@ class ArticleViewController: SwipeAwayViewController, UITableViewDelegate, UITab
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
         if let top = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as? ImageSegmentTableViewCell {
-            top.upwardExpansion = max(0, -scrollView.contentOffset.y)
+            let overscroll = -scrollView.contentOffset.y
+            top.upwardExpansion = max(0, overscroll)
+            if scrollView.contentOffset.y > 0 {
+                // top.translateY = scrollView.contentOffset.y / 2
+            } else {
+                top.translateY = 0
+            }
         }
     }
     

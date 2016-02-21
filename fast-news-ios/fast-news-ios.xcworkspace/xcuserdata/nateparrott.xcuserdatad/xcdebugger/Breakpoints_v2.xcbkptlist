@@ -340,11 +340,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "fast-news-ios/ArticleViewController.swift"
-            timestampString = "477716688.351114"
+            timestampString = "477717492.48411"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "187"
-            endingLineNumber = "187"
+            startingLineNumber = "193"
+            endingLineNumber = "193"
             landmarkName = "share(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -452,11 +452,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "fast-news-ios/ImageSegmentTableViewCell.swift"
-            timestampString = "477711808.958448"
+            timestampString = "477717492.48411"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "44"
-            endingLineNumber = "44"
+            startingLineNumber = "49"
+            endingLineNumber = "49"
             landmarkName = "ImageSegmentTableViewCell"
             landmarkType = "3">
          </BreakpointContent>

@@ -20,7 +20,6 @@ class ArticleViewController: SwipeAwayViewController, UITableViewDelegate, UITab
         errorView.alpha = 0
         loadingContainer.alpha = 0
         
-        tableView.separatorColor = UIColor.clearColor()
         
         tableView.registerClass(ImageSegmentTableViewCell.self, forCellReuseIdentifier: "Image")
         tableView.registerClass(TextSegmentTableViewCell.self, forCellReuseIdentifier: "Text")

@@ -138,7 +138,7 @@ class ArticleViewController: SwipeAwayViewController, UITableViewDelegate, UITab
                     let take = min(attributedString.length, maxCharLen)
                     let substring = attributedString.attributedSubstringFromRange(NSMakeRange(0, take)).mutableCopy() as! NSMutableAttributedString
                     attributedString.deleteCharactersInRange(NSMakeRange(0, take))
-                    let marginTop = (trailingMargin ? 0 : ArticleViewController.Margin)
+                    let marginTop = (trailingMargin ? 0 : ArticleViewController.Margin) + text.extraTopPadding
                     let marginBottom = ArticleViewController.Margin + text.extraBottomPadding
                     substring.stripWhitespace()
                     models.append(RowModel.Text(string: substring, margins: (marginTop, marginBottom), seg: text))

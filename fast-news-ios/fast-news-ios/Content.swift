@@ -52,16 +52,19 @@ class ArticleContent {
                     fontOptions.headingFont = true
                     fontOptions.size = 3
                     fontOptions.bold = true
+                    extraTopPadding = 15
                     paragraphStyle.lineHeightMultiple = 1
                 case "h2":
                     fontOptions.headingFont = true
                     fontOptions.size = 2
                     fontOptions.bold = true
+                    extraTopPadding = 15
                     paragraphStyle.lineHeightMultiple = 1
                 case "h3":
                     fontOptions.uppercase = true
                     fontOptions.headingFont = true
                     fontOptions.bold = true
+                    extraTopPadding = 10
                     paragraphStyle.lineHeightMultiple = 1
                 case "h4":
                     fontOptions.uppercase = true
@@ -116,6 +119,7 @@ class ArticleContent {
         let span: Span
         var hangingText: NSAttributedString?
         var extraBottomPadding: CGFloat = 0
+        var extraTopPadding: CGFloat = 0
     }
     
     class ImageSegment: Segment {

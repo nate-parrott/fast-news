@@ -60,8 +60,8 @@ class TextSegmentTableViewCell: UITableViewCell {
             actualFrame.origin.x += 4
             hangingText.drawInRect(actualFrame)
         }*/
-        
-        /*for rect in lineRects() {
+        /*
+        for rect in lineRects() {
             let path = UIBezierPath(rect: rect)
             path.lineWidth = 1
             path.stroke()

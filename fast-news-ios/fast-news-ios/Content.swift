@@ -52,35 +52,32 @@ class ArticleContent {
                     fontOptions.headingFont = true
                     fontOptions.size = 3
                     fontOptions.bold = true
-                    paragraphStyle.lineHeightMultiple = 1
-                    paragraphStyle.lineSpacing = 1
+                    // paragraphStyle.lineHeightMultiple = 1
                 case "h2":
                     fontOptions.headingFont = true
                     fontOptions.size = 2
                     fontOptions.bold = true
-                    paragraphStyle.lineHeightMultiple = 1
-                    paragraphStyle.lineSpacing = 1
+                    // paragraphStyle.lineHeightMultiple = 1
                 case "h3":
                     fontOptions.uppercase = true
                     fontOptions.headingFont = true
                     fontOptions.bold = true
-                    paragraphStyle.lineHeightMultiple = 1
-                    paragraphStyle.lineSpacing = 1
+                    // paragraphStyle.lineHeightMultiple = 1
                 case "h4":
                     fontOptions.uppercase = true
                     fontOptions.headingFont = true
                     fontOptions.bold = true
-                    paragraphStyle.lineHeightMultiple = 1
+                    // paragraphStyle.lineHeightMultiple = 1
                 case "h5":
                     fontOptions.uppercase = true
                     fontOptions.headingFont = true
                     fontOptions.bold = true
-                    paragraphStyle.lineHeightMultiple = 1
+                    // paragraphStyle.lineHeightMultiple = 1
                 case "h6":
                     fontOptions.uppercase = true
                     fontOptions.headingFont = true
                     fontOptions.bold = true
-                    paragraphStyle.lineHeightMultiple = 1
+                    // paragraphStyle.lineHeightMultiple = 1
                 case "pre":
                     fontOptions.monospace = true
                     paragraphStyle.lineHeightMultiple = 1
@@ -96,7 +93,7 @@ class ArticleContent {
             }
             let font = fontOptions.font
             attrs[NSFontAttributeName] = font
-            extraBottomPadding = font.descender // cut off some of the margin
+            // extraBottomPadding = font.descender // cut off some of the margin
             
             if let spanJson = json["content"] as? [AnyObject] where spanJson.count >= 1 {
                 span = Span(json: spanJson, parentAttrs: attrs, parentFontOptions: fontOptions)
@@ -179,7 +176,7 @@ class ArticleContent {
             attrs[NSForegroundColorAttributeName] = defaultTextColor()
             attrs[NSUnderlineStyleAttributeName] = 0
             let para = NSParagraphStyle.defaultParagraphStyle().mutableCopy() as! NSMutableParagraphStyle
-            para.lineHeightMultiple = 1.4
+            para.lineHeightMultiple = 1.3
             // para.paragraphSpacingBefore = 20
             // para.paragraphSpacing = 20
             para.alignment = .Left

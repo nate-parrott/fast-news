@@ -54,6 +54,27 @@ extension CGRect {
             return CGRectGetMinY(self)
         }
     }
+    func distanceFromPoint(pt: CGPoint) -> CGFloat {
+        if CGRectContainsPoint(self, pt) {
+            return 0
+        } else if pt.x < origin.x && pt.y < origin.y {
+            return (pt - origin).magnitude // pt is top-left of the rect
+        } else if pt.x < origin.x && pt.y > right {
+            return (pt - CGPointMake(origin.x, bottom)).magnitude // // pt is bottom-left of the rect
+        } else if pt.x > origin.x && pt.y < origin.y {
+            return (pt - CGPointMake(right, origin.y)).magnitude // pt is top-right
+        } else if pt.x > origin.x && pt.y > bottom {
+            return (pt - CGPointMake(right, bottom)).magnitude // pt is bottom-right
+        } else if pt.x < origin.x {
+            return origin.x - pt.x // pt is to the left
+        } else if pt.x > right {
+            return pt.x - right // pt is to the right
+        } else if pt.y < origin.y {
+            return origin.y - pt.y // pt is to the top
+        } else {
+            return pt.y - bottom // pt is below
+        }
+    }
 }
 
 func ==(lhs: CGSize, rhs: CGSize) -> Bool {

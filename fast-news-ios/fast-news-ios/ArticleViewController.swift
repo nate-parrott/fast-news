@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SafariServices
 
 class ArticleViewController: SwipeAwayViewController, UITableViewDelegate, UITableViewDataSource {
     // MARK: Data
@@ -176,6 +177,11 @@ class ArticleViewController: SwipeAwayViewController, UITableViewDelegate, UITab
             cell.string = string
             cell.segment = seg
             cell.margin = UIEdgeInsetsMake(margins.0, ArticleViewController.Margin, margins.1, ArticleViewController.Margin)
+            cell.onClickedLink = {
+                [weak self]
+                (let url) in
+                self?.openLink(url)
+            }
             return cell
         }
     }
@@ -314,6 +320,11 @@ class ArticleViewController: SwipeAwayViewController, UITableViewDelegate, UITab
     var prevPageBar = UIView()
     
     // MARK: Actions
+    func openLink(url: NSURL) {
+        let vc = SFSafariViewController(URL: url)
+        presentViewController(vc, animated: true, completion: nil)
+    }
+    
     @IBAction func share(sender: AnyObject) {
         presentViewController(UIActivityViewController(activityItems: [NSURL(string: article.url!)!], applicationActivities: nil), animated: true, completion: nil)
     }

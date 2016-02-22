@@ -31,6 +31,9 @@ class TextSegmentTableViewCell: UITableViewCell {
         }
     }
     
+    // MARK: Callbacks
+    var onClickedLink: (NSURL -> ())?
+    
     // MARK: Text layout
     
     lazy var textLayoutManager: NSLayoutManager = {
@@ -66,6 +69,7 @@ class TextSegmentTableViewCell: UITableViewCell {
             path.lineWidth = 1
             path.stroke()
         }*/
+        _updateLinkRects()
     }
     
     func lineRects() -> [CGRect] {
@@ -108,4 +112,86 @@ class TextSegmentTableViewCell: UITableViewCell {
         cell._draws = false
         return cell
     }()
+    
+    // MARK: Links
+    func _updateLinkRects() {
+        _linkRects = []
+        if let str = string {
+            str.enumerateAttribute(ArticleContent.LinkAttributeName, inRange: NSMakeRange(0, str.length), options: [], usingBlock: { (let valOpt, let range, _) -> Void in
+                if let link = valOpt as? NSURL {
+                    var rects = [CGRect]()
+                    let glyphRange = self.textLayoutManager.glyphRangeForCharacterRange(range, actualCharacterRange: nil)
+                    self.textLayoutManager.enumerateEnclosingRectsForGlyphRange(glyphRange, withinSelectedGlyphRange: NSMakeRange(NSNotFound, 0), inTextContainer: self.textContainer, usingBlock: { (let rect, _) -> Void in
+                        rects.append(rect + CGPointMake(self.margin.left, self.margin.top))
+                    })
+                    self._linkRects += [(link, rects)]
+                }
+            })
+        }
+        if tapRec == nil {
+            // set up the tapRec:
+            tapRec = UITapGestureRecognizer(target: self, action: "_tapped:")
+            addGestureRecognizer(tapRec!)
+        }
+    }
+    
+    var _linkRects = [(NSURL, [CGRect])]()
+    var _highlightedLinkRectIndex: Int? {
+        didSet {
+            for v in _highlightViews {
+                v.removeFromSuperview()
+            }
+            _highlightViews = []
+            if let i = _highlightedLinkRectIndex where i < _linkRects.count {
+                for rect in _linkRects[i].1 {
+                    let v = UIView(frame: rect)
+                    v.backgroundColor = UIColor(white: 0.2, alpha: 0.3)
+                    addSubview(v)
+                    _highlightViews.append(v)
+                }
+            }
+        }
+    }
+    var _highlightViews = [UIView]()
+    
+    var tapRec: UITapGestureRecognizer?
+    
+    func _linkRectIndexAtPoint(pt: CGPoint) -> Int? {
+        // find direct hits first:
+        var i = 0
+        for (_, rects) in _linkRects {
+            for rect in rects {
+                if CGRectContainsPoint(rect, pt) {
+                    return i
+                }
+            }
+            i++
+        }
+        // find close hits:
+        i = 0
+        let threshold: CGFloat = 20
+        for (_, rects) in _linkRects {
+            for rect in rects {
+                if rect.distanceFromPoint(pt) <= threshold {
+                    return i
+                }
+            }
+            i++
+        }
+        return nil
+    }
+    
+    func _tapped(rec: UITapGestureRecognizer) {
+        if rec.state == .Began || rec.state == .Ended {
+            _highlightedLinkRectIndex = _linkRectIndexAtPoint(rec.locationInView(self))
+        }
+        if rec.state == .Ended || rec.state == .Cancelled {
+            if rec.state == .Ended {
+                if let i = _highlightedLinkRectIndex where i < _linkRects.count, let callback = onClickedLink {
+                    callback(_linkRects[i].0)
+                }
+            }
+            _highlightedLinkRectIndex = nil
+        }
+    }
 }

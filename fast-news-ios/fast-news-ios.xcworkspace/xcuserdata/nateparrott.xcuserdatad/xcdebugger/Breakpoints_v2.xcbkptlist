@@ -452,11 +452,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "fast-news-ios/ArticleViewController.swift"
-            timestampString = "477866920.989354"
+            timestampString = "477871030.945273"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "110"
-            endingLineNumber = "110"
+            startingLineNumber = "111"
+            endingLineNumber = "111"
             landmarkName = "ArticleViewController"
             landmarkType = "3">
             <Locations>
@@ -545,11 +545,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "fast-news-ios/ArticleViewController.swift"
-            timestampString = "477866920.989354"
+            timestampString = "477871030.945273"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "91"
-            endingLineNumber = "91"
+            startingLineNumber = "92"
+            endingLineNumber = "92"
             landmarkName = "ArticleViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -561,11 +561,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "fast-news-ios/TextSegmentTableViewCell.swift"
-            timestampString = "477865628.971915"
+            timestampString = "477870719.797754"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "103"
-            endingLineNumber = "103"
+            startingLineNumber = "107"
+            endingLineNumber = "107"
             landmarkName = "pageBreakPointsForSegment(_:width:margin:)"
             landmarkType = "5">
          </BreakpointContent>

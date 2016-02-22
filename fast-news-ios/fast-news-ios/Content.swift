@@ -78,7 +78,7 @@ class ArticleContent {
                     fontOptions.headingFont = true
                     fontOptions.bold = true
                     paragraphStyle.lineHeightMultiple = 1
-                case "monospace":
+                case "pre":
                     fontOptions.monospace = true
                     paragraphStyle.lineHeightMultiple = 1
                 case "blockquote":
@@ -145,6 +145,9 @@ class ArticleContent {
                     }
                     if let italic = dict["italic"] as? Bool {
                         fontOptions.italic = italic
+                    }
+                    if let monospace = dict["monospace"] as? Bool {
+                        fontOptions.monospace = monospace
                     }
                     if let link = dict["link"] as? String, let url = NSURL(string: link) {
                         attrs[LinkAttributeName] = url

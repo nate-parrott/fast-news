@@ -153,8 +153,8 @@ def _article_json(html, article):
     segments = []
     
     cur_segment = None
-    block_elements = set(['p', 'div', 'table', 'header', 'section', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'caption'])
-    text_tag_attributes = {'strong': {'bold': True}, 'b': {'bold': True}, 'em': {'italic': True}, 'i': {'italic': True}, 'a': {}}
+    block_elements = set(['p', 'div', 'table', 'header', 'section', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'caption', 'pre', 'blockquote', 'li'])
+    text_tag_attributes = {'strong': {'bold': True}, 'b': {'bold': True}, 'em': {'italic': True}, 'i': {'italic': True}, 'a': {}, 'code': {'monospace': True}}
     for (event, data) in iterate_tree(soup):
         if event == 'enter' and data.name == 'br':
             event = 'text'
@@ -163,7 +163,7 @@ def _article_json(html, article):
         if event == 'enter':
             if data.name in block_elements:
                 # open a new block segment:
-                kind = {'h1': 'h1', 'h2': 'h2', 'h3': 'h3', 'h4': 'h4', 'h5': 'h5', 'h6': 'h6'}.get(data.name, 'p')
+                kind = {'h1': 'h1', 'h2': 'h2', 'h3': 'h3', 'h4': 'h4', 'h5': 'h5', 'h6': 'h6', 'blockquote': 'blockquote', 'caption': 'caption', 'li': 'li'}.get(data.name, 'p')
                 cur_segment = TextSegment(kind)
                 segments.append(cur_segment)
             elif data.name == 'img':
@@ -177,7 +177,7 @@ def _article_json(html, article):
                     # create a new text segment:
                     cur_segment = TextSegment('p')
                     segments.append(cur_segment)
-                attrs = text_tag_attributes.get(data, {})
+                attrs = dict(text_tag_attributes.get(data.name, {}))
                 if data.name == 'a':
                     attrs['link'] = process_url(data.get('href'))
                 cur_segment.open_text_section(attrs)

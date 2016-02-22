@@ -36,6 +36,8 @@ class Article: APIObject {
     override func jsonPath() -> (String, [String : String]?)? {
         if let id = self.id {
             return ("/article", ["id": id])
+        } else if let url = self.url {
+            return ("/article", ["url": url])
         } else {
             return nil
         }

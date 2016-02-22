@@ -95,3 +95,9 @@ func *(lhs: CGFloat, rhs: CGSize) -> CGSize {
 func ==(lhs: CGRect, rhs: CGRect) -> Bool {
     return lhs.origin == rhs.origin && lhs.size == rhs.size
 }
+
+extension CGSize {
+    func centeredInsideRect(rect: CGRect) -> CGRect {
+        return CGRectMake(rect.origin.x + (rect.size.width - width)/2, rect.origin.y + (rect.size.height - height)/2, width, height)
+    }
+}

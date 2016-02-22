@@ -20,7 +20,6 @@ from model import Source, Article, Subscription
 from google.appengine.ext import ndb
 import json
 from pprint import pprint
-import testing
 from article_json import article_json
 
 class MainHandler(webapp2.RequestHandler):
@@ -43,8 +42,13 @@ class SourceHandler(webapp2.RequestHandler):
 class ArticleHandler(webapp2.RequestHandler):
     def get(self):
         id = self.request.get('id')
-        article = ndb.Key('Article', id).get()
-        article.fetch_if_needed(ignore_previous_failure=True)
+        url = self.request.get('url')
+        
+        if id:
+            article = ndb.Key('Article', id).get()
+            article.fetch_if_needed(ignore_previous_failure=True)
+        else:
+            article = api.ensure_article_at_url(url)
         
         self.response.headers.add_header('Content-Type', 'application/json')
         self.response.write(json.dumps(article.json(include_article_json=True)))
@@ -75,7 +79,7 @@ class UnsubscribeHandler(webapp2.RequestHandler):
 class ArticleTestFetchHandler(webapp2.RequestHandler):
     def post(self):
         url = self.request.get('url')
-        article = testing.fetch_article(url)
+        article = api.ensure_article_at_url(url)
         type = self.request.get('type')
         if type == 'html':
             self.response.write(article.content.get().html)
@@ -131,7 +135,6 @@ class TestHandler(webapp2.RequestHandler):
             source = ensure_source(url, force_fetch=True)
             self.response.headers.add_header('Content-Type', 'text/plain')
             pprint(_source_fetch(source), self.response.out)
-        
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler),

@@ -43,7 +43,10 @@ class ArticleContent {
             kind = json["kind"] as? String ?? "p"
             var attrs = Span.defaultAttrs()
             let paragraphStyle = attrs[NSParagraphStyleAttributeName] as! NSMutableParagraphStyle
+            paragraphStyle.headIndent = 0
             var fontOptions = FontOptions()
+            var prependText: String?
+            let indent: CGFloat = 15
             switch kind {
                 case "h1":
                     fontOptions.headingFont = true
@@ -75,19 +78,44 @@ class ArticleContent {
                     fontOptions.headingFont = true
                     fontOptions.bold = true
                     paragraphStyle.lineHeightMultiple = 1
+                case "monospace":
+                    fontOptions.monospace = true
+                    paragraphStyle.lineHeightMultiple = 1
+                case "blockquote":
+                    paragraphStyle.headIndent = indent
+                    paragraphStyle.firstLineHeadIndent = indent
+                    fontOptions.italic = true
+                case "li":
+                    prependText = "• "
+                    paragraphStyle.headIndent = indent
+                    paragraphStyle.firstLineHeadIndent = indent
             default: ()
             }
-            attrs[NSFontAttributeName] = fontOptions.font
+            let font = fontOptions.font
+            attrs[NSFontAttributeName] = font
+            extraBottomPadding = font.descender // cut off some of the margin
             
             if let spanJson = json["content"] as? [AnyObject] where spanJson.count >= 1 {
                 span = Span(json: spanJson, parentAttrs: attrs, parentFontOptions: fontOptions)
             } else {
                 span = Span(json: [[String: AnyObject]()], parentAttrs: attrs, parentFontOptions: fontOptions)
             }
+            if let prepend = prependText {
+                span.children.insert(Span.Child.Text(prepend), atIndex: 0)
+            }
+            
+            /*if let t = hangingText {
+                var hangingTextAttrs = attrs
+                hangingTextAttrs.removeValueForKey(NSParagraphStyleAttributeName)
+                self.hangingText = NSAttributedString(string: t, attributes: hangingTextAttrs)
+            }*/
+            
             super.init(json: json)
         }
         let kind: String
         let span: Span
+        var hangingText: NSAttributedString?
+        var extraBottomPadding: CGFloat = 0
     }
     
     class ImageSegment: Segment {
@@ -181,6 +209,7 @@ class ArticleContent {
         var headingFont = false
         var uppercase = false
         var size = 1 // h1 = 3, h2 = 2, else = 1
+        var monospace = false
         var font: UIFont {
             var desc = UIFontDescriptor.preferredFontDescriptorWithTextStyle(UIFontTextStyleBody)
             var traits: UIFontDescriptorSymbolicTraits = []
@@ -200,6 +229,8 @@ class ArticleContent {
             desc = desc.fontDescriptorWithSize(pointSize)
             if headingFont {
                 return UIFont(name: "LeagueSpartan-Bold", size: pointSize)!
+            } else if monospace {
+                return UIFont(name: "Courier", size: pointSize)!
             } else {
                 return UIFont(descriptor: desc, size: 0)
             }

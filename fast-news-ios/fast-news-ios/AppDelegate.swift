@@ -26,7 +26,43 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         let splitViewController = tabViewController.viewControllers!.first as! UISplitViewController
         // let navigationController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as! UINavigationController
         splitViewController.delegate = self
+        
+        delay(1) { () -> () in
+            self.readArticle("http://testpage2.42pag.es")
+        }
+        
         return true
+    }
+    
+    func application(app: UIApplication, openURL url: NSURL, options: [String : AnyObject]) -> Bool {
+        switch url.scheme {
+            case "subscribed-article":
+                if let comps = NSURLComponents(URL: url, resolvingAgainstBaseURL: false) {
+                    if let url: String = (comps.queryItems ?? []).filter({ $0.name == "url" && $0.value != nil }).map({ $0.value! }).first {
+                        // open it:
+                        readArticle(url)
+                        return true
+                    }
+                }
+        default: ()
+        }
+        return false
+    }
+    
+    func readArticle(url: String) {
+        let article = Article(id: nil)
+        article.importJson([ "url": url ])
+        let articleVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("Article") as! ArticleViewController
+        articleVC.article = article
+        articleVC.presentFrom(viewControllerForModalPresentation())
+    }
+    
+    func viewControllerForModalPresentation() -> UIViewController {
+        var vc = window!.rootViewController!
+        while let presented = vc.presentedViewController {
+            vc = presented
+        }
+        return vc
     }
 
     func applicationWillResignActive(application: UIApplication) {

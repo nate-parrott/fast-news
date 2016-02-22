@@ -82,7 +82,8 @@ class Article(ndb.Model):
         
     @classmethod
     def id_for_article(cls, url, source_url):
-        return canonical_url(url) + u" " + canonical_url(source_url)
+        source_string = canonical_url(source_url) if source_url else u"standalone"
+        return canonical_url(url) + u" " + source_string
     
     def fetch_now(self):
         article_fetch(self)
@@ -108,7 +109,7 @@ class Article(ndb.Model):
             "description": self.description
         }
         if include_article_json:
-            print 'getting json; j: ', (not not self.content)
+            # print 'getting json; j: ', (not not self.content)
             d['article_json'] = self.content.get().article_json if self.content else None
         return d
 

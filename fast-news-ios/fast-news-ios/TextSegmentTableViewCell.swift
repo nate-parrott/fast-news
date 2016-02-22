@@ -25,12 +25,19 @@ class TextSegmentTableViewCell: UITableViewCell {
         }
     }
     
+    var segment: ArticleContent.TextSegment? {
+        didSet {
+            setNeedsDisplay()
+        }
+    }
+    
     // MARK: Text layout
     
     lazy var textLayoutManager: NSLayoutManager = {
         let layoutManager = NSLayoutManager()
         self.textStorage.addLayoutManager(layoutManager)
         layoutManager.addTextContainer(self.textContainer)
+        self.textContainer.lineFragmentPadding = 0
         return layoutManager
     }()
     let textContainer = NSTextContainer()
@@ -42,6 +49,18 @@ class TextSegmentTableViewCell: UITableViewCell {
         textContainer.size = CGSizeMake(bounds.size.width - margin.left - margin.right, bounds.size.height - margin.top - margin.bottom)
         let textOrigin = CGPointMake(margin.left, margin.top)
         textLayoutManager.drawGlyphsForGlyphRange(textLayoutManager.glyphRangeForTextContainer(textContainer), atPoint: textOrigin)
+        
+        /*if let hangingText = segment?.hangingText, let firstLine = lineRects().first {
+            let hangingTextFrame = CGRectMake(0, firstLine.origin.y, margin.left, firstLine.size.height)
+            // used for bullets and stuff
+            let hangingTextSize = hangingText.boundingRectWithSize(hangingTextFrame.size, options: .UsesLineFragmentOrigin, context: nil).size
+            // center the text inside the hangingTextFrame:
+            // UIBezierPath(rect: hangingTextSize.centeredInsideRect(hangingTextFrame)).stroke()
+            var actualFrame = hangingTextSize.centeredInsideRect(hangingTextFrame)
+            actualFrame.origin.x += 4
+            hangingText.drawInRect(actualFrame)
+        }*/
+        
         /*for rect in lineRects() {
             let path = UIBezierPath(rect: rect)
             path.lineWidth = 1

@@ -27,8 +27,10 @@ class ArticleViewController: SwipeAwayViewController, UITableViewDelegate, UITab
         
         tableView.decelerationRate = UIScrollViewDecelerationRateFast
         
-        nextPageBar = UIView()
-        view.addSubview(nextPageBar)
+        for bar in [prevPageBar, nextPageBar] {
+            view.addSubview(bar)
+            bar.backgroundColor = UIColor(white: 1, alpha: 0.6)
+        }
         
         _articleSub = article.onUpdate.subscribe({ [weak self] (_) -> () in
             self?._update()
@@ -108,11 +110,16 @@ class ArticleViewController: SwipeAwayViewController, UITableViewDelegate, UITab
     @IBOutlet var loadingContainer: UIView!
     @IBOutlet var loadingSpinner: UIActivityIndicatorView!
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        tableView.contentInset = UIEdgeInsetsMake(0, 0, layoutInfo.extraBottomPadding, 0)
+    }
+    
     // MARK: Table
     
     @IBOutlet var tableView: UITableView!
     enum RowModel {
-        case Text(string: NSAttributedString, margins: (CGFloat, CGFloat))
+        case Text(string: NSAttributedString, margins: (CGFloat, CGFloat), seg: ArticleContent.TextSegment)
         case Image(ArticleContent.ImageSegment)
     }
     
@@ -129,11 +136,12 @@ class ArticleViewController: SwipeAwayViewController, UITableViewDelegate, UITab
                 let maxCharLen = 5000
                 while attributedString.length > 0 {
                     let take = min(attributedString.length, maxCharLen)
-                    let substring = attributedString.attributedSubstringFromRange(NSMakeRange(0, take))
+                    let substring = attributedString.attributedSubstringFromRange(NSMakeRange(0, take)).mutableCopy() as! NSMutableAttributedString
                     attributedString.deleteCharactersInRange(NSMakeRange(0, take))
-                    let marginTop = trailingMargin ? 0 : ArticleViewController.Margin
-                    let marginBottom = ArticleViewController.Margin
-                    models.append(RowModel.Text(string: substring, margins: (marginTop, marginBottom)))
+                    let marginTop = (trailingMargin ? 0 : ArticleViewController.Margin)
+                    let marginBottom = ArticleViewController.Margin + text.extraBottomPadding
+                    substring.stripWhitespace()
+                    models.append(RowModel.Text(string: substring, margins: (marginTop, marginBottom), seg: text))
                     trailingMargin = true
                 }
             }
@@ -164,9 +172,10 @@ class ArticleViewController: SwipeAwayViewController, UITableViewDelegate, UITab
             let cell = tableView.dequeueReusableCellWithIdentifier("Image") as! ImageSegmentTableViewCell
             cell.segment = segment
             return cell
-        case .Text(let string, let margins):
+        case .Text(let string, let margins, let seg):
             let cell = tableView.dequeueReusableCellWithIdentifier("Text") as! TextSegmentTableViewCell
             cell.string = string
+            cell.segment = seg
             cell.margin = UIEdgeInsetsMake(margins.0, ArticleViewController.Margin, margins.1, ArticleViewController.Margin)
             return cell
         }
@@ -191,11 +200,13 @@ class ArticleViewController: SwipeAwayViewController, UITableViewDelegate, UITab
     }
     
     func scrollViewWillEndDragging(scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        var currentPageTop: CGFloat = 0
         if velocity.y > 0 {
-            // return next page:
+            // return next page, fallback to last page:
+            currentPageTop = layoutInfo.pageTopYValues.last ?? 0
             for pageY in layoutInfo.pageTopYValues {
                 if pageY > scrollView.contentOffset.y {
-                    targetContentOffset[0].y = pageY
+                    currentPageTop = pageY
                     break
                 }
             }
@@ -203,19 +214,18 @@ class ArticleViewController: SwipeAwayViewController, UITableViewDelegate, UITab
             // return prev page:
             for pageY in layoutInfo.pageTopYValues {
                 if pageY < scrollView.contentOffset.y {
-                    targetContentOffset[0].y = pageY
+                    currentPageTop = pageY
                 }
             }
         } else {
             // return nearest page:
-            var closestPageY: CGFloat = 0
             for pageY in layoutInfo.pageTopYValues {
-                if abs(pageY - scrollView.contentOffset.y) < abs(closestPageY - scrollView.contentOffset.y) {
-                    closestPageY = pageY
+                if abs(pageY - scrollView.contentOffset.y) < abs(currentPageTop - scrollView.contentOffset.y) {
+                    currentPageTop = pageY
                 }
             }
-            targetContentOffset[0].y = closestPageY
         }
+        targetContentOffset[0].y = currentPageTop
     }
     
     // MARK: LayoutInfo
@@ -262,27 +272,47 @@ class ArticleViewController: SwipeAwayViewController, UITableViewDelegate, UITab
             }
         }
         
+        var extraBottomPadding: CGFloat {
+            get {
+                let lastPageTop = pageTopYValues.last ?? 0
+                let lastPageBottom = lastPageTop + size.height - 44
+                let bottomOfContent = pageBreakPoints.last?.last ?? 0
+                return lastPageBottom - bottomOfContent
+            }
+        }
+        
         func heightForModel(model: RowModel) -> CGFloat {
             switch model {
             case .Image(let segment):
                 return ceil(ImageSegmentTableViewCell.heightForSegment(segment, width: size.width, maxHeight: size.height))
-            case .Text(let text, let margins):
+            case .Text(let text, let margins, seg: _):
                 let margin = UIEdgeInsetsMake(margins.0, ArticleViewController.Margin, margins.1, ArticleViewController.Margin)
                 return ceil(TextSegmentTableViewCell.heightForString(text, width: size.width, margin: margin))
             }
         }
+        
         func pageBreakPointsForModel(model: RowModel) -> [CGFloat] {
             switch model {
-            case .Text(string: let str, margins: (let topMargin, let bottomMargin)):
+            case .Text(string: let str, margins: (let topMargin, let bottomMargin), seg: _):
                 return TextSegmentTableViewCell.pageBreakPointsForSegment(str, width: size.width, margin: UIEdgeInsetsMake(topMargin, ArticleViewController.Margin, bottomMargin, ArticleViewController.Margin))
             default:
                 return [0, heightForModel(model)]
             }
         }
+        
+        func pageAfterY(y: CGFloat) -> CGFloat? {
+            for page in pageTopYValues {
+                if page > y {
+                    return page
+                }
+            }
+            return nil
+        }
     }
     
     // MARK: Pagination
-    var nextPageBar: UIView!
+    var nextPageBar = UIView()
+    var prevPageBar = UIView()
     
     // MARK: Actions
     @IBAction func share(sender: AnyObject) {

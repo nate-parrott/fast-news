@@ -2,6 +2,7 @@ from model import Source, Article, Subscription
 from util import get_or_insert
 from canonical_url import canonical_url
 from google.appengine.ext import ndb
+import datetime
 
 def subscribe(uid, url):
     source = ensure_source(url)
@@ -15,6 +16,20 @@ def subscribe(uid, url):
         sub.put()
     
     return {"source": source.json(include_articles=True), "subscription": sub.json()}
+
+def ensure_article_at_url(url):
+    id = Article.id_for_article(url, None)
+    article, inserted = get_or_insert(Article, id)
+    if inserted:
+        article.added_date = datetime.datetime.now()
+        article.added_order = 0
+    article.url = canonical_url(url)
+    # article.published = datetime.datetime.now()
+    # article.title = "A test"
+    # article.title = None
+    article.put()
+    article.fetch_now()
+    return article
 
 def unsubscribe(uid, url):
     ndb.Key(Subscription, Subscription.id_for_subscription(url, uid)).delete()

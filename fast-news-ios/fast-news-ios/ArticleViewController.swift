@@ -29,7 +29,7 @@ class ArticleViewController: SwipeAwayViewController, UITableViewDelegate, UITab
         
         for bar in [prevPageBar, nextPageBar] {
             view.addSubview(bar)
-            bar.backgroundColor = UIColor(white: 1, alpha: 0.6)
+            bar.backgroundColor = UIColor(white: 1, alpha: 0.9)
         }
         
         _articleSub = article.onUpdate.subscribe({ [weak self] (_) -> () in
@@ -113,6 +113,19 @@ class ArticleViewController: SwipeAwayViewController, UITableViewDelegate, UITab
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         tableView.contentInset = UIEdgeInsetsMake(0, 0, layoutInfo.extraBottomPadding, 0)
+        _updateBottomBar()
+    }
+    
+    func _updateBottomBar() {
+        let (prevPage, nextPageOpt, progress) = layoutInfo.getCurrentPagePositionForY(max(0, tableView.contentOffset.y))
+        let prevPageHeight = layoutInfo.lengthForPageAtY(prevPage)
+        var curPageHeightInterpolated = prevPageHeight
+        if let nextPage = nextPageOpt {
+            let nextPageHeight = layoutInfo.lengthForPageAtY(nextPage)
+            curPageHeightInterpolated = prevPageHeight * (1 - progress) + nextPageHeight * progress
+        }
+        let barHeight = view.bounds.size.height - curPageHeightInterpolated
+        nextPageBar.frame = CGRectMake(0, view.bounds.size.height - barHeight, view.bounds.size.width, barHeight)
     }
     
     // MARK: Table
@@ -202,6 +215,7 @@ class ArticleViewController: SwipeAwayViewController, UITableViewDelegate, UITab
                 top.translateY = 0
             }
         }
+        _updateBottomBar()
     }
     
     func scrollViewWillEndDragging(scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
@@ -263,7 +277,7 @@ class ArticleViewController: SwipeAwayViewController, UITableViewDelegate, UITab
                 let cellOffset = pageBreakPoints.last?.last ?? 0
                 pageBreakPoints.append(localPoints.map({ $0 + cellOffset }))
             }
-            let maxPageHeight = size.height - 44
+            let maxPageHeight = size.height - minBottomBarHeight
             pageTopYValues = [0]
             let allPoints = pageBreakPoints.reduce([], combine: { $0 + $1 })
             var i = 0
@@ -277,10 +291,12 @@ class ArticleViewController: SwipeAwayViewController, UITableViewDelegate, UITab
             }
         }
         
+        var minBottomBarHeight: CGFloat = 44
+        
         var extraBottomPadding: CGFloat {
             get {
                 let lastPageTop = pageTopYValues.last ?? 0
-                let lastPageBottom = lastPageTop + size.height - 44
+                let lastPageBottom = lastPageTop + size.height - minBottomBarHeight
                 let bottomOfContent = pageBreakPoints.last?.last ?? 0
                 return lastPageBottom - bottomOfContent
             }
@@ -305,6 +321,18 @@ class ArticleViewController: SwipeAwayViewController, UITableViewDelegate, UITab
             }
         }
         
+        func pageContainingY(y: CGFloat) -> CGFloat {
+            var last: CGFloat = 0
+            for page in pageTopYValues {
+                if y >= page {
+                    last = page
+                } else {
+                    break
+                }
+            }
+            return last
+        }
+        
         func pageAfterY(y: CGFloat) -> CGFloat? {
             for page in pageTopYValues {
                 if page > y {
@@ -312,6 +340,25 @@ class ArticleViewController: SwipeAwayViewController, UITableViewDelegate, UITab
                 }
             }
             return nil
+        }
+        
+        func lengthForPageAtY(y: CGFloat) -> CGFloat {
+            let page = pageContainingY(y)
+            if let nextPage = pageAfterY(y) {
+                return nextPage - page
+            } else {
+                return size.height - minBottomBarHeight
+            }
+        }
+        
+        func getCurrentPagePositionForY(y: CGFloat) -> (prev: CGFloat, next: CGFloat?, progress: CGFloat) {
+            let prev = pageContainingY(y)
+            if let next = pageAfterY(y) {
+                let progress = (y - prev) / (next - prev)
+                return (prev: prev, next: next, progress: progress)
+            } else {
+                return (prev: prev, next: nil, progress: 0)
+            }
         }
     }
     

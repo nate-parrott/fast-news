@@ -8,7 +8,7 @@
 
 import UIKit
 
-let FN_USE_PRODUCTION = false
+let FN_USE_PRODUCTION = true
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate {
@@ -27,9 +27,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         // let navigationController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as! UINavigationController
         splitViewController.delegate = self
         
-        delay(1) { () -> () in
+        /*delay(1) { () -> () in
             self.readArticle("http://testpage2.42pag.es")
-        }
+        }*/
         
         return true
     }

@@ -327,13 +327,10 @@
                                     <button opaque="NO" userInteractionEnabled="NO" alpha="0.59999999999999998" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wA3-pZ-a12">
                                         <rect key="frame" x="64" y="0.0" width="64" height="44"/>
                                     </button>
-                                    <button opaque="NO" alpha="0.59999999999999998" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T6v-ib-bEu">
+                                    <button opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T6v-ib-bEu">
                                         <rect key="frame" x="128" y="0.0" width="64" height="44"/>
                                         <accessibility key="accessibilityConfiguration" label="Page Down"/>
                                         <state key="normal" image="NextPage"/>
-                                        <connections>
-                                            <action selector="pageDown" destination="XLv-32-XDD" eventType="touchUpInside" id="yiS-C2-te5"/>
-                                        </connections>
                                     </button>
                                     <button opaque="NO" alpha="0.59999999999999998" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RgG-nL-qV9">
                                         <rect key="frame" x="192" y="0.0" width="64" height="44"/>

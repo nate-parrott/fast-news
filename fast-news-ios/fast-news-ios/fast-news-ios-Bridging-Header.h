@@ -7,4 +7,3 @@
 #import <ChameleonFramework/Chameleon.h>
 #import <CommonCrypto/CommonCrypto.h>
 #import "SSWDirectionalPanGestureRecognizer.h"
-#import <TUSafariActivity/TUSafariActivity.h>

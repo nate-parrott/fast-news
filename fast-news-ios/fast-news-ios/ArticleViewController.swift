@@ -391,16 +391,8 @@ class ArticleViewController: SwipeAwayViewController, UITableViewDelegate, UITab
             // TODO
         }
     }
-    var _arrowButtonReturnsToTop: Bool = false {
-        didSet {
-            // TODO
-        }
-    }
     @IBAction func dismiss() {
         dismissViewControllerAnimated(true, completion: nil)
-    }
-    @IBAction func pageDown() {
-        
     }
 }
 

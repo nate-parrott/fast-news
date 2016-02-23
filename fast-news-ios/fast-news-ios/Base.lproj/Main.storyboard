@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15A282b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="x2a-67-0TU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15A282b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="x2a-67-0TU">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
     </dependencies>
     <scenes>
         <!--Navigation Controller-->
@@ -312,14 +312,68 @@
                                     <constraint firstItem="nm1-Tm-7cl" firstAttribute="leading" secondItem="y0E-Xo-oDU" secondAttribute="leading" id="jTR-ii-r6Q"/>
                                 </constraints>
                             </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wEz-ud-3v7">
+                                <rect key="frame" x="0.0" y="524" width="320" height="44"/>
+                                <subviews>
+                                    <button opaque="NO" alpha="0.59999999999999998" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P6I-cD-glz">
+                                        <rect key="frame" x="0.0" y="0.0" width="64" height="44"/>
+                                        <accessibility key="accessibilityConfiguration" label="Back"/>
+                                        <state key="normal" image="Back"/>
+                                        <state key="highlighted" image="Back-Filled"/>
+                                        <connections>
+                                            <action selector="dismiss" destination="XLv-32-XDD" eventType="touchUpInside" id="Q3h-4E-65b"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" userInteractionEnabled="NO" alpha="0.59999999999999998" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wA3-pZ-a12">
+                                        <rect key="frame" x="64" y="0.0" width="64" height="44"/>
+                                    </button>
+                                    <button opaque="NO" alpha="0.59999999999999998" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T6v-ib-bEu">
+                                        <rect key="frame" x="128" y="0.0" width="64" height="44"/>
+                                        <accessibility key="accessibilityConfiguration" label="Page Down"/>
+                                        <state key="normal" image="NextPage"/>
+                                        <connections>
+                                            <action selector="pageDown" destination="XLv-32-XDD" eventType="touchUpInside" id="yiS-C2-te5"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" alpha="0.59999999999999998" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RgG-nL-qV9">
+                                        <rect key="frame" x="192" y="0.0" width="64" height="44"/>
+                                        <accessibility key="accessibilityConfiguration" label="Bookmark"/>
+                                        <state key="normal" image="Bookmark"/>
+                                        <state key="highlighted" image="Bookmark-Filled"/>
+                                        <connections>
+                                            <action selector="toggleBookmarked:" destination="XLv-32-XDD" eventType="touchUpInside" id="mLr-H3-P6v"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" alpha="0.59999999999999998" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xVv-qw-vRW">
+                                        <rect key="frame" x="256" y="0.0" width="64" height="44"/>
+                                        <accessibility key="accessibilityConfiguration" label="Actions"/>
+                                        <state key="normal" image="Share"/>
+                                        <state key="highlighted" image="Share-Filled"/>
+                                        <connections>
+                                            <action selector="share:" destination="XLv-32-XDD" eventType="touchUpInside" id="Dum-gH-Wzv"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="tintColor" white="0.41115301724137937" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="P6I-cD-glz" firstAttribute="width" secondItem="wA3-pZ-a12" secondAttribute="width" id="1N7-Ax-bng"/>
+                                    <constraint firstItem="P6I-cD-glz" firstAttribute="width" secondItem="T6v-ib-bEu" secondAttribute="width" id="Vp1-vM-dX4"/>
+                                    <constraint firstItem="P6I-cD-glz" firstAttribute="width" secondItem="RgG-nL-qV9" secondAttribute="width" id="dDE-cc-S4t"/>
+                                    <constraint firstAttribute="height" constant="44" id="emQ-tR-Zwb"/>
+                                    <constraint firstItem="P6I-cD-glz" firstAttribute="width" secondItem="xVv-qw-vRW" secondAttribute="width" id="qai-8l-zOu"/>
+                                </constraints>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" red="0.98431372549999996" green="0.98431372549999996" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="CR4-7S-RuE" firstAttribute="centerY" secondItem="6WO-do-Uvu" secondAttribute="centerY" id="4ID-Tf-4Ej"/>
                             <constraint firstItem="JdR-yL-kui" firstAttribute="leading" secondItem="6WO-do-Uvu" secondAttribute="leading" id="4Pv-6f-euB"/>
+                            <constraint firstAttribute="trailing" secondItem="wEz-ud-3v7" secondAttribute="trailing" id="4Vf-dn-tBJ"/>
                             <constraint firstItem="Wwx-Qj-gaC" firstAttribute="top" secondItem="JdR-yL-kui" secondAttribute="bottom" id="ABJ-RV-O5I"/>
+                            <constraint firstItem="wEz-ud-3v7" firstAttribute="leading" secondItem="6WO-do-Uvu" secondAttribute="leading" id="Ecy-5D-OMl"/>
                             <constraint firstItem="CR4-7S-RuE" firstAttribute="centerX" secondItem="6WO-do-Uvu" secondAttribute="centerX" id="Ixb-ba-Iyb"/>
                             <constraint firstAttribute="trailing" secondItem="JdR-yL-kui" secondAttribute="trailing" id="WdE-ne-52g"/>
+                            <constraint firstItem="Wwx-Qj-gaC" firstAttribute="top" secondItem="wEz-ud-3v7" secondAttribute="bottom" id="bIz-0o-Cf2"/>
                             <constraint firstItem="JdR-yL-kui" firstAttribute="top" secondItem="6WO-do-Uvu" secondAttribute="top" id="mV3-JM-owf"/>
                             <constraint firstItem="y0E-Xo-oDU" firstAttribute="centerY" secondItem="6WO-do-Uvu" secondAttribute="centerY" id="nxa-5V-pw1"/>
                             <constraint firstItem="y0E-Xo-oDU" firstAttribute="centerX" secondItem="6WO-do-Uvu" secondAttribute="centerX" id="qYM-rh-VOf"/>
@@ -327,6 +381,7 @@
                     </view>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
+                        <outlet property="actionsBar" destination="wEz-ud-3v7" id="Zc0-1W-2Nj"/>
                         <outlet property="errorView" destination="CR4-7S-RuE" id="ghG-mK-k2t"/>
                         <outlet property="loadingContainer" destination="y0E-Xo-oDU" id="q6T-mX-8JP"/>
                         <outlet property="loadingSpinner" destination="nm1-Tm-7cl" id="PBR-BO-gAU"/>
@@ -334,13 +389,17 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gar-oa-bDE" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer numberOfTapsRequired="2" id="Gds-B1-HpY">
-                    <connections>
-                        <action selector="share:" destination="XLv-32-XDD" id="BmO-Gc-hD9"/>
-                    </connections>
-                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1138" y="-118"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Back" width="50" height="44"/>
+        <image name="Back-Filled" width="50" height="44"/>
+        <image name="Bookmark" width="50" height="44"/>
+        <image name="Bookmark-Filled" width="50" height="44"/>
+        <image name="NextPage" width="50" height="44"/>
+        <image name="Share" width="50" height="44"/>
+        <image name="Share-Filled" width="50" height="44"/>
+    </resources>
 </document>

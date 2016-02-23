@@ -12,10 +12,11 @@ class SwipeAwayViewController: UIViewController, UIViewControllerAnimatedTransit
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let panRec = SSWDirectionalPanGestureRecognizer(target: self, action: "_swiped:")
-        panRec.direction = .Right
-        view.addGestureRecognizer(panRec)
+        _panRec = SSWDirectionalPanGestureRecognizer(target: self, action: "_swiped:")
+        _panRec.direction = .Right
+        view.addGestureRecognizer(_panRec)
     }
+    var _panRec: SSWDirectionalPanGestureRecognizer!
     
     func _swiped(rec: SSWDirectionalPanGestureRecognizer) {
         let progress = max(0, min(1, (rec.translationInView(view.superview).x - 10) / view.bounds.size.width))
@@ -126,8 +127,12 @@ class SwipeAwayViewController: UIViewController, UIViewControllerAnimatedTransit
     var _percentDrivenTransition: UIPercentDrivenInteractiveTransition? // TODO: make weak
     
     func interactionControllerForDismissal(animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-        let t = UIPercentDrivenInteractiveTransition()
-        _percentDrivenTransition = t
-        return t
+        if _panRec.state == .Began || _panRec.state == .Changed {
+            let t = UIPercentDrivenInteractiveTransition()
+            _percentDrivenTransition = t
+            return t
+        } else {
+            return nil
+        }
     }
 }

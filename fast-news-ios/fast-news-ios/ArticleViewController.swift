@@ -21,22 +21,26 @@ class ArticleViewController: SwipeAwayViewController, UITableViewDelegate, UITab
         errorView.alpha = 0
         loadingContainer.alpha = 0
         
+        view.insertSubview(nextPageBar, belowSubview: actionsBar)
+        nextPageBar.backgroundColor = UIColor(white: 1, alpha: 0.95)
         
         tableView.registerClass(ImageSegmentTableViewCell.self, forCellReuseIdentifier: "Image")
         tableView.registerClass(TextSegmentTableViewCell.self, forCellReuseIdentifier: "Text")
         
         tableView.decelerationRate = UIScrollViewDecelerationRateFast
         
-        for bar in [prevPageBar, nextPageBar] {
-            view.addSubview(bar)
-            bar.backgroundColor = UIColor(white: 1, alpha: 0.9)
-        }
-        
         _articleSub = article.onUpdate.subscribe({ [weak self] (_) -> () in
             self?._update()
         })
         _update()
         article.ensureRecency(3 * 60 * 60)
+        
+        if let bgColor = article.source?.backgroundColor, let textColor = article.source?.textColor {
+            let bgVisibility = max(bgColor.hsva.1, 1 - bgColor.hsva.2)
+            let textVisibility = max(textColor.hsva.1, 1 - textColor.hsva.2)
+            actionsBar.tintColor = bgVisibility > textVisibility ? bgColor : textColor
+        }
+        
     }
     
     func _update() {
@@ -363,8 +367,7 @@ class ArticleViewController: SwipeAwayViewController, UITableViewDelegate, UITab
     }
     
     // MARK: Pagination
-    var nextPageBar = UIView()
-    var prevPageBar = UIView()
+    let nextPageBar = UIView()
     
     // MARK: Actions
     func openLink(url: NSURL) {
@@ -373,6 +376,31 @@ class ArticleViewController: SwipeAwayViewController, UITableViewDelegate, UITab
     }
     
     @IBAction func share(sender: AnyObject) {
-        presentViewController(UIActivityViewController(activityItems: [NSURL(string: article.url!)!], applicationActivities: nil), animated: true, completion: nil)
+        presentViewController(UIActivityViewController(activityItems: [NSURL(string: article.url!)!], applicationActivities: [SafariVCActivity()]), animated: true, completion: nil)
+    }
+    
+    @IBAction func toggleBookmarked(sender: AnyObject) {
+        
+    }
+    
+    @IBOutlet var actionsBar: UIView!
+    
+    @IBOutlet var bookmarkButton: UIButton!
+    var _usesBookmarkSavedIcon = false {
+        didSet {
+            // TODO
+        }
+    }
+    var _arrowButtonReturnsToTop: Bool = false {
+        didSet {
+            // TODO
+        }
+    }
+    @IBAction func dismiss() {
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    @IBAction func pageDown() {
+        
     }
 }
+

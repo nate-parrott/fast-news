@@ -8,7 +8,7 @@
 
 import UIKit
 
-let FN_USE_PRODUCTION = true
+let FN_USE_PRODUCTION = false
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate {

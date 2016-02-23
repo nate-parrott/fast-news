@@ -25,6 +25,8 @@
 		5F0CC63A1C6D526E0071A026 /* RobotoMono-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5F0CC6361C6D526E0071A026 /* RobotoMono-Italic.ttf */; };
 		5F0CC63B1C6D526E0071A026 /* RobotoMono-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5F0CC6371C6D526E0071A026 /* RobotoMono-Regular.ttf */; };
 		5F0CC63D1C6D6BEB0071A026 /* ArticleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F0CC63C1C6D6BEB0071A026 /* ArticleCell.swift */; };
+		5F3054311C7CE13A00E0CFE6 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3054301C7CE13A00E0CFE6 /* Color.swift */; };
+		5F3054331C7CE33200E0CFE6 /* SafariVCActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3054321C7CE33200E0CFE6 /* SafariVCActivity.swift */; };
 		5F4A71411C6319E000676F91 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4A71401C6319E000676F91 /* AppDelegate.swift */; };
 		5F4A71481C6319E000676F91 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F4A71461C6319E000676F91 /* Main.storyboard */; };
 		5F4A714A1C6319E000676F91 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5F4A71491C6319E000676F91 /* Assets.xcassets */; };
@@ -82,6 +84,8 @@
 		5F0CC6361C6D526E0071A026 /* RobotoMono-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoMono-Italic.ttf"; sourceTree = "<group>"; };
 		5F0CC6371C6D526E0071A026 /* RobotoMono-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoMono-Regular.ttf"; sourceTree = "<group>"; };
 		5F0CC63C1C6D6BEB0071A026 /* ArticleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleCell.swift; sourceTree = "<group>"; };
+		5F3054301C7CE13A00E0CFE6 /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		5F3054321C7CE33200E0CFE6 /* SafariVCActivity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SafariVCActivity.swift; sourceTree = "<group>"; };
 		5F4A713D1C6319E000676F91 /* fast-news-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "fast-news-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F4A71401C6319E000676F91 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5F4A71471C6319E000676F91 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -222,6 +226,7 @@
 				5FCDF4411C6BF75F00A50A75 /* ArticleViewController.swift */,
 				5F73F17A1C77C91600DA2981 /* TextSegmentTableViewCell.swift */,
 				5F73F17C1C77C92300DA2981 /* ImageSegmentTableViewCell.swift */,
+				5F3054321C7CE33200E0CFE6 /* SafariVCActivity.swift */,
 			);
 			name = Reading;
 			sourceTree = "<group>";
@@ -272,6 +277,7 @@
 				5F73F1781C76A8DE00DA2981 /* NSAttributedString+TrimWhitespace.swift */,
 				5FCDF43F1C6BCD6700A50A75 /* CommonExtensions.swift */,
 				5F59D8A91C791B1F00C3E1C3 /* UIImage+Tiny.swift */,
+				5F3054301C7CE13A00E0CFE6 /* Color.swift */,
 				5F59D8AB1C791D7600C3E1C3 /* Pixel.swift */,
 				5F59D8AF1C7BC25700C3E1C3 /* BinarySearch.swift */,
 			);
@@ -438,6 +444,7 @@
 				5F5706731C65E18300140078 /* Subscription.swift in Sources */,
 				5F5E4DA31C6FDE79009C3446 /* NSData+MD5.swift in Sources */,
 				5F59D8B01C7BC25700C3E1C3 /* BinarySearch.swift in Sources */,
+				5F3054311C7CE13A00E0CFE6 /* Color.swift in Sources */,
 				5F59D8AA1C791B1F00C3E1C3 /* UIImage+Tiny.swift in Sources */,
 				5F5E4DAC1C71014D009C3446 /* Utils.swift in Sources */,
 				5F5E4DA51C6FDEA7009C3446 /* APIIdentity.swift in Sources */,
@@ -449,6 +456,7 @@
 				5F4A71411C6319E000676F91 /* AppDelegate.swift in Sources */,
 				5F5706711C65E17C00140078 /* SubscriptionsList.swift in Sources */,
 				5F5E4DDC1C743389009C3446 /* Content.swift in Sources */,
+				5F3054331C7CE33200E0CFE6 /* SafariVCActivity.swift in Sources */,
 				5FCDF4421C6BF75F00A50A75 /* ArticleViewController.swift in Sources */,
 				5F73F17B1C77C91600DA2981 /* TextSegmentTableViewCell.swift in Sources */,
 				5F0CC6251C6C551E0071A026 /* FNSplitViewController.swift in Sources */,

@@ -23,6 +23,7 @@ class ArticleViewController: SwipeAwayViewController, UITableViewDelegate, UITab
         
         view.insertSubview(nextPageBar, belowSubview: actionsBar)
         nextPageBar.backgroundColor = UIColor(white: 1, alpha: 0.95)
+        nextPageBar.userInteractionEnabled = false
         
         tableView.registerClass(ImageSegmentTableViewCell.self, forCellReuseIdentifier: "Image")
         tableView.registerClass(TextSegmentTableViewCell.self, forCellReuseIdentifier: "Text")
@@ -128,7 +129,7 @@ class ArticleViewController: SwipeAwayViewController, UITableViewDelegate, UITab
             let nextPageHeight = layoutInfo.lengthForPageAtY(nextPage)
             curPageHeightInterpolated = prevPageHeight * (1 - progress) + nextPageHeight * progress
         }
-        let barHeight = view.bounds.size.height - curPageHeightInterpolated
+        let barHeight = ceil(view.bounds.size.height - curPageHeightInterpolated + 1)
         nextPageBar.frame = CGRectMake(0, view.bounds.size.height - barHeight, view.bounds.size.width, barHeight)
     }
     
@@ -170,6 +171,7 @@ class ArticleViewController: SwipeAwayViewController, UITableViewDelegate, UITab
         didSet {
             _layoutInfo = nil
             tableView.reloadData()
+            _updateBottomBar()
         }
     }
     
@@ -392,7 +394,13 @@ class ArticleViewController: SwipeAwayViewController, UITableViewDelegate, UITab
         }
     }
     @IBAction func dismiss() {
-        dismissViewControllerAnimated(true, completion: nil)
+        if let cb = onBack {
+            cb()
+        } else {
+            dismissViewControllerAnimated(true, completion: nil)
+        }
     }
+    
+    var onBack: (() -> ())?
 }
 

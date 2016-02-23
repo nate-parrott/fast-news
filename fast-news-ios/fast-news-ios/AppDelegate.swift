@@ -8,8 +8,6 @@
 
 import UIKit
 
-let FN_USE_PRODUCTION = true
-
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate {
 

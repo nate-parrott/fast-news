@@ -36,7 +36,7 @@
         <!--Feed-->
         <scene sceneID="gXW-mz-UOM">
             <objects>
-                <collectionViewController id="5FY-Hm-8g5" customClass="FeedViewController" customModule="fast_news_ios" customModuleProvider="target" sceneMemberID="viewController">
+                <collectionViewController id="5FY-Hm-8g5" customClass="FeedViewController" customModule="Reader" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="fRn-dw-tqq">
                         <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -84,7 +84,7 @@
         <!--Split View Controller-->
         <scene sceneID="Nki-YV-4Qg">
             <objects>
-                <splitViewController extendedLayoutIncludesOpaqueBars="YES" automaticallyAdjustsScrollViewInsets="NO" id="H1p-Uh-vWS" customClass="FNSplitViewController" customModule="fast_news_ios" customModuleProvider="target" sceneMemberID="viewController">
+                <splitViewController extendedLayoutIncludesOpaqueBars="YES" automaticallyAdjustsScrollViewInsets="NO" id="H1p-Uh-vWS" customClass="FNSplitViewController" customModule="Reader" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" systemItem="mostRecent" id="Wqg-Ti-VZP"/>
                     <toolbarItems/>
                     <connections>
@@ -99,7 +99,7 @@
         <!--Sources-->
         <scene sceneID="jcb-Fu-qwX">
             <objects>
-                <tableViewController title="Sources" id="Zh7-eV-mo5" customClass="SubscriptionsViewController" customModule="fast_news_ios" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Sources" id="Zh7-eV-mo5" customClass="SubscriptionsViewController" customModule="Reader" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="uuq-rJ-Fgl">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -248,7 +248,7 @@
         <!--Source View Controller-->
         <scene sceneID="yqO-Dv-DH3">
             <objects>
-                <collectionViewController storyboardIdentifier="Source" id="HE0-BP-aGi" customClass="SourceViewController" customModule="fast_news_ios" customModuleProvider="target" sceneMemberID="viewController">
+                <collectionViewController storyboardIdentifier="Source" id="HE0-BP-aGi" customClass="SourceViewController" customModule="Reader" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="d7Z-si-Biw">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -273,7 +273,7 @@
         <!--Article View Controller-->
         <scene sceneID="Zdw-JL-moN">
             <objects>
-                <viewController storyboardIdentifier="Article" id="XLv-32-XDD" customClass="ArticleViewController" customModule="fast_news_ios" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Article" id="XLv-32-XDD" customClass="ArticleViewController" customModule="Reader" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jbv-RZ-E6K"/>
                         <viewControllerLayoutGuide type="bottom" id="Wwx-Qj-gaC"/>
@@ -282,12 +282,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Failed to load the article" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CR4-7S-RuE">
-                                <rect key="frame" x="78.5" y="275" width="164.5" height="18"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="JdR-yL-kui">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -363,12 +357,10 @@
                         </subviews>
                         <color key="backgroundColor" red="0.98431372549999996" green="0.98431372549999996" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="CR4-7S-RuE" firstAttribute="centerY" secondItem="6WO-do-Uvu" secondAttribute="centerY" id="4ID-Tf-4Ej"/>
                             <constraint firstItem="JdR-yL-kui" firstAttribute="leading" secondItem="6WO-do-Uvu" secondAttribute="leading" id="4Pv-6f-euB"/>
                             <constraint firstAttribute="trailing" secondItem="wEz-ud-3v7" secondAttribute="trailing" id="4Vf-dn-tBJ"/>
                             <constraint firstItem="Wwx-Qj-gaC" firstAttribute="top" secondItem="JdR-yL-kui" secondAttribute="bottom" id="ABJ-RV-O5I"/>
                             <constraint firstItem="wEz-ud-3v7" firstAttribute="leading" secondItem="6WO-do-Uvu" secondAttribute="leading" id="Ecy-5D-OMl"/>
-                            <constraint firstItem="CR4-7S-RuE" firstAttribute="centerX" secondItem="6WO-do-Uvu" secondAttribute="centerX" id="Ixb-ba-Iyb"/>
                             <constraint firstAttribute="trailing" secondItem="JdR-yL-kui" secondAttribute="trailing" id="WdE-ne-52g"/>
                             <constraint firstItem="Wwx-Qj-gaC" firstAttribute="top" secondItem="wEz-ud-3v7" secondAttribute="bottom" id="bIz-0o-Cf2"/>
                             <constraint firstItem="JdR-yL-kui" firstAttribute="top" secondItem="6WO-do-Uvu" secondAttribute="top" id="mV3-JM-owf"/>
@@ -379,7 +371,6 @@
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="actionsBar" destination="wEz-ud-3v7" id="Zc0-1W-2Nj"/>
-                        <outlet property="errorView" destination="CR4-7S-RuE" id="ghG-mK-k2t"/>
                         <outlet property="loadingContainer" destination="y0E-Xo-oDU" id="q6T-mX-8JP"/>
                         <outlet property="loadingSpinner" destination="nm1-Tm-7cl" id="PBR-BO-gAU"/>
                         <outlet property="tableView" destination="JdR-yL-kui" id="E5o-Ix-g0c"/>

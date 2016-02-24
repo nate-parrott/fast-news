@@ -2,7 +2,6 @@ from google.appengine.ext import ndb
 from canonical_url import canonical_url
 from google.appengine.api import taskqueue
 from util import truncate, timestamp_from_datetime
-from article_json import article_json
 
 class Subscription(ndb.Model):
     url = ndb.StringProperty()
@@ -65,6 +64,7 @@ class ArticleContent(ndb.Model):
     html = ndb.TextProperty()
     text = ndb.TextProperty()
     article_json = ndb.JsonProperty()
+    is_low_quality_parse = ndb.BooleanProperty()
 
 class Article(ndb.Model):
     source = ndb.KeyProperty(kind=Source)

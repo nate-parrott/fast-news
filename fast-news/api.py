@@ -17,7 +17,7 @@ def subscribe(uid, url):
     
     return {"source": source.json(include_articles=True), "subscription": sub.json()}
 
-def ensure_article_at_url(url):
+def ensure_article_at_url(url, force_fetch=True):
     id = Article.id_for_article(url, None)
     article, inserted = get_or_insert(Article, id)
     if inserted:
@@ -28,7 +28,8 @@ def ensure_article_at_url(url):
     # article.title = "A test"
     # article.title = None
     article.put()
-    article.fetch_now()
+    if not article.content or force_fetch:
+        article.fetch_now()
     return article
 
 def unsubscribe(uid, url):

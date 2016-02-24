@@ -15,9 +15,11 @@ class ArticleContent {
         } else {
             segments = []
         }
+        lowQuality = json["is_low_quality_parse"] as? Bool
     }
     
     let segments: [Segment]
+    let lowQuality: Bool?
     
     static func segmentFromJson(json: [String: AnyObject]) -> Segment? {
         if let type = json["type"] as? String {
@@ -48,6 +50,10 @@ class ArticleContent {
             var prependText: String?
             let indent: CGFloat = 15
             switch kind {
+                case "title":
+                    fontOptions.headingFont = true
+                    fontOptions.size = 3
+                    fontOptions.bold = true
                 case "h1":
                     fontOptions.headingFont = true
                     fontOptions.size = 3

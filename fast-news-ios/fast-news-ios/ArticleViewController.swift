@@ -18,7 +18,6 @@ class ArticleViewController: SwipeAwayViewController, UITableViewDelegate, UITab
         super.viewDidLoad()
         
         tableView.alpha = 0
-        errorView.alpha = 0
         loadingContainer.alpha = 0
         
         view.insertSubview(nextPageBar, belowSubview: actionsBar)
@@ -47,10 +46,14 @@ class ArticleViewController: SwipeAwayViewController, UITableViewDelegate, UITab
     func _update() {
         title = article.title
         if let content = article.content {
-            rowModels = _createRowModelsFromSegments(content.segments)
-            _viewState = .ShowContent
+            if content.lowQuality ?? false {
+                _viewState = .ShowWeb
+            } else {
+                rowModels = _createRowModelsFromSegments(content.segments)
+                _viewState = .ShowContent
+            }
         } else if article.fetchFailed ?? false {
-            _viewState = .ShowError
+            _viewState = .ShowWeb
         } else {
             _viewState = .ShowLoading
         }
@@ -64,15 +67,15 @@ class ArticleViewController: SwipeAwayViewController, UITableViewDelegate, UITab
     enum _ViewState {
         case ShowNothing
         case ShowContent
-        case ShowError
+        case ShowWeb
         case ShowLoading
         var id: Int {
             get {
                 switch self {
                 case .ShowNothing: return 1
                 case .ShowContent: return 2
-                case .ShowError: return 3
                 case .ShowLoading: return 4
+                case .ShowWeb: return 5
                 }
             }
         }
@@ -82,14 +85,13 @@ class ArticleViewController: SwipeAwayViewController, UITableViewDelegate, UITab
             
             if newVal.id != _viewState.id {
                 var tableAlpha: CGFloat = 0
-                var errorAlpha: CGFloat = 0
                 var loaderAlpha: CGFloat = 0
+                webView = nil
                 
                 loadingSpinner.stopAnimating()
                 
                 switch newVal {
                 case .ShowContent: tableAlpha = 1
-                case .ShowError: errorAlpha = 1
                 case .ShowLoading:
                     loaderAlpha = 1
                     loadingSpinner.startAnimating()
@@ -99,19 +101,24 @@ class ArticleViewController: SwipeAwayViewController, UITableViewDelegate, UITab
                             self.loadingSpinner.alpha = 1
                             }, completion: nil)
                     })
+                case .ShowWeb:
+                    webView = InlineWebView()
+                    webView?.article = article
+                    webView?.onClickedLink = {
+                        [weak self] (url) in
+                        self?.openLink(url)
+                    }
                 default: ()
                 }
                 
                 UIView.animateWithDuration(0.2, delay: 0, options: .AllowUserInteraction, animations: { () -> Void in
                     self.tableView.alpha = tableAlpha
-                    self.errorView.alpha = errorAlpha
                     self.loadingContainer.alpha = loaderAlpha
                     }, completion: nil)
             }
         }
     }
     
-    @IBOutlet var errorView: UIView!
     @IBOutlet var loadingContainer: UIView!
     @IBOutlet var loadingSpinner: UIActivityIndicatorView!
     
@@ -119,17 +126,22 @@ class ArticleViewController: SwipeAwayViewController, UITableViewDelegate, UITab
         super.viewDidLayoutSubviews()
         tableView.contentInset = UIEdgeInsetsMake(0, 0, layoutInfo.extraBottomPadding, 0)
         _updateBottomBar()
+        webView?.frame = view.bounds
+        webView?.inset = UIEdgeInsetsMake(0, 0, layoutInfo.minBottomBarHeight, 0)
     }
     
     func _updateBottomBar() {
-        let (prevPage, nextPageOpt, progress) = layoutInfo.getCurrentPagePositionForY(max(0, tableView.contentOffset.y))
-        let prevPageHeight = layoutInfo.lengthForPageAtY(prevPage)
-        var curPageHeightInterpolated = prevPageHeight
-        if let nextPage = nextPageOpt {
-            let nextPageHeight = layoutInfo.lengthForPageAtY(nextPage)
-            curPageHeightInterpolated = prevPageHeight * (1 - progress) + nextPageHeight * progress
+        var barHeight = layoutInfo.minBottomBarHeight
+        if rowModels != nil {
+            let (prevPage, nextPageOpt, progress) = layoutInfo.getCurrentPagePositionForY(max(0, tableView.contentOffset.y))
+            let prevPageHeight = layoutInfo.lengthForPageAtY(prevPage)
+            var curPageHeightInterpolated = prevPageHeight
+            if let nextPage = nextPageOpt {
+                let nextPageHeight = layoutInfo.lengthForPageAtY(nextPage)
+                curPageHeightInterpolated = prevPageHeight * (1 - progress) + nextPageHeight * progress
+            }
+            barHeight = ceil(view.bounds.size.height - curPageHeightInterpolated + 1)
         }
-        let barHeight = ceil(view.bounds.size.height - curPageHeightInterpolated + 1)
         nextPageBar.frame = CGRectMake(0, view.bounds.size.height - barHeight, view.bounds.size.width, barHeight)
     }
     
@@ -402,5 +414,15 @@ class ArticleViewController: SwipeAwayViewController, UITableViewDelegate, UITab
     }
     
     var onBack: (() -> ())?
+    
+    // MARK: WebView
+    var webView: InlineWebView? {
+        willSet(newVal) {
+            webView?.removeFromSuperview()
+            if let new = newVal {
+                view.insertSubview(new, aboveSubview: tableView)
+            }
+        }
+    }
 }
 

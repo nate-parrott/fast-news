@@ -20,7 +20,6 @@ from model import Source, Article, Subscription
 from google.appengine.ext import ndb
 import json
 from pprint import pprint
-from article_json import article_json
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
@@ -79,14 +78,14 @@ class UnsubscribeHandler(webapp2.RequestHandler):
 class ArticleTestFetchHandler(webapp2.RequestHandler):
     def post(self):
         url = self.request.get('url')
-        article = api.ensure_article_at_url(url)
+        article = api.ensure_article_at_url(url, force_fetch=True)
         type = self.request.get('type')
         if type == 'html':
             self.response.write(article.content.get().html)
         elif type == 'article_json':
             self.response.headers.add_header('Content-Type', 'application/json')
             self.response.write(json.dumps({
-                "article": article_json(article, article.content.get())
+                "article": article.content.get().article_json
             }))
         else:
             self.response.headers.add_header('Content-Type', 'application/json')

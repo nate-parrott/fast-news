@@ -6,7 +6,8 @@ import readability
 from bs4 import BeautifulSoup
 from model import ArticleContent
 from urlparse import urljoin
-from article_json import article_json
+from article_json import populate_article_json
+import re
 # also look at https://github.com/seomoz/dragnet/blob/master/README.md
 
 def find_meta_value(soup, prop):
@@ -38,10 +39,11 @@ def article_fetch(article):
         doc = readability.Document(markup)
         content.html = doc.summary()
         doc_soup = BeautifulSoup(content.html, 'lxml')
-        content.text = unicode(doc_soup.get_text()).strip()
         
         article.title = first_present([article.title, doc.short_title(), og_title])
         article.top_image = make_url_absolute(first_present([article.top_image, og_image]))
+        
+        populate_article_json(article, content)
         
         # compute description:
         description = None
@@ -49,10 +51,8 @@ def article_fetch(article):
             description = truncate(og_description.strip(), words=60)
         elif content.text and len(content.text.strip()) > 0:
             description = truncate(content.text, words=60)
-        article.description = description
-        
-        content.article_json = article_json(article, content)
-        
+        article.description = re.sub(r"\n+", r"\n", description).strip() if description else None
+                
         article.fetch_failed = False
     else:
         article.fetch_failed = True

@@ -27,6 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         
         /*delay(1) { () -> () in
             self.readArticle("http://testpage2.42pag.es")
+            // self.readArticle("http://twitter.com/nateparrott")
         }*/
         
         return true

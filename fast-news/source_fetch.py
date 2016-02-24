@@ -16,6 +16,7 @@ from brand import extract_brand
 from time import mktime
 import datetime
 from google.appengine.api import taskqueue
+import re
 
 def source_fetch(source):
     result = _source_fetch(source)
@@ -144,9 +145,12 @@ def fetch_wordpress_default_rss(source, markup, url):
             return res
 
 def fetch_hardcoded_rss_url(source, markup, url):
-    rss_url = None
-    if url in ('http://news.ycombinator.com', 'https://news.ycombinator.com'):
-        rss_url = "http://hnrss.org/newest?points=25"
+    lookup = {
+        'news.ycombinator.com': 'http://hnrss.org/newest?points=25',
+        'newyorker.com': 'http://www.newyorker.com/feed/everything'
+    }
+    def strip_prefix(url): return re.sub(r"^https?:\/\/(www\.)?", "", url)
+    rss_url = lookup.get(strip_prefix(url))
     if rss_url:
         feed_markup = url_fetch(rss_url)
         res = rss_fetch(source, feed_markup, rss_url)

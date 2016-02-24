@@ -8,4 +8,4 @@
 
 import Foundation
 
-let FN_USE_PRODUCTION = true
+let FN_USE_PRODUCTION = false

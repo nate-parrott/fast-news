@@ -2,12 +2,12 @@ import urllib2, urllib
 import datetime
 import json
 from util import url_fetch, first_present, truncate
-import readability
 from bs4 import BeautifulSoup
 from model import ArticleContent
 from urlparse import urljoin
 from article_json import populate_article_json
 import re
+import article_extractor
 # also look at https://github.com/seomoz/dragnet/blob/master/README.md
 
 def find_meta_value(soup, prop):
@@ -36,11 +36,10 @@ def article_fetch(article):
         og_description = find_meta_value(markup_soup, 'og:description')
         
         # parse and process article content:
-        doc = readability.Document(markup)
-        content.html = doc.summary()
+        content.html = article_extractor.extract(markup, article.url)
         doc_soup = BeautifulSoup(content.html, 'lxml')
         
-        article.title = first_present([article.title, doc.short_title(), og_title])
+        article.title = first_present([article.title, og_title])
         article.top_image = make_url_absolute(first_present([article.top_image, og_image]))
         
         populate_article_json(article, content)

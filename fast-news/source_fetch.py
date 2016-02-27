@@ -5,7 +5,7 @@ import datetime
 from model import Article, Source
 from google.appengine.ext import ndb
 from model import Article
-from util import get_or_insert, url_fetch
+from util import get_or_insert, url_fetch, strip_url_prefix
 from shared_suffix import shared_suffix
 from canonical_url import canonical_url
 import feedparser
@@ -149,8 +149,7 @@ def fetch_hardcoded_rss_url(source, markup, url):
         'news.ycombinator.com': 'http://hnrss.org/newest?points=25',
         'newyorker.com': 'http://www.newyorker.com/feed/everything'
     }
-    def strip_prefix(url): return re.sub(r"^https?:\/\/(www\.)?", "", url)
-    rss_url = lookup.get(strip_prefix(url))
+    rss_url = lookup.get(strip_url_prefix(url))
     if rss_url:
         feed_markup = url_fetch(rss_url)
         res = rss_fetch(source, feed_markup, rss_url)

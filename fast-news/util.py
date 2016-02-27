@@ -19,6 +19,9 @@ def get_or_insert(cls, id, **kwds):
   ent.put()
   return (ent, True)  # True meaning "created"
 
+def strip_url_prefix(url): 
+    return re.sub(r"^https?:\/\/(www\.)?", "", url)
+
 def first_present(items):
     for item in items:
         if item:

@@ -3,6 +3,7 @@ import bs4
 from pprint import pprint
 import urlparse
 from util import url_fetch, normalized_compare
+from soup_tools import iterate_tree
 from StringIO import StringIO
 from PIL import Image
 from tinyimg import tinyimg
@@ -15,21 +16,6 @@ def url_fetch_and_time(url, timeout):
     return res, (t2 - t1)
 
 MAX_TIME_FOR_EXTERNAL_FETCHES = 4.0
-
-def iterate_tree(soup):
-    """class_blacklist = set(['promo', 'ad'])
-    for class_ in soup.get('class', []):
-        if class_ in class_blacklist:
-            return"""
-    
-    yield ('enter', soup)
-    for child in soup:
-        if type(child) == bs4.NavigableString:
-            yield ('text', unicode(child.string))
-        elif type(child) == bs4.Tag:
-            for x in iterate_tree(child):
-                yield x
-    yield ('exit', soup)
 
 class Segment(object):
     def __init__(self):

@@ -1,0 +1,12 @@
+{
+	"blacklist": [
+		".promo",
+		".nocontent",
+		".interactive",
+		".sharetools",
+		".visually-hidden"
+	],
+	"whitelist": [
+		".image"
+	]
+}

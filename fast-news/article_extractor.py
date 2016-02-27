@@ -99,11 +99,14 @@ def id_blacklist_and_whitelist_for_soup(soup, url):
     whitelist = set()
     blacklist = set()
     
+    # print soup.prettify().encode('utf-8')
+    
     data_path = os.path.join(os.path.dirname(__file__), 'article_extractor_info', normalize_url(url) + '.json')
     if os.path.exists(data_path):
         j = json.load(open(data_path))
         for (id_set, name) in [(whitelist, 'whitelist'), (blacklist, 'blacklist')]:
             for selector in j.get(name, []):
+                print selector, soup.select(selector)
                 for node in soup.select(selector):
                     id = node.get('data-subscribed-id')
                     if id:

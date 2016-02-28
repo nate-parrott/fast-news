@@ -7,6 +7,7 @@ from httplib import HTTPException
 import calendar
 from cookielib import CookieJar
 import unicodedata
+import re
 
 @ndb.transactional
 def get_or_insert(cls, id, **kwds):

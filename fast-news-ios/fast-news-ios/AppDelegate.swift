@@ -15,7 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         if FN_USE_PRODUCTION {
-            EnableSPDY.enableSPDY()
+            // EnableSPDY.enableSPDY()
         }
         applyTheme()
         // Override point for customization after application launch.
@@ -25,10 +25,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         // let navigationController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as! UINavigationController
         splitViewController.delegate = self
         
-        /*delay(1) { () -> () in
+        delay(1) { () -> () in
             self.readArticle("http://testpage2.42pag.es")
             // self.readArticle("http://twitter.com/nateparrott")
-        }*/
+            // self.readArticle("https://medium.com/hh-design/snapchat-reaction-emoji-a-prototype-372ba5de0bde#.4mv6jk16x")
+        }
         
         return true
     }
@@ -100,7 +101,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     
     func applyTheme() {
         UINavigationBar.appearance().titleTextAttributes = [NSFontAttributeName: UIFont(name: "RobotoMono-Bold", size: 18)!]
-        UIBarButtonItem.appearance().setTitleTextAttributes([NSFontAttributeName: UIFont(name: "RobotoMono-Regular", size: 16)!], forState: .Normal)
+        UIBarButtonItem.appearanceWhenContainedInInstancesOfClasses([FNNavigationController.self]).setTitleTextAttributes([NSFontAttributeName: UIFont(name: "RobotoMono-Regular", size: 16)!], forState: .Normal)
         UITabBarItem.appearance().setTitleTextAttributes([NSFontAttributeName: UIFont(name: "RobotoMono-Regular", size: 12)!, NSForegroundColorAttributeName: UIColor.whiteColor()], forState: .Selected)
         UITabBarItem.appearance().setTitleTextAttributes([NSFontAttributeName: UIFont(name: "RobotoMono-Regular", size: 12)!, NSForegroundColorAttributeName: UIColor(white: 1, alpha: 0.5)], forState: .Normal)
 

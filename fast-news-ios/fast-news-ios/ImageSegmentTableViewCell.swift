@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ImageSegmentTableViewCell: UITableViewCell {
+class ImageSegmentTableViewCell: ArticleSegmentCell {
     
     let netImageView = NetImageView()
     

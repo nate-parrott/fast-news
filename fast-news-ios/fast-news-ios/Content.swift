@@ -19,7 +19,7 @@ class ArticleContent {
     }
     
     let segments: [Segment]
-    let lowQuality: Bool?
+    let lowQuality: Bool? // low-quality parse
     
     static func segmentFromJson(json: [String: AnyObject]) -> Segment? {
         if let type = json["type"] as? String {
@@ -95,6 +95,8 @@ class ArticleContent {
                     prependText = "• "
                     paragraphStyle.headIndent = indent
                     paragraphStyle.firstLineHeadIndent = indent
+                case "caption":
+                    attrs[NSForegroundColorAttributeName] = (attrs[NSForegroundColorAttributeName] as! UIColor).colorWithAlphaComponent(0.6)
             default: ()
             }
             let font = fontOptions.font

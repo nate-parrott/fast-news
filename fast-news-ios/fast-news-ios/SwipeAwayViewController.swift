@@ -29,7 +29,7 @@ class SwipeAwayViewController: UIViewController, UIViewControllerAnimatedTransit
             let velocity = rec.velocityInView(view.superview).x
             let stationary = (velocity == 0)
             let willCompleteTransition = velocity > 0 || (velocity == 0 && progress > 0.5)
-            print("Will complete: \(willCompleteTransition)")
+            // print("Will complete: \(willCompleteTransition)")
             // _percentDrivenTransition?.completionCurve = stationary ? .EaseInOut : .EaseOut
             
             if stationary {

@@ -8,7 +8,11 @@
 
 import UIKit
 
-class TextSegmentTableViewCell: UITableViewCell {
+class TextSegmentTableViewCell: ArticleSegmentCell {
+    override func setup() {
+        super.setup()
+        backgroundColor = UIColor.whiteColor()
+    }
     // MARK: Properties
     var margin = UIEdgeInsetsZero {
         didSet {

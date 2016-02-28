@@ -10,6 +10,12 @@ import UIKit
 import SafariServices
 
 class SafariVCActivity: UIActivity, SFSafariViewControllerDelegate {
+    
+    init(parentViewController: UIViewController) {
+        self.parentViewController = parentViewController
+        super.init()
+    }
+    
     var url: NSURL?
     override func canPerformWithActivityItems(activityItems: [AnyObject]) -> Bool {
         for item in activityItems {
@@ -26,11 +32,17 @@ class SafariVCActivity: UIActivity, SFSafariViewControllerDelegate {
             }
         }
     }
-    override func activityViewController() -> UIViewController? {
+    /*override func activityViewController() -> UIViewController? {
         let vc = SFSafariViewController(URL: url!)
         vc.delegate = self
         return vc
+    }*/ // doesn't work, for some reason
+    override func performActivity() {
+        let vc = SFSafariViewController(URL: url!)
+        vc.delegate = self
+        parentViewController.presentViewController(vc, animated: true, completion: nil)
     }
+    var parentViewController: UIViewController
     func safariViewControllerDidFinish(controller: SFSafariViewController) {
         activityDidFinish(true)
     }

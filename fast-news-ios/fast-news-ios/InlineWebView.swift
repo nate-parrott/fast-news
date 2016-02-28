@@ -22,6 +22,7 @@ class InlineWebView: UIView, WKNavigationDelegate {
         addSubview(errorView)
         errorView.font = UIFont(descriptor: UIFontDescriptor.preferredFontDescriptorWithTextStyle(UIFontTextStyleBody), size: 0)
         errorView.hidden = true
+        // TODO: KVO webview progress
     }
 
     required init?(coder aDecoder: NSCoder) {

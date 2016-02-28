@@ -8,7 +8,7 @@
         <!--Navigation Controller-->
         <scene sceneID="pY4-Hu-kfo">
             <objects>
-                <navigationController title="Master" id="RMx-3f-FxP" sceneMemberID="viewController">
+                <navigationController title="Master" id="RMx-3f-FxP" customClass="FNNavigationController" customModule="Reader" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" barStyle="black" translucent="NO" id="Pmd-2v-anx">
                         <rect key="frame" x="0.0" y="0.0" width="0.0" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -192,7 +192,7 @@
         <!--Navigation Controller-->
         <scene sceneID="5sM-21-YFy">
             <objects>
-                <navigationController id="5lS-0O-PNm" sceneMemberID="viewController">
+                <navigationController id="5lS-0O-PNm" customClass="FNNavigationController" customModule="Reader" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" systemItem="mostViewed" id="Tfj-If-mXn"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="FCf-rQ-HUJ">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -209,7 +209,7 @@
         <!--Navigation Controller-->
         <scene sceneID="r7l-gg-dq7">
             <objects>
-                <navigationController id="vC3-pB-5Vb" sceneMemberID="viewController">
+                <navigationController id="vC3-pB-5Vb" customClass="FNNavigationController" customModule="Reader" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="DjV-YW-jjY">
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -282,15 +282,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="JdR-yL-kui">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <color key="sectionIndexBackgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <connections>
-                                    <outlet property="dataSource" destination="XLv-32-XDD" id="7It-Yf-9DY"/>
-                                    <outlet property="delegate" destination="XLv-32-XDD" id="ct2-kY-fgY"/>
-                                </connections>
-                            </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y0E-Xo-oDU">
                                 <rect key="frame" x="150" y="274" width="20" height="20"/>
                                 <subviews>
@@ -357,13 +348,9 @@
                         </subviews>
                         <color key="backgroundColor" red="0.98431372549999996" green="0.98431372549999996" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="JdR-yL-kui" firstAttribute="leading" secondItem="6WO-do-Uvu" secondAttribute="leading" id="4Pv-6f-euB"/>
                             <constraint firstAttribute="trailing" secondItem="wEz-ud-3v7" secondAttribute="trailing" id="4Vf-dn-tBJ"/>
-                            <constraint firstItem="Wwx-Qj-gaC" firstAttribute="top" secondItem="JdR-yL-kui" secondAttribute="bottom" id="ABJ-RV-O5I"/>
                             <constraint firstItem="wEz-ud-3v7" firstAttribute="leading" secondItem="6WO-do-Uvu" secondAttribute="leading" id="Ecy-5D-OMl"/>
-                            <constraint firstAttribute="trailing" secondItem="JdR-yL-kui" secondAttribute="trailing" id="WdE-ne-52g"/>
                             <constraint firstItem="Wwx-Qj-gaC" firstAttribute="top" secondItem="wEz-ud-3v7" secondAttribute="bottom" id="bIz-0o-Cf2"/>
-                            <constraint firstItem="JdR-yL-kui" firstAttribute="top" secondItem="6WO-do-Uvu" secondAttribute="top" id="mV3-JM-owf"/>
                             <constraint firstItem="y0E-Xo-oDU" firstAttribute="centerY" secondItem="6WO-do-Uvu" secondAttribute="centerY" id="nxa-5V-pw1"/>
                             <constraint firstItem="y0E-Xo-oDU" firstAttribute="centerX" secondItem="6WO-do-Uvu" secondAttribute="centerX" id="qYM-rh-VOf"/>
                         </constraints>
@@ -373,7 +360,6 @@
                         <outlet property="actionsBar" destination="wEz-ud-3v7" id="Zc0-1W-2Nj"/>
                         <outlet property="loadingContainer" destination="y0E-Xo-oDU" id="q6T-mX-8JP"/>
                         <outlet property="loadingSpinner" destination="nm1-Tm-7cl" id="PBR-BO-gAU"/>
-                        <outlet property="tableView" destination="JdR-yL-kui" id="E5o-Ix-g0c"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gar-oa-bDE" userLabel="First Responder" sceneMemberID="firstResponder"/>

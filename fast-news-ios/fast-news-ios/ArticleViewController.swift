@@ -9,7 +9,7 @@
 import UIKit
 import SafariServices
 
-class ArticleViewController: SwipeAwayViewController, UITableViewDelegate, UITableViewDataSource {
+class ArticleViewController: SwipeAwayViewController {
     // MARK: Data
     var article: Article!
     var _articleSub: Subscription?
@@ -17,17 +17,19 @@ class ArticleViewController: SwipeAwayViewController, UITableViewDelegate, UITab
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.alpha = 0
+        pager.alpha = 0
         loadingContainer.alpha = 0
         
-        view.insertSubview(nextPageBar, belowSubview: actionsBar)
-        nextPageBar.backgroundColor = UIColor(white: 1, alpha: 0.95)
-        nextPageBar.userInteractionEnabled = false
+        pager.updateLayout = {
+            [weak self] (_) in
+            self?._updatePages()
+        }
+        pager.createPageForModel = {
+            [weak self] (i) in
+            return self!._pageViewForIndex(i)
+        }
         
-        tableView.registerClass(ImageSegmentTableViewCell.self, forCellReuseIdentifier: "Image")
-        tableView.registerClass(TextSegmentTableViewCell.self, forCellReuseIdentifier: "Text")
-        
-        tableView.decelerationRate = UIScrollViewDecelerationRateFast
+        view.insertSubview(pager, atIndex: 0)
         
         _articleSub = article.onUpdate.subscribe({ [weak self] (_) -> () in
             self?._update()
@@ -84,14 +86,14 @@ class ArticleViewController: SwipeAwayViewController, UITableViewDelegate, UITab
         willSet(newVal) {
             
             if newVal.id != _viewState.id {
-                var tableAlpha: CGFloat = 0
+                var contentAlpha: CGFloat = 0
                 var loaderAlpha: CGFloat = 0
                 webView = nil
                 
                 loadingSpinner.stopAnimating()
                 
                 switch newVal {
-                case .ShowContent: tableAlpha = 1
+                case .ShowContent: contentAlpha = 1
                 case .ShowLoading:
                     loaderAlpha = 1
                     loadingSpinner.startAnimating()
@@ -112,7 +114,7 @@ class ArticleViewController: SwipeAwayViewController, UITableViewDelegate, UITab
                 }
                 
                 UIView.animateWithDuration(0.2, delay: 0, options: .AllowUserInteraction, animations: { () -> Void in
-                    self.tableView.alpha = tableAlpha
+                    self.pager.alpha = contentAlpha
                     self.loadingContainer.alpha = loaderAlpha
                     }, completion: nil)
             }
@@ -124,33 +126,30 @@ class ArticleViewController: SwipeAwayViewController, UITableViewDelegate, UITab
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        tableView.contentInset = UIEdgeInsetsMake(0, 0, layoutInfo.extraBottomPadding, 0)
-        _updateBottomBar()
+        pager.frame = CGRectMake(0, 0, view.bounds.size.width, view.bounds.size.height - layoutInfo.minBottomBarHeight)
         webView?.frame = view.bounds
         webView?.inset = UIEdgeInsetsMake(0, 0, layoutInfo.minBottomBarHeight, 0)
     }
     
-    func _updateBottomBar() {
-        var barHeight = layoutInfo.minBottomBarHeight
-        if rowModels != nil {
-            let (prevPage, nextPageOpt, progress) = layoutInfo.getCurrentPagePositionForY(max(0, tableView.contentOffset.y))
-            let prevPageHeight = layoutInfo.lengthForPageAtY(prevPage)
-            var curPageHeightInterpolated = prevPageHeight
-            if let nextPage = nextPageOpt {
-                let nextPageHeight = layoutInfo.lengthForPageAtY(nextPage)
-                curPageHeightInterpolated = prevPageHeight * (1 - progress) + nextPageHeight * progress
-            }
-            barHeight = ceil(view.bounds.size.height - curPageHeightInterpolated + 1)
-        }
-        nextPageBar.frame = CGRectMake(0, view.bounds.size.height - barHeight, view.bounds.size.width, barHeight)
-    }
+    // MARK: Pages
     
-    // MARK: Table
+    let pager = SwipePager<Int>(frame: CGRectZero)
     
-    @IBOutlet var tableView: UITableView!
     enum RowModel {
         case Text(string: NSAttributedString, margins: (CGFloat, CGFloat), seg: ArticleContent.TextSegment)
         case Image(ArticleContent.ImageSegment)
+    }
+    
+    struct PageModel {
+        init() {}
+        var rowModels = [(RowModel, CGFloat)]() // (rowModel, offset)
+        var height: CGFloat = 0
+        var marginTop: CGFloat = 0
+    }
+    
+    func _updatePages() {
+        _layoutInfo = nil
+        pager.pageModels = Array(0..<(layoutInfo.pages.count))
     }
     
     func _createRowModelsFromSegments(segments: [ArticleContent.Segment]) -> [RowModel] {
@@ -181,30 +180,18 @@ class ArticleViewController: SwipeAwayViewController, UITableViewDelegate, UITab
     
     var rowModels: [RowModel]? {
         didSet {
-            _layoutInfo = nil
-            tableView.reloadData()
-            _updateBottomBar()
+            _updatePages()
         }
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return rowModels?.count ?? 0
-    }
-    
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        let points = layoutInfo.pageBreakPoints[indexPath.row]
-        return points.last! - points.first!
-    }
-    
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let model = rowModels![indexPath.row]
+    func cellForModel(model: RowModel) -> ArticleSegmentCell {
         switch model {
         case .Image(let segment):
-            let cell = tableView.dequeueReusableCellWithIdentifier("Image") as! ImageSegmentTableViewCell
+            let cell = ImageSegmentTableViewCell()
             cell.segment = segment
             return cell
         case .Text(let string, let margins, let seg):
-            let cell = tableView.dequeueReusableCellWithIdentifier("Text") as! TextSegmentTableViewCell
+            let cell = TextSegmentTableViewCell()
             cell.string = string
             cell.segment = seg
             cell.margin = UIEdgeInsetsMake(margins.0, ArticleViewController.Margin, margins.1, ArticleViewController.Margin)
@@ -217,108 +204,78 @@ class ArticleViewController: SwipeAwayViewController, UITableViewDelegate, UITab
         }
     }
     
-    func tableView(tableView: UITableView, shouldHighlightRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return false
-    }
-    
-    func scrollViewDidScroll(scrollView: UIScrollView) {
-        if let top = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as? ImageSegmentTableViewCell {
-            if scrollView.contentOffset.y > 0 {
-                top.clipsToBounds = true
-                top.upwardExpansion = 0
-                top.translateY = scrollView.contentOffset.y / 2
-            } else {
-                top.clipsToBounds = false
-                top.upwardExpansion = -scrollView.contentOffset.y
-                top.translateY = 0
+    func _pageViewForIndex(i: Int) -> UIView {
+        let v = ArticlePageView(frame: CGRectMake(0,0,100,100))
+        let model = layoutInfo.pages[i]
+        var views = [(ArticleSegmentCell, CGFloat, CGFloat)]() // cell, y-offset, height
+        for (row, offset) in model.rowModels {
+            if views.count > 0 {
+                views[views.count - 1].2 = offset - views[views.count - 1].1
             }
+            views.append((cellForModel(row), offset, 0))
         }
-        _updateBottomBar()
-    }
-    
-    func scrollViewWillEndDragging(scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        var currentPageTop: CGFloat = 0
-        if velocity.y > 0 {
-            // return next page, fallback to last page:
-            currentPageTop = layoutInfo.pageTopYValues.last ?? 0
-            for pageY in layoutInfo.pageTopYValues {
-                if pageY > scrollView.contentOffset.y {
-                    currentPageTop = pageY
-                    break
-                }
-            }
-        } else if velocity.y < 0 {
-            // return prev page:
-            for pageY in layoutInfo.pageTopYValues {
-                if pageY < scrollView.contentOffset.y {
-                    currentPageTop = pageY
-                }
-            }
-        } else {
-            // return nearest page:
-            for pageY in layoutInfo.pageTopYValues {
-                if abs(pageY - scrollView.contentOffset.y) < abs(currentPageTop - scrollView.contentOffset.y) {
-                    currentPageTop = pageY
-                }
-            }
-        }
-        targetContentOffset[0].y = currentPageTop
+        views[views.count - 1].2 = model.height - views[views.count - 1].1
+        v.views = views
+        v.marginTop = model.marginTop
+        v.backgroundColor = UIColor.whiteColor()
+        return v
     }
     
     // MARK: LayoutInfo
     var _layoutInfo: _LayoutInfo?
     var layoutInfo: _LayoutInfo {
         get {
-            if let existing = _layoutInfo where existing.size == tableView.bounds.size {
-                return existing
-            } else {
+            if _layoutInfo == nil {
                 _layoutInfo = _LayoutInfo()
-                _layoutInfo!.size = tableView.bounds.size
+                viewDidLayoutSubviews()
+                _layoutInfo!.size = pager.bounds.size
                 if let models = rowModels {
                     _layoutInfo!.computeWithModels(models)
                 }
-                return _layoutInfo!
             }
+            return _layoutInfo!
         }
     }
     
     class _LayoutInfo {
         var size = CGSizeZero
-        var pageBreakPoints = [[CGFloat]]() // one array per cell; first item is the top y and last item is the bottom y
-        var pageTopYValues = [CGFloat]()
+        var pages = [PageModel]()
         
         func computeWithModels(models: [RowModel]) {
-            pageBreakPoints = []
+            let maxPageHeight = size.height
+            
+            pages = [PageModel()]
             for model in models {
+                var addedYet = false
                 var localPoints = pageBreakPointsForModel(model)
                 localPoints[localPoints.count-1] = ceil(localPoints.last!)
-                let cellOffset = pageBreakPoints.last?.last ?? 0
-                pageBreakPoints.append(localPoints.map({ $0 + cellOffset }))
-            }
-            let maxPageHeight = size.height - minBottomBarHeight
-            pageTopYValues = [0]
-            let allPoints = pageBreakPoints.reduce([], combine: { $0 + $1 })
-            var i = 0
-            for pt in allPoints {
-                let proposedPageHeight = pt - pageTopYValues.last!
-                if proposedPageHeight > maxPageHeight && i > 0 {
-                    // create a new page:
-                    pageTopYValues.append(allPoints[i-1])
+                
+                var prevLocalPoint: CGFloat = 0
+                for point in localPoints.filter({ $0 != 0 }).map({ round($0) }) {
+                    if point - prevLocalPoint + pages.last!.height > maxPageHeight {
+                        // create a new page:
+                        pages.append(PageModel())
+                        pages[pages.count - 1].rowModels.append((model, -prevLocalPoint))
+                        // if this is a text field w/ no margin, or mid-text, append a margin:
+                        switch model {
+                        case .Text(string: _, margins: (let topMargin, _), seg: _):
+                            if topMargin == 0 || addedYet {
+                                pages[pages.count - 1].height += ArticleViewController.Margin
+                                pages[pages.count - 1].marginTop = ArticleViewController.Margin
+                            }
+                        default: ()
+                        }
+                    } else if !addedYet {
+                        pages[pages.count - 1].rowModels.append((model, pages.last!.height))
+                    }
+                    pages[pages.count - 1].height += point - prevLocalPoint
+                    prevLocalPoint = point
+                    addedYet = true
                 }
-                i++
             }
         }
         
         var minBottomBarHeight: CGFloat = 44
-        
-        var extraBottomPadding: CGFloat {
-            get {
-                let lastPageTop = pageTopYValues.last ?? 0
-                let lastPageBottom = lastPageTop + size.height - minBottomBarHeight
-                let bottomOfContent = pageBreakPoints.last?.last ?? 0
-                return lastPageBottom - bottomOfContent
-            }
-        }
         
         func heightForModel(model: RowModel) -> CGFloat {
             switch model {
@@ -338,50 +295,7 @@ class ArticleViewController: SwipeAwayViewController, UITableViewDelegate, UITab
                 return [0, heightForModel(model)]
             }
         }
-        
-        func pageContainingY(y: CGFloat) -> CGFloat {
-            var last: CGFloat = 0
-            for page in pageTopYValues {
-                if y >= page {
-                    last = page
-                } else {
-                    break
-                }
-            }
-            return last
-        }
-        
-        func pageAfterY(y: CGFloat) -> CGFloat? {
-            for page in pageTopYValues {
-                if page > y {
-                    return page
-                }
-            }
-            return nil
-        }
-        
-        func lengthForPageAtY(y: CGFloat) -> CGFloat {
-            let page = pageContainingY(y)
-            if let nextPage = pageAfterY(y) {
-                return nextPage - page
-            } else {
-                return size.height - minBottomBarHeight
-            }
-        }
-        
-        func getCurrentPagePositionForY(y: CGFloat) -> (prev: CGFloat, next: CGFloat?, progress: CGFloat) {
-            let prev = pageContainingY(y)
-            if let next = pageAfterY(y) {
-                let progress = (y - prev) / (next - prev)
-                return (prev: prev, next: next, progress: progress)
-            } else {
-                return (prev: prev, next: nil, progress: 0)
-            }
-        }
     }
-    
-    // MARK: Pagination
-    let nextPageBar = UIView()
     
     // MARK: Actions
     func openLink(url: NSURL) {
@@ -390,7 +304,10 @@ class ArticleViewController: SwipeAwayViewController, UITableViewDelegate, UITab
     }
     
     @IBAction func share(sender: AnyObject) {
-        presentViewController(UIActivityViewController(activityItems: [NSURL(string: article.url!)!], applicationActivities: [SafariVCActivity()]), animated: true, completion: nil)
+        let safariVCActivity = SafariVCActivity(parentViewController: self)
+        let activityVC = UIActivityViewController(activityItems: [NSURL(string: article.url!)!], applicationActivities: [safariVCActivity])
+        // activityVC.excludedActivityTypes = []
+        presentViewController(activityVC, animated: true, completion: nil)
     }
     
     @IBAction func toggleBookmarked(sender: AnyObject) {
@@ -420,7 +337,7 @@ class ArticleViewController: SwipeAwayViewController, UITableViewDelegate, UITab
         willSet(newVal) {
             webView?.removeFromSuperview()
             if let new = newVal {
-                view.insertSubview(new, aboveSubview: tableView)
+                view.insertSubview(new, aboveSubview: pager)
             }
         }
     }

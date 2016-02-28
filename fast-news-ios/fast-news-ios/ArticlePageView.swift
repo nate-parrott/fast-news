@@ -9,13 +9,37 @@
 import UIKit
 
 class ArticlePageView: UIView {
-
-    /*
-    // Only override drawRect: if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func drawRect(rect: CGRect) {
-        // Drawing code
+    var views = [(ArticleSegmentCell, CGFloat, CGFloat)]() { // (cell, y, height)
+        willSet(newVal) {
+            for v in views {
+                v.0.removeFromSuperview()
+            }
+            for v in newVal {
+                addSubview(v.0)
+            }
+            clipsToBounds = true
+        }
     }
-    */
-
+    var marginTop: CGFloat = 0 {
+        didSet {
+            setNeedsLayout()
+        }
+    }
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        for v in views {
+            addSubview(v.0)
+            v.0.frame = CGRectMake(0, v.1 + marginTop, bounds.size.width, v.2)
+            v.0.autoresizingMask = [.FlexibleWidth, .FlexibleBottomMargin]
+        }
+        if let lastView = views.last?.0 {
+            if maskView == nil {
+                maskView = UIView()
+                maskView!.backgroundColor = UIColor.whiteColor()
+            }
+            
+            maskView!.frame = CGRectMake(0, marginTop, bounds.size.width, lastView.frame.bottom - marginTop)
+        }
+    }
 }

@@ -36,10 +36,16 @@ class SwipePager<T:Hashable>: UIView, UIScrollViewDelegate {
     
     var pageModels = [T]() {
         didSet {
+            _viewsOnscreen.removeAll()
             let p = position
             position = p
             scrollView.contentSize = CGSizeMake(bounds.size.width, bounds.size.height * CGFloat(pageModels.count))
         }
+    }
+    func reload() {
+        let p = position
+        _viewsOnscreen.removeAll()
+        position = p
     }
     var createPageForModel: (T -> UIView)!
     var updateLayout: (SwipePager -> ())? {

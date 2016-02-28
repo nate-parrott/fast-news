@@ -38,11 +38,12 @@ class FeedCell: UICollectionViewCell {
             for v in [articleView, sourceName, chevron, sourceTapView] {
                 addSubview(v)
             }
-            let outerTextColor = UIColor.blackColor()
+            let outerTextColor = UIColor(white: 0, alpha: 0.5)
             chevron.tintColor = outerTextColor
-            chevron.alpha = 0.4
+            chevron.alpha = 0.6
             sourceName.textColor = outerTextColor
-            sourceName.font = UIFont(name: "RobotoMono-Regular", size: 14)
+            let sourceNameFontSize = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline).pointSize
+            sourceName.font = UIFont.boldSystemFontOfSize(sourceNameFontSize) // UIFont(name: "RobotoMono-Regular", size: 14)
             sourceTapView.backgroundColor = UIColor.clearColor()
             sourceTapView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "_tappedSourceName:"))
         }

@@ -16,7 +16,7 @@ class InlineWebView: UIView, WKNavigationDelegate {
         addSubview(webView)
         addSubview(loadingBar)
         loadingBar.frame = CGRectMake(0, 0, bounds.size.width, 0)
-        loadingBar.backgroundColor = FN_DARK_BLUE
+        loadingBar.backgroundColor = FN_PURPLE
         loadingBar.autoresizingMask = [.FlexibleBottomMargin, .FlexibleWidth]
         errorView.text = NSLocalizedString("Couldn't load page.", comment: "")
         addSubview(errorView)

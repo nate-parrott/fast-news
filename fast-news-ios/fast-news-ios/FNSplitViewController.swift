@@ -9,7 +9,7 @@
 import UIKit
 
 class FNSplitViewController: UISplitViewController {
-    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+    /*override func preferredStatusBarStyle() -> UIStatusBarStyle {
         return .LightContent
-    }
+    }*/
 }

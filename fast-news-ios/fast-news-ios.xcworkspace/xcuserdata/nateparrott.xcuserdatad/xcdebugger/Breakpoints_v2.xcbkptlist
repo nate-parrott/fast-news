@@ -170,11 +170,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "fast-news-ios/ArticleCollectionViewController.swift"
-            timestampString = "477105050.668087"
+            timestampString = "478389024.275083"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "138"
-            endingLineNumber = "138"
+            startingLineNumber = "158"
+            endingLineNumber = "158"
             landmarkName = "preloadImagesForVisibleRange(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -452,11 +452,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "fast-news-ios/ArticleViewController.swift"
-            timestampString = "478382110.179564"
+            timestampString = "478382957.335476"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "127"
-            endingLineNumber = "127"
+            startingLineNumber = "126"
+            endingLineNumber = "126"
             landmarkName = "ArticleViewController"
             landmarkType = "3">
             <Locations>
@@ -545,11 +545,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "fast-news-ios/ArticleViewController.swift"
-            timestampString = "478382110.179564"
+            timestampString = "478382957.335476"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "103"
-            endingLineNumber = "103"
+            startingLineNumber = "102"
+            endingLineNumber = "102"
             landmarkName = "ArticleViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -577,11 +577,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "fast-news-ios/ArticleViewController.swift"
-            timestampString = "478382237.030877"
+            timestampString = "478382957.335476"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "342"
-            endingLineNumber = "342"
+            startingLineNumber = "341"
+            endingLineNumber = "341"
             landmarkName = "ArticleViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -593,11 +593,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "fast-news-ios/ArticleViewController.swift"
-            timestampString = "478382237.030877"
+            timestampString = "478382957.335476"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "340"
-            endingLineNumber = "340"
+            startingLineNumber = "339"
+            endingLineNumber = "339"
             landmarkName = "ArticleViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -609,11 +609,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "fast-news-ios/ArticleViewController.swift"
-            timestampString = "478382237.030877"
+            timestampString = "478382957.335476"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "278"
-            endingLineNumber = "278"
+            startingLineNumber = "277"
+            endingLineNumber = "277"
             landmarkName = "computeWithModels(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -625,11 +625,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "fast-news-ios/ArticleViewController.swift"
-            timestampString = "478382237.030877"
+            timestampString = "478382957.335476"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "257"
-            endingLineNumber = "257"
+            startingLineNumber = "256"
+            endingLineNumber = "256"
             landmarkName = "computeWithModels(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -641,11 +641,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "fast-news-ios/ArticleViewController.swift"
-            timestampString = "478382237.030877"
+            timestampString = "478382957.335476"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "260"
-            endingLineNumber = "260"
+            startingLineNumber = "259"
+            endingLineNumber = "259"
             landmarkName = "computeWithModels(_:)"
             landmarkType = "5">
          </BreakpointContent>

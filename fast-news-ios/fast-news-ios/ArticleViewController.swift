@@ -43,6 +43,7 @@ class ArticleViewController: SwipeAwayViewController {
             actionsBar.tintColor = bgVisibility > textVisibility ? bgColor : textColor
         }
         
+        pager.backgroundColor = UIColor.whiteColor()
     }
     
     func _update() {

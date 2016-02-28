@@ -9,6 +9,7 @@ target 'fast-news-ios' do
 pod 'CocoaSPDY'
 pod 'ChameleonFramework'
 pod 'SloppySwiper'
+pod 'GradientView'
 
 end
 

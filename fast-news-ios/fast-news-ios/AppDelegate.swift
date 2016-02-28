@@ -20,13 +20,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         applyTheme()
         // Override point for customization after application launch.
         let tabViewController = window!.rootViewController as! UITabBarController
-        tabViewController.tabBar.tintColor = UIColor.whiteColor()
+        tabViewController.tabBar.tintColor = FN_PURPLE
         let splitViewController = tabViewController.viewControllers!.first as! UISplitViewController
         // let navigationController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as! UINavigationController
         splitViewController.delegate = self
         
         delay(1) { () -> () in
-            self.readArticle("http://testpage2.42pag.es")
+            // self.readArticle("http://testpage2.42pag.es")
             // self.readArticle("http://twitter.com/nateparrott")
             // self.readArticle("https://medium.com/hh-design/snapchat-reaction-emoji-a-prototype-372ba5de0bde#.4mv6jk16x")
         }
@@ -100,10 +100,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     }
     
     func applyTheme() {
-        UINavigationBar.appearance().titleTextAttributes = [NSFontAttributeName: UIFont(name: "RobotoMono-Bold", size: 18)!]
-        UIBarButtonItem.appearanceWhenContainedInInstancesOfClasses([FNNavigationController.self]).setTitleTextAttributes([NSFontAttributeName: UIFont(name: "RobotoMono-Regular", size: 16)!], forState: .Normal)
-        UITabBarItem.appearance().setTitleTextAttributes([NSFontAttributeName: UIFont(name: "RobotoMono-Regular", size: 12)!, NSForegroundColorAttributeName: UIColor.whiteColor()], forState: .Selected)
-        UITabBarItem.appearance().setTitleTextAttributes([NSFontAttributeName: UIFont(name: "RobotoMono-Regular", size: 12)!, NSForegroundColorAttributeName: UIColor(white: 1, alpha: 0.5)], forState: .Normal)
+        // UINavigationBar.appearance().titleTextAttributes = [NSFontAttributeName: UIFont(name: "RobotoMono-Bold", size: 18)!]
+        // UIBarButtonItem.appearanceWhenContainedInInstancesOfClasses([FNNavigationController.self]).setTitleTextAttributes([NSFontAttributeName: UIFont(name: "RobotoMono-Regular", size: 16)!], forState: .Normal)
+        // UITabBarItem.appearance().setTitleTextAttributes([NSFontAttributeName: UIFont(name: "RobotoMono-Regular", size: 12)!, NSForegroundColorAttributeName: UIColor.whiteColor()], forState: .Selected)
+        // UITabBarItem.appearance().setTitleTextAttributes([NSFontAttributeName: UIFont(name: "RobotoMono-Regular", size: 12)!, NSForegroundColorAttributeName: UIColor(white: 1, alpha: 0.5)], forState: .Normal)
+        
+        UINavigationBar.appearanceWhenContainedInInstancesOfClasses([FNNavigationController.self]).setBackgroundImage(UIImage(named: "White"), forBarPosition: .Any, barMetrics: .Default)
+        UINavigationBar.appearanceWhenContainedInInstancesOfClasses([FNNavigationController.self]).shadowImage = UIImage()
 
     }
 }

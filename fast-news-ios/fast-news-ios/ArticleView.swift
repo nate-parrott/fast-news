@@ -32,7 +32,7 @@ class ArticleView: UIView {
         let headlineAttributes = [NSFontAttributeName: UIFont.boldSystemFontOfSize(17), NSForegroundColorAttributeName: UIColor(white: 0, alpha: 1)]
         let secondLineFont = UIFont.systemFontOfSize(12)
         let descriptionAttributes = [NSFontAttributeName: secondLineFont, NSForegroundColorAttributeName: UIColor(white: 0, alpha: 0.5)]
-        let hostAttributes = [NSFontAttributeName: UIFont.systemFontOfSize(12), NSForegroundColorAttributeName: Theme.darkBlue]
+        let hostAttributes = [NSFontAttributeName: UIFont.systemFontOfSize(12), NSForegroundColorAttributeName: FN_PURPLE]
         
         let headline = NSAttributedString(string: (article?.title ?? ""), attributes: headlineAttributes)
         

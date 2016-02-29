@@ -252,8 +252,8 @@ class ArticleViewController: SwipeAwayViewController {
                 localPoints[localPoints.count-1] = ceil(localPoints.last!)
                 
                 var prevLocalPoint: CGFloat = 0
-                for point in localPoints.filter({ $0 != 0 }).map({ round($0) }) {
-                    if point - prevLocalPoint + pages.last!.height > maxPageHeight {
+                for point in localPoints.filter({ $0 != 0 }).map({ ceil($0) }) {
+                    if point - prevLocalPoint + pages.last!.height + pages.last!.marginTop > maxPageHeight {
                         // create a new page:
                         pages.append(PageModel())
                         pages[pages.count - 1].rowModels.append((model, -prevLocalPoint))
@@ -261,7 +261,6 @@ class ArticleViewController: SwipeAwayViewController {
                         switch model {
                         case .Text(string: _, margins: (let topMargin, _), seg: _):
                             if topMargin == 0 || addedYet {
-                                pages[pages.count - 1].height += ArticleViewController.Margin
                                 pages[pages.count - 1].marginTop = ArticleViewController.Margin
                             }
                         default: ()

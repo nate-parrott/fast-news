@@ -17,7 +17,7 @@ class ArticlePageView: UIView {
             for v in newVal {
                 addSubview(v.0)
             }
-            clipsToBounds = true
+            // clipsToBounds = true
         }
     }
     var marginTop: CGFloat = 0 {
@@ -29,7 +29,6 @@ class ArticlePageView: UIView {
         super.layoutSubviews()
         
         for v in views {
-            addSubview(v.0)
             v.0.frame = CGRectMake(0, v.1 + marginTop, bounds.size.width, v.2)
             v.0.autoresizingMask = [.FlexibleWidth, .FlexibleBottomMargin]
         }
@@ -40,6 +39,8 @@ class ArticlePageView: UIView {
             }
             
             maskView!.frame = CGRectMake(0, marginTop, bounds.size.width, lastView.frame.bottom - marginTop)
+            
+            lastView.frame = CGRectMake(0, lastView.frame.origin.y, lastView.frame.size.width, lastView.frame.size.height + 20)
         }
     }
 }

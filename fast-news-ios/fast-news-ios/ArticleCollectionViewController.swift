@@ -38,8 +38,6 @@ class ArticleCollectionViewController: UICollectionViewController, UICollectionV
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        collectionView!.addSubview(gradientIndicator)
-        _updateGradientIndicatorFrame()
         collectionView!.decelerationRate = UIScrollViewDecelerationRateFast
         automaticallyAdjustsScrollViewInsets = false
         _modelSub = model.onUpdate.subscribe { [weak self] (state) -> () in
@@ -51,11 +49,6 @@ class ArticleCollectionViewController: UICollectionViewController, UICollectionV
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "_foreground:", name: UIApplicationWillEnterForegroundNotification, object: nil)
         // navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "AbrilFatface-Regular", size: 20)!]
         // let layout = collectionView!.collectionViewLayout as! UICollectionViewFlowLayout
-    }
-    
-    let gradientIndicator = GradientIndicator(frame: CGRectZero)
-    func _updateGradientIndicatorFrame() {
-        gradientIndicator.frame = CGRectMake(0, collectionView!.contentOffset.y + collectionView!.scrollIndicatorInsets.top, collectionView!.bounds.size.width, GradientIndicator.Height)
     }
     
     let _preferredRecency: CFAbsoluteTime = 5 * 60
@@ -76,13 +69,10 @@ class ArticleCollectionViewController: UICollectionViewController, UICollectionV
         switch model.loadingState {
         case .Error(_):
             title = NSLocalizedString("Offline", comment: "")
-            gradientIndicator.state = .Offline
         case .Loading(_):
             title = NSLocalizedString("Refreshing…", comment: "")
-            gradientIndicator.state = .Loading
         default:
             title = modelTitle
-            gradientIndicator.state = .Done
         }
         navigationItem.title = title
     }
@@ -124,15 +114,6 @@ class ArticleCollectionViewController: UICollectionViewController, UICollectionV
         super.viewWillLayoutSubviews()
         let flow = collectionView!.collectionViewLayout as! UICollectionViewFlowLayout
         flow.estimatedItemSize = CGSizeMake(view.bounds.size.width * 0.7, 200)
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        _updateGradientIndicatorFrame()
-    }
-    
-    override func scrollViewDidScroll(scrollView: UIScrollView) {
-        _updateGradientIndicatorFrame()
     }
     
     // MARK: Image preloading

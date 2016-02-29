@@ -19,6 +19,7 @@ class ImageSegmentTableViewCell: ArticleSegmentCell {
             contentView.addSubview(netImageView)
             netImageView.contentMode = .ScaleAspectFill
             clipsToBounds = true
+            backgroundColor = UIColor(white: 0.2, alpha: 1)
         }
     }
     

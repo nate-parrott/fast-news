@@ -12,7 +12,7 @@
                     <navigationBar key="navigationBar" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translucent="NO" id="Pmd-2v-anx">
                         <rect key="frame" x="0.0" y="0.0" width="0.0" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="tintColor" red="0.55950844287872314" green="0.55949169397354126" blue="0.55950117111206055" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <textAttributes key="titleTextAttributes">
                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                         </textAttributes>
@@ -78,11 +78,11 @@
             </objects>
             <point key="canvasLocation" x="-920" y="-329"/>
         </scene>
-        <!--Split View Controller-->
+        <!--News-->
         <scene sceneID="Nki-YV-4Qg">
             <objects>
                 <splitViewController extendedLayoutIncludesOpaqueBars="YES" automaticallyAdjustsScrollViewInsets="NO" id="H1p-Uh-vWS" customClass="FNSplitViewController" customModule="Reader" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" systemItem="mostRecent" id="Wqg-Ti-VZP"/>
+                    <tabBarItem key="tabBarItem" title="News" image="NewsTab" id="Wqg-Ti-VZP"/>
                     <toolbarItems/>
                     <connections>
                         <segue destination="RMx-3f-FxP" kind="relationship" relationship="masterViewController" id="BlO-5A-QYV"/>
@@ -180,17 +180,17 @@
                             <outlet property="delegate" destination="g0T-YU-sDB" id="EMC-rO-SFf"/>
                         </connections>
                     </collectionView>
-                    <tabBarItem key="tabBarItem" systemItem="bookmarks" id="Dyr-rd-dWD"/>
+                    <tabBarItem key="tabBarItem" title="Bookmarks" image="BookmarksTab" id="Dyr-rd-dWD"/>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yt0-ZS-yFE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="17" y="602"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Subscriptions-->
         <scene sceneID="5sM-21-YFy">
             <objects>
-                <navigationController id="5lS-0O-PNm" customClass="FNNavigationController" customModule="Reader" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" systemItem="mostViewed" id="Tfj-If-mXn"/>
+                <navigationController id="5lS-0O-PNm" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Subscriptions" image="SourcesTab" id="Tfj-If-mXn"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="FCf-rQ-HUJ">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -369,8 +369,11 @@
         <image name="Back-Filled" width="50" height="44"/>
         <image name="Bookmark" width="50" height="44"/>
         <image name="Bookmark-Filled" width="50" height="44"/>
+        <image name="BookmarksTab" width="23" height="24"/>
+        <image name="NewsTab" width="24" height="24"/>
         <image name="NextPage" width="50" height="44"/>
         <image name="Share" width="50" height="44"/>
         <image name="Share-Filled" width="50" height="44"/>
+        <image name="SourcesTab" width="23" height="24"/>
     </resources>
 </document>

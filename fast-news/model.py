@@ -115,3 +115,23 @@ class Article(ndb.Model):
 
 from source_fetch import source_fetch
 from article_fetch import article_fetch
+
+class Bookmark(ndb.Model):
+    article = ndb.KeyProperty(kind=Article)
+    added = ndb.DateTimeProperty(auto_now_add=True)
+    last_modified = ndb.DateTimeProperty(auto_now_add=True)
+    reading_position = ndb.JsonProperty()
+    uid = ndb.StringProperty()
+    
+    @classmethod
+    def id_for_bookmark(cls, uid, article_id):
+        return '{0} {1}'.format(uid, article_id)
+    
+    def json(self):
+        return {
+            "id": self.key.id(),
+            "article_id": self.article.id(),
+            "added": timestamp_from_datetime(self.added),
+            "last_modified": timestamp_from_datetime(self.last_modified),
+            "reading_position": self.reading_position
+        }

@@ -75,6 +75,28 @@ class UnsubscribeHandler(webapp2.RequestHandler):
         self.response.headers.add_header('Content-Type', 'application/json')
         self.response.write(json.dumps({"success": True}))
 
+class BookmarksHandler(webapp2.RequestHandler):
+    def get(self):
+        uid = self.request.get('uid')
+        self.response.headers.add_header('Content-Type', 'application/json')
+        self.response.write(json.dumps(api.bookmarks(uid)))
+    
+    def post(self):
+        uid = self.request.get('uid')
+        article_id = self.request.get('article_id')
+        article_url = self.request.get('article_url')
+        reading_pos = self.request.get('reading_pos')
+        bookmark = api.add_or_update_bookmark(uid, reading_pos, article_id, article_url)
+        self.response.headers.add_header('Content-Type', 'application/json')
+        self.response.write(json.dumps({"bookmark": bookmark.json() if bookmark else None}))
+    
+    def delete(self):
+        uid = self.request.get('uid')
+        article_id = self.request.get('article_id')
+        api.delete_bookmark(uid, article_id)
+        self.response.headers.add_header('Content-Type', 'application/json')
+        self.response.write(json.dumps({"success": True}))
+    
 class ArticleTestFetchHandler(webapp2.RequestHandler):
     def post(self):
         url = self.request.get('url')
@@ -122,6 +144,12 @@ class TestHandler(webapp2.RequestHandler):
             <p><input type=radio name=type value=article_json>Article JSON</p>
             <input type=submit>
         </form>
+        <form method=POST action='bookmarks'>
+            <h1>Bookmark</h1>
+            <input name=article_url type=url placeholder=article_url>
+            <input name=uid placeholder=uid>
+            <input type=submit>
+        </form>
         """
         self.response.write(html)
     
@@ -143,6 +171,7 @@ app = webapp2.WSGIApplication([
     ('/subscriptions', SubscriptionsHandler),
     ('/subscriptions/add', SubscribeHandler),
     ('/subscriptions/delete', UnsubscribeHandler),
+    ('/bookmarks', BookmarksHandler),
     ('/test', TestHandler),
     ('/test/article_fetch', ArticleTestFetchHandler)
 ], debug=True)

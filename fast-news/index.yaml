@@ -17,6 +17,12 @@ indexes:
     direction: desc
   - name: added_order
 
+- kind: Bookmark
+  properties:
+  - name: uid
+  - name: last_modified
+    direction: desc
+
 - kind: Source
   properties:
   - name: url

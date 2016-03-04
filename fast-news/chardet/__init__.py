@@ -23,7 +23,11 @@ def detect(aBuf):
     if ((version_info < (3, 0) and isinstance(aBuf, unicode)) or
             (version_info >= (3, 0) and not isinstance(aBuf, bytes))):
         raise ValueError('Expected a bytes object, not a unicode object')
-
+    
+    MAX_BUFFER_LEN = 10 * 1000
+    # print type(aBuf)
+    aBuf = aBuf[:min(len(aBuf), MAX_BUFFER_LEN)]
+    # print aBuf[0]
     from . import universaldetector
     u = universaldetector.UniversalDetector()
     u.reset()

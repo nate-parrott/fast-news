@@ -9,7 +9,23 @@
 import UIKit
 
 class FeedViewController: ArticleCollectionViewController {
+    
+    // MARK: Lifecycle
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        _subscriptionWasAddedSub = PusherForNotification(name: Transaction.TransactionFinishedNotification, object: nil).subscribe({ [weak self] (let notif) -> () in
+            if let t = notif.object as? AddSubscriptionTransaction where !t.failed {
+                self?.feed.reloadImmediately()
+            }
+        })
+    }
+    
     let feed = Feed.objectsForIDs(["shared"]).first! as! Feed
+    var _subscriptionWasAddedSub: Subscription?
+    
+    // MARK: Article VC overrides
     
     override func applyModelToCell(cell: UICollectionViewCell, model: APIObject) {
         super.applyModelToCell(cell, model: model)

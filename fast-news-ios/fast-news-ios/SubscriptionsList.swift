@@ -9,6 +9,18 @@
 import Foundation
 
 class SubscriptionsList: APIObject {
+    required init(id: String?) {
+        super.init(id: id)
+        _sourcesJustAddedSub = PusherForNotification(name: Transaction.TransactionFinishedNotification, object: nil).subscribe({ [weak self] (let notification) -> () in
+            if let s = self,
+                let transaction = notification.object as? AddSubscriptionTransaction where !transaction.failed {
+                s.subscriptions = [transaction.optimisticSub] + (s.subscriptions ?? [])
+                s.updated()
+            }
+        })
+    }
+    var _sourcesJustAddedSub: Subscription?
+    
     var subscriptions: [SourceSubscription]?
     override func importJson(json: [String : AnyObject]) {
         super.importJson(json)
@@ -53,6 +65,7 @@ class AddSubscriptionTransaction: Transaction {
                 self.optimisticSource.updated()
                 callback(success: true)
             } else {
+                self.failed = true
                 callback(success: false)
             }
         }

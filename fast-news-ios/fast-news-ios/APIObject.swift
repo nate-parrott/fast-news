@@ -133,6 +133,16 @@ class APIObject: NSObject {
         }
     }
     
+    func reloadImmediately() {
+        switch loadingState {
+        case .Loading(_):
+            _needsLoadAgain = true
+        default:
+            // load now:
+            _loadNow()
+        }
+    }
+
     func _loadNow() {
         let startTime = CFAbsoluteTimeGetCurrent()
         loadingState = .Loading(startTime)
@@ -181,7 +191,8 @@ class Transaction {
     var endpoint: String!
     var method = "GET"
     var args = [String: String]()
-    var resultObjects = [Transaction]()
+    
+    var failed = false
     
     func start(callback: ((json: AnyObject?, error: NSError?, transaction: Transaction) -> ())?) {
         self.dynamicType._StartedInProgressTransaction(self)
@@ -203,6 +214,7 @@ class Transaction {
                         cb(json: json, error: nil, transaction: self)
                     })
                 } else {
+                    self.failed = true
                     mainThread({ () -> Void in
                         cb(json: nil, error: errorOpt, transaction: self)
                     })

@@ -13,6 +13,7 @@ class SubscriptionsViewController: UITableViewController, UITextFieldDelegate {
     var _subsSub: Subscription?
     var _sourcesBeingAddedSub: Subscription?
     var _sourcesBeingDeletedSub: Subscription?
+    var _sourcesJustAddedSub: Subscription?
     
     override func viewDidLoad() {
         super.viewDidLoad()

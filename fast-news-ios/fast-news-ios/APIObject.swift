@@ -181,6 +181,7 @@ class Transaction {
     var endpoint: String!
     var method = "GET"
     var args = [String: String]()
+    var resultObjects = [Transaction]()
     
     func start(callback: ((json: AnyObject?, error: NSError?, transaction: Transaction) -> ())?) {
         self.dynamicType._StartedInProgressTransaction(self)
@@ -189,8 +190,6 @@ class Transaction {
         req.HTTPMethod = method
         print("\(req.HTTPMethod) \(req.URL!.absoluteString): START")
         let task = NSURLSession.sharedSession().dataTaskWithRequest(req) { (let dataOpt, let responseOpt, let errorOpt) -> Void in
-            
-            self.dynamicType._FinishedInProgressTransaction(self)
             
             var info = dataOpt?.description ?? responseOpt?.description ?? "nothing"
             if let data = dataOpt {
@@ -209,6 +208,8 @@ class Transaction {
                     })
                 }
             }
+            
+            self.dynamicType._FinishedInProgressTransaction(self)
         }
         task.resume()
     }
@@ -239,6 +240,8 @@ class Transaction {
         }
     }
     
+    static let TransactionFinishedNotification = "APIObject.TransactionFinishedNotification"
+    
     class func _FinishedInProgressTransaction(t: Transaction) {
         mainThread { () -> Void in
             var tasks = InProgress().val
@@ -246,6 +249,8 @@ class Transaction {
                 tasks.removeAtIndex(i)
             }
             InProgress().val = tasks
+            
+            NSNotificationCenter.defaultCenter().postNotificationName(TransactionFinishedNotification, object: t)
         }
     }
 }

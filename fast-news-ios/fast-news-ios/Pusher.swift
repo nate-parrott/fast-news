@@ -112,3 +112,20 @@ func Observe2<T1,T2>(first: Observable<T1>, second: Observable<T2>) -> Observabl
     }
     return result
 }
+
+class _PusherForNotificationTarget: NSObject {
+    func _receive(notif: NSNotification) {
+        pusher?.push(notif)
+    }
+    weak var pusher: Pusher<NSNotification>!
+}
+
+class PusherForNotification: Pusher<NSNotification> {
+    init(name: String, object: AnyObject?) {
+        _target = _PusherForNotificationTarget()
+        super.init()
+        _target.pusher = self
+        NSNotificationCenter.defaultCenter().addObserver(_target, selector: "_receive:", name: name, object: object)
+    }
+    let _target: _PusherForNotificationTarget
+}

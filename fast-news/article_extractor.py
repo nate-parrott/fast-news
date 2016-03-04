@@ -37,7 +37,7 @@ def extract(html, url):
                 else:
                     state = NONE
             
-            if id in whitelist:
+            if id in whitelist or should_auto_whitelist(data):
                 state = WHITELISTED
             elif id in blacklist:
                 state = BLACKLISTED
@@ -95,6 +95,11 @@ def normalize_url(url):
     url = strip_url_prefix(url).split('/')[0]
     url = "".join([c for c in url if c.isalpha() or c.isdigit() or c in (' ', '.', '-', '_')]).rstrip()
     return url
+
+def should_auto_whitelist(node):
+    if node.name == 'article':
+        return True
+    return False
 
 def id_blacklist_and_whitelist_for_soup(soup, url):
     whitelist = set()

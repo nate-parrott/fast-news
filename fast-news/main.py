@@ -131,7 +131,7 @@ class TestHandler(webapp2.RequestHandler):
             from source_fetch import _source_fetch
             from api import ensure_source
             url = self.request.get('url')
-            source = ensure_source(url, force_fetch=True)
+            source = ensure_source(url, suppress_immediate_fetch=True)
             self.response.headers.add_header('Content-Type', 'text/plain')
             pprint(_source_fetch(source), self.response.out)
 

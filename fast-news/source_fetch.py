@@ -5,7 +5,7 @@ import datetime
 from model import Article, Source
 from google.appengine.ext import ndb
 from model import Article
-from util import get_or_insert, url_fetch, strip_url_prefix
+from util import get_or_insert, url_fetch, strip_url_prefix, url_fetch_async
 from shared_suffix import shared_suffix
 from canonical_url import canonical_url
 import feedparser
@@ -80,12 +80,18 @@ def _source_fetch(source):
     fetch_type = None
     markup = url_fetch(source.url)
     if markup:
-        result = None
+        results = []
+        rpcs = []
+        def got_result(res):
+            if res: results.append(res)
+        def add_rpc(rpc):
+            rpcs.append(rpc)
         for fn in [fetch_hardcoded_rss_url, rss_fetch, fetch_wordpress_default_rss, fetch_linked_rss]:
-            debug('SF: starting fetch method {0}'.format(fn))
-            result = fn(source, markup, source.url)
-            debug('SF: finished this fetch method')
-            if result: break
+            fn(source, markup, source.url, add_rpc, got_result)
+        while len(rpcs):
+            rpcs[0].wait()
+            del rpcs[0]
+        result = results[0] if len(results) else None
         if result:
             debug("SF: Fetched {0} as {1} source".format(source.url, result.method))
         else:
@@ -99,7 +105,7 @@ def _source_fetch(source):
         print "URL error fetching {0}".format(source.url)
     return None
 
-def rss_fetch(source, markup, url):    
+def rss_fetch(source, markup, url, add_rpc, got_result):    
     parsed = feedparser.parse(markup)
     # pprint(parsed)
     
@@ -121,47 +127,52 @@ def rss_fetch(source, markup, url):
                 published = None
             entries.append({"title": title, "url": link_url, "published": published})
     
-    return FetchResult('rss', feed_title, entries)
+    got_result(FetchResult('rss', feed_title, entries))
 
-def fetch_linked_rss(source, markup, url):
+def fetch_linked_rss(source, markup, url, add_rpc, got_result):
     soup = BeautifulSoup(markup, 'lxml')
     link = soup.find('link', attrs={'rel': 'alternate', 'type': ['application/rss+xml', 'application/atom+xml']})
     if link and type(link) == bs4.element.Tag and link['href']:
         feed_url = urljoin(url, link['href'])
         print 'Found rss URL: ', feed_url
-        feed_markup = url_fetch(feed_url)
-        if feed_markup:
-            result = rss_fetch(source, feed_markup, feed_url)
-            if result:
-                result.method = 'linked_rss'
-                return result
+        def callback(feed_markup):
+            if feed_markup:
+                def _got_result(result):
+                    if result:
+                        result.method = 'linked_rss'
+                        return got_result(result)
+                    else:
+                        print 'failed to parse markup'
+                return rss_fetch(source, feed_markup, feed_url, add_rpc, _got_result)
             else:
-                print 'failed to parse markup'
-        else:
-            print "Error fetching linked rss {0}".format(feed_url) 
+                print "Error fetching linked rss {0}".format(feed_url)
+        add_rpc(url_fetch_async(feed_url, callback))
     return None
 
-def fetch_wordpress_default_rss(source, markup, url):
+def fetch_wordpress_default_rss(source, markup, url, add_rpc, got_result):
     link = url + "/?feed=rss"
     # print "Trying", link
-    feed_markup = url_fetch(link)
+    def callback(feed_markup):
+        if feed_markup:
+            def _got_result(res):
+                if res:
+                    res.method('wordpress_default_rss')
+                    got_result(res)
+            rss_fetch(source, feed_markup, link, add_rpc, _got_result)
+    add_rpc(url_fetch_async(link, callback))
     # print "MARKUP:", feed_markup
-    if feed_markup:
-        res = rss_fetch(source, feed_markup, link)
-        # print 'res', res
-        if res:
-            res.method = 'wordpress_default_rss'
-            return res
 
-def fetch_hardcoded_rss_url(source, markup, url):
+def fetch_hardcoded_rss_url(source, markup, url, add_rpc, got_result):
     lookup = {
         'news.ycombinator.com': 'http://hnrss.org/newest?points=25',
         'newyorker.com': 'http://www.newyorker.com/feed/everything'
     }
     rss_url = lookup.get(strip_url_prefix(url))
     if rss_url:
-        feed_markup = url_fetch(rss_url)
-        res = rss_fetch(source, feed_markup, rss_url)
-        if res:
-            res.method = 'hardcoded_rss'
-            return res
+        def callback(feed_markup):
+            def _got_result(res):
+                if res:
+                    res.method = 'hardcoded_rss'
+                    got_result(res)
+            rss_fetch(source, feed_markup, rss_url, add_rpc, _got_result)
+        add_rpc(url_fetch_async(rss_url, callback))

@@ -40,7 +40,7 @@ def subscriptions(uid):
     subs = Subscription.query(Subscription.uid == uid).fetch()
     return {"subscriptions": [sub.json() for sub in subs]}
 
-def ensure_source(url, force_fetch=False):
+def ensure_source(url, suppress_immediate_fetch=False):
     url = canonical_url(url)
     source_id = Source.id_for_source(url)
     source, inserted = get_or_insert(Source, source_id)
@@ -48,7 +48,7 @@ def ensure_source(url, force_fetch=False):
         source.url = url
         source.put()
         source.enqueue_fetch()
-    if force_fetch or inserted:
+    if inserted and not suppress_immediate_fetch:
         source.fetch_now()
     return source
 

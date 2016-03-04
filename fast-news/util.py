@@ -8,6 +8,23 @@ import calendar
 from cookielib import CookieJar
 import unicodedata
 import re
+from google.appengine.api import urlfetch
+import logging
+
+def url_fetch_async(url, callback, timeout=10):
+    rpc = urlfetch.create_rpc(deadline=timeout)
+    urlfetch.make_fetch_call(rpc, url, headers={"User-Agent": "fast-news-bot"})
+    def cb():
+        content = None
+        try:
+            result = rpc.get_result()
+            if result.status_code == 200:
+                content = result.content
+        except urlfetch.DownloadError as e:
+            logging.warn("URL fetch error: {0}".format(url))
+        callback(content)
+    rpc.callback = cb
+    return rpc
 
 @ndb.transactional
 def get_or_insert(cls, id, **kwds):

@@ -10,75 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "fast-news-ios/SubscriptionsList.swift"
-            timestampString = "477540688.148421"
+            timestampString = "478744017.132111"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "73"
-            endingLineNumber = "73"
-            landmarkName = "init(url:list:feed:)"
-            landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "fast_news_ios.DeleteSubscriptionTransaction.init (fast_news_ios.DeleteSubscriptionTransaction.Type)(url : Swift.String, list : Swift.Optional&lt;fast_news_ios.SubscriptionsList&gt;, feed : Swift.Optional&lt;fast_news_ios.Feed&gt;) -&gt; fast_news_ios.DeleteSubscriptionTransaction"
-                  moduleName = "fast-news-ios"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/nateparrott/Documents/SW/fast-news/fast-news-ios/fast-news-ios/SubscriptionsList.swift"
-                  timestampString = "476834357.327544"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "72"
-                  endingLineNumber = "72"
-                  offsetFromSymbolStart = "238">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "fast_news_ios.DeleteSubscriptionTransaction.(init (fast_news_ios.DeleteSubscriptionTransaction.Type) -&gt; (url : Swift.String, list : Swift.Optional&lt;fast_news_ios.SubscriptionsList&gt;, feed : Swift.Optional&lt;fast_news_ios.Feed&gt;) -&gt; fast_news_ios.DeleteSubscriptionTransaction).(closure #1)"
-                  moduleName = "fast-news-ios"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/nateparrott/Documents/SW/fast-news/fast-news-ios/fast-news-ios/SubscriptionsList.swift"
-                  timestampString = "476834357.328062"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "72"
-                  endingLineNumber = "72"
-                  offsetFromSymbolStart = "34">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "fast-news-ios/SubscriptionsList.swift"
-            timestampString = "477540688.148421"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "71"
-            endingLineNumber = "71"
-            landmarkName = "init(url:list:feed:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "fast-news-ios/SubscriptionsList.swift"
-            timestampString = "477540688.148421"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "72"
-            endingLineNumber = "72"
+            startingLineNumber = "67"
+            endingLineNumber = "67"
             landmarkName = "init(url:list:feed:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -90,28 +26,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "fast-news-ios/SubscriptionsViewController.swift"
-            timestampString = "476836717.694305"
+            timestampString = "478744017.132111"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "37"
-            endingLineNumber = "37"
+            startingLineNumber = "47"
+            endingLineNumber = "47"
             landmarkName = "_update()"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "fast-news-ios/SubscriptionsViewController.swift"
-            timestampString = "476834530.718759"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "19"
-            endingLineNumber = "19"
-            landmarkName = "viewDidLoad()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -202,11 +122,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "fast-news-ios/SubscriptionsList.swift"
-            timestampString = "477540688.148421"
+            timestampString = "478744017.132111"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "56"
-            endingLineNumber = "56"
+            startingLineNumber = "48"
+            endingLineNumber = "48"
             landmarkName = "start(_:)"
             landmarkType = "5">
             <Locations>
@@ -250,11 +170,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "fast-news-ios/SubscriptionsList.swift"
-            timestampString = "477540688.148421"
+            timestampString = "478744017.132111"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "57"
-            endingLineNumber = "57"
+            startingLineNumber = "49"
+            endingLineNumber = "49"
             landmarkName = "start(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -266,11 +186,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "fast-news-ios/SubscriptionsList.swift"
-            timestampString = "477540688.148421"
+            timestampString = "478744017.132111"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "55"
-            endingLineNumber = "55"
+            startingLineNumber = "47"
+            endingLineNumber = "47"
             landmarkName = "start(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -340,11 +260,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "fast-news-ios/SubscriptionsViewController.swift"
-            timestampString = "477546395.674183"
+            timestampString = "478744017.132111"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "60"
-            endingLineNumber = "60"
+            startingLineNumber = "73"
+            endingLineNumber = "73"
             landmarkName = "textFieldShouldReturn(_:)"
             landmarkType = "5">
             <Locations>
@@ -388,11 +308,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "fast-news-ios/SubscriptionsViewController.swift"
-            timestampString = "477546396.653473"
+            timestampString = "478744017.132111"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "61"
-            endingLineNumber = "61"
+            startingLineNumber = "74"
+            endingLineNumber = "74"
             landmarkName = "textFieldShouldReturn(_:)"
             landmarkType = "5">
          </BreakpointContent>

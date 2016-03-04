@@ -38,7 +38,7 @@ class ArticleCollectionViewController: UICollectionViewController, UICollectionV
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        collectionView!.decelerationRate = UIScrollViewDecelerationRateFast
+        collectionView!.decelerationRate = (UIScrollViewDecelerationRateFast + UIScrollViewDecelerationRateNormal) / 2
         automaticallyAdjustsScrollViewInsets = false
         _modelSub = model.onUpdate.subscribe { [weak self] (state) -> () in
             self?.update()

@@ -11,7 +11,7 @@ class SourceFetchHandler(webapp2.RequestHandler):
     def post(self):
         source = ndb.Key('Source', self.request.get('id')).get()
         source.fetch_now()
-        source.enqueue_fetch(delay=30*60) # wait 30 mins
+        source.enqueue_fetch()
 
 app = webapp2.WSGIApplication([
     ('/tasks/articles/fetch', ArticleFetchHandler),

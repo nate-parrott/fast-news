@@ -101,3 +101,14 @@ class Observable<T>: Pusher<T> {
         }
     }
 }
+
+func Observe2<T1,T2>(first: Observable<T1>, second: Observable<T2>) -> Observable<(T1,T2)> {
+    let result = Observable<(T1,T2)>(val: (first.val, second.val))
+    first.subscribe { (let val) -> () in
+        result.val = (val, result.val.1)
+    }
+    second.subscribe { (let val) -> () in
+        result.val = (result.val.0, val)
+    }
+    return result
+}

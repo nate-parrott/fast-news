@@ -183,11 +183,21 @@ class Transaction {
     var args = [String: String]()
     
     func start(callback: ((json: AnyObject?, error: NSError?, transaction: Transaction) -> ())?) {
+        self.dynamicType._StartedInProgressTransaction(self)
         let urlString = pathWithArgs(endpoint, args: args)
         let req = NSMutableURLRequest(URL: NSURL(string: urlString)!)
         req.HTTPMethod = method
-        print("\(req.HTTPMethod) \(req.URL!.absoluteString)")
+        print("\(req.HTTPMethod) \(req.URL!.absoluteString): START")
         let task = NSURLSession.sharedSession().dataTaskWithRequest(req) { (let dataOpt, let responseOpt, let errorOpt) -> Void in
+            
+            self.dynamicType._FinishedInProgressTransaction(self)
+            
+            var info = dataOpt?.description ?? responseOpt?.description ?? "nothing"
+            if let data = dataOpt {
+                info = "\(data.length) bytes"
+            }
+            print("\(req.HTTPMethod) \(req.URL!.absoluteString): \(info)")
+            
             if let cb = callback {
                 if let data = dataOpt, let json = try? NSJSONSerialization.JSONObjectWithData(data, options: []) {
                     mainThread({ () -> Void in
@@ -208,5 +218,34 @@ class Transaction {
         let comps = NSURLComponents(string: APIObject.apiRoot + endpoint)!
         comps.queryItems = args.map({ NSURLQueryItem(name: $0.0, value: $0.1) })
         return comps.string!
+    }
+    
+    // MARK: In-progress tracking
+    class func Name() -> String {
+        return "Transaction"
+    }
+    
+    static var _InProgress = [String: Observable<[Transaction]>]()
+    class func InProgress() -> Observable<[Transaction]> {
+        if _InProgress[Name()] == nil {
+            _InProgress[Name()] = Observable<[Transaction]>(val: [])
+        }
+        return _InProgress[Name()]!
+    }
+    
+    class func _StartedInProgressTransaction(t: Transaction) {
+        mainThread { () -> Void in
+            InProgress().val += [t]
+        }
+    }
+    
+    class func _FinishedInProgressTransaction(t: Transaction) {
+        mainThread { () -> Void in
+            var tasks = InProgress().val
+            if let i = tasks.indexOf({ $0 === t }) {
+                tasks.removeAtIndex(i)
+            }
+            InProgress().val = tasks
+        }
     }
 }

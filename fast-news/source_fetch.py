@@ -17,9 +17,13 @@ from time import mktime
 import datetime
 from google.appengine.api import taskqueue
 import re
+from logging import warning
+from logging import info as debug
 
 def source_fetch(source):
+    debug("SF: Doing fetch for source: {0}".format(source.url))
     result = _source_fetch(source)
+    debug("SF: Done with source fetch for {0}; result type: {1}".format(source.url, (result.method if result else None)))
     added_any = False
     now = datetime.datetime.now()
     to_put = []
@@ -50,12 +54,13 @@ def source_fetch(source):
                 to_put.append(article)
                 delay = random.randint(0, 60)
                 tasks_to_enqueue.append(article.create_fetch_task(delay=delay))
-    
+    debug("SF: About to put")
     if len(to_put):
         ndb.put_multi(to_put)
+    debug("SF: About to enqueue")
     if len(tasks_to_enqueue):
         taskqueue.Queue().add_async(tasks_to_enqueue)
-        
+    debug("SF: done enqueuing")
     if added_any:
         source.most_recent_article_added_date = now
     source.last_fetched = now
@@ -77,14 +82,18 @@ def _source_fetch(source):
     if markup:
         result = None
         for fn in [fetch_hardcoded_rss_url, rss_fetch, fetch_wordpress_default_rss, fetch_linked_rss]:
+            debug('SF: starting fetch method {0}'.format(fn))
             result = fn(source, markup, source.url)
+            debug('SF: finished this fetch method')
             if result: break
         if result:
-            print "Fetched {0} as {1} source".format(source.url, result.method)
+            debug("SF: Fetched {0} as {1} source".format(source.url, result.method))
         else:
-            print "Couldn't fetch {0} using any method".format(source.url)
+            warning("SF: Couldn't fetch {0} using any method".format(source.url))
         if result:
+            debug("SF: starting brand fetch")
             result.brand = extract_brand(markup, source.url)
+            debug("SF: done with brand fetch")
         return result
     else:
         print "URL error fetching {0}".format(source.url)
@@ -134,12 +143,12 @@ def fetch_linked_rss(source, markup, url):
 
 def fetch_wordpress_default_rss(source, markup, url):
     link = url + "/?feed=rss"
-    print "Trying", link
+    # print "Trying", link
     feed_markup = url_fetch(link)
     # print "MARKUP:", feed_markup
     if feed_markup:
         res = rss_fetch(source, feed_markup, link)
-        print 'res', res
+        # print 'res', res
         if res:
             res.method = 'wordpress_default_rss'
             return res

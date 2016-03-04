@@ -32,7 +32,7 @@ class Source(ndb.Model):
     def fetch_now(self):
         source_fetch(self)
     
-    def enqueue_fetch(self, delay=0):
+    def enqueue_fetch(self, delay=30*60): # every 30 minutes
         taskqueue.add(url='/tasks/sources/fetch', params={'id': self.key.id()}, countdown=delay)
     
     @classmethod

@@ -27,21 +27,13 @@ class SubscriptionsList: APIObject {
 }
 
 class AddSubscriptionTransaction: Transaction {
-    init(url: String, list: SubscriptionsList?, feed: Feed?) {
+    init(url: String) {
         // add optimistic data models:
         optimisticSource = Source.optimisticObject() as! Source
         optimisticSource.title = url
         optimisticSource.url = url
         optimisticSub = SourceSubscription(id: nil)
         optimisticSub.source = optimisticSource
-        if let f = feed {
-            f.sources = [optimisticSource] + (f.sources ?? [])
-            f.updated()
-        }
-        if let l = list {
-            l.subscriptions = [optimisticSub] + (l.subscriptions ?? [])
-            l.updated()
-        }
         
         super.init()
         
@@ -65,19 +57,15 @@ class AddSubscriptionTransaction: Transaction {
             }
         }
     }
+    
+    override class func Name() -> String {
+        return "AddSubscriptionTransaction"
+    }
 }
 
 class DeleteSubscriptionTransaction: Transaction {
-    init(url: String, list: SubscriptionsList?, feed: Feed?) {
-        if let l = list, let subs = l.subscriptions {
-            l.subscriptions = subs.filter({ $0.source?.url != url })
-            l.updated()
-        }
-        
-        if let f = feed, let sources = f.sources {
-            f.sources = sources.filter({ $0.url != url })
-            f.updated()
-        }
+    init(url: String) {
+        self.url = url
         
         super.init()
         
@@ -85,9 +73,13 @@ class DeleteSubscriptionTransaction: Transaction {
         args["url"] = url
         endpoint = "/subscriptions/delete"
     }
+    var url: String
     func start(callback: (success: Bool) -> ()) {
         start { (json, error, transaction) -> () in
             callback(success: json?["success"] as? Bool ?? false)
         }
+    }
+    override class func Name() -> String {
+        return "DeleteSubscriptionTransaction"
     }
 }

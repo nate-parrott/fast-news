@@ -61,7 +61,8 @@ def extract(html, url):
                 node.extract()
             stack.pop()
             state_stack.pop()
-    return out_soup.prettify()
+    # return out_soup.prettify()
+    return unicode(out_soup)
 
 def create_soup_with_ids(html):
     i = 1

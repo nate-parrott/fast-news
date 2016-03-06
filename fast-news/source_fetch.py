@@ -49,7 +49,7 @@ def source_fetch(source):
                 if entry['published']:
                     article.published = entry['published']
                 else:
-                    article.published = datetime.datetime()
+                    article.published = datetime.datetime.now()
                 article.title = entry['title']
                 to_put.append(article)
                 delay = random.randint(0, 60)

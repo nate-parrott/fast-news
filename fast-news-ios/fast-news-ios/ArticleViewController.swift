@@ -13,6 +13,7 @@ class ArticleViewController: SwipeAwayViewController {
     // MARK: Data
     var article: Article!
     var _articleSub: Subscription?
+    var _bookmarkListChangedSub: Subscription?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,6 +45,12 @@ class ArticleViewController: SwipeAwayViewController {
         }
         
         pager.backgroundColor = UIColor.whiteColor()
+        
+        _bookmarkListChangedSub = BookmarkList.Shared.onUpdate.subscribe({ [weak self] (_) -> () in
+            self?._updateBookmarked()
+        })
+        BookmarkList.Shared.ensureRecency(10 * 60)
+        _updateBookmarked()
     }
     
     func _update() {
@@ -61,6 +68,36 @@ class ArticleViewController: SwipeAwayViewController {
             _viewState = .ShowLoading
         }
     }
+    
+    // MARK: Bookmarks
+    var bookmarked: Bool {
+        get {
+            return _findMatchingBookmark() != nil
+        }
+        set (val) {
+            let t = UpdateBookmarkTransaction()
+            t.bookmark = _findMatchingBookmark()
+            t.article = article
+            t.delete = !val
+            t.start()
+        }
+    }
+    func _findMatchingBookmark() -> Bookmark? {
+        return BookmarkList.Shared.bookmarksIncludingOptimistic.filter({ $0.article?.id == self.article.id }).first
+    }
+    
+    func _updateBookmarked() {
+        let imageName = bookmarked ? "BookmarkChecked" : "Bookmark"
+        bookmarkButton.setImage(UIImage(named: imageName), forState: .Normal)
+        bookmarkButton.setImage(UIImage(named: imageName + "-Filled"), forState: .Highlighted)
+    }
+    
+    @IBOutlet var bookmarkButton: UIButton!
+    
+    @IBAction func toggleBookmarked(sender: AnyObject) {
+        bookmarked = !bookmarked
+    }
+    
     // MARK: Layout
     static let Margin: CGFloat = 18
     override func prefersStatusBarHidden() -> Bool {
@@ -310,18 +347,8 @@ class ArticleViewController: SwipeAwayViewController {
         presentViewController(activityVC, animated: true, completion: nil)
     }
     
-    @IBAction func toggleBookmarked(sender: AnyObject) {
-        
-    }
-    
     @IBOutlet var actionsBar: UIView!
     
-    @IBOutlet var bookmarkButton: UIButton!
-    var _usesBookmarkSavedIcon = false {
-        didSet {
-            // TODO
-        }
-    }
     @IBAction func dismiss() {
         if let cb = onBack {
             cb()

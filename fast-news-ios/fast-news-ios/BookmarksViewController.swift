@@ -10,7 +10,7 @@ import UIKit
 
 class BookmarksViewController: ArticleCollectionViewController {
 
-    let bookmarkList = BookmarkList(id: "bookmarks")
+    let bookmarkList = BookmarkList.Shared
     
     override var model: APIObject! {
         get {

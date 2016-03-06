@@ -374,6 +374,7 @@
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="actionsBar" destination="wEz-ud-3v7" id="Zc0-1W-2Nj"/>
+                        <outlet property="bookmarkButton" destination="RgG-nL-qV9" id="oe2-gq-yLv"/>
                         <outlet property="loadingContainer" destination="y0E-Xo-oDU" id="q6T-mX-8JP"/>
                         <outlet property="loadingSpinner" destination="nm1-Tm-7cl" id="PBR-BO-gAU"/>
                     </connections>

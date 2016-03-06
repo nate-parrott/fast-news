@@ -9,6 +9,12 @@
 import Foundation
 
 class BookmarkList: APIObject {
+    class var Shared: BookmarkList {
+        get {
+            return BookmarkList.objectForID("bookmarks") as! BookmarkList
+        }
+    }
+    
     override func jsonPath() -> (String, [String : String]?)? {
         return ("/bookmarks", nil)
     }
@@ -49,7 +55,7 @@ class BookmarkList: APIObject {
                 }
             }
             let now = NSDate()
-            return bookmarks.sort({ ($0.modified ?? now).compare($1.modified ?? now) == .OrderedAscending })
+            return bookmarks.sort({ ($0.modified ?? now).compare($1.modified ?? now) == .OrderedDescending })
         }
     }
 }

@@ -109,6 +109,7 @@
 		5FB4D5E11C8BE276005D079D /* UIColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB4D5DF1C8BE276005D079D /* UIColor+Hex.swift */; };
 		5FB4D5E31C8BE364005D079D /* String+Substring.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB4D5E21C8BE364005D079D /* String+Substring.swift */; };
 		5FB4D5E41C8BE364005D079D /* String+Substring.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB4D5E21C8BE364005D079D /* String+Substring.swift */; };
+		5FB4D5E51C8BE67F005D079D /* BookmarkList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB4D5DD1C8A4063005D079D /* BookmarkList.swift */; };
 		5FCDF4401C6BCD6700A50A75 /* CommonExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCDF43F1C6BCD6700A50A75 /* CommonExtensions.swift */; };
 		5FCDF4421C6BF75F00A50A75 /* ArticleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCDF4411C6BF75F00A50A75 /* ArticleViewController.swift */; };
 		5FCDF4441C6BF77000A50A75 /* SourceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCDF4431C6BF77000A50A75 /* SourceViewController.swift */; };
@@ -613,6 +614,7 @@
 				5F30545A1C7D1A5B00E0CFE6 /* CGMath.swift in Sources */,
 				5F4FDB151C8381BB0049C61A /* FNNavigationController.swift in Sources */,
 				5F30544E1C7D1A3C00E0CFE6 /* Feed.swift in Sources */,
+				5FB4D5E51C8BE67F005D079D /* BookmarkList.swift in Sources */,
 				5F30543B1C7D197F00E0CFE6 /* ActionViewController.swift in Sources */,
 				5FB4D5E41C8BE364005D079D /* String+Substring.swift in Sources */,
 				5F40C3991C7D210300B045A4 /* Defs.swift in Sources */,

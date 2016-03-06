@@ -70,7 +70,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="H1p-Uh-vWS" kind="relationship" relationship="viewControllers" id="cbc-LT-dEg"/>
-                        <segue destination="g0T-YU-sDB" kind="relationship" relationship="viewControllers" id="q8i-Sy-XGr"/>
+                        <segue destination="PcF-Hf-Dbj" kind="relationship" relationship="viewControllers" id="FGS-Rb-faw"/>
                         <segue destination="5lS-0O-PNm" kind="relationship" relationship="viewControllers" id="NbN-VL-xZc"/>
                     </connections>
                 </tabBarController>
@@ -152,12 +152,30 @@
             <point key="canvasLocation" x="-615" y="937"/>
         </scene>
         <!--Bookmarks-->
+        <scene sceneID="vsM-bY-KB1">
+            <objects>
+                <navigationController id="PcF-Hf-Dbj" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Bookmarks" image="BookmarksTab" id="3xn-zb-ez1"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="ulx-8b-pqc">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="g0T-YU-sDB" kind="relationship" relationship="rootViewController" id="N69-f4-Ehb"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tn0-LF-Qqn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-206" y="685"/>
+        </scene>
+        <!--Bookmarks-->
         <scene sceneID="zPf-vz-wSR">
             <objects>
-                <collectionViewController title="Bookmarks" id="g0T-YU-sDB" sceneMemberID="viewController">
+                <collectionViewController title="Bookmarks" id="g0T-YU-sDB" customClass="BookmarksViewController" customModule="fast_news_ios" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="t78-HA-geg">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="0.95999999999999996" alpha="1" colorSpace="calibratedWhite"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Sdo-BR-zU9">
                             <size key="itemSize" width="50" height="50"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -166,7 +184,7 @@
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="eNF-hq-cQS">
-                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                <rect key="frame" x="0.0" y="64" width="50" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
@@ -181,10 +199,11 @@
                         </connections>
                     </collectionView>
                     <tabBarItem key="tabBarItem" title="Bookmarks" image="BookmarksTab" id="Dyr-rd-dWD"/>
+                    <navigationItem key="navigationItem" id="KgW-0u-eeh"/>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yt0-ZS-yFE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="17" y="602"/>
+            <point key="canvasLocation" x="219" y="685"/>
         </scene>
         <!--Subscriptions-->
         <scene sceneID="5sM-21-YFy">

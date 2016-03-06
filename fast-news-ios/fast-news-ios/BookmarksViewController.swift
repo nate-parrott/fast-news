@@ -10,26 +10,61 @@ import UIKit
 
 class BookmarksViewController: ArticleCollectionViewController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    let bookmarkList = BookmarkList(id: "bookmarks")
+    
+    override var model: APIObject! {
+        get {
+            return bookmarkList
+        }
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    override var cellClass: UICollectionViewCell.Type {
+        return ArticleCell.self
     }
-    */
-
+    
+    override var modelTitle: String {
+        get {
+            return NSLocalizedString("Bookmarks", comment: "")
+        }
+    }
+    
+    override var collectionModels: [APIObject] {
+        get {
+            if let bookmarks = bookmarkList.bookmarks {
+                return bookmarks.filter({ $0.article != nil }).map({ $0.article! })
+            } else {
+                return []
+            }
+        }
+    }
+    
+    override func applyModelToCell(cell: UICollectionViewCell, model: APIObject) {
+        super.applyModelToCell(cell, model: model)
+        (cell as! ArticleCell).article = (model as! Article)
+    }
+    
+    override func getPreloadObjectForModel(model: APIObject) -> AnyObject? {
+        if let imageUrl = (model as! Article).imageURL {
+            let netImage = NetImageView()
+            netImage.url = ArticleView.resizedURLForImageAtURL(imageUrl)
+            return netImage
+        } else {
+            return nil
+        }
+    }
+    
+    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        showArticle(collectionModels[indexPath.item] as! Article)
+    }
+    
+    func showArticle(article: Article) {
+        let articleVC = storyboard!.instantiateViewControllerWithIdentifier("Article") as! ArticleViewController
+        articleVC.article = article
+        articleVC.presentFrom(self)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        collectionView!.contentInset = UIEdgeInsetsMake(8 + topLayoutGuide.length, 0, 0, 0)
+    }
 }

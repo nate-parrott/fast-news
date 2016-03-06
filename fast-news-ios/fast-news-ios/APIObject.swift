@@ -103,8 +103,6 @@ class APIObject: NSObject {
         return nil // ("/articles", ["id": "aihrwfpier"])
     }
     
-    // MARK: Convenience
-    
     // MARK: Loading
     enum LoadingState {
         case None

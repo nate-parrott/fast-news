@@ -17,6 +17,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         if FN_USE_PRODUCTION {
             // EnableSPDY.enableSPDY()
         }
+        
+        print("UID: \(APIIdentity.Shared.id)")
+        
         applyTheme()
         // Override point for customization after application launch.
         let tabViewController = window!.rootViewController as! UITabBarController

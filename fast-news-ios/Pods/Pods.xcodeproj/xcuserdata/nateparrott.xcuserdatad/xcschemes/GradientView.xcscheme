@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'D231710BF64B4A17ACFD47E7'
+               BlueprintIdentifier = '3EB9DF0E66E10A291AC4952A'
                BlueprintName = 'GradientView'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'GradientView.framework'>

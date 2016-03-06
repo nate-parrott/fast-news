@@ -105,6 +105,10 @@
 		5F73F17D1C77C92300DA2981 /* ImageSegmentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F73F17C1C77C92300DA2981 /* ImageSegmentTableViewCell.swift */; };
 		5F8D9F321C6C0AFE00F0FFBE /* EnableSPDY.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F8D9F311C6C0AFE00F0FFBE /* EnableSPDY.m */; };
 		5FB4D5DE1C8A4063005D079D /* BookmarkList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB4D5DD1C8A4063005D079D /* BookmarkList.swift */; };
+		5FB4D5E01C8BE276005D079D /* UIColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB4D5DF1C8BE276005D079D /* UIColor+Hex.swift */; };
+		5FB4D5E11C8BE276005D079D /* UIColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB4D5DF1C8BE276005D079D /* UIColor+Hex.swift */; };
+		5FB4D5E31C8BE364005D079D /* String+Substring.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB4D5E21C8BE364005D079D /* String+Substring.swift */; };
+		5FB4D5E41C8BE364005D079D /* String+Substring.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB4D5E21C8BE364005D079D /* String+Substring.swift */; };
 		5FCDF4401C6BCD6700A50A75 /* CommonExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCDF43F1C6BCD6700A50A75 /* CommonExtensions.swift */; };
 		5FCDF4421C6BF75F00A50A75 /* ArticleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCDF4411C6BF75F00A50A75 /* ArticleViewController.swift */; };
 		5FCDF4441C6BF77000A50A75 /* SourceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCDF4431C6BF77000A50A75 /* SourceViewController.swift */; };
@@ -208,6 +212,8 @@
 		5F8D9F301C6C0AFE00F0FFBE /* EnableSPDY.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnableSPDY.h; sourceTree = "<group>"; };
 		5F8D9F311C6C0AFE00F0FFBE /* EnableSPDY.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EnableSPDY.m; sourceTree = "<group>"; };
 		5FB4D5DD1C8A4063005D079D /* BookmarkList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookmarkList.swift; sourceTree = "<group>"; };
+		5FB4D5DF1C8BE276005D079D /* UIColor+Hex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Hex.swift"; sourceTree = "<group>"; };
+		5FB4D5E21C8BE364005D079D /* String+Substring.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Substring.swift"; sourceTree = "<group>"; };
 		5FCDF43F1C6BCD6700A50A75 /* CommonExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonExtensions.swift; sourceTree = "<group>"; };
 		5FCDF4411C6BF75F00A50A75 /* ArticleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleViewController.swift; sourceTree = "<group>"; };
 		5FCDF4431C6BF77000A50A75 /* SourceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SourceViewController.swift; sourceTree = "<group>"; };
@@ -393,6 +399,8 @@
 				5F3054301C7CE13A00E0CFE6 /* Color.swift */,
 				5F59D8AB1C791D7600C3E1C3 /* Pixel.swift */,
 				5F59D8AF1C7BC25700C3E1C3 /* BinarySearch.swift */,
+				5FB4D5DF1C8BE276005D079D /* UIColor+Hex.swift */,
+				5FB4D5E21C8BE364005D079D /* String+Substring.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -606,6 +614,7 @@
 				5F4FDB151C8381BB0049C61A /* FNNavigationController.swift in Sources */,
 				5F30544E1C7D1A3C00E0CFE6 /* Feed.swift in Sources */,
 				5F30543B1C7D197F00E0CFE6 /* ActionViewController.swift in Sources */,
+				5FB4D5E41C8BE364005D079D /* String+Substring.swift in Sources */,
 				5F40C3991C7D210300B045A4 /* Defs.swift in Sources */,
 				5F3054531C7D1A3C00E0CFE6 /* Subscription.swift in Sources */,
 				5F3054471C7D1A3700E0CFE6 /* ArticleViewController.swift in Sources */,
@@ -622,6 +631,7 @@
 				5F30545C1C7D1A5B00E0CFE6 /* Utils.swift in Sources */,
 				5F4C8A0D1C7E561B00DAD73C /* InlineWebView.swift in Sources */,
 				5F30544F1C7D1A3C00E0CFE6 /* Source.swift in Sources */,
+				5FB4D5E11C8BE276005D079D /* UIColor+Hex.swift in Sources */,
 				5F30544B1C7D1A3700E0CFE6 /* SwipeAwayViewController.swift in Sources */,
 				5F3054621C7D1A5B00E0CFE6 /* Pixel.swift in Sources */,
 				5F30545E1C7D1A5B00E0CFE6 /* NSAttributedString+TrimWhitespace.swift in Sources */,
@@ -643,6 +653,7 @@
 				5F5E4DA91C700D7E009C3446 /* SwipeAwayViewController.swift in Sources */,
 				5F4A715B1C63237B00676F91 /* Article.swift in Sources */,
 				5F57066F1C63C74400140078 /* FeedViewController.swift in Sources */,
+				5FB4D5E31C8BE364005D079D /* String+Substring.swift in Sources */,
 				5F59D8AC1C791D7600C3E1C3 /* Pixel.swift in Sources */,
 				5F0CC62A1C6C59CB0071A026 /* EVComplexLayout.m in Sources */,
 				5F4A71591C63237300676F91 /* Feed.swift in Sources */,
@@ -672,6 +683,7 @@
 				5F73F17B1C77C91600DA2981 /* TextSegmentTableViewCell.swift in Sources */,
 				5F4FDB0E1C836CCE0049C61A /* ArticleSegmentCell.swift in Sources */,
 				5F0CC6251C6C551E0071A026 /* FNSplitViewController.swift in Sources */,
+				5FB4D5E01C8BE276005D079D /* UIColor+Hex.swift in Sources */,
 				5F0CC62E1C6C5A320071A026 /* FeedCell.swift in Sources */,
 				5F0CC6331C6C661A0071A026 /* CGMath.swift in Sources */,
 				5FB4D5DE1C8A4063005D079D /* BookmarkList.swift in Sources */,

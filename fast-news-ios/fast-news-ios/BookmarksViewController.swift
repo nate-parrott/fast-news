@@ -30,11 +30,7 @@ class BookmarksViewController: ArticleCollectionViewController {
     
     override var collectionModels: [APIObject] {
         get {
-            if let bookmarks = bookmarkList.bookmarks {
-                return bookmarks.filter({ $0.article != nil }).map({ $0.article! })
-            } else {
-                return []
-            }
+            return bookmarkList.bookmarksIncludingOptimistic.filter({ $0.article != nil }).map({ $0.article! })
         }
     }
     

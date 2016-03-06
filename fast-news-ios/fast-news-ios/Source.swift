@@ -33,10 +33,10 @@ class Source: APIObject {
             }
         }
         if let brand = json["brand"] as? [String: AnyObject], let colors = brand["colors"] as? [String: AnyObject] {
-            if let hex = colors["text"] as? String, let color = UIColor(hexString: hex) {
+            if let hex = colors["text"] as? String, let color = UIColor(hex: hex) {
                 textColor = color
             }
-            if let hex = colors["background"] as? String, let color = UIColor(hexString: hex) {
+            if let hex = colors["background"] as? String, let color = UIColor(hex: hex) {
                 backgroundColor = color
             }
         }

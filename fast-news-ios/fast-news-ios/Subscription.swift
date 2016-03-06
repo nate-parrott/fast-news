@@ -19,7 +19,7 @@ class SourceSubscription: APIObject {
         }
     }
     
-    override class func typeName() -> String {
-        return "subscription"
+    override class func typeName() -> String! {
+        return "Subscription"
     }
 }

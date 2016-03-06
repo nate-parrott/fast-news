@@ -22,12 +22,6 @@ class SubscriptionsViewController: UITableViewController, UITextFieldDelegate {
         _subsSub = subs.onUpdate.subscribe({ [weak self] (_) -> () in
             self?._update()
         })
-        _sourcesBeingAddedSub = AddSubscriptionTransaction.InProgress().subscribe({ [weak self] (_) -> () in
-            self?._update()
-        })
-        _sourcesBeingDeletedSub = DeleteSubscriptionTransaction.InProgress().subscribe({ [weak self] (_) -> () in
-            self?._update()
-        })
         
         tableView.tableHeaderView = addSourceTextField
     }
@@ -56,13 +50,7 @@ class SubscriptionsViewController: UITableViewController, UITextFieldDelegate {
         }
         navigationItem.title = title
         
-        var models = subs.subscriptions ?? []
-        for t in AddSubscriptionTransaction.InProgress().val as! [AddSubscriptionTransaction] {
-            models.insert(t.optimisticSub, atIndex: 0)
-        }
-        let removedUrls = Set((DeleteSubscriptionTransaction.InProgress().val as! [DeleteSubscriptionTransaction]).map({ $0.url }))
-        models = models.filter({ !removedUrls.contains($0.source?.url ?? "") })
-        _subscriptionModels = models
+        _subscriptionModels = subs.subscriptionsIncludingOptimistic
     }
     
     // MARK: Adding sources

@@ -9,7 +9,6 @@
 #ifndef Reader_bridging_header_h
 #define Reader_bridging_header_h
 
-#import <ChameleonFramework/Chameleon.h>
 #import <CommonCrypto/CommonCrypto.h>
 #import "SSWDirectionalPanGestureRecognizer.h"
 

@@ -156,7 +156,7 @@ def fetch_wordpress_default_rss(source, markup, url, add_rpc, got_result):
         if feed_markup:
             def _got_result(res):
                 if res:
-                    res.method('wordpress_default_rss')
+                    res.method = 'wordpress_default_rss'
                     got_result(res)
             rss_fetch(source, feed_markup, link, add_rpc, _got_result)
     add_rpc(url_fetch_async(link, callback))

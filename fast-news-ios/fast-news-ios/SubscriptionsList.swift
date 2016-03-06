@@ -9,18 +9,6 @@
 import Foundation
 
 class SubscriptionsList: APIObject {
-    required init(id: String?) {
-        super.init(id: id)
-        _sourcesJustAddedSub = PusherForNotification(name: Transaction.TransactionFinishedNotification, object: nil).subscribe({ [weak self] (let notification) -> () in
-            if let s = self,
-                let transaction = notification.object as? AddSubscriptionTransaction where !transaction.failed {
-                s.subscriptions = [transaction.optimisticSub] + (s.subscriptions ?? [])
-                s.updated()
-            }
-        })
-    }
-    var _sourcesJustAddedSub: Subscription?
-    
     var subscriptions: [SourceSubscription]?
     override func importJson(json: [String : AnyObject]) {
         super.importJson(json)
@@ -33,8 +21,32 @@ class SubscriptionsList: APIObject {
         return ("/subscriptions", nil)
     }
     
-    override class func typeName() -> String {
-        return "subscriptionsList"
+    override class func typeName() -> String! {
+        return "SubscriptionsList"
+    }
+    
+    var subscriptionsIncludingOptimistic: [SourceSubscription] {
+        get {
+            var subs = subscriptions ?? []
+            for t in relevantTransactions {
+                if let dt = t as? DeleteSubscriptionTransaction {
+                    subs = subs.filter({ $0.source?.url != dt.url })
+                } else if let at = t as? AddSubscriptionTransaction {
+                    subs.insert(at.optimisticSub, atIndex: 0)
+                }
+            }
+            return subs
+        }
+    }
+    
+    // MARK: Relevant transactions
+    override var supportsRelevantTransactions: Bool {
+        get {
+            return true
+        }
+    }
+    override func transactionIsRelevant(t: Transaction) -> Bool {
+        return (t as? AddSubscriptionTransaction) != nil || (t as? DeleteSubscriptionTransaction) != nil
     }
 }
 
@@ -64,15 +76,13 @@ class AddSubscriptionTransaction: Transaction {
                 self.optimisticSource.importJson(source)
                 self.optimisticSource.updated()
                 callback(success: true)
+                let feed = Feed.objectsForIDs(["shared"]).first! as! Feed
+                feed.reloadImmediately()
             } else {
                 self.failed = true
                 callback(success: false)
             }
         }
-    }
-    
-    override class func Name() -> String {
-        return "AddSubscriptionTransaction"
     }
 }
 
@@ -91,8 +101,5 @@ class DeleteSubscriptionTransaction: Transaction {
         start { (json, error, transaction) -> () in
             callback(success: json?["success"] as? Bool ?? false)
         }
-    }
-    override class func Name() -> String {
-        return "DeleteSubscriptionTransaction"
     }
 }

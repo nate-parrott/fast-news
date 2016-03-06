@@ -9,18 +9,12 @@
 import Foundation
 
 class BookmarkList: APIObject {
-    required init(id: String?) {
-        super.init(id: id)
-    }
-    var _bookmarkTransactionSub: Subscription?
-    var _bookmarkTransactionCompletedSub: Subscription?
-    
     override func jsonPath() -> (String, [String : String]?)? {
         return ("/bookmarks", nil)
     }
     
-    override class func typeName() -> String {
-        return "bookmarkList"
+    override class func typeName() -> String! {
+        return "BookmarkList"
     }
     
     override func importJson(json: [String : AnyObject]) {
@@ -28,21 +22,34 @@ class BookmarkList: APIObject {
         if let bookmarksJson = json["bookmarks"] as? [[String: AnyObject]] {
             bookmarks = APIObjectsFromDictionaries(bookmarksJson)
         }
-        _optimisticDeletedBookmarkURLs.removeAll()
-        _optimisticAddedBookmarks.removeAll()
     }
     
     var bookmarks: [Bookmark]?
     
-    var _optimisticDeletedBookmarkURLs = Set<String>()
-    var _optimisticAddedBookmarks = [Bookmark]()
+    override var supportsRelevantTransactions: Bool {
+        get {
+            return true
+        }
+    }
     
-    var optimisticBookmarks: [Bookmark] {
-        var bookmarks = self.bookmarks ?? []
-        var deleted = _optimisticDeletedBookmarkURLs
-        var added = _optimisticAddedBookmarks
-        for t in UpdateBookmarkTransaction.InProgress().val {
-            
+    override func transactionIsRelevant(t: Transaction) -> Bool {
+        return (t as? UpdateBookmarkTransaction) != nil
+    }
+    
+    var bookmarksIncludingOptimistic: [Bookmark] {
+        get {
+            var bookmarks = self.bookmarks ?? []
+            for t in relevantTransactions as! [UpdateBookmarkTransaction] {
+                if t.delete {
+                    bookmarks = bookmarks.filter({ $0.article?.id != t.article?.id })
+                } else if let bookmark = t.bookmark {
+                    if bookmarks.indexOf(bookmark) == nil {
+                        bookmarks.insert(bookmark, atIndex: 0)
+                    }
+                }
+            }
+            let now = NSDate()
+            return bookmarks.sort({ ($0.modified ?? now).compare($1.modified ?? now) == .OrderedAscending })
         }
     }
 }
@@ -69,8 +76,8 @@ class Bookmark: APIObject {
         }
     }
     
-    override class func typeName() -> String {
-        return "bookmark"
+    override class func typeName() -> String! {
+        return "Bookmark"
     }
 }
 
@@ -79,7 +86,7 @@ class UpdateBookmarkTransaction: Transaction {
     var articleURL: NSURL?
     var readingPosition: AnyObject?
     var delete = false
-    var optimisticBookmark: Bookmark?
+    var bookmark: Bookmark? // will be CREATED if necessary
     
     func start() {
         if let a = article {
@@ -91,10 +98,11 @@ class UpdateBookmarkTransaction: Transaction {
         endpoint = "/bookmarks"
         
         if !delete {
-            let opt = Bookmark(id: nil)
-            opt.article = article
-            opt.readingPosition = readingPosition
-            optimisticBookmark = opt
+            let b = bookmark ?? Bookmark(id: nil)
+            b.article = article
+            b.modified = NSDate()
+            b.readingPosition = readingPosition
+            bookmark = b
         }
         
         start { (json, error, transaction) -> () in
@@ -102,7 +110,7 @@ class UpdateBookmarkTransaction: Transaction {
                 self.failed = (json == nil)
             } else {
                 if let bookmarkJson = json?["bookmark"] as? [String: AnyObject] {
-                    self.optimisticBookmark?.importJson(bookmarkJson)
+                    self.bookmark?.importJson(bookmarkJson)
                 } else {
                     self.failed = true
                 }

@@ -46,11 +46,19 @@ class APIObject: NSObject {
         return self.init(id: nil)
     }
     
+    class func typeName() -> String! {
+        return nil
+    }
+    
     // MARK: Internal initializiers
     
     required init(id: String?) {
         self.id = id
         super.init()
+        if supportsRelevantTransactions {
+            NSNotificationCenter.defaultCenter().addObserver(self, selector: "_transactionStarted:", name: Transaction.StartedNotification, object: nil)
+            NSNotificationCenter.defaultCenter().addObserver(self, selector: "_transactionFinished:", name: Transaction.FinishedNotification, object: nil)
+        }
     }
     private(set) var id: String? {
         didSet {
@@ -70,9 +78,6 @@ class APIObject: NSObject {
                 return nil
             }
         }
-    }
-    class func typeName() -> String {
-        return "<null>"
     }
     deinit {
         if let fid = _fullID {
@@ -166,6 +171,7 @@ class APIObject: NSObject {
     }
     
     func _loadFinished(success: Bool, startTime: CFAbsoluteTime, err: NSError?) {
+        _relevantTransactionsFinished.removeAll()
         updated()
         loadingState = success ? .Loaded(startTime) : .Error(err)
         if _needsLoadAgain {
@@ -180,6 +186,41 @@ class APIObject: NSObject {
         }
     }
     let onUpdate = Pusher<APIObject>()
+    
+    // MARK: Relevant Transactions
+    var supportsRelevantTransactions: Bool {
+        get {
+            return false
+        }
+    }
+    var _relevantTransactionsInProgress = [Transaction]()
+    var _relevantTransactionsFinished = [Transaction]()
+    var relevantTransactions: [Transaction] {
+        get {
+            return _relevantTransactionsInProgress + _relevantTransactionsFinished
+        }
+    }
+    func transactionIsRelevant(t: Transaction) -> Bool {
+        return false
+    }
+    func _transactionStarted(notif: NSNotification) {
+        if transactionIsRelevant(notif.object as! Transaction) {
+            _relevantTransactionsInProgress.insert(notif.object as! Transaction, atIndex: 0)
+            updated()
+        }
+    }
+    func _transactionFinished(notif: NSNotification) {
+        let t = notif.object as! Transaction
+        if transactionIsRelevant(t) {
+            if let i = _relevantTransactionsInProgress.indexOf({ $0 === t }) {
+                _relevantTransactionsInProgress.removeAtIndex(i)
+            }
+            if !t.failed {
+                _relevantTransactionsFinished.insert(t, atIndex: 0)
+            }
+            updated()
+        }
+    }
 }
 
 class Transaction {
@@ -190,6 +231,7 @@ class Transaction {
     var method = "GET"
     var args = [String: String]()
     
+    var finished = false
     var failed = false
     
     func start(callback: ((json: AnyObject?, error: NSError?, transaction: Transaction) -> ())?) {
@@ -219,6 +261,7 @@ class Transaction {
                 }
             }
             
+            self.finished = true
             self.dynamicType._FinishedInProgressTransaction(self)
         }
         task.resume()
@@ -232,35 +275,18 @@ class Transaction {
     }
     
     // MARK: In-progress tracking
-    class func Name() -> String {
-        return "Transaction"
-    }
-    
-    static var _InProgress = [String: Observable<[Transaction]>]()
-    class func InProgress() -> Observable<[Transaction]> {
-        if _InProgress[Name()] == nil {
-            _InProgress[Name()] = Observable<[Transaction]>(val: [])
-        }
-        return _InProgress[Name()]!
-    }
+    static let StartedNotification = "APIObject.TransactionStartedNotification"
+    static let FinishedNotification = "APIObject.TransactionFinishedNotification"
     
     class func _StartedInProgressTransaction(t: Transaction) {
         mainThread { () -> Void in
-            InProgress().val += [t]
+            NSNotificationCenter.defaultCenter().postNotificationName(StartedNotification, object: t)
         }
     }
     
-    static let TransactionFinishedNotification = "APIObject.TransactionFinishedNotification"
-    
     class func _FinishedInProgressTransaction(t: Transaction) {
         mainThread { () -> Void in
-            var tasks = InProgress().val
-            if let i = tasks.indexOf({ $0 === t }) {
-                tasks.removeAtIndex(i)
-            }
-            InProgress().val = tasks
-            
-            NSNotificationCenter.defaultCenter().postNotificationName(TransactionFinishedNotification, object: t)
+            NSNotificationCenter.defaultCenter().postNotificationName(FinishedNotification, object: t)
         }
     }
 }

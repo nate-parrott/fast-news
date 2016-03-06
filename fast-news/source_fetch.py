@@ -74,7 +74,7 @@ class FetchResult(object):
         self.brand = None
     
     def __repr__(self):
-        return "FetchResult.{0}('{1}'): {2} ".format(self.method, self.feed_title, self.entries)
+        return (u"FetchResult.{0}('{1}'): {2} ".format(self.method, self.feed_title, self.entries)).encode('utf-8')
 
 def _source_fetch(source):
     fetch_type = None

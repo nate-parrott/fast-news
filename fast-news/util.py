@@ -51,7 +51,7 @@ def url_fetch(url, timeout=10):
     opener.addheaders = [("User-Agent", "fast-news-bot")]
     print "url_fetch('{0}')".format(url)
     try:
-        return opener.open(url, timeout=timeout).read()
+        x = opener.open(url, timeout=timeout).read()
     except HTTPException as e:
         print "{0}: {1}".format(url, e)
     except urllib2.URLError as e:

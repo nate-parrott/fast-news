@@ -197,7 +197,7 @@ class APIObject: NSObject {
     var _relevantTransactionsFinished = [Transaction]()
     var relevantTransactions: [Transaction] {
         get {
-            return _relevantTransactionsInProgress + _relevantTransactionsFinished
+            return _relevantTransactionsFinished + _relevantTransactionsInProgress
         }
     }
     func transactionIsRelevant(t: Transaction) -> Bool {
@@ -205,7 +205,7 @@ class APIObject: NSObject {
     }
     func _transactionStarted(notif: NSNotification) {
         if transactionIsRelevant(notif.object as! Transaction) {
-            _relevantTransactionsInProgress.insert(notif.object as! Transaction, atIndex: 0)
+            _relevantTransactionsInProgress.append(notif.object as! Transaction)
             updated()
         }
     }
@@ -216,7 +216,7 @@ class APIObject: NSObject {
                 _relevantTransactionsInProgress.removeAtIndex(i)
             }
             if !t.failed {
-                _relevantTransactionsFinished.insert(t, atIndex: 0)
+                _relevantTransactionsFinished.append(t)
             }
             updated()
         }

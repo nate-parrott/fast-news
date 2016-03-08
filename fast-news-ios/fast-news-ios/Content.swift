@@ -224,7 +224,8 @@ class ArticleContent {
         var size = 1 // h1 = 3, h2 = 2, else = 1; x-small = 0
         var monospace = false
         var font: UIFont {
-            var desc = UIFontDescriptor.preferredFontDescriptorWithTextStyle(UIFontTextStyleBody)
+            let name = monospace ? "Courier" : "IowanOldStyle-Roman"
+            var desc = UIFontDescriptor(name: name, size: 12) // UIFontDescriptor.preferredFontDescriptorWithTextStyle(UIFontTextStyleBody)
             var traits: UIFontDescriptorSymbolicTraits = []
             if bold {
                 traits.insert(.TraitBold)
@@ -233,21 +234,14 @@ class ArticleContent {
                 traits.insert(.TraitItalic)
             }
             desc = desc.fontDescriptorWithSymbolicTraits(traits)
-            var pointSize = desc.pointSize
+            var pointSize = UIFont.preferredFontForTextStyle(UIFontTextStyleBody).pointSize
             switch size {
             case 3: pointSize = max(pointSize, 22)
             case 2: pointSize = max(pointSize, 20)
             case 0: pointSize = UIFont.preferredFontForTextStyle(UIFontTextStyleCaption1).pointSize
             default: ()
             }
-            desc = desc.fontDescriptorWithSize(pointSize)
-            if headingFont {
-                return UIFont(name: "Merriweather-Bold", size: pointSize)!
-            } else if monospace {
-                return UIFont(name: "Courier", size: pointSize)!
-            } else {
-                return UIFont(descriptor: desc, size: 0)
-            }
+            return UIFont(descriptor: desc, size: pointSize)
         }
     }
 }

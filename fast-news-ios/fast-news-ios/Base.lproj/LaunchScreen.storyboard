@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15A282b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15A282b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" initialViewController="01J-lp-oVM">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -14,14 +14,46 @@
                         <viewControllerLayoutGuide type="bottom" id="xb3-aO-Qok"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="CoolGradient" translatesAutoresizingMaskIntoConstraints="NO" id="lzK-ME-Eap">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="64" id="Vi7-23-1fo"/>
+                                </constraints>
+                            </imageView>
+                            <tabBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R4X-Xc-IgX">
+                                <rect key="frame" x="0.0" y="519" width="320" height="49"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <items>
+                                    <tabBarItem title="" image="NewsTab" id="DYA-oE-JOM"/>
+                                    <tabBarItem title="" image="BookmarksTab" id="7iq-Tt-uk8"/>
+                                    <tabBarItem image="SourcesTab" id="YzK-fg-h2C"/>
+                                </items>
+                                <color key="tintColor" red="0.70588235290000001" green="0.28235294119999998" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                            </tabBar>
+                        </subviews>
+                        <color key="backgroundColor" white="0.95999999999999996" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="R4X-Xc-IgX" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="6N0-td-RiX"/>
+                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="R4X-Xc-IgX" secondAttribute="bottom" id="Civ-OR-mwN"/>
+                            <constraint firstAttribute="trailing" secondItem="R4X-Xc-IgX" secondAttribute="trailing" id="WhO-13-Sn4"/>
+                            <constraint firstItem="lzK-ME-Eap" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="a1y-eG-U1C"/>
+                            <constraint firstItem="lzK-ME-Eap" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="nZI-Ae-R4r"/>
+                            <constraint firstAttribute="trailing" secondItem="lzK-ME-Eap" secondAttribute="trailing" id="yDw-Rc-NZN"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="53" y="375"/>
+            <point key="canvasLocation" x="28" y="355"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="BookmarksTab" width="23" height="24"/>
+        <image name="CoolGradient" width="300" height="30"/>
+        <image name="NewsTab" width="24" height="24"/>
+        <image name="SourcesTab" width="23" height="24"/>
+    </resources>
 </document>

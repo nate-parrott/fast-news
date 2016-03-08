@@ -76,7 +76,10 @@ class Article(ndb.Model):
     published = ndb.DateTimeProperty()
     top_image = ndb.TextProperty()
     description = ndb.TextProperty()
-        
+    author = ndb.TextProperty()
+    section = ndb.StringProperty()
+    site_name = ndb.StringProperty()
+    
     fetch_failed = ndb.BooleanProperty()
     fetch_date = ndb.DateTimeProperty()
     content = ndb.KeyProperty(kind=ArticleContent)
@@ -107,6 +110,8 @@ class Article(ndb.Model):
             "title": self.title,
             "fetch_failed": self.fetch_failed,
             "top_image": self.top_image,
+            "author": self.author,
+            "site_name": self.site_name,
             "published": timestamp_from_datetime(self.published) if self.published else None,
             "description": self.description
         }

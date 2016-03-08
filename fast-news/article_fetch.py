@@ -35,6 +35,11 @@ def article_fetch(article):
         og_image = find_meta_value(markup_soup, 'og:image')
         og_description = find_meta_value(markup_soup, 'og:description')
         
+        article.site_name = find_meta_value(markup_soup, 'og:site_name')
+        
+        # find author:
+        article.author = find_author(markup_soup)
+        
         # parse and process article content:
         content.html = article_extractor.extract(markup, article.url)
         doc_soup = BeautifulSoup(content.html, 'lxml')
@@ -59,19 +64,18 @@ def article_fetch(article):
     content.put()
     article.put()
 
-def article_fetch_old(article):
-    content = ""
-    title = ""
-    try:
-        print 'URL:', 'https://fast-news-parser.herokuapp.com/parse?' + urllib.urlencode({"url": article.url})
-        data = json.load(urllib2.urlopen('https://fast-news-parser.herokuapp.com/parse?' + urllib.urlencode({"url": article.url})))
-        if data['title']: article.title = data['title']
-        article.parsed = data
-    except ValueError as e:
-        print "JSON parse error fetching {0}: {1}".format(article.url, e)
-        article.fetch_failed = True
-    except urllib2.URLError as e:
-        print "URL error fetching {0}: {1}".format(article.url, e)
-        article.fetch_failed = True
-    article.fetch_date = datetime.datetime.now()
-    article.put()
+def find_author(markup_soup):
+    print 'LOOKING FOR AUTHOR'
+    author = find_meta_value(markup_soup, 'article:author')
+    print 'article:author=', author
+    byline_meta = markup_soup.find('meta', attrs={'name': 'byl'})
+    if byline_meta:
+        author = byline_meta['content']
+    print 'BYLINE: ', author
+    author_link = markup_soup.find('a', rel='author')
+    print 'AUTHOR LINK', author_link
+    if author_link:
+        author = author_link.get_text()
+    if author and author.lower().startswith('by '):
+        author = author[len('by '):]
+    return author

@@ -313,6 +313,10 @@
                                     <constraint firstItem="nm1-Tm-7cl" firstAttribute="leading" secondItem="y0E-Xo-oDU" secondAttribute="leading" id="jTR-ii-r6Q"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2QX-bc-Vny" userLabel="Actions Bar backdrop">
+                                <rect key="frame" x="0.0" y="524" width="320" height="44"/>
+                                <color key="backgroundColor" red="0.98039215686274506" green="0.98039215686274506" blue="0.98039215686274506" alpha="0.95999999999999996" colorSpace="calibratedRGB"/>
+                            </view>
                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wEz-ud-3v7">
                                 <rect key="frame" x="0.0" y="524" width="320" height="44"/>
                                 <subviews>
@@ -352,6 +356,7 @@
                                         </connections>
                                     </button>
                                 </subviews>
+                                <color key="backgroundColor" red="0.98594677448272705" green="0.0" blue="0.039444983005523682" alpha="0.0" colorSpace="calibratedRGB"/>
                                 <color key="tintColor" white="0.41115301724137937" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="P6I-cD-glz" firstAttribute="width" secondItem="wA3-pZ-a12" secondAttribute="width" id="1N7-Ax-bng"/>
@@ -362,13 +367,17 @@
                                 </constraints>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" red="0.98431372549999996" green="0.98431372549999996" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.98039215686274506" green="0.98039215686274506" blue="0.98039215686274506" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="wEz-ud-3v7" secondAttribute="trailing" id="4Vf-dn-tBJ"/>
                             <constraint firstItem="wEz-ud-3v7" firstAttribute="leading" secondItem="6WO-do-Uvu" secondAttribute="leading" id="Ecy-5D-OMl"/>
+                            <constraint firstItem="2QX-bc-Vny" firstAttribute="height" secondItem="wEz-ud-3v7" secondAttribute="height" id="QpX-wd-GOf"/>
                             <constraint firstItem="Wwx-Qj-gaC" firstAttribute="top" secondItem="wEz-ud-3v7" secondAttribute="bottom" id="bIz-0o-Cf2"/>
+                            <constraint firstItem="2QX-bc-Vny" firstAttribute="centerY" secondItem="wEz-ud-3v7" secondAttribute="centerY" id="gMh-J0-WUG"/>
                             <constraint firstItem="y0E-Xo-oDU" firstAttribute="centerY" secondItem="6WO-do-Uvu" secondAttribute="centerY" id="nxa-5V-pw1"/>
+                            <constraint firstItem="2QX-bc-Vny" firstAttribute="width" secondItem="wEz-ud-3v7" secondAttribute="width" id="pZf-nO-OuE"/>
                             <constraint firstItem="y0E-Xo-oDU" firstAttribute="centerX" secondItem="6WO-do-Uvu" secondAttribute="centerX" id="qYM-rh-VOf"/>
+                            <constraint firstItem="2QX-bc-Vny" firstAttribute="centerX" secondItem="wEz-ud-3v7" secondAttribute="centerX" id="vbH-SH-aqe"/>
                         </constraints>
                     </view>
                     <nil key="simulatedTopBarMetrics"/>

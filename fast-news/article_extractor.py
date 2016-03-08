@@ -88,13 +88,16 @@ def ids_preserved_by_readability(html):
                 # print 'No ID for', data
     return ids
 
-def strip_url_prefix(url): 
+def strip_url_prefix(url):
     return re.sub(r"^https?:\/\/(www\.)?", "", url)
 
 def normalize_url(url):
     url = strip_url_prefix(url).split('/')[0]
     url = "".join([c for c in url if c.isalpha() or c.isdigit() or c in (' ', '.', '-', '_')]).rstrip()
-    return url
+    parts = url.split('.')
+    if len(parts) > 2:
+        parts = parts[-2:]
+    return '.'.join(parts)
 
 def should_auto_whitelist(node):
     return False

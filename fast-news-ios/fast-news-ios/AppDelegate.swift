@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         
         refresh()
         
-        print("UID: \(APIIdentity.Shared.id)")
+        // print("UID: \(APIIdentity.Shared.id)")
         
         applyTheme()
         // Override point for customization after application launch.

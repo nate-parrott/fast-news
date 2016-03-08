@@ -31,7 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         splitViewController.delegate = self
         
         delay(1) { () -> () in
-            self.readArticle("http://testpage2.42pag.es")
+            // self.readArticle("http://testpage2.42pag.es")
             // self.readArticle("http://twitter.com/nateparrott")
             // self.readArticle("https://medium.com/hh-design/snapchat-reaction-emoji-a-prototype-372ba5de0bde#.4mv6jk16x")
         }

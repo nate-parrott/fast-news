@@ -140,7 +140,7 @@ def populate_article_json(article, content):
     
     cur_segment = None
     block_elements = set(['p', 'div', 'table', 'header', 'section', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'caption', 'pre', 'blockquote', 'li', 'figcaption'])
-    text_tag_attributes = {'strong': {'bold': True}, 'b': {'bold': True}, 'em': {'italic': True}, 'i': {'italic': True}, 'a': {}, 'code': {'monospace': True}}
+    text_tag_attributes = {'strong': {'bold': True}, 'b': {'bold': True}, 'em': {'italic': True}, 'i': {'italic': True}, 'a': {}, 'code': {'monospace': True}, 'span': {}}
     for (event, data) in iterate_tree(soup):
         if event == 'enter' and data.name == 'br':
             event = 'text'
@@ -151,6 +151,7 @@ def populate_article_json(article, content):
                 # open a new block segment:
                 kind = {'h1': 'h1', 'h2': 'h2', 'h3': 'h3', 'h4': 'h4', 'h5': 'h5', 'h6': 'h6', 'blockquote': 'blockquote', 'caption': 'caption', 'li': 'li', 'figcaption': 'caption'}.get(data.name, 'p')
                 cur_segment = TextSegment(kind)
+                if data.name == 'pre': cur_segment.content[0]['monospace'] = True
                 segments.append(cur_segment)
             elif data.name == 'img':
                 # TODO: fetch aspect ratio

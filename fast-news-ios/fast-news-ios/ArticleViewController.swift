@@ -116,7 +116,7 @@ class ArticleViewController: SwipeAwayViewController {
     }
     
     // MARK: Layout
-    static let Margin: CGFloat = 18
+    static let Margin: CGFloat = 14
     override func prefersStatusBarHidden() -> Bool {
         return true
     }

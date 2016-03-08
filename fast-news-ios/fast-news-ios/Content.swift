@@ -185,7 +185,7 @@ class ArticleContent {
             attrs[NSForegroundColorAttributeName] = defaultTextColor()
             attrs[NSUnderlineStyleAttributeName] = 0
             let para = NSParagraphStyle.defaultParagraphStyle().mutableCopy() as! NSMutableParagraphStyle
-            para.lineHeightMultiple = 1.3
+            para.lineHeightMultiple = 1.2
             // para.paragraphSpacingBefore = 20
             // para.paragraphSpacing = 20
             para.alignment = .Left
@@ -224,7 +224,7 @@ class ArticleContent {
         var size = 1 // h1 = 3, h2 = 2, else = 1; x-small = 0
         var monospace = false
         var font: UIFont {
-            let name = monospace ? "Courier" : "IowanOldStyle-Roman"
+            let name = "IowanOldStyle-Roman"
             var desc = UIFontDescriptor(name: name, size: 12) // UIFontDescriptor.preferredFontDescriptorWithTextStyle(UIFontTextStyleBody)
             var traits: UIFontDescriptorSymbolicTraits = []
             if bold {
@@ -241,7 +241,11 @@ class ArticleContent {
             case 0: pointSize = UIFont.preferredFontForTextStyle(UIFontTextStyleCaption1).pointSize
             default: ()
             }
-            return UIFont(descriptor: desc, size: pointSize)
+            if monospace {
+                return UIFont(name: "Courier", size: pointSize)!
+            } else {
+                return UIFont(descriptor: desc, size: pointSize)
+            }
         }
     }
 }

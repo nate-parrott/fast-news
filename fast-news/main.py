@@ -20,6 +20,7 @@ from model import Source, Article, Subscription
 from google.appengine.ext import ndb
 import json
 from pprint import pprint
+from mirror import MirrorHandler
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
@@ -173,5 +174,6 @@ app = webapp2.WSGIApplication([
     ('/subscriptions/delete', UnsubscribeHandler),
     ('/bookmarks', BookmarksHandler),
     ('/test', TestHandler),
-    ('/test/article_fetch', ArticleTestFetchHandler)
+    ('/test/article_fetch', ArticleTestFetchHandler),
+    ('/mirror', MirrorHandler)
 ], debug=True)

@@ -45,14 +45,17 @@ def first_present(items):
         if item:
             return item
 
-def url_fetch(url, timeout=10):
+def url_fetch(url, timeout=10, return_response_obj=False):
     cj = CookieJar()
     opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cj))
     opener.addheaders = [("User-Agent", "fast-news-bot")]
     print "url_fetch('{0}')".format(url)
     try:
-        x = opener.open(url, timeout=timeout).read()
-        return x
+        resp = opener.open(url, timeout=timeout)
+        if return_response_obj:
+            return resp
+        else:
+            return resp.read()
     except HTTPException as e:
         print "{0}: {1}".format(url, e)
     except urllib2.URLError as e:

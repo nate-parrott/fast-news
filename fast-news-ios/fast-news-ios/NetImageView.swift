@@ -88,7 +88,7 @@ class NetImageView: UIImageView {
     }
     
     class func mirroredURLForImage(imageURL: String, size: CGSize) -> NSURL {
-        let comps = NSURLComponents(string: "https://surfboard-services.appspot.com/mirror")!
+        let comps = NSURLComponents(string: APIObject.apiRoot + "/mirror")!
         comps.queryItems = [NSURLQueryItem(name: "url", value: imageURL), NSURLQueryItem(name: "resize", value: "\(size.width),\(size.height)")]
         return comps.URL!
     }

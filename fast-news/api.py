@@ -93,7 +93,8 @@ def add_or_update_bookmark(uid, reading_pos, article_id=None, article_url=None):
     id = Bookmark.id_for_bookmark(uid, article_id)
     bookmark, inserted = get_or_insert(Bookmark, id)
     bookmark.article = ndb.Key(Article, article_id)
-    bookmark.reading_pos = reading_pos
+    if reading_pos:
+        bookmark.reading_position = reading_pos
     bookmark.last_modified = datetime.datetime.now()
     bookmark.uid = uid
     bookmark.put()

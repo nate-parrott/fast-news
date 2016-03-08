@@ -25,12 +25,37 @@ class SwipePager<T:Hashable>: UIView, UIScrollViewDelegate {
     let contentView = UIView()
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
+        _updatePosition()
+    }
+    
+    func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if !decelerate {
+            _notifyIfPageChanged()
+        }
+    }
+    
+    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+        _notifyIfPageChanged()
+    }
+    
+    func _notifyIfPageChanged() {
+        if let p = page where p != _prevPage {
+            _prevPage = p
+            if let cb = onPageChanged {
+                cb(p)
+            }
+        }
+    }
+    
+    func _updatePosition() {
         contentView.center = CGPointMake(bounds.size.width/2, bounds.size.height/2 + scrollView.contentOffset.y)
-        if scrollView.contentOffset.y == 0 {
-            position = (0, 0)
-        } else {
-            let page: CGFloat = floor(scrollView.contentOffset.y / scrollView.bounds.size.height)
-            position = (Int(page), scrollView.contentOffset.y / scrollView.bounds.size.height - page)
+        if scrollView.bounds.size.height > 0 {
+            if scrollView.contentOffset.y == 0 {
+                position = (0, 0)
+            } else {
+                let page: CGFloat = floor(scrollView.contentOffset.y / scrollView.bounds.size.height)
+                position = (Int(page), scrollView.contentOffset.y / scrollView.bounds.size.height - page)
+            }
         }
     }
     
@@ -90,6 +115,9 @@ class SwipePager<T:Hashable>: UIView, UIScrollViewDelegate {
         }
     }
     
+    var _prevPage: Int = 0
+    var onPageChanged: (Int -> ())?
+    
     var _viewsOnscreen = [T: UIView]() {
         willSet(newVal) {
             for v in _viewsOnscreen.values {
@@ -110,6 +138,7 @@ class SwipePager<T:Hashable>: UIView, UIScrollViewDelegate {
         super.layoutSubviews()
         scrollView.frame = bounds
         contentView.frame = bounds
+        _updatePosition()
         
         let contentSize = CGSizeMake(bounds.size.width, bounds.size.height * CGFloat(pageModels.count))
         if !CGSizeEqualToSize(contentSize, scrollView.contentSize) {

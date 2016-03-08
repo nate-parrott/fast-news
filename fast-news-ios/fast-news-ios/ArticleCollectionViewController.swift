@@ -53,9 +53,18 @@ class ArticleCollectionViewController: UICollectionViewController, UICollectionV
     
     let _preferredRecency: CFAbsoluteTime = 5 * 60
     
+    var visible = false
+    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        visible = true
+        update()
         model.ensureRecency(_preferredRecency)
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+        visible = false
     }
     
     func _foreground(notif: NSNotification) {
@@ -63,6 +72,10 @@ class ArticleCollectionViewController: UICollectionViewController, UICollectionV
     }
     
     func update() {
+        if !visible {
+            return
+        }
+        
         collectionView?.reloadData()
         
         var title = ""

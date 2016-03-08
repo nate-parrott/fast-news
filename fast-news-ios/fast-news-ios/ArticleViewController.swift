@@ -11,7 +11,13 @@ import SafariServices
 
 class ArticleViewController: SwipeAwayViewController {
     // MARK: Data
-    var article: Article!
+    var article: Article! {
+        didSet {
+            if let b = _findMatchingBookmark(), let pos = b.readingPosition as? [AnyObject] where pos.count > 0, let idx = pos[0] as? Int {
+                __readingPosition = idx
+            }
+        }
+    }
     var _articleSub: Subscription?
     var _bookmarkListChangedSub: Subscription?
     
@@ -28,6 +34,12 @@ class ArticleViewController: SwipeAwayViewController {
         pager.createPageForModel = {
             [weak self] (i) in
             return self!._pageViewForIndex(i)
+        }
+        pager.onPageChanged = {
+            [weak self] (let page) in
+            if let s = self, let pos = s.layoutInfo.pages[page].indexOfFirstSegmentStarted {
+                s._readingPosition = pos
+            }
         }
         
         view.insertSubview(pager, atIndex: 0)
@@ -59,7 +71,9 @@ class ArticleViewController: SwipeAwayViewController {
             if content.lowQuality ?? false {
                 _viewState = .ShowWeb
             } else {
-                rowModels = _createRowModelsFromSegments(content.segments)
+                let (models, indices) = _createRowModelsFromSegments(content.segments)
+                _segmentIndicesForRowModels = indices
+                rowModels = models
                 _viewState = .ShowContent
             }
         } else if article.fetchFailed ?? false {
@@ -79,6 +93,9 @@ class ArticleViewController: SwipeAwayViewController {
             t.bookmark = _findMatchingBookmark()
             t.article = article
             t.delete = !val
+            if val {
+                t.readingPosition = [_readingPosition]
+            }
             t.start()
         }
     }
@@ -183,19 +200,38 @@ class ArticleViewController: SwipeAwayViewController {
         var rowModels = [(RowModel, CGFloat)]() // (rowModel, offset)
         var height: CGFloat = 0
         var marginTop: CGFloat = 0
+        var indexOfFirstSegmentStarted: Int?
     }
     
     func _updatePages() {
         _layoutInfo = nil
         pager.pageModels = Array(0..<(layoutInfo.pages.count))
+        if let pageIdx = _pageIndexForReadingPosition(_readingPosition) {
+            pager.page = pageIdx
+        }
     }
     
-    func _createRowModelsFromSegments(segments: [ArticleContent.Segment]) -> [RowModel] {
+    func _pageIndexForReadingPosition(pos: Int) -> Int? {
+        var pageIdx: Int?
+        var i = 0
+        for page in layoutInfo.pages {
+            if let firstIndex = page.indexOfFirstSegmentStarted where pos >= firstIndex {
+                pageIdx = i
+            }
+            i += 1
+        }
+        return pageIdx
+    }
+    
+    func _createRowModelsFromSegments(segments: [ArticleContent.Segment]) -> ([RowModel], [Int]) {
         var models = [RowModel]()
+        var segmentIndices = [Int]()
         var trailingMargin = false
+        var i = 0
         for seg in segments {
             if let image = seg as? ArticleContent.ImageSegment {
                 models.append(RowModel.Image(image))
+                segmentIndices.append(i)
                 trailingMargin = false
             } else if let text = seg as? ArticleContent.TextSegment {
                 let attributedString = NSMutableAttributedString()
@@ -209,11 +245,13 @@ class ArticleViewController: SwipeAwayViewController {
                     let marginBottom = ArticleViewController.Margin + text.extraBottomPadding
                     substring.stripWhitespace()
                     models.append(RowModel.Text(string: substring, margins: (marginTop, marginBottom), seg: text))
+                    segmentIndices.append(i)
                     trailingMargin = true
                 }
             }
+            i += 1
         }
-        return models
+        return (models, segmentIndices)
     }
     
     var rowModels: [RowModel]? {
@@ -221,6 +259,7 @@ class ArticleViewController: SwipeAwayViewController {
             _updatePages()
         }
     }
+    var _segmentIndicesForRowModels: [Int]?
     
     func cellForModel(model: RowModel) -> ArticleSegmentCell {
         switch model {
@@ -259,6 +298,26 @@ class ArticleViewController: SwipeAwayViewController {
         return v
     }
     
+    // MARK: Reading position
+    var __readingPosition: Int = 0
+    var _readingPosition: Int {
+        get {
+            return __readingPosition
+        }
+        set(val) {
+            if __readingPosition != val {
+                __readingPosition = val
+                if let b = _findMatchingBookmark() {
+                    let t = UpdateBookmarkTransaction()
+                    t.article = article
+                    t.readingPosition = [_readingPosition]
+                    t.bookmark = b
+                    t.start()
+                }
+            }
+        }
+    }
+    
     // MARK: LayoutInfo
     var _layoutInfo: _LayoutInfo?
     var layoutInfo: _LayoutInfo {
@@ -267,8 +326,8 @@ class ArticleViewController: SwipeAwayViewController {
                 _layoutInfo = _LayoutInfo()
                 viewDidLayoutSubviews()
                 _layoutInfo!.size = pager.bounds.size
-                if let models = rowModels {
-                    _layoutInfo!.computeWithModels(models)
+                if let models = rowModels, let segmentIndices = _segmentIndicesForRowModels {
+                    _layoutInfo!.computeWithModels(models, segmentIndices: segmentIndices)
                 }
             }
             return _layoutInfo!
@@ -279,11 +338,14 @@ class ArticleViewController: SwipeAwayViewController {
         var size = CGSizeZero
         var pages = [PageModel]()
         
-        func computeWithModels(models: [RowModel]) {
+        func computeWithModels(models: [RowModel], segmentIndices: [Int]) {
             let maxPageHeight = size.height
             
             pages = [PageModel()]
-            for model in models {
+            for (model, segmentIdx) in zip(models, segmentIndices) {
+                if pages.last!.indexOfFirstSegmentStarted == nil {
+                    pages[pages.count - 1].indexOfFirstSegmentStarted = segmentIdx
+                }
                 var addedYet = false
                 var localPoints = pageBreakPointsForModel(model)
                 localPoints[localPoints.count-1] = ceil(localPoints.last!)

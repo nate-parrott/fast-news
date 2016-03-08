@@ -67,7 +67,7 @@ class Bookmark: APIObject {
     
     override func importJson(json: [String : AnyObject]) {
         super.importJson(json)
-        if let pos = json["readingPosition"] {
+        if let pos = json["reading_position"] {
             readingPosition = pos
         }
         if let lastModified = json["last_modified"] as? Double {
@@ -102,6 +102,9 @@ class UpdateBookmarkTransaction: Transaction {
         }
         method = delete ? "DELETE" : "POST"
         endpoint = "/bookmarks"
+        if let p = readingPosition {
+            args["reading_position"] = NSString(data: try! NSJSONSerialization.dataWithJSONObject(p, options: []), encoding: NSUTF8StringEncoding)! as String
+        }
         
         if !delete {
             let b = bookmark ?? Bookmark(id: nil)

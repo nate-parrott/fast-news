@@ -97,6 +97,7 @@ class ArticleContent {
                     paragraphStyle.firstLineHeadIndent = indent
                 case "caption":
                     attrs[NSForegroundColorAttributeName] = (attrs[NSForegroundColorAttributeName] as! UIColor).colorWithAlphaComponent(0.6)
+                    fontOptions.size = 0
             default: ()
             }
             let font = fontOptions.font
@@ -220,7 +221,7 @@ class ArticleContent {
         var italic = false
         var headingFont = false
         var uppercase = false
-        var size = 1 // h1 = 3, h2 = 2, else = 1
+        var size = 1 // h1 = 3, h2 = 2, else = 1; x-small = 0
         var monospace = false
         var font: UIFont {
             var desc = UIFontDescriptor.preferredFontDescriptorWithTextStyle(UIFontTextStyleBody)
@@ -234,13 +235,14 @@ class ArticleContent {
             desc = desc.fontDescriptorWithSymbolicTraits(traits)
             var pointSize = desc.pointSize
             switch size {
-            case 3: pointSize = max(24, pointSize)
-            case 2: pointSize = max(20, pointSize)
+            case 3: pointSize = max(pointSize, 22)
+            case 2: pointSize = max(pointSize, 20)
+            case 0: pointSize = UIFont.preferredFontForTextStyle(UIFontTextStyleCaption1).pointSize
             default: ()
             }
             desc = desc.fontDescriptorWithSize(pointSize)
             if headingFont {
-                return UIFont(name: "LeagueSpartan-Bold", size: pointSize)!
+                return UIFont(name: "Merriweather-Bold", size: pointSize)!
             } else if monospace {
                 return UIFont(name: "Courier", size: pointSize)!
             } else {

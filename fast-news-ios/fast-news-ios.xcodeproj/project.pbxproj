@@ -114,6 +114,10 @@
 		5FCDF4421C6BF75F00A50A75 /* ArticleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCDF4411C6BF75F00A50A75 /* ArticleViewController.swift */; };
 		5FCDF4441C6BF77000A50A75 /* SourceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCDF4431C6BF77000A50A75 /* SourceViewController.swift */; };
 		5FCDF4481C6BFAFB00A50A75 /* ArticleCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCDF4471C6BFAFB00A50A75 /* ArticleCollectionViewController.swift */; };
+		5FD30E3C1C8F4AD90089788C /* Merriweather-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5FD30E3B1C8F4AD90089788C /* Merriweather-Regular.ttf */; };
+		5FD30E3D1C8F4AD90089788C /* Merriweather-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5FD30E3B1C8F4AD90089788C /* Merriweather-Regular.ttf */; };
+		5FD30E3F1C8F4CDD0089788C /* Merriweather-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5FD30E3E1C8F4CDD0089788C /* Merriweather-Bold.ttf */; };
+		5FD30E401C8F4CDD0089788C /* Merriweather-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5FD30E3E1C8F4CDD0089788C /* Merriweather-Bold.ttf */; };
 		725D858EB45B62776BD1EC87 /* Pods_fast_news_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B28AF43A8234C24ACECEB84 /* Pods_fast_news_ios.framework */; };
 /* End PBXBuildFile section */
 
@@ -219,6 +223,8 @@
 		5FCDF4411C6BF75F00A50A75 /* ArticleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleViewController.swift; sourceTree = "<group>"; };
 		5FCDF4431C6BF77000A50A75 /* SourceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SourceViewController.swift; sourceTree = "<group>"; };
 		5FCDF4471C6BFAFB00A50A75 /* ArticleCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleCollectionViewController.swift; sourceTree = "<group>"; };
+		5FD30E3B1C8F4AD90089788C /* Merriweather-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Merriweather-Regular.ttf"; sourceTree = "<group>"; };
+		5FD30E3E1C8F4CDD0089788C /* Merriweather-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Merriweather-Bold.ttf"; sourceTree = "<group>"; };
 		7B28AF43A8234C24ACECEB84 /* Pods_fast_news_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_fast_news_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0848AEAC746D72B580AA7EF /* Pods-fast-news-ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fast-news-ios.debug.xcconfig"; path = "Pods/Target Support Files/Pods-fast-news-ios/Pods-fast-news-ios.debug.xcconfig"; sourceTree = "<group>"; };
 		C8692EA5BF694EAB0375ECAB /* Pods-fast-news-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fast-news-ios.release.xcconfig"; path = "Pods/Target Support Files/Pods-fast-news-ios/Pods-fast-news-ios.release.xcconfig"; sourceTree = "<group>"; };
@@ -264,7 +270,9 @@
 				5F0CC6341C6D526E0071A026 /* RobotoMono-Bold.ttf */,
 				5F0CC6351C6D526E0071A026 /* RobotoMono-BoldItalic.ttf */,
 				5F0CC6361C6D526E0071A026 /* RobotoMono-Italic.ttf */,
+				5FD30E3B1C8F4AD90089788C /* Merriweather-Regular.ttf */,
 				5F0CC6371C6D526E0071A026 /* RobotoMono-Regular.ttf */,
+				5FD30E3E1C8F4CDD0089788C /* Merriweather-Bold.ttf */,
 				5F59D8AD1C79455800C3E1C3 /* LeagueSpartan-Bold.otf */,
 			);
 			name = Fonts;
@@ -521,10 +529,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5FD30E401C8F4CDD0089788C /* Merriweather-Bold.ttf in Resources */,
 				5F40C3971C7D1FB100B045A4 /* Main.storyboard in Resources */,
 				5F3054641C7D1A6600E0CFE6 /* Assets.xcassets in Resources */,
 				5F30543E1C7D197F00E0CFE6 /* MainInterface.storyboard in Resources */,
 				5F40C3981C7D204400B045A4 /* LeagueSpartan-Bold.otf in Resources */,
+				5FD30E3D1C8F4AD90089788C /* Merriweather-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -532,8 +542,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5FD30E3F1C8F4CDD0089788C /* Merriweather-Bold.ttf in Resources */,
 				5F4A714D1C6319E000676F91 /* LaunchScreen.storyboard in Resources */,
 				5F0CC61E1C6C51BA0071A026 /* Asap-BoldItalic.otf in Resources */,
+				5FD30E3C1C8F4AD90089788C /* Merriweather-Regular.ttf in Resources */,
 				5F0CC63A1C6D526E0071A026 /* RobotoMono-Italic.ttf in Resources */,
 				5F0CC6201C6C51BA0071A026 /* Asap-Medium.otf in Resources */,
 				5F0CC6221C6C51BA0071A026 /* Asap-Regular.otf in Resources */,

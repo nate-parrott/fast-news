@@ -69,6 +69,7 @@ class ArticleContent(ndb.Model):
 class Article(ndb.Model):
     source = ndb.KeyProperty(kind=Source)
     url = ndb.StringProperty()
+    submission_url = ndb.StringProperty()
     added_date = ndb.DateTimeProperty()
     added_order = ndb.IntegerProperty()
     title = ndb.TextProperty()
@@ -102,6 +103,7 @@ class Article(ndb.Model):
         d = {
             "id": self.key.id(),
             "url": self.url,
+            "submission_url": self.submission_url,
             "title": self.title,
             "fetch_failed": self.fetch_failed,
             "top_image": self.top_image,

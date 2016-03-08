@@ -19,6 +19,7 @@ from google.appengine.api import taskqueue
 import re
 from logging import warning
 from logging import info as debug
+from source_entry_processor import create_source_entry_processor
 
 def source_fetch(source):
     debug("SF: Doing fetch for source: {0}".format(source.url))
@@ -45,7 +46,8 @@ def source_fetch(source):
                 article.added_date = now
                 article.added_order = i
                 article.source = source.key
-                article.url = canonical_url(entry['url'])
+                article.url = canonical_url(entry.get('url'))
+                article.submission_url = canonical_url(entry.get('submission_url'))
                 if entry['published']:
                     article.published = entry['published']
                 else:
@@ -112,6 +114,7 @@ def rss_fetch(source, markup, url, add_rpc, got_result):
     if len(parsed['entries']) == 0:
         return None
     
+    source_entry_processor = create_source_entry_processor(url)
     feed_title = parsed['feed']['title']
     entries = []
     latest_date = None
@@ -125,7 +128,9 @@ def rss_fetch(source, markup, url, add_rpc, got_result):
                 published = datetime.datetime.fromtimestamp(mktime(pub_time))
             else:
                 published = None
-            entries.append({"title": title, "url": link_url, "published": published})
+            entry = {"title": title, "url": link_url, "published": published}
+            source_entry_processor(entry)
+            entries.append(entry)
     
     got_result(FetchResult('rss', feed_title, entries))
 
@@ -165,7 +170,8 @@ def fetch_wordpress_default_rss(source, markup, url, add_rpc, got_result):
 def fetch_hardcoded_rss_url(source, markup, url, add_rpc, got_result):
     lookup = {
         'news.ycombinator.com': 'http://hnrss.org/newest?points=25',
-        'newyorker.com': 'http://www.newyorker.com/feed/everything'
+        'newyorker.com': 'http://www.newyorker.com/feed/everything',
+        'longform.org': 'http://longform.org/feed.rss'
     }
     rss_url = lookup.get(strip_url_prefix(url))
     if rss_url:

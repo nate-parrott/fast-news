@@ -1,0 +1,276 @@
+url_fetch('http://reddit.com/r/ios')
+WARNING  2016-03-08 20:47:31,307 urlfetch_stub.py:540] Stripped prohibited headers from URLFetch request: ['Host']
+WARNING  2016-03-08 20:47:31,354 urlfetch_stub.py:540] Stripped prohibited headers from URLFetch request: ['Host']
+Found rss URL:  https://www.reddit.com/r/ios/.rss
+INFO     2016-03-08 20:47:32,910 source_fetch.py:98] SF: Fetched http://reddit.com/r/ios as linked_rss source
+INFO     2016-03-08 20:47:32,911 source_fetch.py:102] SF: starting brand fetch
+WARNING  2016-03-08 20:47:32,963 urlfetch_stub.py:540] Stripped prohibited headers from URLFetch request: ['Host']
+WARNING  2016-03-08 20:47:33,057 urlfetch_stub.py:540] Stripped prohibited headers from URLFetch request: ['Host']
+WARNING  2016-03-08 20:47:33,137 urlfetch_stub.py:540] Stripped prohibited headers from URLFetch request: ['Host']
+WARNING  2016-03-08 20:47:33,223 urlfetch_stub.py:540] Stripped prohibited headers from URLFetch request: ['Host']
+INFO     2016-03-08 20:47:33,405 source_fetch.py:104] SF: done with brand fetch
+INFO     2016-03-08 20:47:33,411 module.py:809] default: "POST /test HTTP/1.1" 200 4878
+INFO     2016-03-08 20:50:07,406 source_fetch.py:25] SF: Doing fetch for source: http://longform.org
+url_fetch('http://longform.org')
+WARNING  2016-03-08 20:50:07,410 urlfetch_stub.py:540] Stripped prohibited headers from URLFetch request: ['Host']
+INFO     2016-03-08 20:50:07,972 source_fetch.py:98] SF: Fetched http://longform.org as hardcoded_rss source
+INFO     2016-03-08 20:50:07,972 source_fetch.py:102] SF: starting brand fetch
+WARNING  2016-03-08 20:50:08,014 urlfetch_stub.py:540] Stripped prohibited headers from URLFetch request: ['Host']
+INFO     2016-03-08 20:50:08,092 source_fetch.py:104] SF: done with brand fetch
+INFO     2016-03-08 20:50:08,092 source_fetch.py:27] SF: Done with source fetch for http://longform.org; result type: hardcoded_rss
+ERROR    2016-03-08 20:50:08,127 webapp2.py:1552] 'NoneType' object has no attribute 'encode'
+Traceback (most recent call last):
+  File "/Applications/GoogleAppEngineLauncher.app/Contents/Resources/GoogleAppEngine-default.bundle/Contents/Resources/google_appengine/lib/webapp2-2.5.2/webapp2.py", line 1535, in __call__
+    rv = self.handle_exception(request, response, e)
+  File "/Applications/GoogleAppEngineLauncher.app/Contents/Resources/GoogleAppEngine-default.bundle/Contents/Resources/google_appengine/lib/webapp2-2.5.2/webapp2.py", line 1529, in __call__
+    rv = self.router.dispatch(request, response)
+  File "/Applications/GoogleAppEngineLauncher.app/Contents/Resources/GoogleAppEngine-default.bundle/Contents/Resources/google_appengine/lib/webapp2-2.5.2/webapp2.py", line 1278, in default_dispatcher
+    return route.handler_adapter(request, response)
+  File "/Applications/GoogleAppEngineLauncher.app/Contents/Resources/GoogleAppEngine-default.bundle/Contents/Resources/google_appengine/lib/webapp2-2.5.2/webapp2.py", line 1102, in __call__
+    return handler.dispatch()
+  File "/Applications/GoogleAppEngineLauncher.app/Contents/Resources/GoogleAppEngine-default.bundle/Contents/Resources/google_appengine/lib/webapp2-2.5.2/webapp2.py", line 572, in dispatch
+    return self.handle_exception(e, self.app.debug)
+  File "/Applications/GoogleAppEngineLauncher.app/Contents/Resources/GoogleAppEngine-default.bundle/Contents/Resources/google_appengine/lib/webapp2-2.5.2/webapp2.py", line 570, in dispatch
+    return method(*args, **kwargs)
+  File "/Users/nateparrott/Documents/SW/fast-news/fast-news/tasks.py", line 13, in post
+    source.fetch_now()
+  File "/Users/nateparrott/Documents/SW/fast-news/fast-news/model.py", line 33, in fetch_now
+    source_fetch(self)
+  File "/Users/nateparrott/Documents/SW/fast-news/fast-news/source_fetch.py", line 50, in source_fetch
+    article.submission_url = canonical_url(entry.get('submission_url'))
+  File "/Users/nateparrott/Documents/SW/fast-news/fast-news/canonical_url.py", line 4, in canonical_url
+    return url.encode('utf-8')
+AttributeError: 'NoneType' object has no attribute 'encode'
+INFO     2016-03-08 20:50:08,137 module.py:809] default: "POST /tasks/sources/fetch HTTP/1.1" 500 2599
+WARNING  2016-03-08 20:50:08,137 taskqueue_stub.py:1977] Task task14 failed to execute. This task will retry in 0.100 seconds
+INFO     2016-03-08 20:50:08,255 source_fetch.py:25] SF: Doing fetch for source: http://longform.org
+url_fetch('http://longform.org')
+WARNING  2016-03-08 20:50:08,260 urlfetch_stub.py:540] Stripped prohibited headers from URLFetch request: ['Host']
+INFO     2016-03-08 20:50:08,759 source_fetch.py:98] SF: Fetched http://longform.org as hardcoded_rss source
+INFO     2016-03-08 20:50:08,759 source_fetch.py:102] SF: starting brand fetch
+WARNING  2016-03-08 20:50:08,807 urlfetch_stub.py:540] Stripped prohibited headers from URLFetch request: ['Host']
+INFO     2016-03-08 20:50:08,884 source_fetch.py:104] SF: done with brand fetch
+INFO     2016-03-08 20:50:08,885 source_fetch.py:27] SF: Done with source fetch for http://longform.org; result type: hardcoded_rss
+ERROR    2016-03-08 20:50:08,947 webapp2.py:1552] 'NoneType' object has no attribute 'encode'
+Traceback (most recent call last):
+  File "/Applications/GoogleAppEngineLauncher.app/Contents/Resources/GoogleAppEngine-default.bundle/Contents/Resources/google_appengine/lib/webapp2-2.5.2/webapp2.py", line 1535, in __call__
+    rv = self.handle_exception(request, response, e)
+  File "/Applications/GoogleAppEngineLauncher.app/Contents/Resources/GoogleAppEngine-default.bundle/Contents/Resources/google_appengine/lib/webapp2-2.5.2/webapp2.py", line 1529, in __call__
+    rv = self.router.dispatch(request, response)
+  File "/Applications/GoogleAppEngineLauncher.app/Contents/Resources/GoogleAppEngine-default.bundle/Contents/Resources/google_appengine/lib/webapp2-2.5.2/webapp2.py", line 1278, in default_dispatcher
+    return route.handler_adapter(request, response)
+  File "/Applications/GoogleAppEngineLauncher.app/Contents/Resources/GoogleAppEngine-default.bundle/Contents/Resources/google_appengine/lib/webapp2-2.5.2/webapp2.py", line 1102, in __call__
+    return handler.dispatch()
+  File "/Applications/GoogleAppEngineLauncher.app/Contents/Resources/GoogleAppEngine-default.bundle/Contents/Resources/google_appengine/lib/webapp2-2.5.2/webapp2.py", line 572, in dispatch
+    return self.handle_exception(e, self.app.debug)
+  File "/Applications/GoogleAppEngineLauncher.app/Contents/Resources/GoogleAppEngine-default.bundle/Contents/Resources/google_appengine/lib/webapp2-2.5.2/webapp2.py", line 570, in dispatch
+    return method(*args, **kwargs)
+  File "/Users/nateparrott/Documents/SW/fast-news/fast-news/tasks.py", line 13, in post
+    source.fetch_now()
+  File "/Users/nateparrott/Documents/SW/fast-news/fast-news/model.py", line 33, in fetch_now
+    source_fetch(self)
+  File "/Users/nateparrott/Documents/SW/fast-news/fast-news/source_fetch.py", line 50, in source_fetch
+    article.submission_url = canonical_url(entry.get('submission_url'))
+  File "/Users/nateparrott/Documents/SW/fast-news/fast-news/canonical_url.py", line 4, in canonical_url
+    return url.encode('utf-8')
+AttributeError: 'NoneType' object has no attribute 'encode'
+INFO     2016-03-08 20:50:08,955 module.py:809] default: "POST /tasks/sources/fetch HTTP/1.1" 500 2599
+WARNING  2016-03-08 20:50:08,955 taskqueue_stub.py:1977] Task task14 failed to execute. This task will retry in 0.200 seconds
+INFO     2016-03-08 20:50:09,173 source_fetch.py:25] SF: Doing fetch for source: http://longform.org
+url_fetch('http://longform.org')
+WARNING  2016-03-08 20:50:09,177 urlfetch_stub.py:540] Stripped prohibited headers from URLFetch request: ['Host']
+INFO     2016-03-08 20:50:09,732 source_fetch.py:98] SF: Fetched http://longform.org as hardcoded_rss source
+INFO     2016-03-08 20:50:09,732 source_fetch.py:102] SF: starting brand fetch
+WARNING  2016-03-08 20:50:09,771 urlfetch_stub.py:540] Stripped prohibited headers from URLFetch request: ['Host']
+INFO     2016-03-08 20:50:09,867 source_fetch.py:104] SF: done with brand fetch
+INFO     2016-03-08 20:50:09,867 source_fetch.py:27] SF: Done with source fetch for http://longform.org; result type: hardcoded_rss
+ERROR    2016-03-08 20:50:09,954 webapp2.py:1552] 'NoneType' object has no attribute 'encode'
+Traceback (most recent call last):
+  File "/Applications/GoogleAppEngineLauncher.app/Contents/Resources/GoogleAppEngine-default.bundle/Contents/Resources/google_appengine/lib/webapp2-2.5.2/webapp2.py", line 1535, in __call__
+    rv = self.handle_exception(request, response, e)
+  File "/Applications/GoogleAppEngineLauncher.app/Contents/Resources/GoogleAppEngine-default.bundle/Contents/Resources/google_appengine/lib/webapp2-2.5.2/webapp2.py", line 1529, in __call__
+    rv = self.router.dispatch(request, response)
+  File "/Applications/GoogleAppEngineLauncher.app/Contents/Resources/GoogleAppEngine-default.bundle/Contents/Resources/google_appengine/lib/webapp2-2.5.2/webapp2.py", line 1278, in default_dispatcher
+    return route.handler_adapter(request, response)
+  File "/Applications/GoogleAppEngineLauncher.app/Contents/Resources/GoogleAppEngine-default.bundle/Contents/Resources/google_appengine/lib/webapp2-2.5.2/webapp2.py", line 1102, in __call__
+    return handler.dispatch()
+  File "/Applications/GoogleAppEngineLauncher.app/Contents/Resources/GoogleAppEngine-default.bundle/Contents/Resources/google_appengine/lib/webapp2-2.5.2/webapp2.py", line 572, in dispatch
+    return self.handle_exception(e, self.app.debug)
+  File "/Applications/GoogleAppEngineLauncher.app/Contents/Resources/GoogleAppEngine-default.bundle/Contents/Resources/google_appengine/lib/webapp2-2.5.2/webapp2.py", line 570, in dispatch
+    return method(*args, **kwargs)
+  File "/Users/nateparrott/Documents/SW/fast-news/fast-news/tasks.py", line 13, in post
+    source.fetch_now()
+  File "/Users/nateparrott/Documents/SW/fast-news/fast-news/model.py", line 33, in fetch_now
+    source_fetch(self)
+  File "/Users/nateparrott/Documents/SW/fast-news/fast-news/source_fetch.py", line 50, in source_fetch
+    article.submission_url = canonical_url(entry.get('submission_url'))
+  File "/Users/nateparrott/Documents/SW/fast-news/fast-news/canonical_url.py", line 4, in canonical_url
+    return url.encode('utf-8')
+AttributeError: 'NoneType' object has no attribute 'encode'
+INFO     2016-03-08 20:50:09,963 module.py:809] default: "POST /tasks/sources/fetch HTTP/1.1" 500 2599
+WARNING  2016-03-08 20:50:09,963 taskqueue_stub.py:1977] Task task14 failed to execute. This task will retry in 0.400 seconds
+INFO     2016-03-08 20:50:10,377 source_fetch.py:25] SF: Doing fetch for source: http://longform.org
+url_fetch('http://longform.org')
+WARNING  2016-03-08 20:50:10,382 urlfetch_stub.py:540] Stripped prohibited headers from URLFetch request: ['Host']
+INFO     2016-03-08 20:50:10,930 source_fetch.py:98] SF: Fetched http://longform.org as hardcoded_rss source
+INFO     2016-03-08 20:50:10,930 source_fetch.py:102] SF: starting brand fetch
+WARNING  2016-03-08 20:50:10,969 urlfetch_stub.py:540] Stripped prohibited headers from URLFetch request: ['Host']
+INFO     2016-03-08 20:50:11,057 source_fetch.py:104] SF: done with brand fetch
+INFO     2016-03-08 20:50:11,057 source_fetch.py:27] SF: Done with source fetch for http://longform.org; result type: hardcoded_rss
+ERROR    2016-03-08 20:50:11,176 webapp2.py:1552] 'NoneType' object has no attribute 'encode'
+Traceback (most recent call last):
+  File "/Applications/GoogleAppEngineLauncher.app/Contents/Resources/GoogleAppEngine-default.bundle/Contents/Resources/google_appengine/lib/webapp2-2.5.2/webapp2.py", line 1535, in __call__
+    rv = self.handle_exception(request, response, e)
+  File "/Applications/GoogleAppEngineLauncher.app/Contents/Resources/GoogleAppEngine-default.bundle/Contents/Resources/google_appengine/lib/webapp2-2.5.2/webapp2.py", line 1529, in __call__
+    rv = self.router.dispatch(request, response)
+  File "/Applications/GoogleAppEngineLauncher.app/Contents/Resources/GoogleAppEngine-default.bundle/Contents/Resources/google_appengine/lib/webapp2-2.5.2/webapp2.py", line 1278, in default_dispatcher
+    return route.handler_adapter(request, response)
+  File "/Applications/GoogleAppEngineLauncher.app/Contents/Resources/GoogleAppEngine-default.bundle/Contents/Resources/google_appengine/lib/webapp2-2.5.2/webapp2.py", line 1102, in __call__
+    return handler.dispatch()
+  File "/Applications/GoogleAppEngineLauncher.app/Contents/Resources/GoogleAppEngine-default.bundle/Contents/Resources/google_appengine/lib/webapp2-2.5.2/webapp2.py", line 572, in dispatch
+    return self.handle_exception(e, self.app.debug)
+  File "/Applications/GoogleAppEngineLauncher.app/Contents/Resources/GoogleAppEngine-default.bundle/Contents/Resources/google_appengine/lib/webapp2-2.5.2/webapp2.py", line 570, in dispatch
+    return method(*args, **kwargs)
+  File "/Users/nateparrott/Documents/SW/fast-news/fast-news/tasks.py", line 13, in post
+    source.fetch_now()
+  File "/Users/nateparrott/Documents/SW/fast-news/fast-news/model.py", line 33, in fetch_now
+    source_fetch(self)
+  File "/Users/nateparrott/Documents/SW/fast-news/fast-news/source_fetch.py", line 50, in source_fetch
+    article.submission_url = canonical_url(entry.get('submission_url'))
+  File "/Users/nateparrott/Documents/SW/fast-news/fast-news/canonical_url.py", line 4, in canonical_url
+    return url.encode('utf-8')
+AttributeError: 'NoneType' object has no attribute 'encode'
+INFO     2016-03-08 20:50:11,183 module.py:809] default: "POST /tasks/sources/fetch HTTP/1.1" 500 2599
+WARNING  2016-03-08 20:50:11,184 taskqueue_stub.py:1977] Task task14 failed to execute. This task will retry in 0.800 seconds
+INFO     2016-03-08 20:50:12,004 source_fetch.py:25] SF: Doing fetch for source: http://longform.org
+url_fetch('http://longform.org')
+WARNING  2016-03-08 20:50:12,012 urlfetch_stub.py:540] Stripped prohibited headers from URLFetch request: ['Host']
+INFO     2016-03-08 20:50:12,546 source_fetch.py:98] SF: Fetched http://longform.org as hardcoded_rss source
+INFO     2016-03-08 20:50:12,546 source_fetch.py:102] SF: starting brand fetch
+WARNING  2016-03-08 20:50:12,581 urlfetch_stub.py:540] Stripped prohibited headers from URLFetch request: ['Host']
+INFO     2016-03-08 20:50:12,653 source_fetch.py:104] SF: done with brand fetch
+INFO     2016-03-08 20:50:12,653 source_fetch.py:27] SF: Done with source fetch for http://longform.org; result type: hardcoded_rss
+ERROR    2016-03-08 20:50:12,780 webapp2.py:1552] 'NoneType' object has no attribute 'encode'
+Traceback (most recent call last):
+  File "/Applications/GoogleAppEngineLauncher.app/Contents/Resources/GoogleAppEngine-default.bundle/Contents/Resources/google_appengine/lib/webapp2-2.5.2/webapp2.py", line 1535, in __call__
+    rv = self.handle_exception(request, response, e)
+  File "/Applications/GoogleAppEngineLauncher.app/Contents/Resources/GoogleAppEngine-default.bundle/Contents/Resources/google_appengine/lib/webapp2-2.5.2/webapp2.py", line 1529, in __call__
+    rv = self.router.dispatch(request, response)
+  File "/Applications/GoogleAppEngineLauncher.app/Contents/Resources/GoogleAppEngine-default.bundle/Contents/Resources/google_appengine/lib/webapp2-2.5.2/webapp2.py", line 1278, in default_dispatcher
+    return route.handler_adapter(request, response)
+  File "/Applications/GoogleAppEngineLauncher.app/Contents/Resources/GoogleAppEngine-default.bundle/Contents/Resources/google_appengine/lib/webapp2-2.5.2/webapp2.py", line 1102, in __call__
+    return handler.dispatch()
+  File "/Applications/GoogleAppEngineLauncher.app/Contents/Resources/GoogleAppEngine-default.bundle/Contents/Resources/google_appengine/lib/webapp2-2.5.2/webapp2.py", line 572, in dispatch
+    return self.handle_exception(e, self.app.debug)
+  File "/Applications/GoogleAppEngineLauncher.app/Contents/Resources/GoogleAppEngine-default.bundle/Contents/Resources/google_appengine/lib/webapp2-2.5.2/webapp2.py", line 570, in dispatch
+    return method(*args, **kwargs)
+  File "/Users/nateparrott/Documents/SW/fast-news/fast-news/tasks.py", line 13, in post
+    source.fetch_now()
+  File "/Users/nateparrott/Documents/SW/fast-news/fast-news/model.py", line 33, in fetch_now
+    source_fetch(self)
+  File "/Users/nateparrott/Documents/SW/fast-news/fast-news/source_fetch.py", line 50, in source_fetch
+    article.submission_url = canonical_url(entry.get('submission_url'))
+  File "/Users/nateparrott/Documents/SW/fast-news/fast-news/canonical_url.py", line 4, in canonical_url
+    return url.encode('utf-8')
+AttributeError: 'NoneType' object has no attribute 'encode'
+INFO     2016-03-08 20:50:12,788 module.py:809] default: "POST /tasks/sources/fetch HTTP/1.1" 500 2599
+WARNING  2016-03-08 20:50:12,788 taskqueue_stub.py:1977] Task task14 failed to execute. This task will retry in 1.600 seconds
+INFO     2016-03-08 20:50:14,410 source_fetch.py:25] SF: Doing fetch for source: http://longform.org
+url_fetch('http://longform.org')
+WARNING  2016-03-08 20:50:14,415 urlfetch_stub.py:540] Stripped prohibited headers from URLFetch request: ['Host']
+INFO     2016-03-08 20:50:15,052 source_fetch.py:98] SF: Fetched http://longform.org as hardcoded_rss source
+INFO     2016-03-08 20:50:15,052 source_fetch.py:102] SF: starting brand fetch
+WARNING  2016-03-08 20:50:15,087 urlfetch_stub.py:540] Stripped prohibited headers from URLFetch request: ['Host']
+INFO     2016-03-08 20:50:15,167 source_fetch.py:104] SF: done with brand fetch
+INFO     2016-03-08 20:50:15,167 source_fetch.py:27] SF: Done with source fetch for http://longform.org; result type: hardcoded_rss
+ERROR    2016-03-08 20:50:15,321 webapp2.py:1552] 'NoneType' object has no attribute 'encode'
+Traceback (most recent call last):
+  File "/Applications/GoogleAppEngineLauncher.app/Contents/Resources/GoogleAppEngine-default.bundle/Contents/Resources/google_appengine/lib/webapp2-2.5.2/webapp2.py", line 1535, in __call__
+    rv = self.handle_exception(request, response, e)
+  File "/Applications/GoogleAppEngineLauncher.app/Contents/Resources/GoogleAppEngine-default.bundle/Contents/Resources/google_appengine/lib/webapp2-2.5.2/webapp2.py", line 1529, in __call__
+    rv = self.router.dispatch(request, response)
+  File "/Applications/GoogleAppEngineLauncher.app/Contents/Resources/GoogleAppEngine-default.bundle/Contents/Resources/google_appengine/lib/webapp2-2.5.2/webapp2.py", line 1278, in default_dispatcher
+    return route.handler_adapter(request, response)
+  File "/Applications/GoogleAppEngineLauncher.app/Contents/Resources/GoogleAppEngine-default.bundle/Contents/Resources/google_appengine/lib/webapp2-2.5.2/webapp2.py", line 1102, in __call__
+    return handler.dispatch()
+  File "/Applications/GoogleAppEngineLauncher.app/Contents/Resources/GoogleAppEngine-default.bundle/Contents/Resources/google_appengine/lib/webapp2-2.5.2/webapp2.py", line 572, in dispatch
+    return self.handle_exception(e, self.app.debug)
+  File "/Applications/GoogleAppEngineLauncher.app/Contents/Resources/GoogleAppEngine-default.bundle/Contents/Resources/google_appengine/lib/webapp2-2.5.2/webapp2.py", line 570, in dispatch
+    return method(*args, **kwargs)
+  File "/Users/nateparrott/Documents/SW/fast-news/fast-news/tasks.py", line 13, in post
+    source.fetch_now()
+  File "/Users/nateparrott/Documents/SW/fast-news/fast-news/model.py", line 33, in fetch_now
+    source_fetch(self)
+  File "/Users/nateparrott/Documents/SW/fast-news/fast-news/source_fetch.py", line 50, in source_fetch
+    article.submission_url = canonical_url(entry.get('submission_url'))
+  File "/Users/nateparrott/Documents/SW/fast-news/fast-news/canonical_url.py", line 4, in canonical_url
+    return url.encode('utf-8')
+AttributeError: 'NoneType' object has no attribute 'encode'
+INFO     2016-03-08 20:50:15,328 module.py:809] default: "POST /tasks/sources/fetch HTTP/1.1" 500 2599
+WARNING  2016-03-08 20:50:15,328 taskqueue_stub.py:1977] Task task14 failed to execute. This task will retry in 3.200 seconds
+INFO     2016-03-08 20:50:18,550 source_fetch.py:25] SF: Doing fetch for source: http://longform.org
+url_fetch('http://longform.org')
+WARNING  2016-03-08 20:50:18,554 urlfetch_stub.py:540] Stripped prohibited headers from URLFetch request: ['Host']
+INFO     2016-03-08 20:50:19,146 source_fetch.py:98] SF: Fetched http://longform.org as hardcoded_rss source
+INFO     2016-03-08 20:50:19,147 source_fetch.py:102] SF: starting brand fetch
+WARNING  2016-03-08 20:50:19,184 urlfetch_stub.py:540] Stripped prohibited headers from URLFetch request: ['Host']
+INFO     2016-03-08 20:50:19,264 source_fetch.py:104] SF: done with brand fetch
+INFO     2016-03-08 20:50:19,264 source_fetch.py:27] SF: Done with source fetch for http://longform.org; result type: hardcoded_rss
+ERROR    2016-03-08 20:50:19,432 webapp2.py:1552] 'NoneType' object has no attribute 'encode'
+Traceback (most recent call last):
+  File "/Applications/GoogleAppEngineLauncher.app/Contents/Resources/GoogleAppEngine-default.bundle/Contents/Resources/google_appengine/lib/webapp2-2.5.2/webapp2.py", line 1535, in __call__
+    rv = self.handle_exception(request, response, e)
+  File "/Applications/GoogleAppEngineLauncher.app/Contents/Resources/GoogleAppEngine-default.bundle/Contents/Resources/google_appengine/lib/webapp2-2.5.2/webapp2.py", line 1529, in __call__
+    rv = self.router.dispatch(request, response)
+  File "/Applications/GoogleAppEngineLauncher.app/Contents/Resources/GoogleAppEngine-default.bundle/Contents/Resources/google_appengine/lib/webapp2-2.5.2/webapp2.py", line 1278, in default_dispatcher
+    return route.handler_adapter(request, response)
+  File "/Applications/GoogleAppEngineLauncher.app/Contents/Resources/GoogleAppEngine-default.bundle/Contents/Resources/google_appengine/lib/webapp2-2.5.2/webapp2.py", line 1102, in __call__
+    return handler.dispatch()
+  File "/Applications/GoogleAppEngineLauncher.app/Contents/Resources/GoogleAppEngine-default.bundle/Contents/Resources/google_appengine/lib/webapp2-2.5.2/webapp2.py", line 572, in dispatch
+    return self.handle_exception(e, self.app.debug)
+  File "/Applications/GoogleAppEngineLauncher.app/Contents/Resources/GoogleAppEngine-default.bundle/Contents/Resources/google_appengine/lib/webapp2-2.5.2/webapp2.py", line 570, in dispatch
+    return method(*args, **kwargs)
+  File "/Users/nateparrott/Documents/SW/fast-news/fast-news/tasks.py", line 13, in post
+    source.fetch_now()
+  File "/Users/nateparrott/Documents/SW/fast-news/fast-news/model.py", line 33, in fetch_now
+    source_fetch(self)
+  File "/Users/nateparrott/Documents/SW/fast-news/fast-news/source_fetch.py", line 50, in source_fetch
+    article.submission_url = canonical_url(entry.get('submission_url'))
+  File "/Users/nateparrott/Documents/SW/fast-news/fast-news/canonical_url.py", line 4, in canonical_url
+    return url.encode('utf-8')
+AttributeError: 'NoneType' object has no attribute 'encode'
+INFO     2016-03-08 20:50:19,439 module.py:809] default: "POST /tasks/sources/fetch HTTP/1.1" 500 2599
+WARNING  2016-03-08 20:50:19,439 taskqueue_stub.py:1977] Task task14 failed to execute. This task will retry in 6.400 seconds
+INFO     2016-03-08 20:50:25,858 source_fetch.py:25] SF: Doing fetch for source: http://longform.org
+url_fetch('http://longform.org')
+WARNING  2016-03-08 20:50:25,862 urlfetch_stub.py:540] Stripped prohibited headers from URLFetch request: ['Host']
+INFO     2016-03-08 20:50:26,462 source_fetch.py:98] SF: Fetched http://longform.org as hardcoded_rss source
+INFO     2016-03-08 20:50:26,462 source_fetch.py:102] SF: starting brand fetch
+WARNING  2016-03-08 20:50:26,497 urlfetch_stub.py:540] Stripped prohibited headers from URLFetch request: ['Host']
+INFO     2016-03-08 20:50:26,575 source_fetch.py:104] SF: done with brand fetch
+INFO     2016-03-08 20:50:26,575 source_fetch.py:27] SF: Done with source fetch for http://longform.org; result type: hardcoded_rss
+ERROR    2016-03-08 20:50:26,757 webapp2.py:1552] 'NoneType' object has no attribute 'encode'
+Traceback (most recent call last):
+  File "/Applications/GoogleAppEngineLauncher.app/Contents/Resources/GoogleAppEngine-default.bundle/Contents/Resources/google_appengine/lib/webapp2-2.5.2/webapp2.py", line 1535, in __call__
+    rv = self.handle_exception(request, response, e)
+  File "/Applications/GoogleAppEngineLauncher.app/Contents/Resources/GoogleAppEngine-default.bundle/Contents/Resources/google_appengine/lib/webapp2-2.5.2/webapp2.py", line 1529, in __call__
+    rv = self.router.dispatch(request, response)
+  File "/Applications/GoogleAppEngineLauncher.app/Contents/Resources/GoogleAppEngine-default.bundle/Contents/Resources/google_appengine/lib/webapp2-2.5.2/webapp2.py", line 1278, in default_dispatcher
+    return route.handler_adapter(request, response)
+  File "/Applications/GoogleAppEngineLauncher.app/Contents/Resources/GoogleAppEngine-default.bundle/Contents/Resources/google_appengine/lib/webapp2-2.5.2/webapp2.py", line 1102, in __call__
+    return handler.dispatch()
+  File "/Applications/GoogleAppEngineLauncher.app/Contents/Resources/GoogleAppEngine-default.bundle/Contents/Resources/google_appengine/lib/webapp2-2.5.2/webapp2.py", line 572, in dispatch
+    return self.handle_exception(e, self.app.debug)
+  File "/Applications/GoogleAppEngineLauncher.app/Contents/Resources/GoogleAppEngine-default.bundle/Contents/Resources/google_appengine/lib/webapp2-2.5.2/webapp2.py", line 570, in dispatch
+    return method(*args, **kwargs)
+  File "/Users/nateparrott/Documents/SW/fast-news/fast-news/tasks.py", line 13, in post
+    source.fetch_now()
+  File "/Users/nateparrott/Documents/SW/fast-news/fast-news/model.py", line 33, in fetch_now
+    source_fetch(self)
+  File "/Users/nateparrott/Documents/SW/fast-news/fast-news/source_fetch.py", line 50, in source_fetch
+    article.submission_url = canonical_url(entry.get('submission_url'))
+  File "/Users/nateparrott/Documents/SW/fast-news/fast-news/canonical_url.py", line 4, in canonical_url
+    return url.encode('utf-8')
+AttributeError: 'NoneType' object has no attribute 'encode'
+INFO     2016-03-08 20:50:26,764 module.py:809] default: "POST /tasks/sources/fetch HTTP/1.1" 500 2599
+WARNING  2016-03-08 20:50:26,764 taskqueue_stub.py:1977] Task task14 failed to execute. This task will retry in 12.800 seconds

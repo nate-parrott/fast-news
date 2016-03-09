@@ -2,6 +2,7 @@ from google.appengine.ext import ndb
 from canonical_url import canonical_url
 from google.appengine.api import taskqueue
 from util import truncate, timestamp_from_datetime
+import util
 
 class Subscription(ndb.Model):
     url = ndb.StringProperty()
@@ -57,6 +58,7 @@ class Source(ndb.Model):
             }
             if include_articles:
                 d['articles'] = [a.json() for a in articles_future.get_result()]
+                d['articles'] = util.deduplicate_json(d['articles'], ['published', 'title'])
             return d
         return promise if return_promise else promise()
 

@@ -81,3 +81,13 @@ def normalized_compare(string1, string2):
             return normalize(string.decode('utf-8'))
         return unicodedata.normalize('NFC', string.replace(u"\u00a0", " ").strip().lower())
     return normalize(string1) == normalize(string2)
+
+def deduplicate_json(items, keys):
+    existing_keysets = set()
+    out = []
+    for item in items:
+        keyset = tuple([item[key] for key in keys])
+        if keyset not in existing_keysets:
+            existing_keysets.add(keyset)
+            out.append(item)
+    return out

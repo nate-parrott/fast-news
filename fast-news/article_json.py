@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import time
 import bs4
 from pprint import pprint
@@ -238,13 +241,13 @@ def create_meta_line(article):
     if article.published:
         parts.append(u"{0} ago".format(relative_time.get_age(article.published)))
     if article.author:
-        parts.append(u"by {0}".format(article.author))
+        parts.append(u"{0}".format(article.author))
     if article.site_name:
-        parts.append(u"in {0}".format(article.site_name))
+        parts.append(u"{0}".format(article.site_name))
     elif article.url:
         display = article_extractor.normalize_url(article.url)
-        parts.append(u"on {0}".format(display))
-    seg.add_text(u" ".join(parts))
+        parts.append(u"{0}".format(display))
+    seg.add_text(u" • ".join(parts))
     return seg
 
 if __name__ == '__main__':

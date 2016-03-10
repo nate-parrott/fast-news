@@ -66,8 +66,8 @@ def article_fetch(article):
 
 def find_author(markup_soup):
     print 'LOOKING FOR AUTHOR'
-    author = find_meta_value(markup_soup, 'article:author')
-    print 'article:author=', author
+    # author = find_meta_value(markup_soup, 'article:author') # this actually returns FB urls; we don't want that
+    author = None
     byline_meta = markup_soup.find('meta', attrs={'name': 'byl'})
     if byline_meta:
         author = byline_meta['content']

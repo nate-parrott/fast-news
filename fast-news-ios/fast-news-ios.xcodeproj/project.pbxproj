@@ -110,6 +110,22 @@
 		5FB4D5E31C8BE364005D079D /* String+Substring.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB4D5E21C8BE364005D079D /* String+Substring.swift */; };
 		5FB4D5E41C8BE364005D079D /* String+Substring.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB4D5E21C8BE364005D079D /* String+Substring.swift */; };
 		5FB4D5E51C8BE67F005D079D /* BookmarkList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB4D5DD1C8A4063005D079D /* BookmarkList.swift */; };
+		5FC506E71C914AD800F7A237 /* SKFontPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FC506D91C914AD800F7A237 /* SKFontPicker.m */; };
+		5FC506E81C914AD800F7A237 /* CPColorPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FC506DB1C914AD800F7A237 /* CPColorPicker.m */; };
+		5FC506E91C914AD800F7A237 /* CPColorPicker.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5FC506DC1C914AD800F7A237 /* CPColorPicker.xib */; };
+		5FC506EA1C914AD800F7A237 /* RGB-HSV.c in Sources */ = {isa = PBXBuildFile; fileRef = 5FC506DE1C914AD800F7A237 /* RGB-HSV.c */; };
+		5FC506EB1C914AD800F7A237 /* CPHueWheel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FC506E01C914AD800F7A237 /* CPHueWheel.m */; };
+		5FC506EC1C914AD800F7A237 /* huePointer@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FC506E11C914AD800F7A237 /* huePointer@2x.png */; };
+		5FC506ED1C914AD800F7A237 /* CPBrightnessSaturationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FC506E31C914AD800F7A237 /* CPBrightnessSaturationView.m */; };
+		5FC506EE1C914AD800F7A237 /* CPAlphaSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FC506E51C914AD800F7A237 /* CPAlphaSlider.m */; };
+		5FC506EF1C914AD800F7A237 /* crosshairs@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FC506E61C914AD800F7A237 /* crosshairs@2x.png */; };
+		5FC506F21C914AF800F7A237 /* CustomizationUI.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5FC506F11C914AF800F7A237 /* CustomizationUI.storyboard */; };
+		5FC506F41C914B0900F7A237 /* Stylesheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC506F31C914B0900F7A237 /* Stylesheet.swift */; };
+		5FC506FB1C91506C00F7A237 /* SKFill.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FC506F61C91506C00F7A237 /* SKFill.m */; };
+		5FC506FC1C91506C00F7A237 /* SKColorFill.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FC506F81C91506C00F7A237 /* SKColorFill.m */; };
+		5FC506FD1C91506C00F7A237 /* SKColorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FC506FA1C91506C00F7A237 /* SKColorView.m */; };
+		5FC507001C91507A00F7A237 /* ConvenienceCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FC506FF1C91507A00F7A237 /* ConvenienceCategories.m */; };
+		5FC507031C91509800F7A237 /* CGPointExtras.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FC507021C91509800F7A237 /* CGPointExtras.m */; };
 		5FCDF4401C6BCD6700A50A75 /* CommonExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCDF43F1C6BCD6700A50A75 /* CommonExtensions.swift */; };
 		5FCDF4421C6BF75F00A50A75 /* ArticleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCDF4411C6BF75F00A50A75 /* ArticleViewController.swift */; };
 		5FCDF4441C6BF77000A50A75 /* SourceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCDF4431C6BF77000A50A75 /* SourceViewController.swift */; };
@@ -219,6 +235,33 @@
 		5FB4D5DD1C8A4063005D079D /* BookmarkList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookmarkList.swift; sourceTree = "<group>"; };
 		5FB4D5DF1C8BE276005D079D /* UIColor+Hex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Hex.swift"; sourceTree = "<group>"; };
 		5FB4D5E21C8BE364005D079D /* String+Substring.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Substring.swift"; sourceTree = "<group>"; };
+		5FC506D81C914AD800F7A237 /* SKFontPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKFontPicker.h; sourceTree = "<group>"; };
+		5FC506D91C914AD800F7A237 /* SKFontPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKFontPicker.m; sourceTree = "<group>"; };
+		5FC506DA1C914AD800F7A237 /* CPColorPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPColorPicker.h; sourceTree = "<group>"; };
+		5FC506DB1C914AD800F7A237 /* CPColorPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPColorPicker.m; sourceTree = "<group>"; };
+		5FC506DC1C914AD800F7A237 /* CPColorPicker.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CPColorPicker.xib; sourceTree = "<group>"; };
+		5FC506DD1C914AD800F7A237 /* RGB-HSV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RGB-HSV.h"; sourceTree = "<group>"; };
+		5FC506DE1C914AD800F7A237 /* RGB-HSV.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "RGB-HSV.c"; sourceTree = "<group>"; };
+		5FC506DF1C914AD800F7A237 /* CPHueWheel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPHueWheel.h; sourceTree = "<group>"; };
+		5FC506E01C914AD800F7A237 /* CPHueWheel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPHueWheel.m; sourceTree = "<group>"; };
+		5FC506E11C914AD800F7A237 /* huePointer@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "huePointer@2x.png"; sourceTree = "<group>"; };
+		5FC506E21C914AD800F7A237 /* CPBrightnessSaturationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPBrightnessSaturationView.h; sourceTree = "<group>"; };
+		5FC506E31C914AD800F7A237 /* CPBrightnessSaturationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPBrightnessSaturationView.m; sourceTree = "<group>"; };
+		5FC506E41C914AD800F7A237 /* CPAlphaSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPAlphaSlider.h; sourceTree = "<group>"; };
+		5FC506E51C914AD800F7A237 /* CPAlphaSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPAlphaSlider.m; sourceTree = "<group>"; };
+		5FC506E61C914AD800F7A237 /* crosshairs@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "crosshairs@2x.png"; sourceTree = "<group>"; };
+		5FC506F11C914AF800F7A237 /* CustomizationUI.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CustomizationUI.storyboard; sourceTree = "<group>"; };
+		5FC506F31C914B0900F7A237 /* Stylesheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stylesheet.swift; sourceTree = "<group>"; };
+		5FC506F51C91506C00F7A237 /* SKFill.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKFill.h; sourceTree = "<group>"; };
+		5FC506F61C91506C00F7A237 /* SKFill.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKFill.m; sourceTree = "<group>"; };
+		5FC506F71C91506C00F7A237 /* SKColorFill.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKColorFill.h; sourceTree = "<group>"; };
+		5FC506F81C91506C00F7A237 /* SKColorFill.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKColorFill.m; sourceTree = "<group>"; };
+		5FC506F91C91506C00F7A237 /* SKColorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKColorView.h; sourceTree = "<group>"; };
+		5FC506FA1C91506C00F7A237 /* SKColorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKColorView.m; sourceTree = "<group>"; };
+		5FC506FE1C91507A00F7A237 /* ConvenienceCategories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConvenienceCategories.h; sourceTree = "<group>"; };
+		5FC506FF1C91507A00F7A237 /* ConvenienceCategories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConvenienceCategories.m; sourceTree = "<group>"; };
+		5FC507011C91509800F7A237 /* CGPointExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGPointExtras.h; sourceTree = "<group>"; };
+		5FC507021C91509800F7A237 /* CGPointExtras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGPointExtras.m; sourceTree = "<group>"; };
 		5FCDF43F1C6BCD6700A50A75 /* CommonExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonExtensions.swift; sourceTree = "<group>"; };
 		5FCDF4411C6BF75F00A50A75 /* ArticleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleViewController.swift; sourceTree = "<group>"; };
 		5FCDF4431C6BF77000A50A75 /* SourceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SourceViewController.swift; sourceTree = "<group>"; };
@@ -334,6 +377,7 @@
 				5FBBBBDB1C83AAEE00871C73 /* Views */,
 				5F8D9F2B1C6BFF7B00F0FFBE /* Utilities */,
 				5F4A71461C6319E000676F91 /* Main.storyboard */,
+				5FC506F01C914ADD00F7A237 /* CustomizationUI */,
 				5F4A71491C6319E000676F91 /* Assets.xcassets */,
 				5F0CC6231C6C51BE0071A026 /* Fonts */,
 				5F5E4DA11C6FD4AB009C3446 /* fast-news-ios.entitlements */,
@@ -422,6 +466,40 @@
 				5F5E4D991C6E45A1009C3446 /* ArticleView.swift */,
 			);
 			name = Views;
+			sourceTree = "<group>";
+		};
+		5FC506F01C914ADD00F7A237 /* CustomizationUI */ = {
+			isa = PBXGroup;
+			children = (
+				5FC506D81C914AD800F7A237 /* SKFontPicker.h */,
+				5FC506D91C914AD800F7A237 /* SKFontPicker.m */,
+				5FC506DA1C914AD800F7A237 /* CPColorPicker.h */,
+				5FC506DB1C914AD800F7A237 /* CPColorPicker.m */,
+				5FC506DC1C914AD800F7A237 /* CPColorPicker.xib */,
+				5FC506FE1C91507A00F7A237 /* ConvenienceCategories.h */,
+				5FC506FF1C91507A00F7A237 /* ConvenienceCategories.m */,
+				5FC506DD1C914AD800F7A237 /* RGB-HSV.h */,
+				5FC506DE1C914AD800F7A237 /* RGB-HSV.c */,
+				5FC507011C91509800F7A237 /* CGPointExtras.h */,
+				5FC507021C91509800F7A237 /* CGPointExtras.m */,
+				5FC506DF1C914AD800F7A237 /* CPHueWheel.h */,
+				5FC506E01C914AD800F7A237 /* CPHueWheel.m */,
+				5FC506E11C914AD800F7A237 /* huePointer@2x.png */,
+				5FC506E21C914AD800F7A237 /* CPBrightnessSaturationView.h */,
+				5FC506E31C914AD800F7A237 /* CPBrightnessSaturationView.m */,
+				5FC506E41C914AD800F7A237 /* CPAlphaSlider.h */,
+				5FC506E51C914AD800F7A237 /* CPAlphaSlider.m */,
+				5FC506E61C914AD800F7A237 /* crosshairs@2x.png */,
+				5FC506F11C914AF800F7A237 /* CustomizationUI.storyboard */,
+				5FC506F31C914B0900F7A237 /* Stylesheet.swift */,
+				5FC506F51C91506C00F7A237 /* SKFill.h */,
+				5FC506F61C91506C00F7A237 /* SKFill.m */,
+				5FC506F71C91506C00F7A237 /* SKColorFill.h */,
+				5FC506F81C91506C00F7A237 /* SKColorFill.m */,
+				5FC506F91C91506C00F7A237 /* SKColorView.h */,
+				5FC506FA1C91506C00F7A237 /* SKColorView.m */,
+			);
+			name = CustomizationUI;
 			sourceTree = "<group>";
 		};
 		E317CF0C2C82A3FB71929AB1 /* Pods */ = {
@@ -545,6 +623,7 @@
 				5FD30E3F1C8F4CDD0089788C /* Merriweather-Bold.ttf in Resources */,
 				5F4A714D1C6319E000676F91 /* LaunchScreen.storyboard in Resources */,
 				5F0CC61E1C6C51BA0071A026 /* Asap-BoldItalic.otf in Resources */,
+				5FC506F21C914AF800F7A237 /* CustomizationUI.storyboard in Resources */,
 				5FD30E3C1C8F4AD90089788C /* Merriweather-Regular.ttf in Resources */,
 				5F0CC63A1C6D526E0071A026 /* RobotoMono-Italic.ttf in Resources */,
 				5F0CC6201C6C51BA0071A026 /* Asap-Medium.otf in Resources */,
@@ -552,9 +631,12 @@
 				5F4A714A1C6319E000676F91 /* Assets.xcassets in Resources */,
 				5F59D8AE1C79455800C3E1C3 /* LeagueSpartan-Bold.otf in Resources */,
 				5F4A71481C6319E000676F91 /* Main.storyboard in Resources */,
+				5FC506E91C914AD800F7A237 /* CPColorPicker.xib in Resources */,
 				5F0CC63B1C6D526E0071A026 /* RobotoMono-Regular.ttf in Resources */,
+				5FC506EC1C914AD800F7A237 /* huePointer@2x.png in Resources */,
 				5F0CC6211C6C51BA0071A026 /* Asap-MediumItalic.otf in Resources */,
 				5F0CC6391C6D526E0071A026 /* RobotoMono-BoldItalic.ttf in Resources */,
+				5FC506EF1C914AD800F7A237 /* crosshairs@2x.png in Resources */,
 				5F0CC61F1C6C51BA0071A026 /* Asap-Italic.otf in Resources */,
 				5F0CC6381C6D526E0071A026 /* RobotoMono-Bold.ttf in Resources */,
 				5F0CC6271C6C57810071A026 /* AbrilFatface-Regular.otf in Resources */,
@@ -671,6 +753,7 @@
 				5F59D8AC1C791D7600C3E1C3 /* Pixel.swift in Sources */,
 				5F0CC62A1C6C59CB0071A026 /* EVComplexLayout.m in Sources */,
 				5F4A71591C63237300676F91 /* Feed.swift in Sources */,
+				5FC506FB1C91506C00F7A237 /* SKFill.m in Sources */,
 				5F30546C1C7D1BFD00E0CFE6 /* Defs.swift in Sources */,
 				5F73F1791C76A8DF00DA2981 /* NSAttributedString+TrimWhitespace.swift in Sources */,
 				5F4FDB171C839EC70049C61A /* GradientIndicator.swift in Sources */,
@@ -679,6 +762,8 @@
 				5F5E4DA31C6FDE79009C3446 /* NSData+MD5.swift in Sources */,
 				5F59D8B01C7BC25700C3E1C3 /* BinarySearch.swift in Sources */,
 				5F3054311C7CE13A00E0CFE6 /* Color.swift in Sources */,
+				5FC506EE1C914AD800F7A237 /* CPAlphaSlider.m in Sources */,
+				5FC506F41C914B0900F7A237 /* Stylesheet.swift in Sources */,
 				5F4C8A0C1C7E561B00DAD73C /* InlineWebView.swift in Sources */,
 				5F59D8AA1C791B1F00C3E1C3 /* UIImage+Tiny.swift in Sources */,
 				5F5E4DAC1C71014D009C3446 /* Utils.swift in Sources */,
@@ -691,15 +776,23 @@
 				5F5E4D9A1C6E45A1009C3446 /* ArticleView.swift in Sources */,
 				5F4A71411C6319E000676F91 /* AppDelegate.swift in Sources */,
 				5F5706711C65E17C00140078 /* SubscriptionsList.swift in Sources */,
+				5FC506ED1C914AD800F7A237 /* CPBrightnessSaturationView.m in Sources */,
+				5FC506E71C914AD800F7A237 /* SKFontPicker.m in Sources */,
+				5FC507031C91509800F7A237 /* CGPointExtras.m in Sources */,
+				5FC507001C91507A00F7A237 /* ConvenienceCategories.m in Sources */,
 				5F5E4DDC1C743389009C3446 /* Content.swift in Sources */,
+				5FC506FD1C91506C00F7A237 /* SKColorView.m in Sources */,
 				5F3054331C7CE33200E0CFE6 /* SafariVCActivity.swift in Sources */,
 				5FCDF4421C6BF75F00A50A75 /* ArticleViewController.swift in Sources */,
 				5F73F17B1C77C91600DA2981 /* TextSegmentTableViewCell.swift in Sources */,
 				5F4FDB0E1C836CCE0049C61A /* ArticleSegmentCell.swift in Sources */,
+				5FC506E81C914AD800F7A237 /* CPColorPicker.m in Sources */,
 				5F0CC6251C6C551E0071A026 /* FNSplitViewController.swift in Sources */,
 				5FB4D5E01C8BE276005D079D /* UIColor+Hex.swift in Sources */,
 				5F0CC62E1C6C5A320071A026 /* FeedCell.swift in Sources */,
+				5FC506FC1C91506C00F7A237 /* SKColorFill.m in Sources */,
 				5F0CC6331C6C661A0071A026 /* CGMath.swift in Sources */,
+				5FC506EA1C914AD800F7A237 /* RGB-HSV.c in Sources */,
 				5FB4D5DE1C8A4063005D079D /* BookmarkList.swift in Sources */,
 				5F8D9F321C6C0AFE00F0FFBE /* EnableSPDY.m in Sources */,
 				5F4FDB0B1C836C020049C61A /* SwipePager.swift in Sources */,
@@ -709,6 +802,7 @@
 				5F4A715D1C63288000676F91 /* Pusher.swift in Sources */,
 				5F73F17D1C77C92300DA2981 /* ImageSegmentTableViewCell.swift in Sources */,
 				5FCDF4401C6BCD6700A50A75 /* CommonExtensions.swift in Sources */,
+				5FC506EB1C914AD800F7A237 /* CPHueWheel.m in Sources */,
 				5F4A71551C631E9400676F91 /* APIObject.swift in Sources */,
 				5FCDF4481C6BFAFB00A50A75 /* ArticleCollectionViewController.swift in Sources */,
 			);

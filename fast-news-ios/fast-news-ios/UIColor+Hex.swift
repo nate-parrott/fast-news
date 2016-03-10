@@ -19,4 +19,20 @@ extension UIColor {
             return nil
         }
     }
+    
+    var hex: String {
+        get {
+            var r: CGFloat = 0
+            var g: CGFloat = 0
+            var b: CGFloat = 0
+            if !getRed(&r, green: &g, blue: &b, alpha: nil) {
+                var w: CGFloat = 0
+                getWhite(&w, alpha: nil)
+                r = w
+                g = w
+                b = w // TODO: make this technically correct (?)
+            }
+            return String(format: "#%2X%2X%2X", UInt8(r*255), UInt8(g*255), UInt8(b*255))
+        }
+    }
 }

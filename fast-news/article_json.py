@@ -8,6 +8,8 @@ from StringIO import StringIO
 from PIL import Image
 from tinyimg import tinyimg
 import re
+import relative_time
+import article_extractor
 
 def url_fetch_and_time(url, timeout):
     t1 = time.time()
@@ -19,13 +21,13 @@ MAX_TIME_FOR_EXTERNAL_FETCHES = 4.0
 
 class Segment(object):
     def __init__(self):
-        pass
+        self.is_part_of_title = False
     
     def is_text_segment(self):
         return False
     
     def json(self):
-        return {"type": None}
+        return {"type": None, "is_part_of_title": self.is_part_of_title}
     
     def is_empty(self):
         return True
@@ -92,6 +94,7 @@ class ImageSegment(Segment):
         self.src = src
         self.size = size
         self.tiny = None
+        self.is_top_image = False
     
     def json(self):
         j = super(ImageSegment, self).json()
@@ -121,6 +124,10 @@ class ImageSegment(Segment):
     
     def is_empty(self):
         return (self.src == None)
+
+def first_non_null(items):
+    for i in items:
+        if i: return i
 
 def populate_article_json(article, content):
     if not content.html: return
@@ -186,31 +193,59 @@ def populate_article_json(article, content):
     
     content.article_text = u"\n"
     
-    existing_title_segment = None
+    title_segment = None
     if article.title:
         for seg in segments[:min(3,len(segments))]:
             if normalized_compare(seg.text_content(), article.title):
-                existing_title_segment = seg
-    title_already_exists = (existing_title_segment is not None)
-    if existing_title_segment:
-        existing_title_segment.kind = 'title' # promote the title to H1
+                title_segment = seg
     
-    has_early_h1 = len([seg for seg in segments[:min(3,len(segments))] if seg.is_text_segment() and seg.kind == 'h1'])
-    has_early_image = len([seg for seg in segments[:min(3,len(segments))] if isinstance(seg, ImageSegment)]) > 0
+    early_h1s = [seg for seg in segments[:min(3,len(segments))] if seg.is_text_segment() and seg.kind == 'h1']
+    early_h1 = early_h1s[0] if len(early_h1s) else None
     
-    if article.title and not (title_already_exists or has_early_h1):
-        title = TextSegment('title')
-        title.add_text(article.title)
-        segments = [title] + segments
+    early_images = [seg for seg in segments[:min(3,len(segments))] if isinstance(seg, ImageSegment)]
+    early_image = early_images[0] if len(early_images) else None
     
-    if article.top_image and not has_early_image:
+    if article.title and not (title_segment or early_h1):
+        title_segment = TextSegment('title')
+        title_segment.add_text(article.title)
+        segments = [title_segment] + segments
+    
+    top_image = None
+    if article.top_image and not early_image:
         top_image = ImageSegment(article.top_image)
         time_left -= top_image.fetch_image_data(time_left)
         segments = [top_image] + segments
     
+    # identify parts of the title:
+    title_seg = first_non_null([title_segment, early_h1])
+    if title_seg: title_seg.is_part_of_title = True
+    
+    title_image = first_non_null([early_image, top_image])
+    if title_image: title_image.is_part_of_title = True
+    
+    index_to_insert_meta_line = ([0] + [i+1 for i, seg in enumerate(segments) if seg.is_part_of_title])[-1]
+    meta_line = create_meta_line(article)
+    meta_line.is_part_of_title = True
+    segments.insert(index_to_insert_meta_line, meta_line)
+    
     content.text = u"\n".join([seg.text_content() for seg in segments if seg.is_text_segment() and seg.kind != 'title'])
     content.is_low_quality_parse = len(content.text.split(" ")) < 50
     content.article_json = {"segments": [s.json() for s in segments], "is_low_quality_parse": content.is_low_quality_parse}
+
+def create_meta_line(article):
+    seg = TextSegment('meta')
+    parts = []
+    if article.published:
+        parts.append(u"{0} ago".format(relative_time.get_age(article.published)))
+    if article.author:
+        parts.append(u"by {0}".format(article.author))
+    if article.site_name:
+        parts.append(u"in {0}".format(article.site_name))
+    elif article.url:
+        display = article_extractor.normalize_url(article.url)
+        parts.append(u"on {0}".format(display))
+    seg.add_text(u" ".join(parts))
+    return seg
 
 if __name__ == '__main__':
     import json

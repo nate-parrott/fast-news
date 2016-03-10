@@ -165,6 +165,7 @@ class ArticleViewController: SwipeAwayViewController {
                         [weak self] (url) in
                         self?.openLink(url)
                     }
+                    webView?.loadingBar.backgroundColor = actionsBar.tintColor
                 default: ()
                 }
                 

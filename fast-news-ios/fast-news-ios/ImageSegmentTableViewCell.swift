@@ -36,8 +36,9 @@ class ImageSegmentTableViewCell: ArticleSegmentCell {
     }
     
     class func heightForSegment(seg: ArticleContent.ImageSegment, width: CGFloat, maxHeight: CGFloat) -> CGFloat {
+        let maxImageHeight = min(maxHeight, 250)
         if let size = seg.size {
-            return min(maxHeight, size.height * width / size.width)
+            return min(maxImageHeight, size.height * width / size.width)
         } else {
             return 180
         }

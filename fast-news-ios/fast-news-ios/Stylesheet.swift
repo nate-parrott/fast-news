@@ -16,12 +16,13 @@ class Stylesheet {
     var titleStyle = ElementStyle()
     var bodyStyle = ElementStyle()
     var captionStyle = ElementStyle()
+    var metaStyle = ElementStyle()
     var margins: CGFloat = 15
     var lineHeight: CGFloat = 1.2
     
     var stylePairs: [(String, ElementStyle)] {
         get {
-            return [("h1Style", h1Style), ("h2Style", h2Style), ("h3Style", h3Style), ("bodyStyle", bodyStyle), ("captionStyle", captionStyle), ("titleStyle", titleStyle)]
+            return [("h1Style", h1Style), ("h2Style", h2Style), ("h3Style", h3Style), ("bodyStyle", bodyStyle), ("captionStyle", captionStyle), ("titleStyle", titleStyle), ("metaStyle", metaStyle)]
         }
     }
     
@@ -41,7 +42,7 @@ class Stylesheet {
     func exportJson() -> [String: AnyObject] {
         var j = [String: AnyObject]()
         j["backgroundColor"] = backgroundColor.hex
-        for (key, style) in [("h1Style", h1Style), ("h2Style", h2Style), ("h3Style", h3Style), ("bodyStyle", bodyStyle), ("captionStyle", captionStyle), ("titleStyle", titleStyle)] {
+        for (key, style) in stylePairs {
             j[key] = style.exportJson()
         }
         j["margins"] = margins

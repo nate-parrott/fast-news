@@ -11,7 +11,8 @@ import UIKit
 class ArticleContent {
     init(json: [String: AnyObject]) {
         if let segmentsJson = json["segments"] as? [[String: AnyObject]] {
-            segments = segmentsJson.map({ArticleContent.segmentFromJson($0)}).filter({$0 != nil}).map({$0!})
+            let segments_ = segmentsJson.map({ArticleContent.segmentFromJson($0)}).filter({$0 != nil}).map({$0!})
+            segments = ArticleContent._moveTitleImageToTop(segments_)
         } else {
             segments = []
         }
@@ -20,6 +21,16 @@ class ArticleContent {
     
     let segments: [Segment]
     let lowQuality: Bool? // low-quality parse
+    
+    static func _moveTitleImageToTop(segments: [Segment]) -> [Segment] {
+        var segs = segments
+        if let idx = segments.indexOf({ ($0 as? ImageSegment)?.isPartOfTitle ?? false }) {
+            let titleImage = segments[idx]
+            segs.removeAtIndex(idx)
+            segs.insert(titleImage, atIndex: 0)
+        }
+        return segs
+    }
     
     static func segmentFromJson(json: [String: AnyObject]) -> Segment? {
         if let type = json["type"] as? String {
@@ -34,8 +45,11 @@ class ArticleContent {
     
     class Segment {
         init(json: [String: AnyObject]) {
-            
+            if let p = json["is_part_of_title"] as? Bool {
+                isPartOfTitle = p
+            }
         }
+        var isPartOfTitle = false
     }
     
     static let LinkAttributeName = "FNLinkAttributeName"
@@ -71,6 +85,8 @@ class ArticleContent {
                 case "pre":
                     fontOptions.monospace = true
                     paragraphStyle.lineHeightMultiple = 1
+                case "meta":
+                    elementStyle = style.metaStyle
                 case "blockquote":
                     paragraphStyle.headIndent = indent
                     paragraphStyle.firstLineHeadIndent = indent
@@ -232,6 +248,7 @@ class ArticleContent {
             pointSize = style.font.pointSize
             fontName = style.font.fontName
             bold = style.bold
+            uppercase = style.uppercase
         }
     }
 }

@@ -30,6 +30,10 @@ struct Stylesheets {
             style.color = UIColor(white: 0.1, alpha: 1)
         }
         s.captionStyle.color = UIColor(white: 0.1, alpha: 0.5)
+        s.metaStyle.color = FN_PURPLE
+        s.metaStyle.font = UIFont(name: name, size: 12)!
+        s.metaStyle.bold = true
+        s.metaStyle.uppercase = true
         s.backgroundColor = UIColor(white: 0.99, alpha: 1)
         return s
     }

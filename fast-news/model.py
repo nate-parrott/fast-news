@@ -113,6 +113,7 @@ class Article(ndb.Model):
             "title": self.title,
             "fetch_failed": self.fetch_failed,
             "top_image": self.top_image,
+            "top_image_tiny_json": self.top_image_tiny_json,
             "author": self.author,
             "site_name": self.site_name,
             "published": timestamp_from_datetime(self.published) if self.published else None,

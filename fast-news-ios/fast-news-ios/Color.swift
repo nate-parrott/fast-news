@@ -41,4 +41,9 @@ extension UIColor {
             return (r,g,b,a)
         }
     }
+    
+    func multiply(m: CGFloat) -> UIColor {
+        let (h,s,v,a) = hsva
+        return UIColor(hue: h, saturation: s, brightness: v*m, alpha: a)
+    }
 }

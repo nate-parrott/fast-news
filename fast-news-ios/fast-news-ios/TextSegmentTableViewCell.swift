@@ -11,7 +11,7 @@ import UIKit
 class TextSegmentTableViewCell: ArticleSegmentCell {
     override func setup() {
         super.setup()
-        backgroundColor = FN_LIGHTER_GRAY
+        backgroundColor = Stylesheets.Default.backgroundColor
     }
     // MARK: Properties
     var margin = UIEdgeInsetsZero {

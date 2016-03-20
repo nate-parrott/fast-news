@@ -56,7 +56,8 @@ class ArticleViewController: SwipeAwayViewController {
             actionsBar.tintColor = bgVisibility > textVisibility ? bgColor : textColor
         }
         
-        pager.backgroundColor = FN_LIGHTER_GRAY
+        pager.backgroundColor = Stylesheets.Default.backgroundColor
+        actionsBarBackdrop.backgroundColor = Stylesheets.Default.backgroundColor.multiply(0.97)
         
         _bookmarkListChangedSub = BookmarkList.Shared.onUpdate.subscribe({ [weak self] (_) -> () in
             self?._updateBookmarked()
@@ -413,6 +414,7 @@ class ArticleViewController: SwipeAwayViewController {
         presentViewController(activityVC, animated: true, completion: nil)
     }
     
+    @IBOutlet var actionsBarBackdrop: UIView!
     @IBOutlet var actionsBar: UIView!
     
     @IBAction func dismiss() {

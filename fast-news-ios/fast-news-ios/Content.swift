@@ -45,7 +45,6 @@ class ArticleContent {
             let style = Stylesheets.Default
             var elementStyle = style.bodyStyle
             
-            
             kind = json["kind"] as? String ?? "p"
             var attrs = Span.defaultAttrs()
             let paragraphStyle = attrs[NSParagraphStyleAttributeName] as! NSMutableParagraphStyle
@@ -172,7 +171,7 @@ class ArticleContent {
             attrs[NSForegroundColorAttributeName] = defaultTextColor()
             attrs[NSUnderlineStyleAttributeName] = 0
             let para = NSParagraphStyle.defaultParagraphStyle().mutableCopy() as! NSMutableParagraphStyle
-            para.lineHeightMultiple = 1.2
+            para.lineHeightMultiple = Stylesheets.Default.lineHeight
             // para.paragraphSpacingBefore = 20
             // para.paragraphSpacing = 20
             para.alignment = .Left

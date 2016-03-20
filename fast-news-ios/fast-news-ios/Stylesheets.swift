@@ -30,7 +30,7 @@ struct Stylesheets {
             style.color = UIColor(white: 0.1, alpha: 1)
         }
         s.captionStyle.color = UIColor(white: 0.1, alpha: 0.5)
-        s.backgroundColor = UIColor(white: 0.9, alpha: 1)
+        s.backgroundColor = UIColor(white: 0.99, alpha: 1)
         return s
     }
 }

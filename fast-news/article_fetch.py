@@ -45,7 +45,7 @@ def article_fetch(article):
         doc_soup = BeautifulSoup(content.html, 'lxml')
         
         article.title = first_present([article.title, og_title])
-        article.top_image = make_url_absolute(first_present([article.top_image, og_image]))
+        # article.top_image = make_url_absolute(first_present([article.top_image, og_image]))
         
         populate_article_json(article, content)
         

@@ -234,6 +234,10 @@ def populate_article_json(article, content):
     content.text = u"\n".join([seg.text_content() for seg in segments if seg.is_text_segment() and seg.kind != 'title'])
     content.is_low_quality_parse = len(content.text.split(" ")) < 50
     content.article_json = {"segments": [s.json() for s in segments], "is_low_quality_parse": content.is_low_quality_parse}
+    
+    if top_image:
+        article.top_image = top_image.src
+        article.top_image_tiny_json = top_image.tiny
 
 def create_meta_line(article):
     seg = TextSegment('meta')

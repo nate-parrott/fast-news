@@ -89,6 +89,7 @@ class SwipeAwayViewController: UIViewController, UIViewControllerAnimatedTransit
             root.insertSubview(toVC.view, atIndex: 0)
             root.insertSubview(darkBackdrop, aboveSubview: toVC.view)
             toVC.view.frame = transitionContext.finalFrameForViewController(toVC)
+            toVC.view.layoutIfNeeded()
             UIView.animateWithDuration(duration, delay: 0, options: transitionContext.isInteractive() ? [.CurveLinear] : [.CurveEaseOut], animations: { () -> Void in
                 self.view.transform = CGAffineTransformMakeTranslation(toVC.view.bounds.size.width, 0)
                 darkBackdrop.alpha = 0

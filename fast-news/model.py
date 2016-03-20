@@ -77,6 +77,7 @@ class Article(ndb.Model):
     title = ndb.TextProperty()
     published = ndb.DateTimeProperty()
     top_image = ndb.TextProperty()
+    top_image_tiny_json = ndb.JsonProperty()
     description = ndb.TextProperty()
     author = ndb.TextProperty()
     section = ndb.StringProperty()

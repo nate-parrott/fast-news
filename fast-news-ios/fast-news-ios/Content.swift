@@ -42,6 +42,10 @@ class ArticleContent {
     
     class TextSegment: Segment {
         override init(json: [String: AnyObject]) {
+            let style = Stylesheets.Default
+            var elementStyle = style.bodyStyle
+            
+            
             kind = json["kind"] as? String ?? "p"
             var attrs = Span.defaultAttrs()
             let paragraphStyle = attrs[NSParagraphStyleAttributeName] as! NSMutableParagraphStyle
@@ -49,41 +53,22 @@ class ArticleContent {
             var fontOptions = FontOptions()
             var prependText: String?
             let indent: CGFloat = 15
+            
             switch kind {
                 case "title":
-                    fontOptions.headingFont = true
-                    fontOptions.size = 3
-                    fontOptions.bold = true
+                    elementStyle = style.titleStyle
                 case "h1":
-                    fontOptions.headingFont = true
-                    fontOptions.size = 3
-                    fontOptions.bold = true
-                    // paragraphStyle.lineHeightMultiple = 1
+                    elementStyle = style.h1Style
                 case "h2":
-                    fontOptions.headingFont = true
-                    fontOptions.size = 2
-                    fontOptions.bold = true
-                    // paragraphStyle.lineHeightMultiple = 1
+                    elementStyle = style.h2Style
                 case "h3":
-                    fontOptions.uppercase = true
-                    fontOptions.headingFont = true
-                    fontOptions.bold = true
-                    // paragraphStyle.lineHeightMultiple = 1
+                    elementStyle = style.h3Style
                 case "h4":
-                    fontOptions.uppercase = true
-                    fontOptions.headingFont = true
-                    fontOptions.bold = true
-                    // paragraphStyle.lineHeightMultiple = 1
+                    elementStyle = style.h3Style
                 case "h5":
-                    fontOptions.uppercase = true
-                    fontOptions.headingFont = true
-                    fontOptions.bold = true
-                    // paragraphStyle.lineHeightMultiple = 1
+                    elementStyle = style.h3Style
                 case "h6":
-                    fontOptions.uppercase = true
-                    fontOptions.headingFont = true
-                    fontOptions.bold = true
-                    // paragraphStyle.lineHeightMultiple = 1
+                    elementStyle = style.h3Style
                 case "pre":
                     fontOptions.monospace = true
                     paragraphStyle.lineHeightMultiple = 1
@@ -96,10 +81,12 @@ class ArticleContent {
                     paragraphStyle.headIndent = indent
                     paragraphStyle.firstLineHeadIndent = indent
                 case "caption":
-                    attrs[NSForegroundColorAttributeName] = (attrs[NSForegroundColorAttributeName] as! UIColor).colorWithAlphaComponent(0.6)
-                    fontOptions.size = 0
+                    elementStyle = style.captionStyle
             default: ()
             }
+            fontOptions.initializeWithElementStyle(elementStyle)
+            attrs[NSForegroundColorAttributeName] = elementStyle.color
+            
             let font = fontOptions.font
             attrs[NSFontAttributeName] = font
             // extraBottomPadding = font.descender // cut off some of the margin
@@ -219,13 +206,12 @@ class ArticleContent {
     struct FontOptions {
         var bold = false
         var italic = false
-        var headingFont = false
         var uppercase = false
-        var size = 1 // h1 = 3, h2 = 2, else = 1; x-small = 0
+        var pointSize: CGFloat = 12
+        var fontName: String = FontOptions.defaultFontName
         var monospace = false
         var font: UIFont {
-            let name = "IowanOldStyle-Roman"
-            var desc = UIFontDescriptor(name: name, size: 12) // UIFontDescriptor.preferredFontDescriptorWithTextStyle(UIFontTextStyleBody)
+            var desc = UIFontDescriptor(name: fontName, size: 12) // UIFontDescriptor.preferredFontDescriptorWithTextStyle(UIFontTextStyleBody)
             var traits: UIFontDescriptorSymbolicTraits = []
             if bold {
                 traits.insert(.TraitBold)
@@ -234,18 +220,19 @@ class ArticleContent {
                 traits.insert(.TraitItalic)
             }
             desc = desc.fontDescriptorWithSymbolicTraits(traits)
-            var pointSize = UIFont.preferredFontForTextStyle(UIFontTextStyleBody).pointSize
-            switch size {
-            case 3: pointSize = max(pointSize, 22)
-            case 2: pointSize = max(pointSize, 20)
-            case 0: pointSize = UIFont.preferredFontForTextStyle(UIFontTextStyleCaption1).pointSize
-            default: ()
-            }
             if monospace {
                 return UIFont(name: "Courier", size: pointSize)!
             } else {
                 return UIFont(descriptor: desc, size: pointSize)
             }
+        }
+        
+        static let defaultFontName = UIFont.systemFontOfSize(12).fontName
+        
+        mutating func initializeWithElementStyle(style: Stylesheet.ElementStyle) {
+            pointSize = style.font.pointSize
+            fontName = style.font.fontName
+            bold = style.bold
         }
     }
 }

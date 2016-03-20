@@ -17,7 +17,7 @@ class Stylesheet {
     var bodyStyle = ElementStyle()
     var captionStyle = ElementStyle()
     var margins: CGFloat = 15
-    var lineHeight: CGFloat = 1.3
+    var lineHeight: CGFloat = 1.2
     
     var stylePairs: [(String, ElementStyle)] {
         get {
@@ -53,6 +53,7 @@ class Stylesheet {
         var font = UIFont.systemFontOfSize(16)
         var color = UIColor.blackColor()
         var uppercase = false
+        var bold = false
         
         func importJson(json: [String: AnyObject]) {
             if let name = json["fontName"] as? String, let size = json["fontSize"] as? CGFloat, let theFont = UIFont(name: name, size: size) {
@@ -64,6 +65,9 @@ class Stylesheet {
             if let u = json["uppercase"] as? Bool {
                 uppercase = u
             }
+            if let b = json["bold"] as? Bool {
+                bold = b
+            }
         }
         
         func exportJson() -> [String: AnyObject] {
@@ -72,6 +76,7 @@ class Stylesheet {
             d["fontSize"] = font.pointSize
             d["color"] = color.hex
             d["uppercase"] = uppercase
+            d["bold"] = bold
             return d
         }
     }

@@ -114,6 +114,8 @@
 		5FC3BFD91C9EED68000A2D9E /* NPSoftModalPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC3BFD81C9EED68000A2D9E /* NPSoftModalPresentationController.swift */; };
 		5FC3BFDB1C9EEDF7000A2D9E /* StylesheetEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC3BFDA1C9EEDF7000A2D9E /* StylesheetEditorViewController.swift */; };
 		5FC3BFDC1C9EF3DE000A2D9E /* Stylesheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC506F31C914B0900F7A237 /* Stylesheet.swift */; };
+		5FC3BFDF1C9F0720000A2D9E /* Stylesheets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC3BFDE1C9F0720000A2D9E /* Stylesheets.swift */; };
+		5FC3BFE01C9F0724000A2D9E /* Stylesheets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC3BFDE1C9F0720000A2D9E /* Stylesheets.swift */; };
 		5FC506E71C914AD800F7A237 /* SKFontPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FC506D91C914AD800F7A237 /* SKFontPicker.m */; };
 		5FC506E81C914AD800F7A237 /* CPColorPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FC506DB1C914AD800F7A237 /* CPColorPicker.m */; };
 		5FC506E91C914AD800F7A237 /* CPColorPicker.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5FC506DC1C914AD800F7A237 /* CPColorPicker.xib */; };
@@ -242,6 +244,7 @@
 		5FC3BFD61C9EEBB0000A2D9E /* ElementStyleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ElementStyleCell.swift; sourceTree = "<group>"; };
 		5FC3BFD81C9EED68000A2D9E /* NPSoftModalPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NPSoftModalPresentationController.swift; sourceTree = "<group>"; };
 		5FC3BFDA1C9EEDF7000A2D9E /* StylesheetEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StylesheetEditorViewController.swift; sourceTree = "<group>"; };
+		5FC3BFDE1C9F0720000A2D9E /* Stylesheets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stylesheets.swift; sourceTree = "<group>"; };
 		5FC506D81C914AD800F7A237 /* SKFontPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKFontPicker.h; sourceTree = "<group>"; };
 		5FC506D91C914AD800F7A237 /* SKFontPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKFontPicker.m; sourceTree = "<group>"; };
 		5FC506DA1C914AD800F7A237 /* CPColorPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPColorPicker.h; sourceTree = "<group>"; };
@@ -480,6 +483,7 @@
 			isa = PBXGroup;
 			children = (
 				5FC506F31C914B0900F7A237 /* Stylesheet.swift */,
+				5FC3BFDE1C9F0720000A2D9E /* Stylesheets.swift */,
 				5FC3BFD61C9EEBB0000A2D9E /* ElementStyleCell.swift */,
 				5FC3BFDA1C9EEDF7000A2D9E /* StylesheetEditorViewController.swift */,
 				5FC506D81C914AD800F7A237 /* SKFontPicker.h */,
@@ -726,6 +730,7 @@
 				5F3054471C7D1A3700E0CFE6 /* ArticleViewController.swift in Sources */,
 				5F3054541C7D1A5B00E0CFE6 /* NetImageView.swift in Sources */,
 				5F3054611C7D1A5B00E0CFE6 /* Color.swift in Sources */,
+				5FC3BFE01C9F0724000A2D9E /* Stylesheets.swift in Sources */,
 				5F3054521C7D1A3C00E0CFE6 /* SubscriptionsList.swift in Sources */,
 				5F30544A1C7D1A3700E0CFE6 /* SafariVCActivity.swift in Sources */,
 				5F3054481C7D1A3700E0CFE6 /* TextSegmentTableViewCell.swift in Sources */,
@@ -765,6 +770,7 @@
 				5F0CC62A1C6C59CB0071A026 /* EVComplexLayout.m in Sources */,
 				5F4A71591C63237300676F91 /* Feed.swift in Sources */,
 				5FC506FB1C91506C00F7A237 /* SKFill.m in Sources */,
+				5FC3BFDF1C9F0720000A2D9E /* Stylesheets.swift in Sources */,
 				5F30546C1C7D1BFD00E0CFE6 /* Defs.swift in Sources */,
 				5F73F1791C76A8DF00DA2981 /* NSAttributedString+TrimWhitespace.swift in Sources */,
 				5F4FDB171C839EC70049C61A /* GradientIndicator.swift in Sources */,

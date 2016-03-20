@@ -18,6 +18,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
             // EnableSPDY.enableSPDY()
         }
         
+        let URLCache = NSURLCache(memoryCapacity: 40 * 1024 * 1024, diskCapacity: 0, diskPath: nil)
+        NSURLCache.setSharedURLCache(URLCache)
+        
         refresh()
         
         // print("UID: \(APIIdentity.Shared.id)")

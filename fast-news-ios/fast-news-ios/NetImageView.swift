@@ -34,7 +34,8 @@ class NetImageView: UIImageView {
                     image = cached
                 } else {
                     loadInProgress = true
-                    let req = NSURLRequest(URL: url_)
+                    let req = NSMutableURLRequest(URL: url_)
+                    req.cachePolicy = .ReturnCacheDataElseLoad
                     _task = NSURLSession.sharedSession().dataTaskWithRequest(req, completionHandler: { [weak self] (let dataOpt, let responseOpt, let errorOpt) -> Void in
                         backgroundThread({ () -> Void in
                             // sleep(1)

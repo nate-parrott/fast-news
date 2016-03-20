@@ -15,6 +15,7 @@ class Article: APIObject {
     var url: String?
     var fetchFailed: Bool?
     var imageURL: String?
+    var topImageTinyJson: [String: AnyObject]?
     weak var source: Source?
     var differentWebsiteFromSource: Bool?
     var content: ArticleContent?
@@ -25,12 +26,26 @@ class Article: APIObject {
         if let content = json["content"] as? [String: AnyObject] {
             self.text = content["article_text"] as? String ?? self.text
         }
+        
         self.imageURL = json["top_image"] as? String ?? self.imageURL
+        if let tinyJson = json["top_image_tiny_json"] as? [String: AnyObject] {
+            topImageTinyJson = tinyJson
+        }
+        
         self.articleDescription = json["description"] as? String ?? self.articleDescription
         if let articleJson = json["article_json"] as? [String: AnyObject] {
             content = ArticleContent(json: articleJson)
         }
         fetchFailed = (json["fetch_failed"] as? Bool) ?? fetchFailed
+    }
+    
+    var imagePlaceholder: UIImage? {
+        get {
+            if let j = topImageTinyJson {
+                return UIImage.fromTinyJson(j)
+            }
+            return nil
+        }
     }
     
     override func jsonPath() -> (String, [String : String]?)? {

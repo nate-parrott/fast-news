@@ -16,7 +16,7 @@ class ArticleView: UIView {
             if let a = article {
                 headline.attributedText = getPreviewText()
                 if let url = a.imageURL {
-                    imageView.url = ArticleView.resizedURLForImageAtURL(url)
+                    imageView.setURL(ArticleView.resizedURLForImageAtURL(url), placeholder: a.imagePlaceholder)
                     // imageView.url = NSURL(string: url)
                 } else {
                     imageView.url = nil

@@ -57,7 +57,7 @@ class Source: APIObject {
     var highlightedArticle: Article? {
         get {
             if let a = articles {
-                return a.filter({$0.articleDescription != nil}).first
+                return a.filter({$0.fetchFailed == false}).first
             }
             return nil
         }

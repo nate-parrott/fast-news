@@ -7,3 +7,5 @@
 #import <ChameleonFramework/Chameleon.h>
 #import <CommonCrypto/CommonCrypto.h>
 #import "SSWDirectionalPanGestureRecognizer.h"
+#import "SKFontPicker.h"
+#import "CPColorPicker.h"

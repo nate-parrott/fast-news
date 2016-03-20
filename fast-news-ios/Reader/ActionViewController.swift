@@ -83,3 +83,7 @@ class ActionViewController: UIViewController {
         return true
     }
 }
+
+func presentHiddenSettingsUIFromArticle(article: ArticleViewController) {
+    // do nothing
+}

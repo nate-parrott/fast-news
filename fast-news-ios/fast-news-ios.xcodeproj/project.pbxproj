@@ -110,6 +110,10 @@
 		5FB4D5E31C8BE364005D079D /* String+Substring.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB4D5E21C8BE364005D079D /* String+Substring.swift */; };
 		5FB4D5E41C8BE364005D079D /* String+Substring.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB4D5E21C8BE364005D079D /* String+Substring.swift */; };
 		5FB4D5E51C8BE67F005D079D /* BookmarkList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB4D5DD1C8A4063005D079D /* BookmarkList.swift */; };
+		5FC3BFD71C9EEBB0000A2D9E /* ElementStyleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC3BFD61C9EEBB0000A2D9E /* ElementStyleCell.swift */; };
+		5FC3BFD91C9EED68000A2D9E /* NPSoftModalPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC3BFD81C9EED68000A2D9E /* NPSoftModalPresentationController.swift */; };
+		5FC3BFDB1C9EEDF7000A2D9E /* StylesheetEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC3BFDA1C9EEDF7000A2D9E /* StylesheetEditorViewController.swift */; };
+		5FC3BFDC1C9EF3DE000A2D9E /* Stylesheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC506F31C914B0900F7A237 /* Stylesheet.swift */; };
 		5FC506E71C914AD800F7A237 /* SKFontPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FC506D91C914AD800F7A237 /* SKFontPicker.m */; };
 		5FC506E81C914AD800F7A237 /* CPColorPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FC506DB1C914AD800F7A237 /* CPColorPicker.m */; };
 		5FC506E91C914AD800F7A237 /* CPColorPicker.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5FC506DC1C914AD800F7A237 /* CPColorPicker.xib */; };
@@ -235,6 +239,9 @@
 		5FB4D5DD1C8A4063005D079D /* BookmarkList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookmarkList.swift; sourceTree = "<group>"; };
 		5FB4D5DF1C8BE276005D079D /* UIColor+Hex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Hex.swift"; sourceTree = "<group>"; };
 		5FB4D5E21C8BE364005D079D /* String+Substring.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Substring.swift"; sourceTree = "<group>"; };
+		5FC3BFD61C9EEBB0000A2D9E /* ElementStyleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ElementStyleCell.swift; sourceTree = "<group>"; };
+		5FC3BFD81C9EED68000A2D9E /* NPSoftModalPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NPSoftModalPresentationController.swift; sourceTree = "<group>"; };
+		5FC3BFDA1C9EEDF7000A2D9E /* StylesheetEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StylesheetEditorViewController.swift; sourceTree = "<group>"; };
 		5FC506D81C914AD800F7A237 /* SKFontPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKFontPicker.h; sourceTree = "<group>"; };
 		5FC506D91C914AD800F7A237 /* SKFontPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKFontPicker.m; sourceTree = "<group>"; };
 		5FC506DA1C914AD800F7A237 /* CPColorPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPColorPicker.h; sourceTree = "<group>"; };
@@ -454,6 +461,7 @@
 				5F59D8AF1C7BC25700C3E1C3 /* BinarySearch.swift */,
 				5FB4D5DF1C8BE276005D079D /* UIColor+Hex.swift */,
 				5FB4D5E21C8BE364005D079D /* String+Substring.swift */,
+				5FC3BFD81C9EED68000A2D9E /* NPSoftModalPresentationController.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -471,6 +479,9 @@
 		5FC506F01C914ADD00F7A237 /* CustomizationUI */ = {
 			isa = PBXGroup;
 			children = (
+				5FC506F31C914B0900F7A237 /* Stylesheet.swift */,
+				5FC3BFD61C9EEBB0000A2D9E /* ElementStyleCell.swift */,
+				5FC3BFDA1C9EEDF7000A2D9E /* StylesheetEditorViewController.swift */,
 				5FC506D81C914AD800F7A237 /* SKFontPicker.h */,
 				5FC506D91C914AD800F7A237 /* SKFontPicker.m */,
 				5FC506DA1C914AD800F7A237 /* CPColorPicker.h */,
@@ -491,7 +502,6 @@
 				5FC506E51C914AD800F7A237 /* CPAlphaSlider.m */,
 				5FC506E61C914AD800F7A237 /* crosshairs@2x.png */,
 				5FC506F11C914AF800F7A237 /* CustomizationUI.storyboard */,
-				5FC506F31C914B0900F7A237 /* Stylesheet.swift */,
 				5FC506F51C91506C00F7A237 /* SKFill.h */,
 				5FC506F61C91506C00F7A237 /* SKFill.m */,
 				5FC506F71C91506C00F7A237 /* SKColorFill.h */,
@@ -736,6 +746,7 @@
 				5F3054591C7D1A5B00E0CFE6 /* EVComplexLayout.m in Sources */,
 				5F4FDB121C8371580049C61A /* ArticlePageView.swift in Sources */,
 				5F3054511C7D1A3C00E0CFE6 /* Content.swift in Sources */,
+				5FC3BFDC1C9EF3DE000A2D9E /* Stylesheet.swift in Sources */,
 				5F30545F1C7D1A5B00E0CFE6 /* CommonExtensions.swift in Sources */,
 				5F3054551C7D1A5B00E0CFE6 /* Queues.swift in Sources */,
 			);
@@ -763,13 +774,16 @@
 				5F59D8B01C7BC25700C3E1C3 /* BinarySearch.swift in Sources */,
 				5F3054311C7CE13A00E0CFE6 /* Color.swift in Sources */,
 				5FC506EE1C914AD800F7A237 /* CPAlphaSlider.m in Sources */,
+				5FC3BFD71C9EEBB0000A2D9E /* ElementStyleCell.swift in Sources */,
 				5FC506F41C914B0900F7A237 /* Stylesheet.swift in Sources */,
 				5F4C8A0C1C7E561B00DAD73C /* InlineWebView.swift in Sources */,
 				5F59D8AA1C791B1F00C3E1C3 /* UIImage+Tiny.swift in Sources */,
 				5F5E4DAC1C71014D009C3446 /* Utils.swift in Sources */,
 				5F4FDB111C8371580049C61A /* ArticlePageView.swift in Sources */,
 				5F5E4DA51C6FDEA7009C3446 /* APIIdentity.swift in Sources */,
+				5FC3BFD91C9EED68000A2D9E /* NPSoftModalPresentationController.swift in Sources */,
 				5F0CC62C1C6C5A1F0071A026 /* NetImageView.swift in Sources */,
+				5FC3BFDB1C9EEDF7000A2D9E /* StylesheetEditorViewController.swift in Sources */,
 				5FCDF4441C6BF77000A50A75 /* SourceViewController.swift in Sources */,
 				5F0CC63D1C6D6BEB0071A026 /* ArticleCell.swift in Sources */,
 				5F5706771C6636C400140078 /* SubscriptionsViewController.swift in Sources */,

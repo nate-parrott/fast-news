@@ -19,11 +19,17 @@ class Stylesheet {
     var margins: CGFloat = 15
     var lineHeight: CGFloat = 1.3
     
+    var stylePairs: [(String, ElementStyle)] {
+        get {
+            return [("h1Style", h1Style), ("h2Style", h2Style), ("h3Style", h3Style), ("bodyStyle", bodyStyle), ("captionStyle", captionStyle), ("titleStyle", titleStyle)]
+        }
+    }
+    
     func importJson(json: [String: AnyObject]) {
         if let b = json["backgroundColor"] as? String, let c = UIColor(hex: b) {
             backgroundColor = c
         }
-        for (key, style) in [("h1Style", h1Style), ("h2Style", h2Style), ("h3Style", h3Style), ("bodyStyle", bodyStyle), ("captionStyle", captionStyle), ("titleStyle", titleStyle)] {
+        for (key, style) in stylePairs {
             if let j = json[key] as? [String: AnyObject] {
                 style.importJson(j)
             }

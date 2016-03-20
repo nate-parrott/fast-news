@@ -63,6 +63,9 @@ class ArticleViewController: SwipeAwayViewController {
         })
         BookmarkList.Shared.ensureRecency(10 * 60)
         _updateBookmarked()
+        
+        let hiddenSettingsRec = UILongPressGestureRecognizer(target: self, action: "_longPressed:")
+        actionsBar.addGestureRecognizer(hiddenSettingsRec)
     }
     
     func _update() {
@@ -429,6 +432,13 @@ class ArticleViewController: SwipeAwayViewController {
             if let new = newVal {
                 view.insertSubview(new, aboveSubview: pager)
             }
+        }
+    }
+    
+    // MARK: Hidden Settings
+    func _longPressed(sender: UILongPressGestureRecognizer) {
+        if sender.state == .Ended {
+            presentHiddenSettingsUIFromArticle(self)
         }
     }
 }

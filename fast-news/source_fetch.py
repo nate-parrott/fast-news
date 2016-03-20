@@ -120,7 +120,11 @@ def rss_fetch(source, markup, url, add_rpc, got_result):
     latest_date = None
     for entry in parsed['entries']:
         if 'link' in entry:
-            link_url = urljoin(url, entry['link'].strip())
+            print entry
+            if entry.get('href'):
+                link_url = urljoin(url, entry.get('href').strip())
+            else:
+                link_url = urljoin(url, entry['link'].strip())
             title = entry['title']
             
             pub_time = entry.get('published_parsed')

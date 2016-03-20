@@ -42,7 +42,7 @@ class NetImageView: UIImageView {
                             if let self_ = self, data = dataOpt, let image = UIImage(data: data) {
                                 mainThread({ () -> Void in
                                     if self_.url == url_ {
-                                        UIView.transitionWithView(self_, duration: 0.1, options: [.AllowUserInteraction, .TransitionCrossDissolve], animations: { () -> Void in
+                                        UIView.transitionWithView(self_, duration: 0.15, options: [.AllowUserInteraction, .TransitionCrossDissolve], animations: { () -> Void in
                                             self_.image = image
                                             }, completion: nil)
                                         

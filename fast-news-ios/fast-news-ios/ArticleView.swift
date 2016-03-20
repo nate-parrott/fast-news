@@ -30,9 +30,9 @@ class ArticleView: UIView {
     }
     func getPreviewText() -> NSAttributedString {
         let headlineAttributes = [NSFontAttributeName: UIFont.boldSystemFontOfSize(17), NSForegroundColorAttributeName: UIColor(white: 0, alpha: 1)]
-        let secondLineFont = UIFont.systemFontOfSize(12)
+        let secondLineFont = UIFont.systemFontOfSize(13)
         let descriptionAttributes = [NSFontAttributeName: secondLineFont, NSForegroundColorAttributeName: UIColor(white: 0, alpha: 0.5)]
-        let hostAttributes = [NSFontAttributeName: UIFont.systemFontOfSize(12), NSForegroundColorAttributeName: FN_PURPLE]
+        let hostAttributes = [NSFontAttributeName: UIFont.systemFontOfSize(13), NSForegroundColorAttributeName: FN_PURPLE]
         
         let headline = NSAttributedString(string: (article?.title ?? ""), attributes: headlineAttributes)
         
@@ -76,16 +76,23 @@ class ArticleView: UIView {
     static let Padding: CGFloat = 8
     static let MaxLabelHeight: CGFloat = 124
     
+    var imageHasPadding = false {
+        didSet {
+            setNeedsLayout()
+        }
+    }
+    
     func _layout(width: CGFloat) -> CGFloat {
         let maxLabelHeight: CGFloat = ArticleView.MaxLabelHeight
         let minLabelHeight: CGFloat = 56
         let padding: CGFloat = ArticleView.Padding
+        let imagePadding = imageHasPadding ? padding : 0
         let hasImage = imageView.url != nil
-        let headlineWidth = hasImage ? width - ArticleView.ImageSize - padding * 2 : width - padding * 2
+        let headlineWidth = hasImage ? width - ArticleView.ImageSize - padding * 2 : width - padding * 2 - imagePadding
         let headlineHeight = min(maxLabelHeight, headline.sizeThatFits(CGSizeMake(headlineWidth, maxLabelHeight)).height)
-        let height = max(headlineHeight + padding * 2, hasImage ? ArticleView.ImageSize : 0, minLabelHeight)
+        let height = max(headlineHeight + padding * 2, hasImage ? ArticleView.ImageSize + imagePadding * 2 : 0, minLabelHeight)
         imageView.hidden = !hasImage
-        imageView.frame = CGRectMake(width - ArticleView.ImageSize, 0, ArticleView.ImageSize, height)
+        imageView.frame = CGRectMake(width - ArticleView.ImageSize - imagePadding, imagePadding, ArticleView.ImageSize, height)
         headline.frame = CGRectMake(padding, padding, headlineWidth, height - padding * 2)
         return height
     }

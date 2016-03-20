@@ -52,9 +52,9 @@ def article_fetch(article):
         # compute description:
         description = None
         if og_description and len(og_description.strip()):
-            description = truncate(og_description.strip(), words=60)
+            description = truncate(og_description.strip(), words=40)
         elif content.text and len(content.text.strip()) > 0:
-            description = truncate(content.text, words=60)
+            description = truncate(content.text, words=40)
         article.description = re.sub(r"[\r\n\t ]+", " ", description).strip() if description else None
                 
         article.fetch_failed = False

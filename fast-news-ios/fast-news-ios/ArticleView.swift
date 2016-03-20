@@ -53,8 +53,8 @@ class ArticleView: UIView {
         ]
         let lineJoiner = NSAttributedString(string: "\n\n", attributes: [NSFontAttributeName: UIFont.systemFontOfSize(1)])
         return Utils.JoinAttributedStrings(lines, joint: lineJoiner)
-        
     }
+    
     let imageView = NetImageView()
     let headline = UILabel()
     var _setupYet = false

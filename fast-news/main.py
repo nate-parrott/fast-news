@@ -21,6 +21,8 @@ from google.appengine.ext import ndb
 import json
 from pprint import pprint
 from mirror import MirrorHandler
+import dump
+import util
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
@@ -165,6 +167,34 @@ class TestHandler(webapp2.RequestHandler):
             self.response.headers.add_header('Content-Type', 'text/plain')
             pprint(_source_fetch(source), self.response.out)
 
+class StatsHandler(webapp2.RequestHandler):
+    def get(self):
+        self.response.headers.add_header('Content-Type', 'application/json')
+        self.response.write(json.dumps(dump.stats()))
+
+class ArticleDumpHandler(webapp2.RequestHandler):
+    def get(self):
+        self.response.headers.add_header('Content-Type', 'application/json')
+        self.response.write(json.dumps(dump.dump_items(cursor=self.request.get('cursor'))))
+
+class SimpleExtractHandler(webapp2.RequestHandler):
+    def get(self):
+        from bs4 import BeautifulSoup as bs
+        from article_extractor import extract
+        url = self.request.get('url')
+        markup = util.url_fetch(url)
+        soup = bs(markup, 'lxml')
+        text = u""
+        if soup.title:
+            title = soup.title.string
+            h1 = soup.new_tag('h1')
+            h1.string = title
+            text += unicode(h1)
+        # print create_soup_with_ids(markup).prettify()
+        text += extract(markup, url)
+        self.response.headers['Access-Control-Allow-Origin'] = '*'
+        self.response.write(text)
+
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
     ('/article', ArticleHandler),
@@ -176,5 +206,8 @@ app = webapp2.WSGIApplication([
     ('/bookmarks', BookmarksHandler),
     ('/test', TestHandler),
     ('/test/article_fetch', ArticleTestFetchHandler),
-    ('/mirror', MirrorHandler)
+    ('/mirror', MirrorHandler),
+    ('/stats', StatsHandler),
+    ('/dump/articles', ArticleDumpHandler),
+    ('/extract', SimpleExtractHandler)
 ], debug=True)

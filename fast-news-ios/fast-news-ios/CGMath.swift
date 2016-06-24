@@ -24,14 +24,34 @@ func -(lhs: CGPoint, rhs: CGPoint) -> CGPoint {
     return lhs + rhs * -1
 }
 
+func +(lhs: CGSize, rhs: CGSize) -> CGSize {
+    return CGSizeMake(lhs.width + rhs.width, lhs.height + rhs.height)
+}
+
+func -(lhs: CGSize, rhs: CGSize) -> CGSize {
+    return lhs + -1 * rhs
+}
+
 func /(lhs: CGPoint, rhs: CGFloat) -> CGPoint {
     return CGPointMake(lhs.x / rhs, lhs.y / rhs)
 }
 
+func +(lhs: CGRect, rhs: CGSize) -> CGRect {
+    return CGRectMake(lhs.origin.x, lhs.origin.y, lhs.size.width + rhs.width, lhs.size.height + rhs.height)
+}
+
 extension CGRect {
+    init(center: CGPoint, size: CGSize) {
+        origin = CGPointMake(center.x - size.width/2, center.y - size.height/2)
+        self.size = size
+    }
     var center: CGPoint {
         get {
             return CGPoint(x: CGRectGetMidX(self), y: CGRectGetMidY(self))
+        }
+        set {
+            origin.x = newValue.x - size.width/2
+            origin.y = newValue.y - size.height/2
         }
     }
     var bottom: CGFloat {
@@ -120,5 +140,8 @@ func ==(lhs: CGRect, rhs: CGRect) -> Bool {
 extension CGSize {
     func centeredInsideRect(rect: CGRect) -> CGRect {
         return CGRectMake(rect.origin.x + (rect.size.width - width)/2, rect.origin.y + (rect.size.height - height)/2, width, height)
+    }
+    func padded(padding: CGFloat) -> CGSize {
+        return CGSizeMake(width + padding * 2, height + padding * 2)
     }
 }

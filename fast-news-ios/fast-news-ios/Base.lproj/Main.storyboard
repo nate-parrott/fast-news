@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="x2a-67-0TU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="x2a-67-0TU">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <scenes>
         <!--Navigation Controller-->
@@ -297,99 +297,105 @@
                     <view key="view" contentMode="scaleToFill" id="6WO-do-Uvu">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y0E-Xo-oDU">
-                                <rect key="frame" x="150" y="274" width="20" height="20"/>
-                                <subviews>
-                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="nm1-Tm-7cl">
-                                        <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
-                                    </activityIndicatorView>
-                                </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="nm1-Tm-7cl" secondAttribute="bottom" id="D3C-5D-iK6"/>
-                                    <constraint firstAttribute="trailing" secondItem="nm1-Tm-7cl" secondAttribute="trailing" id="WwV-rq-Jt9"/>
-                                    <constraint firstItem="nm1-Tm-7cl" firstAttribute="top" secondItem="y0E-Xo-oDU" secondAttribute="top" id="bB3-sa-cpW"/>
-                                    <constraint firstItem="nm1-Tm-7cl" firstAttribute="leading" secondItem="y0E-Xo-oDU" secondAttribute="leading" id="jTR-ii-r6Q"/>
-                                </constraints>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2QX-bc-Vny" userLabel="Actions Bar backdrop">
-                                <rect key="frame" x="0.0" y="524" width="320" height="44"/>
-                                <color key="backgroundColor" red="0.98039215686274506" green="0.98039215686274506" blue="0.98039215686274506" alpha="0.95999999999999996" colorSpace="calibratedRGB"/>
-                            </view>
-                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wEz-ud-3v7">
-                                <rect key="frame" x="0.0" y="524" width="320" height="44"/>
-                                <subviews>
-                                    <button opaque="NO" alpha="0.59999999999999998" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P6I-cD-glz">
-                                        <rect key="frame" x="0.0" y="0.0" width="64" height="44"/>
-                                        <accessibility key="accessibilityConfiguration" label="Back"/>
-                                        <state key="normal" image="Back"/>
-                                        <state key="highlighted" image="Back-Filled"/>
-                                        <connections>
-                                            <action selector="dismiss" destination="XLv-32-XDD" eventType="touchUpInside" id="Q3h-4E-65b"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" userInteractionEnabled="NO" alpha="0.59999999999999998" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wA3-pZ-a12">
-                                        <rect key="frame" x="64" y="0.0" width="64" height="44"/>
-                                    </button>
-                                    <button opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T6v-ib-bEu">
-                                        <rect key="frame" x="128" y="0.0" width="64" height="44"/>
-                                        <accessibility key="accessibilityConfiguration" label="Page Down"/>
-                                        <state key="normal" image="NextPage"/>
-                                    </button>
-                                    <button opaque="NO" alpha="0.59999999999999998" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RgG-nL-qV9">
-                                        <rect key="frame" x="192" y="0.0" width="64" height="44"/>
-                                        <accessibility key="accessibilityConfiguration" label="Bookmark"/>
-                                        <state key="normal" image="Bookmark"/>
-                                        <state key="highlighted" image="Bookmark-Filled"/>
-                                        <connections>
-                                            <action selector="toggleBookmarked:" destination="XLv-32-XDD" eventType="touchUpInside" id="mLr-H3-P6v"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" alpha="0.59999999999999998" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xVv-qw-vRW">
-                                        <rect key="frame" x="256" y="0.0" width="64" height="44"/>
-                                        <accessibility key="accessibilityConfiguration" label="Actions"/>
-                                        <state key="normal" image="Share"/>
-                                        <state key="highlighted" image="Share-Filled"/>
-                                        <connections>
-                                            <action selector="share:" destination="XLv-32-XDD" eventType="touchUpInside" id="Dum-gH-Wzv"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" red="0.98594677448272705" green="0.0" blue="0.039444983005523682" alpha="0.0" colorSpace="calibratedRGB"/>
-                                <color key="tintColor" white="0.41115301724137937" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstItem="P6I-cD-glz" firstAttribute="width" secondItem="wA3-pZ-a12" secondAttribute="width" id="1N7-Ax-bng"/>
-                                    <constraint firstItem="P6I-cD-glz" firstAttribute="width" secondItem="T6v-ib-bEu" secondAttribute="width" id="Vp1-vM-dX4"/>
-                                    <constraint firstItem="P6I-cD-glz" firstAttribute="width" secondItem="RgG-nL-qV9" secondAttribute="width" id="dDE-cc-S4t"/>
-                                    <constraint firstAttribute="height" constant="44" id="emQ-tR-Zwb"/>
-                                    <constraint firstItem="P6I-cD-glz" firstAttribute="width" secondItem="xVv-qw-vRW" secondAttribute="width" id="qai-8l-zOu"/>
-                                </constraints>
-                            </stackView>
-                        </subviews>
                         <color key="backgroundColor" red="0.98039215686274506" green="0.98039215686274506" blue="0.98039215686274506" alpha="1" colorSpace="calibratedRGB"/>
-                        <constraints>
-                            <constraint firstAttribute="trailing" secondItem="wEz-ud-3v7" secondAttribute="trailing" id="4Vf-dn-tBJ"/>
-                            <constraint firstItem="wEz-ud-3v7" firstAttribute="leading" secondItem="6WO-do-Uvu" secondAttribute="leading" id="Ecy-5D-OMl"/>
-                            <constraint firstItem="2QX-bc-Vny" firstAttribute="height" secondItem="wEz-ud-3v7" secondAttribute="height" id="QpX-wd-GOf"/>
-                            <constraint firstItem="Wwx-Qj-gaC" firstAttribute="top" secondItem="wEz-ud-3v7" secondAttribute="bottom" id="bIz-0o-Cf2"/>
-                            <constraint firstItem="2QX-bc-Vny" firstAttribute="centerY" secondItem="wEz-ud-3v7" secondAttribute="centerY" id="gMh-J0-WUG"/>
-                            <constraint firstItem="y0E-Xo-oDU" firstAttribute="centerY" secondItem="6WO-do-Uvu" secondAttribute="centerY" id="nxa-5V-pw1"/>
-                            <constraint firstItem="2QX-bc-Vny" firstAttribute="width" secondItem="wEz-ud-3v7" secondAttribute="width" id="pZf-nO-OuE"/>
-                            <constraint firstItem="y0E-Xo-oDU" firstAttribute="centerX" secondItem="6WO-do-Uvu" secondAttribute="centerX" id="qYM-rh-VOf"/>
-                            <constraint firstItem="2QX-bc-Vny" firstAttribute="centerX" secondItem="wEz-ud-3v7" secondAttribute="centerX" id="vbH-SH-aqe"/>
-                        </constraints>
                     </view>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="actionsBar" destination="wEz-ud-3v7" id="Zc0-1W-2Nj"/>
                         <outlet property="actionsBarBackdrop" destination="2QX-bc-Vny" id="WKc-G0-gnU"/>
                         <outlet property="bookmarkButton" destination="RgG-nL-qV9" id="oe2-gq-yLv"/>
+                        <outlet property="contentView" destination="4at-dE-ihK" id="TUc-Tp-ESb"/>
                         <outlet property="loadingContainer" destination="y0E-Xo-oDU" id="q6T-mX-8JP"/>
                         <outlet property="loadingSpinner" destination="nm1-Tm-7cl" id="PBR-BO-gAU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gar-oa-bDE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <view contentMode="scaleToFill" id="4at-dE-ihK">
+                    <rect key="frame" x="0.0" y="0.0" width="268" height="368"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y0E-Xo-oDU">
+                            <rect key="frame" x="124" y="174" width="20" height="20"/>
+                            <subviews>
+                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="nm1-Tm-7cl">
+                                    <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
+                                </activityIndicatorView>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstItem="nm1-Tm-7cl" firstAttribute="leading" secondItem="y0E-Xo-oDU" secondAttribute="leading" id="Sql-GC-jnX"/>
+                                <constraint firstItem="nm1-Tm-7cl" firstAttribute="top" secondItem="y0E-Xo-oDU" secondAttribute="top" id="THh-K3-Voh"/>
+                                <constraint firstAttribute="bottom" secondItem="nm1-Tm-7cl" secondAttribute="bottom" id="ebc-Cn-XOf"/>
+                                <constraint firstAttribute="trailing" secondItem="nm1-Tm-7cl" secondAttribute="trailing" id="jJf-ck-J9Z"/>
+                            </constraints>
+                        </view>
+                        <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2QX-bc-Vny" userLabel="Actions Bar backdrop">
+                            <rect key="frame" x="0.0" y="323" width="268" height="44"/>
+                            <color key="backgroundColor" red="0.98039215686274506" green="0.98039215686274506" blue="0.98039215686274506" alpha="0.95999999999999996" colorSpace="calibratedRGB"/>
+                        </view>
+                        <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wEz-ud-3v7">
+                            <rect key="frame" x="0.0" y="324" width="268" height="44"/>
+                            <subviews>
+                                <button opaque="NO" alpha="0.59999999999999998" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P6I-cD-glz">
+                                    <rect key="frame" x="0.0" y="0.0" width="54" height="44"/>
+                                    <accessibility key="accessibilityConfiguration" label="Back"/>
+                                    <state key="normal" image="Back"/>
+                                    <state key="highlighted" image="Back-Filled"/>
+                                    <connections>
+                                        <action selector="dismiss" destination="XLv-32-XDD" eventType="touchUpInside" id="Q3h-4E-65b"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" userInteractionEnabled="NO" alpha="0.59999999999999998" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wA3-pZ-a12">
+                                    <rect key="frame" x="54" y="0.0" width="54" height="44"/>
+                                </button>
+                                <button opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T6v-ib-bEu">
+                                    <rect key="frame" x="107" y="0.0" width="54" height="44"/>
+                                    <accessibility key="accessibilityConfiguration" label="Page Down"/>
+                                    <state key="normal" image="NextPage"/>
+                                </button>
+                                <button opaque="NO" alpha="0.59999999999999998" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RgG-nL-qV9">
+                                    <rect key="frame" x="161" y="0.0" width="54" height="44"/>
+                                    <accessibility key="accessibilityConfiguration" label="Bookmark"/>
+                                    <state key="normal" image="Bookmark"/>
+                                    <state key="highlighted" image="Bookmark-Filled"/>
+                                    <connections>
+                                        <action selector="toggleBookmarked:" destination="XLv-32-XDD" eventType="touchUpInside" id="mLr-H3-P6v"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" alpha="0.59999999999999998" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xVv-qw-vRW">
+                                    <rect key="frame" x="215" y="0.0" width="54" height="44"/>
+                                    <accessibility key="accessibilityConfiguration" label="Actions"/>
+                                    <state key="normal" image="Share"/>
+                                    <state key="highlighted" image="Share-Filled"/>
+                                    <connections>
+                                        <action selector="share:" destination="XLv-32-XDD" eventType="touchUpInside" id="Dum-gH-Wzv"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" red="0.98594677448272705" green="0.0" blue="0.039444983005523682" alpha="0.0" colorSpace="calibratedRGB"/>
+                            <color key="tintColor" white="0.41115301724137937" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstItem="P6I-cD-glz" firstAttribute="width" secondItem="wA3-pZ-a12" secondAttribute="width" id="1N7-Ax-bng"/>
+                                <constraint firstItem="P6I-cD-glz" firstAttribute="width" secondItem="T6v-ib-bEu" secondAttribute="width" id="Vp1-vM-dX4"/>
+                                <constraint firstItem="P6I-cD-glz" firstAttribute="width" secondItem="RgG-nL-qV9" secondAttribute="width" id="dDE-cc-S4t"/>
+                                <constraint firstAttribute="height" constant="44" id="emQ-tR-Zwb"/>
+                                <constraint firstItem="P6I-cD-glz" firstAttribute="width" secondItem="xVv-qw-vRW" secondAttribute="width" id="qai-8l-zOu"/>
+                            </constraints>
+                        </stackView>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="2QX-bc-Vny" secondAttribute="trailing" id="6fe-fe-D5f"/>
+                        <constraint firstAttribute="bottom" secondItem="wEz-ud-3v7" secondAttribute="bottom" id="O01-Rn-dHb"/>
+                        <constraint firstItem="y0E-Xo-oDU" firstAttribute="centerY" secondItem="4at-dE-ihK" secondAttribute="centerY" id="SPn-IZ-hHM"/>
+                        <constraint firstItem="y0E-Xo-oDU" firstAttribute="centerX" secondItem="4at-dE-ihK" secondAttribute="centerX" id="buf-0t-rQf"/>
+                        <constraint firstAttribute="bottom" secondItem="2QX-bc-Vny" secondAttribute="bottom" id="cT9-OA-2Rw"/>
+                        <constraint firstAttribute="trailing" secondItem="wEz-ud-3v7" secondAttribute="trailing" id="hN0-fI-cEY"/>
+                        <constraint firstItem="2QX-bc-Vny" firstAttribute="leading" secondItem="4at-dE-ihK" secondAttribute="leading" id="ub4-L2-QdA"/>
+                        <constraint firstItem="wEz-ud-3v7" firstAttribute="leading" secondItem="4at-dE-ihK" secondAttribute="leading" id="y3Y-wq-Xtj"/>
+                        <constraint firstItem="2QX-bc-Vny" firstAttribute="height" secondItem="wEz-ud-3v7" secondAttribute="height" id="zmH-yp-LDt"/>
+                    </constraints>
+                </view>
             </objects>
             <point key="canvasLocation" x="1138" y="-118"/>
         </scene>

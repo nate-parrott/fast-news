@@ -46,7 +46,7 @@ class ArticleCollectionViewController: UICollectionViewController, UICollectionV
         collectionView!.registerClass(cellClass, forCellWithReuseIdentifier: "Cell")
         _sizingCell = cellClass.init()
         update()
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "_foreground:", name: UIApplicationWillEnterForegroundNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ArticleCollectionViewController._foreground(_:)), name: UIApplicationWillEnterForegroundNotification, object: nil)
         // navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "AbrilFatface-Regular", size: 20)!]
         // let layout = collectionView!.collectionViewLayout as! UICollectionViewFlowLayout
     }

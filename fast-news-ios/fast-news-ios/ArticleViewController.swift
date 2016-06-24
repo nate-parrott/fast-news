@@ -42,7 +42,7 @@ class ArticleViewController: SwipeAwayViewController {
             }
         }
         
-        view.insertSubview(pager, atIndex: 0)
+        contentView.insertSubview(pager, atIndex: 0)
         
         _articleSub = article.onUpdate.subscribe({ [weak self] (_) -> () in
             self?._update()
@@ -121,8 +121,9 @@ class ArticleViewController: SwipeAwayViewController {
     
     // MARK: Layout
     static let Margin: CGFloat = 14
-    override func prefersStatusBarHidden() -> Bool {
-        return true
+    
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return .LightContent
     }
     
     enum _ViewState {
@@ -421,7 +422,7 @@ class ArticleViewController: SwipeAwayViewController {
         if let cb = onBack {
             cb()
         } else {
-            dismissViewControllerAnimated(true, completion: nil)
+            _induceExit()
         }
     }
     
@@ -432,7 +433,7 @@ class ArticleViewController: SwipeAwayViewController {
         willSet(newVal) {
             webView?.removeFromSuperview()
             if let new = newVal {
-                view.insertSubview(new, aboveSubview: pager)
+                contentView.insertSubview(new, aboveSubview: pager)
             }
         }
     }

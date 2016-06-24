@@ -8,57 +8,66 @@
 
 import UIKit
 
-class SwipeAwayViewController: UIViewController, UIViewControllerAnimatedTransitioning, UIViewControllerTransitioningDelegate {
+class SwipeAwayViewController: UIViewController, UIViewControllerAnimatedTransitioning, UIViewControllerTransitioningDelegate, UIDynamicAnimatorDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        _panRec = SSWDirectionalPanGestureRecognizer(target: self, action: "_swiped:")
+        view.backgroundColor = UIColor(white: 0, alpha: 0)
+        if contentView == nil {
+            contentView = UIView()
+            contentView.backgroundColor = UIColor.whiteColor()
+        }
+        if contentView.superview == nil {
+            view.addSubview(contentView)
+        }
+        _panRec = SSWDirectionalPanGestureRecognizer(target: self, action: #selector(SwipeAwayViewController._swiped(_:)))
         _panRec.direction = .Right
         view.addGestureRecognizer(_panRec)
     }
-    var _panRec: SSWDirectionalPanGestureRecognizer!
+    @IBOutlet var contentView: UIView!
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        contentView.bounds = view.bounds
+        _snap?.snapPoint = view.bounds.center
+    }
+    
+    // MARK: Interaction
+    var _panRec: SSWDirectionalPanGestureRecognizer!
+    var _attachment: UIAttachmentBehavior!
+    var _attachmentStartPos: CGPoint!
     func _swiped(rec: SSWDirectionalPanGestureRecognizer) {
-        let progress = max(0, min(1, (rec.translationInView(view.superview).x - 10) / view.bounds.size.width))
-        if rec.state == .Changed && progress > 0 {
-            if !isBeingDismissed() {
-                dismissViewControllerAnimated(true, completion: nil)
-            }
-            _percentDrivenTransition?.updateInteractiveTransition(progress)
-        } else if rec.state == .Ended && isBeingDismissed() {
-            let velocity = rec.velocityInView(view.superview).x
-            let stationary = (velocity == 0)
-            let willCompleteTransition = velocity > 0 || (velocity == 0 && progress > 0.5)
-            // print("Will complete: \(willCompleteTransition)")
-            // _percentDrivenTransition?.completionCurve = stationary ? .EaseInOut : .EaseOut
-            
-            if stationary {
-                _percentDrivenTransition?.completionCurve = .EaseInOut
+        var end = false
+        switch rec.state {
+        case .Began:
+            _attachmentStartPos = contentView.center
+            _attachment = UIAttachmentBehavior(item: contentView, attachedToAnchor: _attachmentStartPos)
+            _animator.addBehavior(_attachment)
+        case .Changed:
+            _attachment.anchorPoint = _attachmentStartPos + CGPointMake(rec.translationInView(view).x, 0)
+        case .Ended:
+            end = true
+            if abs(rec.velocityInView(view).x) > 50 {
+                _snapActive = false // continue the exit; just let contentView fly out of sight
             } else {
-                _percentDrivenTransition?.completionCurve = .Linear
-                let distanceToTravel = willCompleteTransition ? (1 - progress) : progress
-                // duration / k * velocity = distanceToTravel
-                // 1 / k = distanceToTravel / velocity / duration
-                // k = velocity * duration / distanceToTravel
-                if let p = _percentDrivenTransition {
-                    if distanceToTravel > 0 {
-                        p.completionSpeed = (abs(velocity) / view.bounds.size.width) * p.duration / distanceToTravel
-                    }
-                }
+                _snapActive = true
             }
-            
-            if willCompleteTransition {
-                // _percentDrivenTransition?.completionSpeed = max(0.1, velocity / view.bounds.size.width)
-                _percentDrivenTransition?.finishInteractiveTransition()
-            } else {
-                // _percentDrivenTransition?.completionSpeed = max(0.1, -(velocity / view.bounds.size.width))
-                _percentDrivenTransition?.cancelInteractiveTransition()
-            }
+        case .Failed:
+            end = true
+            _snapActive = true
+        default: ()
+        }
+        if end {
+            _animator.removeBehavior(_attachment)
+            _attachment = nil
+            _itemBehavior.addLinearVelocity(CGPointMake(rec.velocityInView(view).x, 0), forItem: contentView)
         }
     }
     
+    // MARK: Static transition
+    
     func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
-        return (transitionContext?.isInteractive() ?? false) ? 0.3 : 0.2
+        return 0
     }
     
     func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
@@ -66,41 +75,16 @@ class SwipeAwayViewController: UIViewController, UIViewControllerAnimatedTransit
         // let fromVC = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)!
         let presenting = (toVC === self)
         let root = transitionContext.containerView()!
-        let duration = transitionDuration(transitionContext)
-        let darkBackdrop = UIView()
-        darkBackdrop.frame = root.bounds
-        darkBackdrop.backgroundColor = UIColor(white: 0, alpha: 0.7)
         
         if presenting {
-            root.addSubview(darkBackdrop)
-            darkBackdrop.alpha = 0
             root.addSubview(view)
             view.frame = transitionContext.finalFrameForViewController(toVC)
-            view.transform = CGAffineTransformMakeTranslation(toVC.view.bounds.size.width, 0)
-            UIView.animateWithDuration(duration, delay: 0, options: [.CurveEaseOut], animations: { () -> Void in
-                toVC.view.transform = CGAffineTransformIdentity
-                darkBackdrop.alpha = 1
-                }, completion: { (_) -> Void in
-                    transitionContext.completeTransition(true)
-                    darkBackdrop.removeFromSuperview()
-            })
+            _setupAnimator()
+            _transitionState = .Entrance
+            transitionContext.completeTransition(true)
         } else {
-            darkBackdrop.alpha = 1
-            root.insertSubview(toVC.view, atIndex: 0)
-            root.insertSubview(darkBackdrop, aboveSubview: toVC.view)
-            toVC.view.frame = transitionContext.finalFrameForViewController(toVC)
-            toVC.view.layoutIfNeeded()
-            UIView.animateWithDuration(duration, delay: 0, options: transitionContext.isInteractive() ? [.CurveLinear] : [.CurveEaseOut], animations: { () -> Void in
-                self.view.transform = CGAffineTransformMakeTranslation(toVC.view.bounds.size.width, 0)
-                darkBackdrop.alpha = 0
-                }, completion: { (_) -> Void in
-                    let cancelled = transitionContext.transitionWasCancelled()
-                    if !cancelled {
-                        self.view.removeFromSuperview()
-                    }
-                    darkBackdrop.removeFromSuperview()
-                    transitionContext.completeTransition(!cancelled)
-            })
+            view.removeFromSuperview()
+            transitionContext.completeTransition(true)
         }
     }
     
@@ -122,18 +106,121 @@ class SwipeAwayViewController: UIViewController, UIViewControllerAnimatedTransit
     
     func presentFrom(parent: UIViewController) {
         transitioningDelegate = self
+        modalPresentationStyle = .Custom
         parent.presentViewController(self, animated: true, completion: nil)
     }
     
-    var _percentDrivenTransition: UIPercentDrivenInteractiveTransition? // TODO: make weak
+    // MARK: Dynamics
+    func _setupAnimator() {
+        contentView.bounds = view.bounds
+        contentView.center = CGPointMake(contentView.bounds.size.width * 1.5, view.bounds.center.y)
+        
+        _animator = UIDynamicAnimator(referenceView: view)
+        _animator.delegate = self
+        
+        _itemBehavior = UIDynamicItemBehavior(items: [contentView])
+        _itemBehavior.allowsRotation = false
+        _animator.addBehavior(_itemBehavior)
+    }
+    enum DynamicTransitionState {
+        case NotSetUp
+        case Entrance
+        case Presented
+        case Exit
+    }
+    var _transitionState = DynamicTransitionState.NotSetUp {
+        didSet (oldState) {
+            switch _transitionState {
+            case .Entrance:
+                _snapActive = true
+            case .Presented: ()
+                // TODO
+            default: ()
+            }
+        }
+    }
     
-    func interactionControllerForDismissal(animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-        if _panRec.state == .Began || _panRec.state == .Changed {
-            let t = UIPercentDrivenInteractiveTransition()
-            _percentDrivenTransition = t
-            return t
-        } else {
-            return nil
+    var _snapActive = false {
+        didSet (old) {
+            if old != _snapActive {
+                if _snapActive {
+                    if _snap == nil {
+                        _snap = UISnapBehavior(item: contentView, snapToPoint: view.bounds.center)
+                    }
+                    _animator.addBehavior(_snap)
+                } else {
+                    _animator.removeBehavior(_snap)
+                }
+            }
+        }
+    }
+    var _snap: UISnapBehavior!
+    func _induceExit() {
+        // TODO
+        _snapActive = false
+        let exitSnap = UISnapBehavior(item: contentView, snapToPoint: CGPointMake(view.bounds.size.width * 2, view.bounds.size.height/2))
+        _animator.addBehavior(exitSnap)
+    }
+    
+    var _animator: UIDynamicAnimator!
+    var _itemBehavior: UIDynamicItemBehavior!
+    func dynamicAnimatorWillResume(animator: UIDynamicAnimator) {
+        _dynamicAnimatorActive = true
+    }
+    func dynamicAnimatorDidPause(animator: UIDynamicAnimator) {
+        _dynamicAnimatorActive = false
+    }
+    var _dynamicAnimatorActive = false {
+        didSet (old) {
+            if _dynamicAnimatorActive != old {
+                if _dynamicAnimatorActive {
+                    _displayLink = CADisplayLink(target: self, selector: #selector(SwipeAwayViewController._dynamicAnimationTick))
+                    _displayLink!.addToRunLoop(NSRunLoop.mainRunLoop(), forMode: NSRunLoopCommonModes)
+                } else {
+                    _displayLink?.invalidate()
+                    _displayLink = nil
+                    _dynamicAnimationTick()
+                }
+            }
+        }
+    }
+    var _displayLink: CADisplayLink?
+    func _dynamicAnimationTick() {
+        view.backgroundColor = UIColor(white: 0, alpha: 0.7 * _contentViewScreenOverlap)
+        
+        switch _transitionState {
+        case .Entrance: _checkIfDynamicEntranceCompleted()
+        case .Exit: _checkIfDynamicExitCompleted()
+        case .Presented: _checkIfDynamicExitBegan()
+        default: ()
+        }
+    }
+    var _contentViewScreenOverlap: CGFloat {
+        get {
+            if CGRectIntersectsRect(contentView.frame, view.bounds) {
+                let overlapSize = CGRectIntersection(contentView.frame, view.bounds).size
+                return overlapSize.width * overlapSize.height / (view.bounds.size.width * view.bounds.size.height)
+            } else {
+                return 0
+            }
+        }
+    }
+    func _checkIfDynamicEntranceCompleted() {
+        if !_dynamicAnimatorActive && _contentViewScreenOverlap > 0.95 {
+            contentView.center = view.center
+            _transitionState = .Presented
+        }
+    }
+    func _checkIfDynamicExitCompleted() {
+        if !_dynamicAnimatorActive && _contentViewScreenOverlap == 1 {
+            _transitionState = .Presented
+        } else if _contentViewScreenOverlap == 0 {
+            dismissViewControllerAnimated(true, completion: nil)
+        }
+    }
+    func _checkIfDynamicExitBegan() {
+        if _dynamicAnimatorActive && _contentViewScreenOverlap < 1 {
+            _transitionState = .Exit
         }
     }
 }

@@ -34,7 +34,7 @@ class Source(ndb.Model):
         source_fetch(self)
     
     def enqueue_fetch(self, delay=30*60): # every 30 minutes
-        taskqueue.add(url='/tasks/sources/fetch', params={'id': self.key.id()}, countdown=delay)
+        taskqueue.add(url='/tasks/sources/fetch', params={'id': self.key.id()}, countdown=delay, queue_name='sources')
     
     @classmethod
     def id_for_source(cls, url):
@@ -103,7 +103,7 @@ class Article(ndb.Model):
         return taskqueue.Task(url='/tasks/articles/fetch', params={'id': self.key.id()}, countdown=delay)
     
     def enqueue_fetch(self, **kwargs):
-        taskqueue.Queue().add_async(self.create_fetch_task(**kwargs))
+        taskqueue.Queue('articles').add_async(self.create_fetch_task(**kwargs))
     
     def json(self, include_article_json=False):
         d = {

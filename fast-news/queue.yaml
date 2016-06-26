@@ -1,3 +1,11 @@
 queue:
 - name: default
   rate: 20/s
+
+queue:
+- name: sources
+  rate: 20/s
+
+queue:
+- name: articles
+  rate: 20/s

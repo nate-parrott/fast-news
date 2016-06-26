@@ -54,7 +54,7 @@ def source_fetch(source):
                     article.published = datetime.datetime.now()
                 article.title = entry['title']
                 to_put.append(article)
-                delay = random.randint(0, 60)
+                delay = (i+1) * 4 # wait 5 seconds between each
                 tasks_to_enqueue.append(article.create_fetch_task(delay=delay))
     debug("SF: About to put")
     if len(to_put):

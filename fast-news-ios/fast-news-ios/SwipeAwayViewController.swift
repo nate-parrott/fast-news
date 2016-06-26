@@ -37,6 +37,10 @@ class SwipeAwayViewController: UIViewController, UIViewControllerAnimatedTransit
     var _attachment: UIAttachmentBehavior!
     var _attachmentStartPos: CGPoint!
     func _swiped(rec: SSWDirectionalPanGestureRecognizer) {
+        switch _transitionState {
+        case .Entrance: return
+        default: ()
+        }
         var end = false
         switch rec.state {
         case .Began:
@@ -216,6 +220,7 @@ class SwipeAwayViewController: UIViewController, UIViewControllerAnimatedTransit
             _transitionState = .Presented
         } else if _contentViewScreenOverlap == 0 {
             dismissViewControllerAnimated(true, completion: nil)
+            _animator.removeAllBehaviors()
         }
     }
     func _checkIfDynamicExitBegan() {

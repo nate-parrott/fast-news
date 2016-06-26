@@ -156,7 +156,7 @@ class TestHandler(webapp2.RequestHandler):
         </form>
         <form method=POST action='/admin/reschedule_source_fetches'>
             <h1>Reschedule source fetches</h1>
-            <p>Make sure to clear the <em>sources</em> queue in the AppEngine dashboard first.</p>
+            <p>Make sure to clear the <em>sources</em> queue in the AppEngine dashboard <a href='https://console.cloud.google.com/appengine/taskqueues/sources?project=fast-news&moduleId=default'>here</a> first.</p>
             <input type=submit>
         </form>
         """

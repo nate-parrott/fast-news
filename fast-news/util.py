@@ -11,7 +11,7 @@ import re
 from google.appengine.api import urlfetch
 import logging
 
-def url_fetch_async(url, callback, timeout=10):
+def url_fetch_async(url, callback, timeout=5):
     rpc = urlfetch.create_rpc(deadline=timeout)
     urlfetch.make_fetch_call(rpc, url, headers={"User-Agent": "fast-news-bot"})
     def cb():

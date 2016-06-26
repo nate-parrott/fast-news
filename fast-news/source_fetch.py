@@ -61,7 +61,7 @@ def source_fetch(source):
         ndb.put_multi(to_put)
     debug("SF: About to enqueue")
     if len(tasks_to_enqueue):
-        taskqueue.Queue().add_async(tasks_to_enqueue)
+        taskqueue.Queue('articles').add_async(tasks_to_enqueue)
     debug("SF: done enqueuing")
     if added_any:
         source.most_recent_article_added_date = now

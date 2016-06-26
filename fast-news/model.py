@@ -3,6 +3,7 @@ from canonical_url import canonical_url
 from google.appengine.api import taskqueue
 from util import truncate, timestamp_from_datetime
 import util
+import sys, traceback, StringIO
 
 class Subscription(ndb.Model):
     url = ndb.StringProperty()
@@ -33,8 +34,11 @@ class Source(ndb.Model):
     def fetch_now(self):
         source_fetch(self)
     
+    def create_fetch_task(self, delay):
+        return taskqueue.Task(url='/tasks/sources/fetch', params={'id': self.key.id()}, countdown=delay)
+    
     def enqueue_fetch(self, delay=30*60): # every 30 minutes
-        taskqueue.add(url='/tasks/sources/fetch', params={'id': self.key.id()}, countdown=delay, queue_name='sources')
+        taskqueue.Queue('sources').add_async(self.create_fetch_task(delay=delay))
     
     @classmethod
     def id_for_source(cls, url):
@@ -100,7 +104,8 @@ class Article(ndb.Model):
             self.fetch_now()
     
     def create_fetch_task(self, delay=0):
-        return taskqueue.Task(url='/tasks/articles/fetch', params={'id': self.key.id()}, countdown=delay)
+        retry_options = taskqueue.TaskRetryOptions(task_retry_limit=2, min_backoff_seconds=10*60)
+        return taskqueue.Task(url='/tasks/articles/fetch', params={'id': self.key.id()}, countdown=delay, retry_options=retry_options)
     
     def enqueue_fetch(self, **kwargs):
         taskqueue.Queue('articles').add_async(self.create_fetch_task(**kwargs))
@@ -146,3 +151,24 @@ class Bookmark(ndb.Model):
             "last_modified": timestamp_from_datetime(self.last_modified),
             "reading_position": self.reading_position
         }
+
+class ErrorReport(ndb.Model):
+    @classmethod
+    def with_current_exception(cur_action):
+        exc_type, exc_value, tb = sys.exc_info()
+        f = StringIO.StringIO()
+        traceback.print_tb(tb, file=f)
+        trace = f.getvalue()
+        payload = {
+            "exc_type": exc_type,
+            "exc_value": exc_value,
+            "trace": trace
+        }
+        error_report = ErrorReport(action=cur_action, payload=payload)
+        error_report.put()
+        print "CREATING {0} ERROR REPORT FOR ERROR {1}: {2} (saved as {3})".format(cur_action, exc_type, exc_value, error_report)
+        return error_report
+    
+    action = ndb.StringProperty()
+    payload = ndb.JsonProperty()
+    added = ndb.DateTimeProperty(auto_now_add=True)        

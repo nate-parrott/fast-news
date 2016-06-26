@@ -122,7 +122,7 @@ class ArticleTestFetchHandler(webapp2.RequestHandler):
 class TestHandler(webapp2.RequestHandler):
     def get(self):
         html = """
-        <form method=POST action='subscriptions/add'>
+        <form method=POST action='/subscriptions/add'>
             <h1>Test subscribe</h1>
             <input name=url placeholder=url>
             <input name=uid placeholder=uid>
@@ -152,6 +152,11 @@ class TestHandler(webapp2.RequestHandler):
             <h1>Bookmark</h1>
             <input name=article_url type=url placeholder=article_url>
             <input name=uid placeholder=uid>
+            <input type=submit>
+        </form>
+        <form method=POST action='/admin/reschedule_source_fetches'>
+            <h1>Reschedule source fetches</h1>
+            <p>Make sure to clear the <em>sources</em> queue in the AppEngine dashboard first.</p>
             <input type=submit>
         </form>
         """

@@ -48,7 +48,9 @@ class SwipeAwayViewController: UIViewController, UIViewControllerAnimatedTransit
             _attachment = UIAttachmentBehavior(item: contentView, attachedToAnchor: _attachmentStartPos)
             _animator.addBehavior(_attachment)
         case .Changed:
-            _attachment.anchorPoint = _attachmentStartPos + CGPointMake(rec.translationInView(view).x, 0)
+            if _attachment != nil {
+                _attachment.anchorPoint = _attachmentStartPos + CGPointMake(rec.translationInView(view).x, 0)
+            }
         case .Ended:
             end = true
             if abs(rec.velocityInView(view).x) > 50 {

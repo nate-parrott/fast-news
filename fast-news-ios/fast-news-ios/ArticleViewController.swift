@@ -29,7 +29,7 @@ class ArticleViewController: SwipeAwayViewController {
         
         pager.updateLayout = {
             [weak self] (_) in
-            self?._updatePages()
+            self?._recomputeLayoutInfo()
         }
         pager.createPageForModel = {
             [weak self] (i) in
@@ -37,7 +37,7 @@ class ArticleViewController: SwipeAwayViewController {
         }
         pager.onPageChanged = {
             [weak self] (let page) in
-            if let s = self, let pos = s.layoutInfo.pages[page].indexOfFirstSegmentStarted {
+            if let s = self, let pos = s._layoutInfo?.pages[page].indexOfFirstSegmentStarted {
                 s._readingPosition = pos
             }
         }
@@ -65,7 +65,7 @@ class ArticleViewController: SwipeAwayViewController {
         BookmarkList.Shared.ensureRecency(10 * 60)
         _updateBookmarked()
         
-        let hiddenSettingsRec = UILongPressGestureRecognizer(target: self, action: "_longPressed:")
+        let hiddenSettingsRec = UILongPressGestureRecognizer(target: self, action: #selector(ArticleViewController._longPressed(_:)))
         actionsBar.addGestureRecognizer(hiddenSettingsRec)
     }
     
@@ -187,9 +187,9 @@ class ArticleViewController: SwipeAwayViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        pager.frame = CGRectMake(0, 0, view.bounds.size.width, view.bounds.size.height - layoutInfo.minBottomBarHeight)
+        pager.frame = CGRectMake(0, 0, view.bounds.size.width, view.bounds.size.height - _LayoutInfo.minBottomBarHeight)
         webView?.frame = view.bounds
-        webView?.inset = UIEdgeInsetsMake(0, 0, layoutInfo.minBottomBarHeight, 0)
+        webView?.inset = UIEdgeInsetsMake(0, 0, _LayoutInfo.minBottomBarHeight, 0)
     }
     
     // MARK: Pages
@@ -209,24 +209,20 @@ class ArticleViewController: SwipeAwayViewController {
         var indexOfFirstSegmentStarted: Int?
     }
     
-    func _updatePages() {
-        _layoutInfo = nil
-        pager.pageModels = Array(0..<(layoutInfo.pages.count))
-        if let pageIdx = _pageIndexForReadingPosition(_readingPosition) {
-            pager.page = pageIdx
-        }
-    }
-    
     func _pageIndexForReadingPosition(pos: Int) -> Int? {
-        var pageIdx: Int?
-        var i = 0
-        for page in layoutInfo.pages {
-            if let firstIndex = page.indexOfFirstSegmentStarted where pos >= firstIndex {
-                pageIdx = i
+        if let info = _layoutInfo {
+            var pageIdx: Int?
+            var i = 0
+            for page in info.pages {
+                if let firstIndex = page.indexOfFirstSegmentStarted where pos >= firstIndex {
+                    pageIdx = i
+                }
+                i += 1
             }
-            i += 1
+            return pageIdx
+        } else {
+            return nil
         }
-        return pageIdx
     }
     
     func _createRowModelsFromSegments(segments: [ArticleContent.Segment]) -> ([RowModel], [Int]) {
@@ -262,7 +258,7 @@ class ArticleViewController: SwipeAwayViewController {
     
     var rowModels: [RowModel]? {
         didSet {
-            _updatePages()
+            _recomputeLayoutInfo()
         }
     }
     var _segmentIndicesForRowModels: [Int]?
@@ -289,18 +285,19 @@ class ArticleViewController: SwipeAwayViewController {
     
     func _pageViewForIndex(i: Int) -> UIView {
         let v = ArticlePageView(frame: CGRectMake(0,0,100,100))
-        let model = layoutInfo.pages[i]
-        var views = [(ArticleSegmentCell, CGFloat, CGFloat)]() // cell, y-offset, height
-        for (row, offset) in model.rowModels {
-            if views.count > 0 {
-                views[views.count - 1].2 = offset - views[views.count - 1].1
+        if let model = _layoutInfo?.pages[i] {
+            var views = [(ArticleSegmentCell, CGFloat, CGFloat)]() // cell, y-offset, height
+            for (row, offset) in model.rowModels {
+                if views.count > 0 {
+                    views[views.count - 1].2 = offset - views[views.count - 1].1
+                }
+                views.append((cellForModel(row), offset, 0))
             }
-            views.append((cellForModel(row), offset, 0))
+            views[views.count - 1].2 = model.height - views[views.count - 1].1
+            v.views = views
+            v.marginTop = model.marginTop
+            v.backgroundColor = UIColor.whiteColor()
         }
-        views[views.count - 1].2 = model.height - views[views.count - 1].1
-        v.views = views
-        v.marginTop = model.marginTop
-        v.backgroundColor = UIColor.whiteColor()
         return v
     }
     
@@ -326,17 +323,32 @@ class ArticleViewController: SwipeAwayViewController {
     
     // MARK: LayoutInfo
     var _layoutInfo: _LayoutInfo?
-    var layoutInfo: _LayoutInfo {
-        get {
-            if _layoutInfo == nil {
-                _layoutInfo = _LayoutInfo()
-                viewDidLayoutSubviews()
-                _layoutInfo!.size = pager.bounds.size
-                if let models = rowModels, let segmentIndices = _segmentIndicesForRowModels {
-                    _layoutInfo!.computeWithModels(models, segmentIndices: segmentIndices)
+    var _layoutQueue = dispatch_queue_create("ArticleLayoutQueue", nil)
+    func _recomputeLayoutInfo() {
+        _layoutInfo = nil
+        pager.pageModels = []
+        viewDidLayoutSubviews()
+        let info = _LayoutInfo()
+        let size = pager.bounds.size
+        info.size = size
+        
+        let done: () -> () = {
+            if info.size == size {
+                self._layoutInfo = info
+                self.pager.pageModels = Array(0..<(info.pages.count))
+                if let pageIdx = self._pageIndexForReadingPosition(self._readingPosition) {
+                    self.pager.page = pageIdx
                 }
             }
-            return _layoutInfo!
+        }
+        
+        if let models = rowModels, let segmentIndices = _segmentIndicesForRowModels {
+            dispatch_async(_layoutQueue, { 
+                info.computeWithModels(models, segmentIndices: segmentIndices)
+                mainThread(done)
+            })
+        } else {
+            done()
         }
     }
     
@@ -380,7 +392,7 @@ class ArticleViewController: SwipeAwayViewController {
             }
         }
         
-        var minBottomBarHeight: CGFloat = 44
+        static var minBottomBarHeight: CGFloat = 44
         
         func heightForModel(model: RowModel) -> CGFloat {
             switch model {

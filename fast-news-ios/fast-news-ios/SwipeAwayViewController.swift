@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SwipeAwayViewController: UIViewController, UIViewControllerAnimatedTransitioning, UIViewControllerTransitioningDelegate, UIDynamicAnimatorDelegate {
+class SwipeAwayViewController: UIViewController, UIViewControllerAnimatedTransitioning, UIViewControllerTransitioningDelegate, UIDynamicAnimatorDelegate, UIGestureRecognizerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,6 +21,7 @@ class SwipeAwayViewController: UIViewController, UIViewControllerAnimatedTransit
             view.addSubview(contentView)
         }
         _panRec = SSWDirectionalPanGestureRecognizer(target: self, action: #selector(SwipeAwayViewController._swiped(_:)))
+        _panRec.delegate = self
         _panRec.direction = .Right
         view.addGestureRecognizer(_panRec)
     }
@@ -63,7 +64,7 @@ class SwipeAwayViewController: UIViewController, UIViewControllerAnimatedTransit
             _snapActive = true
         default: ()
         }
-        if end {
+        if end && _attachment != nil {
             _animator.removeBehavior(_attachment)
             _attachment = nil
             _itemBehavior.addLinearVelocity(CGPointMake(rec.velocityInView(view).x, 0), forItem: contentView)
@@ -162,10 +163,16 @@ class SwipeAwayViewController: UIViewController, UIViewControllerAnimatedTransit
     }
     var _snap: UISnapBehavior!
     func _induceExit() {
-        // TODO
-        _snapActive = false
+        /*_snapActive = false
         let exitSnap = UISnapBehavior(item: contentView, snapToPoint: CGPointMake(view.bounds.size.width * 2, view.bounds.size.height/2))
-        _animator.addBehavior(exitSnap)
+        _animator.addBehavior(exitSnap)*/
+        _animator.removeAllBehaviors()
+        UIView.animateWithDuration(0.3, delay: 0, options: [.CurveEaseIn], animations: { 
+            self.contentView.center = self.contentView.center + CGPointMake(self.contentView.bounds.size.width, 0)
+            self.view.backgroundColor = UIColor.clearColor()
+            }) { (_) in
+                self.dismissViewControllerAnimated(true, completion: nil)
+        }
     }
     
     var _animator: UIDynamicAnimator!

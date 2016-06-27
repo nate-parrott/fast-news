@@ -65,8 +65,8 @@ class ArticleViewController: SwipeAwayViewController {
         BookmarkList.Shared.ensureRecency(10 * 60)
         _updateBookmarked()
         
-        let hiddenSettingsRec = UILongPressGestureRecognizer(target: self, action: #selector(ArticleViewController._longPressed(_:)))
-        actionsBar.addGestureRecognizer(hiddenSettingsRec)
+        // let hiddenSettingsRec = UILongPressGestureRecognizer(target: self, action: #selector(ArticleViewController._longPressed(_:)))
+        // actionsBar.addGestureRecognizer(hiddenSettingsRec)
     }
     
     func _update() {
@@ -190,6 +190,10 @@ class ArticleViewController: SwipeAwayViewController {
         pager.frame = CGRectMake(0, 0, view.bounds.size.width, view.bounds.size.height - _LayoutInfo.minBottomBarHeight)
         webView?.frame = view.bounds
         webView?.inset = UIEdgeInsetsMake(0, 0, _LayoutInfo.minBottomBarHeight, 0)
+    }
+    
+    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
+        return !CGRectContainsPoint(actionsBar.bounds, touch.locationInView(actionsBar))
     }
     
     // MARK: Pages

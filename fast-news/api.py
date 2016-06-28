@@ -53,14 +53,13 @@ def ensure_source(url, suppress_immediate_fetch=False):
         source.fetch_now()
     return source
 
-def feed(uid):
-    subscriptions = Subscription.query(Subscription.uid == uid).fetch(100)
+def feed(uid, article_limit=10, source_limit=100):
+    subscriptions = Subscription.query(Subscription.uid == uid).fetch(source_limit)
     source_json = []
     if len(subscriptions) > 0:
-        
         subscription_urls = set([s.url for s in subscriptions])
         sources = Source.query(Source.url.IN(list(subscription_urls))).order(-Source.most_recent_article_added_date).fetch(len(subscription_urls))
-        source_promises = [src.json(include_articles=True, article_limit=10, return_promise=True) for src in sources]
+        source_promises = [src.json(include_articles=True, article_limit=article_limit, return_promise=True) for src in sources]
         source_json = [p() for p in source_promises]
     return {
         "sources": source_json

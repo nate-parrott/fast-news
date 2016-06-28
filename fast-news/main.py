@@ -58,8 +58,10 @@ class ArticleHandler(webapp2.RequestHandler):
 class FeedHandler(webapp2.RequestHandler):
     def get(self):
         uid = self.request.get('uid')
+        article_limit = int(self.request.get('article_limit', '10'))
+        source_limit = int(self.request.get('source_limit', '100'))
         self.response.headers.add_header('Content-Type', 'application/json')
-        self.response.write(json.dumps(api.feed(uid)))
+        self.response.write(json.dumps(api.feed(uid, article_limit, source_limit)))
 
 class SubscriptionsHandler(webapp2.RequestHandler):
     def get(self):
@@ -233,7 +235,7 @@ if False:
             finally:
                 stream = cStringIO.StringIO()
                 stats = pstats.Stats(profile, stream=stream)
-                stats.strip_dirs().sort_stats('cumulative', 'time', 'calls').print_stats(75)
+                stats.strip_dirs().sort_stats('cumulative', 'time', 'calls').print_stats(50)
                 logging.info('cProfile data:\n%s', stream.getvalue())
         return _cprofile_wsgi_wrapper
 

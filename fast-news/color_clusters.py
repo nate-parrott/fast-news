@@ -21,7 +21,7 @@ def get_points(img):
 rtoh = lambda rgb: '#%s' % ''.join(('%02x' % p for p in rgb))
 
 def colorz(img, n=3):
-    img.thumbnail((200, 200))
+    img.thumbnail((10, 10))
     w, h = img.size
 
     points = get_points(img)

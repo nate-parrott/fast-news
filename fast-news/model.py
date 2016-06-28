@@ -154,7 +154,7 @@ class Bookmark(ndb.Model):
 
 class ErrorReport(ndb.Model):
     @classmethod
-    def with_current_exception(cur_action):
+    def with_current_exception(cls, cur_action):
         exc_type, exc_value, tb = sys.exc_info()
         f = StringIO.StringIO()
         traceback.print_tb(tb, file=f)

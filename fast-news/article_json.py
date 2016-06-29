@@ -243,7 +243,8 @@ def create_meta_line(article):
     seg = TextSegment('meta')
     parts = []
     if article.published:
-        parts.append(u"{0} ago".format(relative_time.get_age(article.published)))
+        parts.append(article.published.strftime("%B %-d, %Y"))
+        # parts.append(u"{0} ago".format(relative_time.get_age(article.published)))
     if article.author:
         parts.append(u"{0}".format(article.author))
     if article.site_name:

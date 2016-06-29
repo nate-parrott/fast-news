@@ -4,10 +4,12 @@ from google.appengine.ext import ndb
 
 class ArticleFetchHandler(webapp2.RequestHandler):
     def post(self):
+        article = ndb.Key('Article', self.request.get('id')).get()
         try:
-            article = ndb.Key('Article', self.request.get('id')).get()
             article.fetch_now()
         except Exception as e:
+            article.fetch_failed = True
+            article.put()
             ErrorReport.with_current_exception('article_fetch')
 
 class SourceFetchHandler(webapp2.RequestHandler):

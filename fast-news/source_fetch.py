@@ -38,10 +38,13 @@ def source_fetch(source):
         titles = [entry['title'] for entry in result.entries if entry['title']]
         source.shared_title_suffix = shared_suffix(titles)
         
-        for i, entry in enumerate(result.entries[:min(25, len(result.entries))]):
-            id = Article.id_for_article(entry['url'], source.url)
-            article, inserted = get_or_insert(Article, id)
-            if inserted:
+        entries = result.entries[:min(25, len(result.entries))]
+        entry_ids = [Article.id_for_article(entry['url'], source.url) for entry in entries]
+        article_futures = [Article.get_or_insert_async(id) for id in entry_ids]
+        articles = [future.get_result() for future in article_futures]
+        
+        for i, (entry, article) in enumerate(zip(entries, articles)):
+            if not article.url:
                 added_any = True
                 article.added_date = now
                 article.added_order = i

@@ -160,8 +160,8 @@ class ErrorReport(ndb.Model):
         traceback.print_tb(tb, file=f)
         trace = f.getvalue()
         payload = {
-            "exc_type": exc_type,
-            "exc_value": exc_value,
+            "exc_type": str(exc_type),
+            "exc_value": str(exc_value),
             "trace": trace
         }
         error_report = ErrorReport(action=cur_action, payload=payload)

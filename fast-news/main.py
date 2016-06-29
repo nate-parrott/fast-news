@@ -219,7 +219,7 @@ app = webapp2.WSGIApplication([
     ('/extract', SimpleExtractHandler)
 ], debug=True)
 
-if True:
+if False:
     def cprofile_wsgi_middleware(app):
         """
         Call this middleware hook to enable cProfile on each request.  Statistics are dumped to

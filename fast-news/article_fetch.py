@@ -27,7 +27,14 @@ def article_fetch(article):
     def make_url_absolute(url):
         return urljoin(article.url, url) if url else None
     
-    markup = url_fetch(article.url)
+    response = url_fetch(article.url, return_response_obj=True)
+    print 'INFO', response.info()
+    if response and response.info().getheader('content-type', 'text/html').lower().split(';')[0].strip() == 'text/html':
+        markup = response.read()
+    else:
+        print 'BAD MIME TYPE'
+        markup = None
+    
     if markup:
         # process markup:
         markup_soup = BeautifulSoup(markup, 'lxml')

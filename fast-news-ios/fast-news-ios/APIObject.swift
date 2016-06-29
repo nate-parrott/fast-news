@@ -56,8 +56,8 @@ class APIObject: NSObject {
         self.id = id
         super.init()
         if supportsRelevantTransactions {
-            NSNotificationCenter.defaultCenter().addObserver(self, selector: "_transactionStarted:", name: Transaction.StartedNotification, object: nil)
-            NSNotificationCenter.defaultCenter().addObserver(self, selector: "_transactionFinished:", name: Transaction.FinishedNotification, object: nil)
+            NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(APIObject._transactionStarted(_:)), name: Transaction.StartedNotification, object: nil)
+            NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(APIObject._transactionFinished(_:)), name: Transaction.FinishedNotification, object: nil)
         }
     }
     private(set) var id: String? {

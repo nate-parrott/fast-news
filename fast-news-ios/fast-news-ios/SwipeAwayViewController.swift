@@ -167,7 +167,7 @@ class SwipeAwayViewController: UIViewController, UIViewControllerAnimatedTransit
         let exitSnap = UISnapBehavior(item: contentView, snapToPoint: CGPointMake(view.bounds.size.width * 2, view.bounds.size.height/2))
         _animator.addBehavior(exitSnap)*/
         _animator.removeAllBehaviors()
-        UIView.animateWithDuration(0.3, delay: 0, options: [.CurveEaseIn], animations: { 
+        UIView.animateWithDuration(0.22, delay: 0, options: [.CurveEaseIn], animations: {
             self.contentView.center = self.contentView.center + CGPointMake(self.contentView.bounds.size.width, 0)
             self.view.backgroundColor = UIColor.clearColor()
             }) { (_) in

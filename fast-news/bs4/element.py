@@ -1234,6 +1234,9 @@ class Tag(PageElement):
              **kwargs):
         """Return only the first child of this Tag matching the given
         criteria."""
+        # import traceback
+        # traceback.print_stack()
+        # print name
         r = None
         l = self.find_all(name, attrs, recursive, text, 1, **kwargs)
         if l:

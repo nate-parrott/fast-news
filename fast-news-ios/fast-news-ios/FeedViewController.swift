@@ -60,7 +60,8 @@ class FeedViewController: ArticleCollectionViewController {
     
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let source = feed.sources![indexPath.item]
-        if let article = source.highlightedArticle {
+        if let cell = collectionView.cellForItemAtIndexPath(indexPath) as? FeedCell,
+           let article = cell.articleView.article {
             showArticle(article)
         } else {
             showSource(source)

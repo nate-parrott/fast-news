@@ -28,7 +28,7 @@ def article_fetch(article):
         return urljoin(article.url, url) if url else None
     
     response = url_fetch(article.url, return_response_obj=True)
-    print 'INFO', response.info()
+    # print 'INFO', response.info()
     if response and response.info().getheader('content-type', 'text/html').lower().split(';')[0].strip() == 'text/html':
         markup = response.read()
     else:

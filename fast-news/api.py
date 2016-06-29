@@ -7,8 +7,12 @@ import logging
 
 def subscribe(uid, url):
     source = ensure_source(url)
-    url = source.url
+    source_json = source.json(include_articles=True)
+    if len(source_json['articles']) == 0:
+        print "Refusing to subscribe to {0} because no articles were fetched".format(source.url)
+        return {"success": False}
     
+    url = source.url
     id = Subscription.id_for_subscription(url, uid)
     sub, inserted = get_or_insert(Subscription, id)
     if inserted:
@@ -16,7 +20,7 @@ def subscribe(uid, url):
         sub.uid = uid
         sub.put()
     
-    return {"source": source.json(include_articles=True), "subscription": sub.json()}
+    return {"success": True, "source": source.json(include_articles=True), "subscription": sub.json()}
 
 def ensure_article_at_url(url, force_fetch=False):
     id = Article.id_for_article(url, None)

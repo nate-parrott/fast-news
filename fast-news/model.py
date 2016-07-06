@@ -79,6 +79,7 @@ class Article(ndb.Model):
     added_date = ndb.DateTimeProperty()
     added_order = ndb.IntegerProperty()
     title = ndb.TextProperty()
+    has_low_quality_title = ndb.BooleanProperty(default=False)
     published = ndb.DateTimeProperty()
     top_image = ndb.TextProperty()
     top_image_tiny_json = ndb.JsonProperty()

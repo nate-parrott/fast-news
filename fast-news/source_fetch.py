@@ -21,6 +21,18 @@ from logging import warning
 from logging import info as debug
 from source_entry_processor import create_source_entry_processor
 
+class FetchResult(object):
+    def __init__(self, method, feed_title, entries):
+        self.method = method
+        self.feed_title = feed_title
+        self.entries = entries # {"url": url, "title": title, "published": datetime}
+        self.brand = None
+    
+    def __repr__(self):
+        return (u"FetchResult.{0}('{1}'): {2} ".format(self.method, self.feed_title, self.entries)).encode('utf-8')
+
+from twitter_source_fetch import fetch_twitter
+
 def source_fetch(source):
     debug("SF: Doing fetch for source: {0}".format(source.url))
     result = _source_fetch(source)
@@ -74,16 +86,6 @@ def source_fetch(source):
     source.last_fetched = now
     source.put()
 
-class FetchResult(object):
-    def __init__(self, method, feed_title, entries):
-        self.method = method
-        self.feed_title = feed_title
-        self.entries = entries # {"url": url, "title": title, "published": datetime}
-        self.brand = None
-    
-    def __repr__(self):
-        return (u"FetchResult.{0}('{1}'): {2} ".format(self.method, self.feed_title, self.entries)).encode('utf-8')
-
 def _source_fetch(source):
     fetch_type = None
     markup = url_fetch(source.url)
@@ -94,7 +96,7 @@ def _source_fetch(source):
             if res: results.append(res)
         def add_rpc(rpc):
             rpcs.append(rpc)
-        for fn in [fetch_hardcoded_rss_url, rss_fetch, fetch_wordpress_default_rss, fetch_linked_rss]:
+        for fn in [fetch_twitter, fetch_hardcoded_rss_url, rss_fetch, fetch_wordpress_default_rss, fetch_linked_rss]:
             fn(source, markup, source.url, add_rpc, got_result)
         while len(rpcs):
             rpcs[0].wait()
@@ -189,3 +191,5 @@ def fetch_hardcoded_rss_url(source, markup, url, add_rpc, got_result):
                     got_result(res)
             rss_fetch(source, feed_markup, rss_url, add_rpc, _got_result)
         add_rpc(url_fetch_async(rss_url, callback))
+
+

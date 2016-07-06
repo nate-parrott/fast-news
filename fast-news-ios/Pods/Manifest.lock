@@ -4,26 +4,21 @@ PODS:
   - ChameleonFramework/Default (2.1.0)
   - CocoaSPDY (1.2)
   - GradientView (2.1.0)
-  - Realm (0.98.3):
-    - Realm/Headers (= 0.98.3)
-  - Realm/Headers (0.98.3)
-  - RealmSwift (0.98.3):
-    - Realm (= 0.98.3)
+  - Shimmer (1.0.2)
   - SloppySwiper (0.5)
 
 DEPENDENCIES:
   - ChameleonFramework
   - CocoaSPDY
   - GradientView
-  - RealmSwift
+  - Shimmer
   - SloppySwiper
 
 SPEC CHECKSUMS:
   ChameleonFramework: d21a3cc247abfe5e37609a283a8238b03575cf64
   CocoaSPDY: c920d4ba67587f011c888506148f7f6fc6ae6467
   GradientView: 4a961b8e9e1787beaf6880b9fc2dd08c6345533d
-  Realm: c6a7d00221a2d5177810a674aebd40c5e0b70b0f
-  RealmSwift: d6ecad6e4c2a645d6ac956c2c7e9efb375f39c31
+  Shimmer: c5374be1c2b0c9e292fb05b339a513cf291cac86
   SloppySwiper: 7fdffc91062af8fb80574dee80082cb9e0cee507
 
 COCOAPODS: 0.39.0

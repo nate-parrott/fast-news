@@ -5,11 +5,11 @@ use_frameworks!
 
 target 'fast-news-ios' do
 
-pod 'RealmSwift'
 pod 'CocoaSPDY'
 pod 'ChameleonFramework'
 pod 'SloppySwiper'
 pod 'GradientView'
+pod 'Shimmer'
 
 end
 

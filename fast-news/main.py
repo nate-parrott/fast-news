@@ -24,6 +24,10 @@ from mirror import MirrorHandler
 import dump
 import util
 
+def send_json(handler, content):
+    handler.response.headers.add_header('Content-Type', 'application/json')
+    handler.response.write(json.dumps(content))
+
 class MainHandler(webapp2.RequestHandler):
     def get(self):
         self.response.write('Hello world!')
@@ -32,14 +36,12 @@ class SubscribeHandler(webapp2.RequestHandler):
     def post(self):
         url = self.request.get('url')
         uid = self.request.get('uid')
-        self.response.headers.add_header('Content-Type', 'application/json')
-        self.response.write(json.dumps(api.subscribe(uid, url)))
+        send_json(self, api.subscribe(uid, url), cors=True)
 
 class SourceHandler(webapp2.RequestHandler):
     def get(self):
         id = self.request.get('id')
-        self.response.headers.add_header('Content-Type', 'application/json')
-        self.response.write(json.dumps(ndb.Key('Source', id).get().json(include_articles=True)))
+        send_json(self, ndb.Key('Source', id).get().json(include_articles=True))
 
 class ArticleHandler(webapp2.RequestHandler):
     def get(self):
@@ -52,22 +54,19 @@ class ArticleHandler(webapp2.RequestHandler):
         else:
             article = api.ensure_article_at_url(url)
         
-        self.response.headers.add_header('Content-Type', 'application/json')
-        self.response.write(json.dumps(article.json(include_article_json=True)))
+        send_json(self, article.json(include_article_json=True))
 
 class FeedHandler(webapp2.RequestHandler):
     def get(self):
         uid = self.request.get('uid')
         article_limit = int(self.request.get('article_limit', '10'))
         source_limit = int(self.request.get('source_limit', '100'))
-        self.response.headers.add_header('Content-Type', 'application/json')
-        self.response.write(json.dumps(api.feed(uid, article_limit, source_limit)))
+        send_json(self, api.feed(uid, article_limit, source_limit))
 
 class SubscriptionsHandler(webapp2.RequestHandler):
     def get(self):
         uid = self.request.get('uid')
-        self.response.headers.add_header('Content-Type', 'application/json')
-        self.response.write(json.dumps(api.subscriptions(uid)))
+        send_json(self, api.subscriptions(uid))
 
 class UnsubscribeHandler(webapp2.RequestHandler):
     def post(self):
@@ -77,14 +76,12 @@ class UnsubscribeHandler(webapp2.RequestHandler):
         uid = self.request.get('uid')
         url = self.request.get('url')
         api.unsubscribe(uid, url)
-        self.response.headers.add_header('Content-Type', 'application/json')
-        self.response.write(json.dumps({"success": True}))
+        send_json(self, {"success": True})
 
 class BookmarksHandler(webapp2.RequestHandler):
     def get(self):
         uid = self.request.get('uid')
-        self.response.headers.add_header('Content-Type', 'application/json')
-        self.response.write(json.dumps(api.bookmarks(uid)))
+        send_json(self, api.bookmarks(uid))
     
     def post(self):
         uid = self.request.get('uid')
@@ -93,15 +90,13 @@ class BookmarksHandler(webapp2.RequestHandler):
         reading_pos = self.request.get('reading_position')
         if reading_pos: reading_pos = json.loads(reading_pos)
         bookmark = api.add_or_update_bookmark(uid, reading_pos, article_id, article_url)
-        self.response.headers.add_header('Content-Type', 'application/json')
-        self.response.write(json.dumps({"bookmark": bookmark.json() if bookmark else None}))
+        send_json(self, {"bookmark": bookmark.json() if bookmark else None})
     
     def delete(self):
         uid = self.request.get('uid')
         article_id = self.request.get('article_id')
         api.delete_bookmark(uid, article_id)
-        self.response.headers.add_header('Content-Type', 'application/json')
-        self.response.write(json.dumps({"success": True}))
+        send_json(self, {"success": True})
     
 class ArticleTestFetchHandler(webapp2.RequestHandler):
     def post(self):
@@ -181,13 +176,11 @@ class TestHandler(webapp2.RequestHandler):
 
 class StatsHandler(webapp2.RequestHandler):
     def get(self):
-        self.response.headers.add_header('Content-Type', 'application/json')
-        self.response.write(json.dumps(dump.stats()))
+        send_json(dump.stats())
 
 class ArticleDumpHandler(webapp2.RequestHandler):
     def get(self):
-        self.response.headers.add_header('Content-Type', 'application/json')
-        self.response.write(json.dumps(dump.dump_items(cursor=self.request.get('cursor'))))
+        send_json(dump.dump_items(cursor=self.request.get('cursor')))
 
 class SimpleExtractHandler(webapp2.RequestHandler):
     def get(self):

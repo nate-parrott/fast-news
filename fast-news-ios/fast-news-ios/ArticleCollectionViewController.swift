@@ -72,10 +72,6 @@ class ArticleCollectionViewController: UICollectionViewController, UICollectionV
     }
     
     func update() {
-        if !visible {
-            return
-        }
-        
         collectionView?.reloadData()
         
         var title = ""
@@ -88,6 +84,10 @@ class ArticleCollectionViewController: UICollectionViewController, UICollectionV
             title = modelTitle
         }
         navigationItem.title = title
+        
+        if !visible {
+            return
+        }
     }
     
     // MARK: Collection

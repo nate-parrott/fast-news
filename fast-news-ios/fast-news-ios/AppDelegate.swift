@@ -26,18 +26,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         // print("UID: \(APIIdentity.Shared.id)")
         
         applyTheme()
-        // Override point for customization after application launch.
-        let tabViewController = window!.rootViewController as! UITabBarController
-        tabViewController.tabBar.tintColor = FN_PURPLE
-        let splitViewController = tabViewController.viewControllers!.first as! UISplitViewController
-        // let navigationController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as! UINavigationController
-        splitViewController.delegate = self
+
         
-        delay(1) { () -> () in
+        /*delay(2) { () -> () in
             // self.readArticle("http://testpage2.42pag.es")
             // self.readArticle("http://twitter.com/nateparrott")
             // self.readArticle("https://medium.com/hh-design/snapchat-reaction-emoji-a-prototype-372ba5de0bde#.4mv6jk16x")
-        }
+            let item = StatusItem(title: "hey this is a test")
+            RootViewController.Shared.statusItems = [item]
+            delay(3, closure: {
+                RootViewController.Shared.statusItems = []
+            })
+        }*/
         
         return true
     }

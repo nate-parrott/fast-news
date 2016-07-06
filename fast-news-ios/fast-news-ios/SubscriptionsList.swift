@@ -59,6 +59,9 @@ class AddSubscriptionTransaction: Transaction {
         optimisticSub = SourceSubscription(id: nil)
         optimisticSub.source = optimisticSource
         
+        statusItem = StatusItem(title: "Subscribing to \(url)")
+        statusItem.add()
+        
         super.init()
         
         args["url"] = url
@@ -67,9 +70,11 @@ class AddSubscriptionTransaction: Transaction {
     }
     let optimisticSub: SourceSubscription
     let optimisticSource: Source
+    let statusItem: StatusItem
     
     func start(callback: (success: Bool) -> ()) {
         start { (json, error, transaction) -> () in
+            self.statusItem.remove()
             if let resp = json as? [String: AnyObject], let sub = resp["subscription"] as? [String: AnyObject], let source = resp["source"] as? [String: AnyObject] {
                 self.optimisticSub.importJson(sub)
                 self.optimisticSub.updated()

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="x2a-67-0TU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Gad-bg-owK">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -36,7 +36,7 @@
             <objects>
                 <collectionViewController id="5FY-Hm-8g5" customClass="FeedViewController" customModule="Reader" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="fRn-dw-tqq">
-                        <rect key="frame" x="0.0" y="64" width="320" height="455"/>
+                        <rect key="frame" x="0.0" y="44" width="320" height="475"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.95999999999999996" alpha="1" colorSpace="calibratedWhite"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="13a-TJ-bf6">
@@ -56,6 +56,38 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fZO-Bh-cfj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="545" y="-842"/>
+        </scene>
+        <!--Root View Controller-->
+        <scene sceneID="vsJ-Tm-6Hk">
+            <objects>
+                <viewController id="Gad-bg-owK" customClass="RootViewController" customModule="fast_news_ios" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="XiH-iU-O1v"/>
+                        <viewControllerLayoutGuide type="bottom" id="LkG-4a-iWu"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="kyX-IQ-G6N">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tin-QW-dF1">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <connections>
+                                    <segue destination="x2a-67-0TU" kind="embed" id="uo2-ZR-UTa"/>
+                                </connections>
+                            </containerView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="Tin-QW-dF1" secondAttribute="trailing" id="64P-eO-wZ6"/>
+                            <constraint firstItem="Tin-QW-dF1" firstAttribute="leading" secondItem="kyX-IQ-G6N" secondAttribute="leading" id="ZfJ-lK-M3L"/>
+                            <constraint firstItem="Tin-QW-dF1" firstAttribute="top" secondItem="kyX-IQ-G6N" secondAttribute="top" id="dNw-VL-cjc"/>
+                            <constraint firstItem="LkG-4a-iWu" firstAttribute="top" secondItem="Tin-QW-dF1" secondAttribute="bottom" id="hvl-Lb-Os2"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="RRG-AT-7s0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1361" y="-329"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="O8W-TA-0bP">
@@ -103,7 +135,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" textLabel="4jm-5i-oax" detailTextLabel="yDV-J1-5ci" style="IBUITableViewCellStyleSubtitle" id="CrX-z2-FCA">
-                                <rect key="frame" x="0.0" y="92" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="72" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="CrX-z2-FCA" id="knl-WN-TjN">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
@@ -184,7 +216,7 @@
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="eNF-hq-cQS">
-                                <rect key="frame" x="0.0" y="64" width="50" height="50"/>
+                                <rect key="frame" x="0.0" y="44" width="50" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>

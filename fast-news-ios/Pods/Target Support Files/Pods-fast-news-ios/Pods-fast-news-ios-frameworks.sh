@@ -87,15 +87,13 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods-fast-news-ios/ChameleonFramework.framework"
   install_framework "Pods-fast-news-ios/CocoaSPDY.framework"
   install_framework "Pods-fast-news-ios/GradientView.framework"
-  install_framework "Pods-fast-news-ios/Realm.framework"
-  install_framework "Pods-fast-news-ios/RealmSwift.framework"
+  install_framework "Pods-fast-news-ios/Shimmer.framework"
   install_framework "Pods-fast-news-ios/SloppySwiper.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-fast-news-ios/ChameleonFramework.framework"
   install_framework "Pods-fast-news-ios/CocoaSPDY.framework"
   install_framework "Pods-fast-news-ios/GradientView.framework"
-  install_framework "Pods-fast-news-ios/Realm.framework"
-  install_framework "Pods-fast-news-ios/RealmSwift.framework"
+  install_framework "Pods-fast-news-ios/Shimmer.framework"
   install_framework "Pods-fast-news-ios/SloppySwiper.framework"
 fi

@@ -18,7 +18,7 @@ extension UIImage {
                     if pixel.count >= 3 {
                         data[i] = PixelData(a: 255, r: UInt8(pixel[0]), g: UInt8(pixel[1]), b: UInt8(pixel[2]))
                     }
-                    i++
+                    i += 1
                 }
                 let image = imageFromARGB32Bitmap(data, width: size[0], height: size[1])
                 data.dealloc(size.count)

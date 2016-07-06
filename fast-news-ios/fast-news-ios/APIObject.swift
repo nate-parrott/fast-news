@@ -174,6 +174,7 @@ class APIObject: NSObject {
         loadingState = .Loading(startTime)
         
         let t = Transaction()
+        t.timeout = requestTimeout
         let (endpoint, argsOpt) = jsonPath()!
         t.endpoint = endpoint
         for (k,v) in argsOpt ?? [String: String]() {
@@ -218,6 +219,12 @@ class APIObject: NSObject {
     }
     let onUpdate = Pusher<APIObject>()
     
+    var requestTimeout: NSTimeInterval {
+        get {
+            return 20
+        }
+    }
+    
     // MARK: Relevant Transactions
     var supportsRelevantTransactions: Bool {
         get {
@@ -261,6 +268,7 @@ class Transaction {
     var endpoint: String!
     var method = "GET"
     var args = [String: String]()
+    var timeout: NSTimeInterval?
     
     var finished = false
     var failed = false
@@ -271,7 +279,14 @@ class Transaction {
         let req = NSMutableURLRequest(URL: NSURL(string: urlString)!)
         req.HTTPMethod = method
         print("\(req.HTTPMethod) \(req.URL!.absoluteString): START")
-        let task = NSURLSession.sharedSession().dataTaskWithRequest(req) { (let dataOpt, let responseOpt, let errorOpt) -> Void in
+        
+        let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
+        if let t = timeout {
+            configuration.timeoutIntervalForRequest = t
+        }
+        let session = NSURLSession(configuration: configuration)
+        
+        let task = session.dataTaskWithRequest(req) { (let dataOpt, let responseOpt, let errorOpt) -> Void in
             
             var info = dataOpt?.description ?? responseOpt?.description ?? "nothing"
             if let data = dataOpt {

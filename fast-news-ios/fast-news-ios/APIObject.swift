@@ -144,7 +144,7 @@ class APIObject: NSObject {
             () // recent enough
         default:
             // load now:
-            _loadNow(cursorClass.Initial())
+            _loadNow(cursorClass.Initial(), append: false)
         }
     }
     
@@ -154,7 +154,7 @@ class APIObject: NSObject {
             _needsLoadAgain = true
         default:
             // load now:
-            _loadNow(cursorClass.Initial())
+            _loadNow(cursorClass.Initial(), append: false)
         }
     }
     
@@ -162,18 +162,13 @@ class APIObject: NSObject {
         switch loadingState {
         case .Loaded(_, let cursor):
             if let newCursor = cursor.advance() {
-                _loadNow(newCursor)
+                _loadNow(newCursor, append: true)
             }
         default: ()
         }
     }
 
-    func _loadNow(cursor: LoadCursor) {
-        var previousCursor: LoadCursor?
-        switch loadingState {
-        case .Loaded(_, let c): previousCursor = c
-        default: ()
-        }
+    func _loadNow(cursor: LoadCursor, append: Bool) {
         
         let startTime = CFAbsoluteTimeGetCurrent()
         loadingState = .Loading(startTime)
@@ -191,10 +186,10 @@ class APIObject: NSObject {
             if let dict = json as? [String: AnyObject] {
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
                     cursor.receiveTransactionResult(dict)
-                    if previousCursor == nil {
-                        self.importJson(dict)
-                    } else {
+                    if append {
                         self.appendJson(dict, cursor: cursor)
+                    } else {
+                        self.importJson(dict)
                     }
                     self._loadFinished(true, cursor: cursor, startTime: startTime, err: nil)
                 })
@@ -212,7 +207,7 @@ class APIObject: NSObject {
         loadingState = success ? .Loaded(startTime, cursor) : .Error(err)
         if _needsLoadAgain {
             _needsLoadAgain = false
-            _loadNow(cursorClass.Initial())
+            _loadNow(cursorClass.Initial(), append: false)
         }
     }
     

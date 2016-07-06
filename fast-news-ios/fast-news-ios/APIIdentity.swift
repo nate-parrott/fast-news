@@ -13,7 +13,7 @@ class APIIdentity: NSObject {
     override init() {
         super.init()
         _update()
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "_update", name: NSUbiquityIdentityDidChangeNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(APIIdentity._update), name: NSUbiquityIdentityDidChangeNotification, object: nil)
     }
     func _update() {
         id = _compute()

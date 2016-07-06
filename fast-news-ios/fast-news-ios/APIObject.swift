@@ -50,6 +50,14 @@ class APIObject: NSObject {
         return nil
     }
     
+    // MARK: Cursors
+    
+    var cursorClass: LoadCursor.Type {
+        get {
+            return LoadCursor.self
+        }
+    }
+    
     // MARK: Internal initializiers
     
     required init(id: String?) {
@@ -104,6 +112,10 @@ class APIObject: NSObject {
         }
     }
     
+    func appendJson(json: [String: AnyObject], cursor: LoadCursor) {
+        fatalError("Attempted to append json to an object that doesn't support it (\(self))")
+    }
+    
     func jsonPath() -> (String, [String: String]?)? {
         return nil // ("/articles", ["id": "aihrwfpier"])
     }
@@ -113,7 +125,7 @@ class APIObject: NSObject {
         case None
         case Loading(CFAbsoluteTime) // time started
         case Error(NSError?)
-        case Loaded(CFAbsoluteTime)
+        case Loaded(CFAbsoluteTime, LoadCursor)
     }
     var _needsLoadAgain = false
     var loadingState = LoadingState.None {
@@ -128,11 +140,11 @@ class APIObject: NSObject {
             if started < CFAbsoluteTimeGetCurrent() - recency {
                 _needsLoadAgain = true
             }
-        case .Loaded(let loadedAt) where loadedAt >= CFAbsoluteTimeGetCurrent() - recency:
+        case .Loaded(let loadedAt, _) where loadedAt >= CFAbsoluteTimeGetCurrent() - recency:
             () // recent enough
         default:
             // load now:
-            _loadNow()
+            _loadNow(cursorClass.Initial())
         }
     }
     
@@ -142,11 +154,27 @@ class APIObject: NSObject {
             _needsLoadAgain = true
         default:
             // load now:
-            _loadNow()
+            _loadNow(cursorClass.Initial())
+        }
+    }
+    
+    func nextPage() {
+        switch loadingState {
+        case .Loaded(_, let cursor):
+            if let newCursor = cursor.advance() {
+                _loadNow(newCursor)
+            }
+        default: ()
         }
     }
 
-    func _loadNow() {
+    func _loadNow(cursor: LoadCursor) {
+        var previousCursor: LoadCursor?
+        switch loadingState {
+        case .Loaded(_, let c): previousCursor = c
+        default: ()
+        }
+        
         let startTime = CFAbsoluteTimeGetCurrent()
         loadingState = .Loading(startTime)
         
@@ -156,27 +184,35 @@ class APIObject: NSObject {
         for (k,v) in argsOpt ?? [String: String]() {
             t.args[k] = v
         }
+        for (k,v) in cursor.URLParams() {
+            t.args[k] = v
+        }
         t.start { (json, error, transaction) -> () in
             if let dict = json as? [String: AnyObject] {
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    self.importJson(dict)
-                    self._loadFinished(true, startTime: startTime, err: nil)
+                    cursor.receiveTransactionResult(dict)
+                    if previousCursor == nil {
+                        self.importJson(dict)
+                    } else {
+                        self.appendJson(dict, cursor: cursor)
+                    }
+                    self._loadFinished(true, cursor: cursor, startTime: startTime, err: nil)
                 })
             } else {
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    self._loadFinished(false, startTime: startTime, err: error)
+                    self._loadFinished(false, cursor: cursor, startTime: startTime, err: error)
                 })
             }
         }
     }
     
-    func _loadFinished(success: Bool, startTime: CFAbsoluteTime, err: NSError?) {
+    func _loadFinished(success: Bool, cursor: LoadCursor, startTime: CFAbsoluteTime, err: NSError?) {
         _relevantTransactionsFinished.removeAll()
         updated()
-        loadingState = success ? .Loaded(startTime) : .Error(err)
+        loadingState = success ? .Loaded(startTime, cursor) : .Error(err)
         if _needsLoadAgain {
             _needsLoadAgain = false
-            _loadNow()
+            _loadNow(cursorClass.Initial())
         }
     }
     
@@ -287,6 +323,52 @@ class Transaction {
     class func _FinishedInProgressTransaction(t: Transaction) {
         mainThread { () -> Void in
             NSNotificationCenter.defaultCenter().postNotificationName(FinishedNotification, object: t)
+        }
+    }
+}
+
+class LoadCursor {
+    class func Initial() -> LoadCursor {
+        return LoadCursor()
+    }
+    func advance() -> LoadCursor? {
+        return nil
+    }
+    func URLParams() -> [String: String] {
+        return [String: String]()
+    }
+    func receiveTransactionResult(result: [String: AnyObject]) {
+        
+    }
+}
+
+class PagingCursor: LoadCursor {
+    class override func Initial() -> LoadCursor {
+        return PagingCursor(offset: 0)
+    }
+    init(offset: Int) {
+        self.offset = offset
+    }
+    let offset: Int
+    var pagesRemaining = true
+    var limit: Int {
+        get {
+            return 20
+        }
+    }
+    override func advance() -> LoadCursor? {
+        return PagingCursor(offset: offset + limit)
+    }
+    override func URLParams() -> [String : String] {
+        var p = super.URLParams()
+        p["offset"] = "\(offset)"
+        p["limit"] = "\(limit)"
+        return p
+    }
+    override func receiveTransactionResult(result: [String: AnyObject]) {
+        super.receiveTransactionResult(result)
+        if let rem = result["pagesRemaining"] as? Bool {
+            pagesRemaining = rem
         }
     }
 }

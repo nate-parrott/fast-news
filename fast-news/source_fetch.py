@@ -40,8 +40,11 @@ def source_fetch(source):
         
         entries = result.entries[:min(25, len(result.entries))]
         entry_ids = [Article.id_for_article(entry['url'], source.url) for entry in entries]
+        print "ENTRY IDs:", entry_ids
+        print "ENtry id lens: ", str(map(len, entry_ids))
         article_futures = [Article.get_or_insert_async(id) for id in entry_ids]
         articles = [future.get_result() for future in article_futures]
+        print "ARTICLE_OBJECTS:", articles
         
         for i, (entry, article) in enumerate(zip(entries, articles)):
             if not article.url:
@@ -59,7 +62,7 @@ def source_fetch(source):
                 to_put.append(article)
                 delay = (i+1) * 4 # wait 5 seconds between each
                 tasks_to_enqueue.append(article.create_fetch_task(delay=delay))
-    debug("SF: About to put")
+    debug("SF: About to put {0} items".format(len(to_put)))
     if len(to_put):
         ndb.put_multi(to_put)
     debug("SF: About to enqueue")
@@ -98,7 +101,7 @@ def _source_fetch(source):
             del rpcs[0]
         result = results[0] if len(results) else None
         if result:
-            debug("SF: Fetched {0} as {1} source".format(source.url, result.method))
+            debug("SF: Fetched {0} as {1} source with {2} entries".format(source.url, result.method, len(result.entries)))
         else:
             warning("SF: Couldn't fetch {0} using any method".format(source.url))
         if result:

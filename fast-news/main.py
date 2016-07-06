@@ -161,6 +161,11 @@ class TestHandler(webapp2.RequestHandler):
             <p>Make sure to clear the <em>sources</em> queue in the AppEngine dashboard <a href='https://console.cloud.google.com/appengine/taskqueues/sources?project=fast-news&moduleId=default'>here</a> first.</p>
             <input type=submit>
         </form>
+        <form method=POST action='/admin/purge_source'>
+            <h1>Purge source</h1>
+            <input type=url name=url placeholder='Source URL'/>
+            <input type=submit>
+        </form>
         """
         self.response.write(html)
     

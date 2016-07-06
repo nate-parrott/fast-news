@@ -13,7 +13,7 @@ def iterate_tree(soup):
 def clone_node(el, soup):
     if isinstance(el, bs4.NavigableString):
         return type(el)(el)
-
+    
     copy = soup.new_tag(el.name)
     # work around bug where there is no builder set
     # https://bugs.launchpad.net/beautifulsoup/+bug/1307471

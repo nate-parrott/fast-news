@@ -45,9 +45,10 @@ def extract(html, url):
             if id: del data['data-subscribed-id']
             
             state_stack.append(state)
-            clone = clone_node(data, out_soup)
-            stack[-1].append(clone)
-            stack.append(clone)
+            if data.name != '[document]':
+                clone = clone_node(data, out_soup)
+                stack[-1].append(clone)
+                stack.append(clone)
         elif kind == 'text':
             if state_stack[-1] in (WHITELISTED, READABILITY):
                 stack[-1].append(data)

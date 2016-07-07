@@ -31,6 +31,12 @@ class Source(ndb.Model):
     
     shared_title_suffix = ndb.TextProperty()
     
+    title_override = ndb.TextProperty()
+    color = ndb.StringProperty()
+    icon_url = ndb.StringProperty()
+    featured_priority = ndb.FloatProperty()
+    categories = ndb.StringProperty(repeated=True)
+    
     def fetch_now(self):
         source_fetch(self)
     
@@ -79,7 +85,6 @@ class Article(ndb.Model):
     added_date = ndb.DateTimeProperty()
     added_order = ndb.IntegerProperty()
     title = ndb.TextProperty()
-    has_low_quality_title = ndb.BooleanProperty(default=False)
     published = ndb.DateTimeProperty()
     top_image = ndb.TextProperty()
     top_image_tiny_json = ndb.JsonProperty()
@@ -91,7 +96,7 @@ class Article(ndb.Model):
     fetch_failed = ndb.BooleanProperty()
     fetch_date = ndb.DateTimeProperty()
     content = ndb.KeyProperty(kind=ArticleContent)
-        
+    
     @classmethod
     def id_for_article(cls, url, source_url):
         source_string = canonical_url(source_url) if source_url else u"standalone"

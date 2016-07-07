@@ -1,0 +1,22 @@
+{% include "admin_base.html" %}
+
+{% block content %}
+
+<form method='POST'>
+	<h1>Sources by URL</h1>
+	<input type=url placeholder='URL' name=url />
+	<br/>
+	<input type=submit value="Find or create"/>
+</form>
+
+<h1>Featured Sources</h1>
+
+<ol id='sources'>
+{% for source in featured_sources %}
+	<li>
+		<a href='sources/{{ source.key.urlsafe() }}'>{{ source.title }}</a>
+	</li>
+{% endfor %}
+</ol>
+
+{% endblock %}

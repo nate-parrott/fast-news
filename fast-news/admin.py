@@ -4,6 +4,7 @@ import webapp2
 from model import Source, Article
 from canonical_url import canonical_url
 from google.appengine.ext import ndb
+import source_admin
 
 class RescheduleSourceFetchesHandler(webapp2.RequestHandler):
     def post(self):
@@ -27,5 +28,7 @@ class PurgeSourceHandler(webapp2.RequestHandler):
 
 app = webapp2.WSGIApplication([
     ('/admin/reschedule_source_fetches', RescheduleSourceFetchesHandler),
-    ('/admin/purge_source', PurgeSourceHandler)
+    ('/admin/purge_source', PurgeSourceHandler),
+    ('/admin/sources', source_admin.SourcesAdminHandler),
+    ('/admin/sources/(.+)', source_admin.SourceAdminHandler)
 ], debug=True)

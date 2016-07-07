@@ -1,0 +1,27 @@
+{% include "admin_base.html" %}
+
+{% block content %}
+
+<form method='POST'>
+	<h1>Edit source <code>{{ source.url }}</code></h1>
+	
+	<table>
+		{% for field in fields %}
+			<tr>
+				<td>{{ field.name }}</td>
+				<td>
+					{% if field.type in ('text', 'number') %}
+						<input name='{{ field.name }}' value='{{ field.value }}'/>
+					{% else %}
+						{{ field.value }}
+					{% endif %}
+				</td>
+			</tr>
+		{% endfor %}
+	</table>
+	
+	<input type='submit'>
+	
+</form>
+
+{% endblock %}

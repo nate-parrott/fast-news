@@ -200,6 +200,7 @@ class SwipeAwayViewController: UIViewController, UIViewControllerAnimatedTransit
     var _displayLink: CADisplayLink?
     func _dynamicAnimationTick() {
         view.backgroundColor = UIColor(white: 0, alpha: 0.7 * _contentViewScreenOverlap)
+        SetStatusBarOpacity(1 - _contentViewScreenOverlap)
         
         switch _transitionState {
         case .Entrance: _checkIfDynamicEntranceCompleted()

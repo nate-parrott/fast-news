@@ -146,6 +146,8 @@
 		5FE982D11D2CF42F009C9ECF /* StatusItem+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE982CF1D2CF41E009C9ECF /* StatusItem+Extension.swift */; };
 		5FE982D81D2CF4C8009C9ECF /* StatusItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE982D71D2CF4C8009C9ECF /* StatusItem.swift */; };
 		5FE982D91D2CF4F5009C9ECF /* StatusItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE982D71D2CF4C8009C9ECF /* StatusItem.swift */; };
+		5FE982DB1D2F949D009C9ECF /* StatusBarOpacity+App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE982DA1D2F949D009C9ECF /* StatusBarOpacity+App.swift */; };
+		5FE982DE1D2F94AF009C9ECF /* StatusBarOpacity+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE982DC1D2F94AB009C9ECF /* StatusBarOpacity+Ext.swift */; };
 		725D858EB45B62776BD1EC87 /* Pods_fast_news_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B28AF43A8234C24ACECEB84 /* Pods_fast_news_ios.framework */; };
 /* End PBXBuildFile section */
 
@@ -289,6 +291,8 @@
 		5FE982CD1D2CF405009C9ECF /* StatusItem+App.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "StatusItem+App.swift"; sourceTree = "<group>"; };
 		5FE982CF1D2CF41E009C9ECF /* StatusItem+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "StatusItem+Extension.swift"; sourceTree = "<group>"; };
 		5FE982D71D2CF4C8009C9ECF /* StatusItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusItem.swift; sourceTree = "<group>"; };
+		5FE982DA1D2F949D009C9ECF /* StatusBarOpacity+App.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "StatusBarOpacity+App.swift"; sourceTree = "<group>"; };
+		5FE982DC1D2F94AB009C9ECF /* StatusBarOpacity+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "StatusBarOpacity+Ext.swift"; sourceTree = "<group>"; };
 		7B28AF43A8234C24ACECEB84 /* Pods_fast_news_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_fast_news_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0848AEAC746D72B580AA7EF /* Pods-fast-news-ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fast-news-ios.debug.xcconfig"; path = "Pods/Target Support Files/Pods-fast-news-ios/Pods-fast-news-ios.debug.xcconfig"; sourceTree = "<group>"; };
 		C8692EA5BF694EAB0375ECAB /* Pods-fast-news-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fast-news-ios.release.xcconfig"; path = "Pods/Target Support Files/Pods-fast-news-ios/Pods-fast-news-ios.release.xcconfig"; sourceTree = "<group>"; };
@@ -455,6 +459,8 @@
 			isa = PBXGroup;
 			children = (
 				5F5E4DAA1C701BE6009C3446 /* SSWDirectionalPanGestureRecognizer.h */,
+				5FE982DA1D2F949D009C9ECF /* StatusBarOpacity+App.swift */,
+				5FE982DC1D2F94AB009C9ECF /* StatusBarOpacity+Ext.swift */,
 				5F4FDB131C8381BB0049C61A /* FNNavigationController.swift */,
 				5F8D9F301C6C0AFE00F0FFBE /* EnableSPDY.h */,
 				5F8D9F311C6C0AFE00F0FFBE /* EnableSPDY.m */,
@@ -752,6 +758,7 @@
 				5FE982D11D2CF42F009C9ECF /* StatusItem+Extension.swift in Sources */,
 				5F3054481C7D1A3700E0CFE6 /* TextSegmentTableViewCell.swift in Sources */,
 				5F3054631C7D1A5B00E0CFE6 /* BinarySearch.swift in Sources */,
+				5FE982DE1D2F94AF009C9ECF /* StatusBarOpacity+Ext.swift in Sources */,
 				5FE982D91D2CF4F5009C9ECF /* StatusItem.swift in Sources */,
 				5F30545B1C7D1A5B00E0CFE6 /* NSData+MD5.swift in Sources */,
 				5F3054581C7D1A5B00E0CFE6 /* FNSplitViewController.swift in Sources */,
@@ -845,6 +852,7 @@
 				5F73F17D1C77C92300DA2981 /* ImageSegmentTableViewCell.swift in Sources */,
 				5FCDF4401C6BCD6700A50A75 /* CommonExtensions.swift in Sources */,
 				5FC506EB1C914AD800F7A237 /* CPHueWheel.m in Sources */,
+				5FE982DB1D2F949D009C9ECF /* StatusBarOpacity+App.swift in Sources */,
 				5F4A71551C631E9400676F91 /* APIObject.swift in Sources */,
 				5FCDF4481C6BFAFB00A50A75 /* ArticleCollectionViewController.swift in Sources */,
 			);

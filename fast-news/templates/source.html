@@ -12,6 +12,15 @@
 				<td>
 					{% if field.type in ('text', 'number') %}
 						<input name='{{ field.name }}' value='{{ field.value }}'/>
+					{% elif field.type == 'file_url' %}
+						<input type=file name='{{ field.name }}'>
+						{% if field.value %}
+							{% if field.image %}
+								<img src='{{ field.value }}' />
+							{% else %}
+								<a href='{{ field.value }}'>File</code>
+							{% endif %}
+						{% endif %}
 					{% else %}
 						{{ field.value }}
 					{% endif %}

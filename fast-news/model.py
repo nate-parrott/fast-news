@@ -36,6 +36,7 @@ class Source(ndb.Model):
     icon_url = ndb.StringProperty()
     featured_priority = ndb.FloatProperty()
     categories = ndb.StringProperty(repeated=True)
+    keywords = ndb.TextProperty()
     
     def fetch_now(self):
         source_fetch(self)

@@ -23,7 +23,8 @@ source_fields = [
     {"name": "featured_priority", "type": "number"},
     {"name": "categories", "type": "text", "split": "//"},
     {"name": "color", "type": "text"},
-    {"name": "icon_url", "type": "file_url", "max_size": 200}
+    {"name": "icon_url", "type": "file_url", "image": True, "max_size": 200},
+    {"name": "keywords", "type": "text"}
 ]
 
 class SourceAdminHandler(webapp2.RequestHandler):

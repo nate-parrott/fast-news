@@ -41,6 +41,10 @@ class ArticleViewController: SwipeAwayViewController {
                 s._readingPosition = pos
             }
         }
+        pager.onScroll = {
+            [weak self] (let pos) in
+            self?._didScroll(pos)
+        }
         
         contentView.insertSubview(pager, atIndex: 0)
         
@@ -414,6 +418,16 @@ class ArticleViewController: SwipeAwayViewController {
                 return TextSegmentTableViewCell.pageBreakPointsForSegment(str, width: size.width, margin: UIEdgeInsetsMake(topMargin, ArticleViewController.Margin, bottomMargin, ArticleViewController.Margin))
             default:
                 return [0, heightForModel(model)]
+            }
+        }
+    }
+    
+    func _didScroll(pos: CGFloat) {
+        let expansion = max(0, -pos)
+        if let pageView = pager._viewsOnscreen[0] as? ArticlePageView {
+            pageView.maskTopExpansion = expansion
+            if let imageView = pageView.views.first?.0 as? ImageSegmentTableViewCell {
+                imageView.upwardExpansion = expansion
             }
         }
     }

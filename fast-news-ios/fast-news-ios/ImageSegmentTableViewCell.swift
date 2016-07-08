@@ -18,7 +18,7 @@ class ImageSegmentTableViewCell: ArticleSegmentCell {
             // do some setup:
             contentView.addSubview(netImageView)
             netImageView.contentMode = .ScaleAspectFill
-            clipsToBounds = true
+            netImageView.clipsToBounds = true
             backgroundColor = UIColor(white: 1, alpha: 1)
         }
     }
@@ -59,7 +59,6 @@ class ImageSegmentTableViewCell: ArticleSegmentCell {
         super.prepareForReuse()
         upwardExpansion = 0
         translateY = 0
-        clipsToBounds = true
     }
     
     var _imageSize = CGSizeZero {
@@ -80,9 +79,11 @@ class ImageSegmentTableViewCell: ArticleSegmentCell {
     }
     
     var upwardExpansion: CGFloat = 0 {
-        didSet {
-            setNeedsLayout()
-            layoutIfNeeded()
+        didSet (old) {
+            if old != upwardExpansion {
+                setNeedsLayout()
+                layoutIfNeeded()
+            }
         }
     }
     

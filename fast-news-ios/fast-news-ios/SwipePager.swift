@@ -26,6 +26,9 @@ class SwipePager<T:Hashable>: UIView, UIScrollViewDelegate {
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
         _updatePosition()
+        if let o = onScroll {
+            o(scrollView.contentOffset.y)
+        }
     }
     
     func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
@@ -117,6 +120,8 @@ class SwipePager<T:Hashable>: UIView, UIScrollViewDelegate {
     
     var _prevPage: Int = 0
     var onPageChanged: (Int -> ())?
+    
+    var onScroll: (CGFloat -> ())?
     
     var _viewsOnscreen = [T: UIView]() {
         willSet(newVal) {

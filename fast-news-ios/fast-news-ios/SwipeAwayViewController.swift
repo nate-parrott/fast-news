@@ -170,6 +170,7 @@ class SwipeAwayViewController: UIViewController, UIViewControllerAnimatedTransit
         UIView.animateWithDuration(0.22, delay: 0, options: [.CurveEaseIn], animations: {
             self.contentView.center = self.contentView.center + CGPointMake(self.contentView.bounds.size.width, 0)
             self.view.backgroundColor = UIColor.clearColor()
+            SetStatusBarOpacity(1)
             }) { (_) in
                 self.dismissViewControllerAnimated(true, completion: nil)
         }

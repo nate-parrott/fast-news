@@ -17,10 +17,15 @@ class ArticlePageView: UIView {
             for v in newVal {
                 addSubview(v.0)
             }
-            // clipsToBounds = true
+            // clipsToBounds = false
         }
     }
     var marginTop: CGFloat = 0 {
+        didSet {
+            setNeedsLayout()
+        }
+    }
+    var maskTopExpansion: CGFloat = 0 {
         didSet {
             setNeedsLayout()
         }
@@ -38,7 +43,7 @@ class ArticlePageView: UIView {
                 maskView!.backgroundColor = UIColor.whiteColor()
             }
             
-            maskView!.frame = CGRectMake(0, marginTop, bounds.size.width, lastView.frame.bottom - marginTop)
+            maskView!.frame = CGRectMake(0, marginTop - maskTopExpansion, bounds.size.width, lastView.frame.bottom - marginTop + maskTopExpansion)
             
             lastView.frame = CGRectMake(0, lastView.frame.origin.y, lastView.frame.size.width, lastView.frame.size.height + 20)
         }

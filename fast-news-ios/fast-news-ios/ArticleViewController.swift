@@ -20,6 +20,7 @@ class ArticleViewController: SwipeAwayViewController {
     }
     var _articleSub: Subscription?
     var _bookmarkListChangedSub: Subscription?
+    var _articleContentLoadTimedOut = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,13 +70,24 @@ class ArticleViewController: SwipeAwayViewController {
         BookmarkList.Shared.ensureRecency(10 * 60)
         _updateBookmarked()
         
+        delay(3) {
+            switch self._viewState {
+            case .ShowLoading:
+                self._articleContentLoadTimedOut = true
+                self._update()
+            default: ()
+            }
+        }
+        
         // let hiddenSettingsRec = UILongPressGestureRecognizer(target: self, action: #selector(ArticleViewController._longPressed(_:)))
         // actionsBar.addGestureRecognizer(hiddenSettingsRec)
     }
     
     func _update() {
         title = article.title
-        if let content = article.content {
+        if _articleContentLoadTimedOut {
+            _viewState = .ShowWeb
+        } else if let content = article.content {
             if content.lowQuality ?? false {
                 _viewState = .ShowWeb
             } else {

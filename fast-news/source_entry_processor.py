@@ -1,13 +1,13 @@
 import json
 from util import url_fetch
+from canonical_url import canonical_url
+import re
 
 def create_source_entry_processor(url):
+    url = canonical_url(url)
     print "SEARCHING FOR SOURCE ENTRY PROCESSOR FOR:", url
     
-    def process_vanilla(entry):
-        pass
-    
-    if url.startswith('https://www.reddit.com') and url.endswith('.rss'):
+    if url.startswith('http://www.reddit.com') and url.endswith('.rss'):
         print 'using reddit entry processor'
         json_url = url[:-len('.rss')] + '.json'
         api_resp = json.loads(url_fetch(json_url))
@@ -18,7 +18,7 @@ def create_source_entry_processor(url):
             actual_url = item['url']
             url_map[submission_url] = actual_url
         print 'url map: {0}'.format(url_map)
-        def process_reddit(entry):
+        def process_reddit(entry, feed_entry):
             print 'entry url: {0}'.format(entry['url'])
             submission_url = entry['url']
             if submission_url in url_map:
@@ -26,9 +26,18 @@ def create_source_entry_processor(url):
                 entry['url'] = url_map[submission_url]
                 entry['submission_url'] = submission_url
         return process_reddit
-        
     
-    def process_vanilla(entry):
+    if url.startswith('http://longform.org/'):
+        def longform_override(result_entry, feed_entry):
+            if 'content' in feed_entry and len(feed_entry['content']) > 0:
+                content = feed_entry['content'][0]['value']
+                matches = re.findall(r"\"(.+)\"", content)
+                if len(matches):
+                    result_entry['url'] = matches[-1]
+        return longform_override
+    
+    def process_vanilla(result_entry, feed_entry):
         pass
+    
     return process_vanilla
     

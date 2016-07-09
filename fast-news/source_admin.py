@@ -20,6 +20,7 @@ class SourcesAdminHandler(webapp2.RequestHandler):
 source_fields = [
     {"name": "title"},
     {"name": "title_override", "type": "text"},
+    {"name": "rss_url_override", "type": "text"},
     {"name": "featured_priority", "type": "number"},
     {"name": "categories", "type": "text", "split": "//"},
     {"name": "color", "type": "text"},

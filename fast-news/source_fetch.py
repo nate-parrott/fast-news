@@ -96,7 +96,7 @@ def _source_fetch(source):
             if res: results.append(res)
         def add_rpc(rpc):
             rpcs.append(rpc)
-        for fn in [fetch_twitter, fetch_hardcoded_rss_url, rss_fetch, fetch_wordpress_default_rss, fetch_linked_rss]:
+        for fn in fetch_functions_for_source(source):
             fn(source, markup, source.url, add_rpc, got_result)
         while len(rpcs):
             rpcs[0].wait()
@@ -114,6 +114,11 @@ def _source_fetch(source):
     else:
         print "URL error fetching {0}".format(source.url)
     return None
+
+def fetch_functions_for_source(source):
+    if source.rss_url_override:
+        return [fetch_hardcoded_rss_url]
+    return [fetch_twitter, fetch_hardcoded_rss_url, rss_fetch, fetch_wordpress_default_rss, fetch_linked_rss]
 
 def rss_fetch(source, markup, url, add_rpc, got_result):    
     parsed = feedparser.parse(markup)
@@ -137,9 +142,9 @@ def rss_fetch(source, markup, url, add_rpc, got_result):
                 published = datetime.datetime.fromtimestamp(mktime(pub_time))
             else:
                 published = None
-            entry = {"title": title, "url": link_url, "published": published}
-            source_entry_processor(entry)
-            entries.append(entry)
+            result_entry = {"title": title, "url": link_url, "published": published}
+            source_entry_processor(result_entry, entry)
+            entries.append(result_entry)
     
     got_result(FetchResult('rss', feed_title, entries))
 
@@ -177,6 +182,9 @@ def fetch_wordpress_default_rss(source, markup, url, add_rpc, got_result):
     # print "MARKUP:", feed_markup
 
 def fetch_hardcoded_rss_url(source, markup, url, add_rpc, got_result):
+    if source.rss_url_override:
+        return source.rss_url_override
+    
     lookup = {
         'news.ycombinator.com': 'http://hnrss.org/newest?points=25',
         'newyorker.com': 'http://www.newyorker.com/feed/everything',

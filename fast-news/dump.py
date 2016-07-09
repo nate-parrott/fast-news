@@ -2,7 +2,7 @@ from google.appengine.datastore.datastore_query import Cursor
 from model import Article
 
 def stats():
-    article_count = Article.query(Article.content != None).count()
+    article_count = Article.query(Article.content != None).count(keys_only=True)
     return {
         "article_count": article_count
     }

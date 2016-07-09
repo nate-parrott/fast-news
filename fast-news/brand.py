@@ -8,7 +8,7 @@ def extract_brand(markup, url):
     
     def find_link_with_rel(rel):
         link = soup.find('link', attrs={'rel': rel})
-        if link and link['href']:
+        if link and link.has_attr('href'):
             return urljoin(url, link['href'])
     
     icon = find_link_with_rel('icon')

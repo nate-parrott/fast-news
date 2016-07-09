@@ -36,6 +36,11 @@ def create_source_entry_processor(url):
                     result_entry['url'] = matches[-1]
         return longform_override
     
+    if url == 'http://www.designernews.co/?format=atom':
+        def dn_override(result_entry, feed_entry):
+            if 'summary' in feed_entry: result_entry['url'] = feed_entry['url']
+        return dn_override
+    
     def process_vanilla(result_entry, feed_entry):
         pass
     

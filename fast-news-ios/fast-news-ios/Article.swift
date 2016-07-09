@@ -61,10 +61,4 @@ class Article: APIObject {
     override class func typeName() -> String {
         return "article"
     }
-    
-    override var requestTimeout: NSTimeInterval {
-        get {
-            return 3
-        }
-    }
 }

@@ -25,6 +25,10 @@
 		5F0CC63A1C6D526E0071A026 /* RobotoMono-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5F0CC6361C6D526E0071A026 /* RobotoMono-Italic.ttf */; };
 		5F0CC63B1C6D526E0071A026 /* RobotoMono-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5F0CC6371C6D526E0071A026 /* RobotoMono-Regular.ttf */; };
 		5F0CC63D1C6D6BEB0071A026 /* ArticleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F0CC63C1C6D6BEB0071A026 /* ArticleCell.swift */; };
+		5F24D6BA1D31C0E6000C0133 /* UIView+ParticleEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F24D6B91D31C0E6000C0133 /* UIView+ParticleEffects.swift */; };
+		5F24D6BB1D31C0E6000C0133 /* UIView+ParticleEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F24D6B91D31C0E6000C0133 /* UIView+ParticleEffects.swift */; };
+		5F24D6C11D31C4C4000C0133 /* UIImage+ApplyTint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F24D6C01D31C4C4000C0133 /* UIImage+ApplyTint.swift */; };
+		5F24D6C21D31C4C4000C0133 /* UIImage+ApplyTint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F24D6C01D31C4C4000C0133 /* UIImage+ApplyTint.swift */; };
 		5F3054311C7CE13A00E0CFE6 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3054301C7CE13A00E0CFE6 /* Color.swift */; };
 		5F3054331C7CE33200E0CFE6 /* SafariVCActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3054321C7CE33200E0CFE6 /* SafariVCActivity.swift */; };
 		5F30543B1C7D197F00E0CFE6 /* ActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F30543A1C7D197F00E0CFE6 /* ActionViewController.swift */; };
@@ -195,6 +199,8 @@
 		5F0CC6361C6D526E0071A026 /* RobotoMono-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoMono-Italic.ttf"; sourceTree = "<group>"; };
 		5F0CC6371C6D526E0071A026 /* RobotoMono-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoMono-Regular.ttf"; sourceTree = "<group>"; };
 		5F0CC63C1C6D6BEB0071A026 /* ArticleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleCell.swift; sourceTree = "<group>"; };
+		5F24D6B91D31C0E6000C0133 /* UIView+ParticleEffects.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+ParticleEffects.swift"; sourceTree = "<group>"; };
+		5F24D6C01D31C4C4000C0133 /* UIImage+ApplyTint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+ApplyTint.swift"; sourceTree = "<group>"; };
 		5F3054301C7CE13A00E0CFE6 /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		5F3054321C7CE33200E0CFE6 /* SafariVCActivity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SafariVCActivity.swift; sourceTree = "<group>"; };
 		5F3054381C7D197F00E0CFE6 /* Reader.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Reader.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -458,6 +464,7 @@
 		5F8D9F2B1C6BFF7B00F0FFBE /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				5F24D6B91D31C0E6000C0133 /* UIView+ParticleEffects.swift */,
 				5F5E4DAA1C701BE6009C3446 /* SSWDirectionalPanGestureRecognizer.h */,
 				5FE982DA1D2F949D009C9ECF /* StatusBarOpacity+App.swift */,
 				5FE982DC1D2F94AB009C9ECF /* StatusBarOpacity+Ext.swift */,
@@ -476,6 +483,7 @@
 				5F5E4DAB1C71014D009C3446 /* Utils.swift */,
 				5F73F1781C76A8DE00DA2981 /* NSAttributedString+TrimWhitespace.swift */,
 				5FCDF43F1C6BCD6700A50A75 /* CommonExtensions.swift */,
+				5F24D6C01D31C4C4000C0133 /* UIImage+ApplyTint.swift */,
 				5F59D8A91C791B1F00C3E1C3 /* UIImage+Tiny.swift */,
 				5F3054301C7CE13A00E0CFE6 /* Color.swift */,
 				5F59D8AB1C791D7600C3E1C3 /* Pixel.swift */,
@@ -750,6 +758,7 @@
 				5F40C3991C7D210300B045A4 /* Defs.swift in Sources */,
 				5F3054531C7D1A3C00E0CFE6 /* Subscription.swift in Sources */,
 				5F3054471C7D1A3700E0CFE6 /* ArticleViewController.swift in Sources */,
+				5F24D6C21D31C4C4000C0133 /* UIImage+ApplyTint.swift in Sources */,
 				5F3054541C7D1A5B00E0CFE6 /* NetImageView.swift in Sources */,
 				5F3054611C7D1A5B00E0CFE6 /* Color.swift in Sources */,
 				5FC3BFE01C9F0724000A2D9E /* Stylesheets.swift in Sources */,
@@ -771,6 +780,7 @@
 				5F30544B1C7D1A3700E0CFE6 /* SwipeAwayViewController.swift in Sources */,
 				5F3054621C7D1A5B00E0CFE6 /* Pixel.swift in Sources */,
 				5F30545E1C7D1A5B00E0CFE6 /* NSAttributedString+TrimWhitespace.swift in Sources */,
+				5F24D6BB1D31C0E6000C0133 /* UIView+ParticleEffects.swift in Sources */,
 				5F3054571C7D1A5B00E0CFE6 /* Pusher.swift in Sources */,
 				5F3054561C7D1A5B00E0CFE6 /* UIImage+Resize.swift in Sources */,
 				5F3054591C7D1A5B00E0CFE6 /* EVComplexLayout.m in Sources */,
@@ -787,6 +797,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				5F5E4D981C6E434C009C3446 /* BookmarksViewController.swift in Sources */,
+				5F24D6BA1D31C0E6000C0133 /* UIView+ParticleEffects.swift in Sources */,
+				5F24D6C11D31C4C4000C0133 /* UIImage+ApplyTint.swift in Sources */,
 				5F5E4DA91C700D7E009C3446 /* SwipeAwayViewController.swift in Sources */,
 				5FE982CC1D2CEA48009C9ECF /* StatusView.swift in Sources */,
 				5F4A715B1C63237B00676F91 /* Article.swift in Sources */,

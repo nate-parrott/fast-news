@@ -132,6 +132,10 @@ class ArticleViewController: SwipeAwayViewController {
     @IBOutlet var bookmarkButton: UIButton!
     
     @IBAction func toggleBookmarked(sender: AnyObject) {
+        if !bookmarked {
+            let image = UIImage(named: "BookmarkChecked")!.applyTint(actionsBar.tintColor!)
+            bookmarkButton.fireTouchParticleEffectAtPoint(bookmarkButton.bounds.center, image: image)
+        }
         bookmarked = !bookmarked
     }
     

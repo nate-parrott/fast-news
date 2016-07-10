@@ -17,6 +17,10 @@ handlers:
   script: tasks.app
   login: admin
 
+- url: /admin
+  script: admin.app
+  login: admin
+
 - url: /admin/.*
   script: admin.app
   login: admin

@@ -1,7 +1,7 @@
 from google.appengine.ext import ndb
 from canonical_url import canonical_url
 from google.appengine.api import taskqueue
-from util import truncate, timestamp_from_datetime
+from util import truncate, timestamp_from_datetime, first_present
 import util
 import sys, traceback, StringIO
 
@@ -65,8 +65,10 @@ class Source(ndb.Model):
             d = {
                 "id": self.key.id(),
                 "url": self.url,
-                "title": self.title,
-                "brand": self.brand
+                "title": first_present([self.title_override, self.title]),
+                "brand": self.brand,
+                "color": self.color,
+                "icon_url": self.icon_url
             }
             if include_articles:
                 d['articles'] = [a.json() for a in articles_future.get_result()]

@@ -23,6 +23,7 @@ from pprint import pprint
 from mirror import MirrorHandler
 import dump
 import util
+import file_storage
 
 def send_json(handler, content):
     handler.response.headers.add_header('Content-Type', 'application/json')
@@ -214,7 +215,8 @@ app = webapp2.WSGIApplication([
     ('/mirror', MirrorHandler),
     ('/stats', StatsHandler),
     ('/dump/articles', ArticleDumpHandler),
-    ('/extract', SimpleExtractHandler)
+    ('/extract', SimpleExtractHandler),
+    ('/_dbFile', file_storage._DBFileHandler)
 ], debug=True)
 
 if False:

@@ -10,6 +10,7 @@ import unicodedata
 import re
 from google.appengine.api import urlfetch
 import logging
+import os
 
 def url_fetch_async(url, callback, timeout=5):
     rpc = urlfetch.create_rpc(deadline=timeout)
@@ -91,3 +92,15 @@ def deduplicate_json(items, keys):
             existing_keysets.add(keyset)
             out.append(item)
     return out
+
+def is_local_server():
+    return os.environ.get('SERVER_SOFTWARE','').startswith('Development')
+
+def get_uploaded_file(request, field_name):
+    if field_name in request.POST.multi:
+        f = request.POST.multi[field_name]
+        print f
+        name = f.filename
+        mime = f.type
+        data = f.file.read()
+        return (name, mime, data)

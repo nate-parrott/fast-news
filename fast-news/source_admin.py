@@ -4,6 +4,9 @@ from template import template
 from model import Source
 import api
 import copy
+import file_storage
+import util
+from google.appengine.api import images
 
 class SourcesAdminHandler(webapp2.RequestHandler):
     def get(self):
@@ -57,7 +60,25 @@ class SourceAdminHandler(webapp2.RequestHandler):
                         val = [v.strip() for v in val.split(field['split'])]
                 elif t == 'number':
                     val = float(content)
+                elif t == 'file_url':
+                    f = util.get_uploaded_file(self.request, field['name'])
+                    if f:
+                        name, mime, data = f
+                        if field.get('image') and 'max_size' in field:
+                            val = store_resized_image(data, field['max_size'])
+                        else:
+                            val = file_storage.upload_file_and_get_url(data, mime)
             if val != not_set:
                 setattr(source, field['name'], val)
         source.put()
         self.redirect('')
+
+def store_resized_image(data, max_size):
+    mime = 'image/png'
+    img = images.Image(data)
+    ow, oh = img.width, img.height
+    scale = min(max_size*1.0/ow, max_size*1.0/oh, 1)
+    img.resize(int(ow*scale), int(oh*scale))
+    content_type = 'image/png'
+    data = img.execute_transforms(output_encoding=images.PNG)
+    return file_storage.upload_file_and_get_url(data, mime)

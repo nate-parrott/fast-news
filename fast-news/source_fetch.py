@@ -20,6 +20,7 @@ import re
 from logging import warning
 from logging import info as debug
 from source_entry_processor import create_source_entry_processor
+import util
 
 class FetchResult(object):
     def __init__(self, method, feed_title, entries):
@@ -88,7 +89,8 @@ def source_fetch(source):
 
 def _source_fetch(source):
     fetch_type = None
-    markup = url_fetch(source.url)
+    url = util.first_present([source.fetch_url_override, source.url])
+    markup = url_fetch(url)
     if markup:
         results = []
         rpcs = []
@@ -97,15 +99,15 @@ def _source_fetch(source):
         def add_rpc(rpc):
             rpcs.append(rpc)
         for fn in fetch_functions_for_source(source):
-            fn(source, markup, source.url, add_rpc, got_result)
+            fn(source, markup, url, add_rpc, got_result)
         while len(rpcs):
             rpcs[0].wait()
             del rpcs[0]
         result = results[0] if len(results) else None
         if result:
-            debug("SF: Fetched {0} as {1} source with {2} entries".format(source.url, result.method, len(result.entries)))
+            debug("SF: Fetched {0} as {1} source with {2} entries".format(url, result.method, len(result.entries)))
         else:
-            warning("SF: Couldn't fetch {0} using any method".format(source.url))
+            warning("SF: Couldn't fetch {0} using any method".format(url))
         if result:
             debug("SF: starting brand fetch")
             result.brand = extract_brand(markup, source.url)
@@ -116,8 +118,6 @@ def _source_fetch(source):
     return None
 
 def fetch_functions_for_source(source):
-    if source.rss_url_override:
-        return [fetch_hardcoded_rss_url]
     return [fetch_twitter, fetch_hardcoded_rss_url, rss_fetch, fetch_wordpress_default_rss, fetch_linked_rss]
 
 def rss_fetch(source, markup, url, add_rpc, got_result):    
@@ -182,9 +182,6 @@ def fetch_wordpress_default_rss(source, markup, url, add_rpc, got_result):
     # print "MARKUP:", feed_markup
 
 def fetch_hardcoded_rss_url(source, markup, url, add_rpc, got_result):
-    if source.rss_url_override:
-        return source.rss_url_override
-    
     lookup = {
         'news.ycombinator.com': 'http://hnrss.org/newest?points=25',
         'newyorker.com': 'http://www.newyorker.com/feed/everything',

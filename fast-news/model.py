@@ -34,7 +34,7 @@ class Source(ndb.Model):
     
     shared_title_suffix = ndb.TextProperty()
     
-    rss_url_override = ndb.StringProperty()
+    fetch_url_override = ndb.StringProperty()
     title_override = ndb.TextProperty()
     color = ndb.StringProperty()
     icon_url = ndb.StringProperty()

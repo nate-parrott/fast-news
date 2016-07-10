@@ -43,7 +43,10 @@ def unsubscribe(uid, url):
 
 def subscriptions(uid):
     subs = Subscription.query(Subscription.uid == uid).fetch()
-    return {"subscriptions": [sub.json() for sub in subs]}
+    json_futures = [sub.json(return_promise=True) for sub in subs]
+    jsons = [j() for j in json_futures]
+    jsons = [j for j in jsons if j['source']]
+    return {"subscriptions": jsons}
 
 def ensure_source(url, suppress_immediate_fetch=False):
     url = canonical_url(url)

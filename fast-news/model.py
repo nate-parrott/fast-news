@@ -14,13 +14,16 @@ class Subscription(ndb.Model):
     def id_for_subscription(cls, url, uid):
         return canonical_url(url) + u" " + uid
     
-    def json(self):
-        source = Source.from_url(self.url)
-        return {
-            "id": self.key.id(),
-            "source": source.json(),
-            "url": source.url
-        }
+    def json(self, return_promise=False):
+        source_future = Source.from_url_async(self.url)
+        def promise():
+            source = source_future.get_result()
+            return {
+                "id": self.key.id(),
+                "url": self.url,
+                "source": source.json() if source else None
+            }
+        return promise if return_promise else promise()
 
 class Source(ndb.Model):
     url = ndb.StringProperty()
@@ -54,7 +57,11 @@ class Source(ndb.Model):
         
     @classmethod
     def from_url(cls, url):
-        return ndb.Key(Source, cls.id_for_source(url)).get()
+        return cls.from_url_async(url).get_result()
+    
+    @classmethod
+    def from_url_async(cls, url):
+        return ndb.Key(Source, cls.id_for_source(url)).get_async()
     
     def json(self, include_articles=False, article_limit=50, return_promise=False):
         articles_future = None

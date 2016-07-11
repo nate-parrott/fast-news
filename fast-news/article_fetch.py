@@ -15,6 +15,10 @@ def find_meta_value(soup, prop):
     if tag:
         return tag['content']
 
+def find_title(soup):
+    if soup.title:
+        return soup.title.text
+
 def article_fetch(article):
     if article.content:
         content = article.content.get()
@@ -41,6 +45,7 @@ def article_fetch(article):
         og_title = find_meta_value(markup_soup, 'og:title')
         og_image = find_meta_value(markup_soup, 'og:image')
         og_description = find_meta_value(markup_soup, 'og:description')
+        title_field = find_title(markup_soup)
         
         article.site_name = find_meta_value(markup_soup, 'og:site_name')
         
@@ -51,7 +56,7 @@ def article_fetch(article):
         content.html = article_extractor.extract(markup, article.url)
         doc_soup = BeautifulSoup(content.html, 'lxml')
         
-        article.title = first_present([article.title, og_title])
+        article.title = first_present([og_title, title_field, article.title])
         article.top_image = make_url_absolute(first_present([article.top_image, og_image]))
         
         populate_article_json(article, content)

@@ -201,6 +201,10 @@ class SimpleExtractHandler(webapp2.RequestHandler):
         self.response.headers['Access-Control-Allow-Origin'] = '*'
         self.response.write(text)
 
+class FeaturedSourcesHandler(webapp2.RequestHandler):
+    def get(self):
+        send_json(self, api.featured_sources_by_category(category=self.request.get('category')))
+
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
     ('/article', ArticleHandler),
@@ -210,6 +214,7 @@ app = webapp2.WSGIApplication([
     ('/subscriptions/add', SubscribeHandler),
     ('/subscriptions/delete', UnsubscribeHandler),
     ('/bookmarks', BookmarksHandler),
+    ('/sources/featured', FeaturedSourcesHandler),
     ('/test', TestHandler),
     ('/test/article_fetch', ArticleTestFetchHandler),
     ('/mirror', MirrorHandler),

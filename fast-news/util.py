@@ -11,6 +11,10 @@ import re
 from google.appengine.api import urlfetch
 import logging
 import os
+from collections import defaultdict
+from itertools import chain
+
+flatten = chain.from_iterable
 
 def url_fetch_async(url, callback, timeout=5):
     rpc = urlfetch.create_rpc(deadline=timeout)
@@ -104,3 +108,18 @@ def get_uploaded_file(request, field_name):
         mime = f.type
         data = f.file.read()
         return (name, mime, data)
+
+def unique_ordered_list(items):
+    seen = set()
+    ordered = []
+    for item in items:
+        if item not in seen:
+            ordered.append(item)
+            seen.add(item)
+    return ordered
+
+def group_by(items, key_func):
+    d = defaultdict(list)
+    for item in items:
+        d[key_func(item)].append(item)
+    return d

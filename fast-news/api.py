@@ -4,6 +4,8 @@ from canonical_url import canonical_url
 from google.appengine.ext import ndb
 import datetime
 import logging
+import util
+from collections import defaultdict
 
 def subscribe(uid, url):
     source = ensure_source(url)
@@ -21,6 +23,30 @@ def subscribe(uid, url):
         sub.put()
     
     return {"success": True, "source": source.json(include_articles=True), "subscription": sub.json()}
+
+def featured_sources_by_category(category=None):
+    q = Source.query(Source.featured_priority > 0)
+    if category: q = q.filter(Source.category == category)
+    q = q.order(-Source.featured_priority)
+    sources = q.fetch(400)
+    
+    categories = util.unique_ordered_list(util.flatten(s.categories for s in sources))
+    if category and category not in categories: categories.append(category)
+    
+    sources_by_category = defaultdict(list)
+    for source in sources:
+        for category in source.categories:
+            sources_by_category[category].append(source)
+    
+    max_items_per_category = 60 if category else 15
+    for category, items in sources_by_category.items():
+        sources_by_category[category] = items[:min(len(items), max_items_per_category)]
+    
+    category_jsons = []
+    for category in categories:
+        category_jsons.append({"name": category, "sources": [s.json() for s in sources_by_category[category]]})
+    
+    return category_jsons
 
 def ensure_article_at_url(url, force_fetch=False):
     id = Article.id_for_article(url, None)

@@ -71,7 +71,8 @@ def source_fetch(source):
                     article.published = entry['published']
                 else:
                     article.published = datetime.datetime.now()
-                article.title = entry['title']
+                if not article.title:
+                    article.title = entry['title']
                 to_put.append(article)
                 delay = (i+1) * 4 # wait 5 seconds between each
                 tasks_to_enqueue.append(article.create_fetch_task(delay=delay))

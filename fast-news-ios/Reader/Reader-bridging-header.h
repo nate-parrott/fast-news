@@ -11,6 +11,6 @@
 
 #import <CommonCrypto/CommonCrypto.h>
 #import "SSWDirectionalPanGestureRecognizer.h"
-
+#import "UIColor+CIELAB.h"
 
 #endif /* Reader_bridging_header_h */

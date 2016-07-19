@@ -35,4 +35,20 @@ extension UIImage {
             return nil
         }
     }
+    
+    class func tintColorFromTinyJson(tinyJson: [String: AnyObject], lightness: CGFloat) -> UIColor? {
+        if let size = tinyJson["size"] as? [Int] where size.count == 2,
+            let pixels = tinyJson["pixels"] as? [[Int]] where pixels.count == size[0] * size[1] {
+            var colors = [UIColor]()
+            for pixel in pixels {
+                if pixel.count >= 3 {
+                    colors.append(UIColor(red: CGFloat(pixel[0]) / 255.0, green: CGFloat(pixel[0]) / 255.0, blue: CGFloat(pixel[0]) / 255.0, alpha: 1))
+                }
+            }
+            if let mostSaturated = colors.maxElement({ $0.0.hsva.1 < $0.1.hsva.1 }) {
+                return mostSaturated.withPerceptualLightness(lightness)
+            }
+        }
+        return nil
+    }
 }

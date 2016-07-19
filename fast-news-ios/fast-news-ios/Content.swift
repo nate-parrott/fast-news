@@ -10,8 +10,9 @@ import UIKit
 
 class ArticleContent {
     init(json: [String: AnyObject]) {
+        let stylesheet = Stylesheets.CreateDefault()
         if let segmentsJson = json["segments"] as? [[String: AnyObject]] {
-            let segments_ = segmentsJson.map({ArticleContent.segmentFromJson($0)}).filter({$0 != nil}).map({$0!})
+            let segments_ = segmentsJson.map({ArticleContent.segmentFromJson($0, style: stylesheet)}).filter({$0 != nil}).map({$0!})
             segments = ArticleContent._moveTitleImageToTop(segments_)
         } else {
             segments = []
@@ -32,11 +33,11 @@ class ArticleContent {
         return segs
     }
     
-    static func segmentFromJson(json: [String: AnyObject]) -> Segment? {
+    static func segmentFromJson(json: [String: AnyObject], style: Stylesheet) -> Segment? {
         if let type = json["type"] as? String {
             switch type {
-                case "text": return TextSegment(json: json)
-                case "image": return ImageSegment(json: json)
+                case "text": return TextSegment(json: json, style: style)
+                case "image": return ImageSegment(json: json, style: style)
                 default: ()
             }
         }
@@ -44,7 +45,7 @@ class ArticleContent {
     }
     
     class Segment {
-        init(json: [String: AnyObject]) {
+        init(json: [String: AnyObject], style: Stylesheet) {
             if let p = json["is_part_of_title"] as? Bool {
                 isPartOfTitle = p
             }
@@ -55,8 +56,7 @@ class ArticleContent {
     static let LinkAttributeName = "FNLinkAttributeName"
     
     class TextSegment: Segment {
-        override init(json: [String: AnyObject]) {
-            let style = Stylesheets.Default
+        override init(json: [String: AnyObject], style: Stylesheet) {
             var elementStyle = style.bodyStyle
             
             kind = json["kind"] as? String ?? "p"
@@ -121,7 +121,7 @@ class ArticleContent {
                 self.hangingText = NSAttributedString(string: t, attributes: hangingTextAttrs)
             }*/
             
-            super.init(json: json)
+            super.init(json: json, style: style)
         }
         let kind: String
         let span: Span
@@ -131,8 +131,8 @@ class ArticleContent {
     }
     
     class ImageSegment: Segment {
-        override init(json: [String : AnyObject]) {
-            super.init(json: json)
+        override init(json: [String : AnyObject], style: Stylesheet) {
+            super.init(json: json, style: style)
             url = json["src"] as? String
             if let sizeArray = json["size"] as? [CGFloat] where sizeArray.count == 2 {
                 size = CGSizeMake(sizeArray[0], sizeArray[1])

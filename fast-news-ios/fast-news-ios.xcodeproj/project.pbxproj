@@ -152,6 +152,8 @@
 		5FE982D91D2CF4F5009C9ECF /* StatusItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE982D71D2CF4C8009C9ECF /* StatusItem.swift */; };
 		5FE982DB1D2F949D009C9ECF /* StatusBarOpacity+App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE982DA1D2F949D009C9ECF /* StatusBarOpacity+App.swift */; };
 		5FE982DE1D2F94AF009C9ECF /* StatusBarOpacity+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE982DC1D2F94AB009C9ECF /* StatusBarOpacity+Ext.swift */; };
+		5FFE67481D3E00B300537BCA /* UIColor+CIELAB.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FFE67471D3E00B300537BCA /* UIColor+CIELAB.m */; };
+		5FFE67491D3E00B300537BCA /* UIColor+CIELAB.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FFE67471D3E00B300537BCA /* UIColor+CIELAB.m */; };
 		725D858EB45B62776BD1EC87 /* Pods_fast_news_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B28AF43A8234C24ACECEB84 /* Pods_fast_news_ios.framework */; };
 /* End PBXBuildFile section */
 
@@ -299,6 +301,8 @@
 		5FE982D71D2CF4C8009C9ECF /* StatusItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusItem.swift; sourceTree = "<group>"; };
 		5FE982DA1D2F949D009C9ECF /* StatusBarOpacity+App.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "StatusBarOpacity+App.swift"; sourceTree = "<group>"; };
 		5FE982DC1D2F94AB009C9ECF /* StatusBarOpacity+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "StatusBarOpacity+Ext.swift"; sourceTree = "<group>"; };
+		5FFE67461D3E00B300537BCA /* UIColor+CIELAB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+CIELAB.h"; sourceTree = "<group>"; };
+		5FFE67471D3E00B300537BCA /* UIColor+CIELAB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+CIELAB.m"; sourceTree = "<group>"; };
 		7B28AF43A8234C24ACECEB84 /* Pods_fast_news_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_fast_news_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0848AEAC746D72B580AA7EF /* Pods-fast-news-ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fast-news-ios.debug.xcconfig"; path = "Pods/Target Support Files/Pods-fast-news-ios/Pods-fast-news-ios.debug.xcconfig"; sourceTree = "<group>"; };
 		C8692EA5BF694EAB0375ECAB /* Pods-fast-news-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fast-news-ios.release.xcconfig"; path = "Pods/Target Support Files/Pods-fast-news-ios/Pods-fast-news-ios.release.xcconfig"; sourceTree = "<group>"; };
@@ -542,6 +546,8 @@
 				5FC506F81C91506C00F7A237 /* SKColorFill.m */,
 				5FC506F91C91506C00F7A237 /* SKColorView.h */,
 				5FC506FA1C91506C00F7A237 /* SKColorView.m */,
+				5FFE67461D3E00B300537BCA /* UIColor+CIELAB.h */,
+				5FFE67471D3E00B300537BCA /* UIColor+CIELAB.m */,
 			);
 			name = CustomizationUI;
 			sourceTree = "<group>";
@@ -772,6 +778,7 @@
 				5F30545B1C7D1A5B00E0CFE6 /* NSData+MD5.swift in Sources */,
 				5F3054581C7D1A5B00E0CFE6 /* FNSplitViewController.swift in Sources */,
 				5F30544C1C7D1A3C00E0CFE6 /* APIObject.swift in Sources */,
+				5FFE67491D3E00B300537BCA /* UIColor+CIELAB.m in Sources */,
 				5F3054491C7D1A3700E0CFE6 /* ImageSegmentTableViewCell.swift in Sources */,
 				5F30545C1C7D1A5B00E0CFE6 /* Utils.swift in Sources */,
 				5F4C8A0D1C7E561B00DAD73C /* InlineWebView.swift in Sources */,
@@ -815,6 +822,7 @@
 				5F4FDB141C8381BB0049C61A /* FNNavigationController.swift in Sources */,
 				5F5706731C65E18300140078 /* Subscription.swift in Sources */,
 				5F5E4DA31C6FDE79009C3446 /* NSData+MD5.swift in Sources */,
+				5FFE67481D3E00B300537BCA /* UIColor+CIELAB.m in Sources */,
 				5F59D8B01C7BC25700C3E1C3 /* BinarySearch.swift in Sources */,
 				5F3054311C7CE13A00E0CFE6 /* Color.swift in Sources */,
 				5FC506EE1C914AD800F7A237 /* CPAlphaSlider.m in Sources */,

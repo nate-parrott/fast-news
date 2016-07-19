@@ -98,7 +98,10 @@ class ArticleCollectionViewController: UICollectionViewController, UICollectionV
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath)
-        applyModelToCell(cell, model: collectionModels[indexPath.item])
+        if indexPath.item < collectionModels.count {
+            // TODO: actually fix this bug instead of papering over it
+            applyModelToCell(cell, model: collectionModels[indexPath.item])
+        }
         return cell
     }
     

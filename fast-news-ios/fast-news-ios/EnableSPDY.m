@@ -12,7 +12,8 @@
 @implementation EnableSPDY
 
 + (void)enableSPDY {
-    [NSURLSessionConfiguration defaultSessionConfiguration].protocolClasses = @[[SPDYURLSessionProtocol class]];
+    // [NSURLSessionConfiguration defaultSessionConfiguration].protocolClasses = @[[SPDYURLSessionProtocol class]];
+    [SPDYURLConnectionProtocol registerOrigin:@"https://fast-news.appspot.com:443"];
 }
 
 @end

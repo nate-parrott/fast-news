@@ -89,7 +89,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     }
     
     func refresh() {
-        BookmarkList.Shared.ensureRecency(60) // 1 minute
+        delay(3) { 
+            BookmarkList.Shared.ensureRecency(60) // 1 minute
+        }
     }
 
     func applicationDidBecomeActive(application: UIApplication) {

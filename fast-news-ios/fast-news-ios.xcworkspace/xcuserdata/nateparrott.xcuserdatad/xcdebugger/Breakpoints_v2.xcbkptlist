@@ -74,11 +74,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "fast-news-ios/ArticleCollectionViewController.swift"
-            timestampString = "489654694.250954"
+            timestampString = "490594540.68846"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "158"
-            endingLineNumber = "158"
+            startingLineNumber = "161"
+            endingLineNumber = "161"
             landmarkName = "preloadImagesForVisibleRange(_:)"
             landmarkType = "5">
          </BreakpointContent>

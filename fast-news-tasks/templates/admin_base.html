@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	{% block head %}
+	<title>{% block title %}fast-news admin{% endblock %}</title>
+	<style>
+	body {
+		color: #111;
+		font-family: sans-serif;
+		line-height: 1.2;
+	}
+	#main {
+		max-width: 700px;
+		padding: 20px;
+		margin: auto;
+	}
+	#admin-link {
+		text-align: right;
+	}
+	</style>
+	{% endblock %}
+</head>
+<body>
+	{% block body %}
+	
+	<div id='main'>
+		<p id='admin-link'><a href='/admin'>Admin dashboards</a></p>
+		{% block content %}{% endblock %}
+	</div>
+	
+	{% endblock %}
+</body>
+</html>

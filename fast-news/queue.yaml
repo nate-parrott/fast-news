@@ -1,7 +1,0 @@
-queue:
-- name: default
-  rate: 20/s
-- name: sources
-  rate: 20/s
-- name: articles
-  rate: 20/s

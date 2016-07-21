@@ -27,7 +27,7 @@ def subscribe(uid, url):
     return {"success": True, "source": source.json(include_articles=True), "subscription": sub.json()}
 
 def sources_subscribed_by_id(uid, just_inserted=None):
-    subs = Subscription.query(Subscription.uid == uid).fetch()
+    subs = Subscription.query(Subscription.uid == uid).fetch(limit=100)
     if just_inserted and just_inserted.key.id() not in [sub.key.id() for sub in subs]:
         subs = [just_inserted] + subs
     json_futures = [sub.json(return_promise=True) for sub in subs]
@@ -98,10 +98,10 @@ def ensure_source(url, suppress_immediate_fetch=False):
     return source
 
 def feed(uid, article_limit=10, source_limit=100):
-    subscriptions = Subscription.query(Subscription.uid == uid).fetch(source_limit)
+    subscription_json = sources_subscribed_by_id(uid)
     source_json = []
-    if len(subscriptions) > 0:
-        subscription_urls = set([s.url for s in subscriptions])
+    if len(subscription_json) > 0:
+        subscription_urls = set([s['url'] for s in subscription_json])
         sources = Source.query(Source.url.IN(list(subscription_urls))).order(-Source.most_recent_article_added_date).fetch(len(subscription_urls))
         source_promises = [src.json(include_articles=True, article_limit=article_limit, return_promise=True) for src in sources]
         source_json = [p() for p in source_promises]

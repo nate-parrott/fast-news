@@ -3,13 +3,30 @@ version: 1
 runtime: python27
 api_version: 1
 threadsafe: yes
-module: tasks
+module: default
+
+automatic_scaling:
+  min_idle_instances: 1
 
 handlers:
+- url: /favicon\.ico
+  static_files: favicon.ico
+  upload: favicon\.ico
 
 - url: /tasks/.*
   script: tasks.app
   login: admin
+
+- url: /admin
+  script: admin.app
+  login: admin
+
+- url: /admin/.*
+  script: admin.app
+  login: admin
+
+- url: .*
+  script: main.app
 
 libraries:
 - name: webapp2

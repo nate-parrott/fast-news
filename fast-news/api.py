@@ -6,6 +6,7 @@ import datetime
 import logging
 import util
 from collections import defaultdict
+from google.appengine.api import memcache
 
 def subscribe(uid, url):
     source = ensure_source(url)
@@ -21,8 +22,18 @@ def subscribe(uid, url):
         sub.url = url
         sub.uid = uid
         sub.put()
+        memcache.set("subscriptions/" + uid, sources_subscribed_by_id(uid, just_inserted=sub))
     
     return {"success": True, "source": source.json(include_articles=True), "subscription": sub.json()}
+
+def sources_subscribed_by_id(uid, just_inserted=None):
+    subs = Subscription.query(Subscription.uid == uid).fetch()
+    if just_inserted and just_inserted.key.id() not in [sub.key.id() for sub in subs]:
+        subs = [just_inserted] + subs
+    json_futures = [sub.json(return_promise=True) for sub in subs]
+    jsons = [j() for j in json_futures]
+    jsons = [j for j in jsons if j['source']]
+    return jsons
 
 def featured_sources_by_category(category=None):
     q = Source.query(Source.featured_priority > 0)
@@ -68,10 +79,10 @@ def unsubscribe(uid, url):
     return True
 
 def subscriptions(uid):
-    subs = Subscription.query(Subscription.uid == uid).fetch()
-    json_futures = [sub.json(return_promise=True) for sub in subs]
-    jsons = [j() for j in json_futures]
-    jsons = [j for j in jsons if j['source']]
+    jsons = memcache.get('subscriptions/' + uid)
+    if not jsons:
+        jsons = sources_subscribed_by_id(uid)
+        memcache.set('subscriptions/' + uid, jsons)
     return {"subscriptions": jsons}
 
 def ensure_source(url, suppress_immediate_fetch=False):

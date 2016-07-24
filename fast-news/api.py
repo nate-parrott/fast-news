@@ -109,15 +109,19 @@ def feed(uid, article_limit=10, source_limit=100):
         "sources": source_json
     }
 
-def bookmarks(uid):
-    bookmarks = Bookmark.query(Bookmark.uid == uid).order(-Bookmark.last_modified).fetch(100)
+def bookmarks(uid, since=None):
+    q = Bookmark.query(Bookmark.uid == uid).order(-Bookmark.last_modified)
+    if since: q = q.filter(Bookmark.last_modified >= util.datetime_from_timestamp(since))
+    bookmarks = q.fetch(200)
     articles = ndb.get_multi([b.article for b in bookmarks])
     def to_json(bookmark, article):
         j = bookmark.json()
         j['article'] = article.json() if article else None
         return j
     return {
-        "bookmarks": [to_json(bookmark, article) for bookmark, article in zip(bookmarks, articles)]
+        "bookmarks": [to_json(bookmark, article) for bookmark, article in zip(bookmarks, articles)],
+        "since": util.datetime_to_timestamp(datetime.datetime.now()),
+        "partial": since is not None
     }
 
 def add_or_update_bookmark(uid, reading_pos, article_id=None, article_url=None):
@@ -140,9 +144,14 @@ def add_or_update_bookmark(uid, reading_pos, article_id=None, article_url=None):
         bookmark.reading_position = reading_pos
     bookmark.last_modified = datetime.datetime.now()
     bookmark.uid = uid
+    bookmark.deleted = False
     bookmark.put()
     return bookmark
 
 def delete_bookmark(uid, article_id):
     id = Bookmark.id_for_bookmark(uid, article_id)
-    ndb.Key(Bookmark, id).delete()
+    bookmark = ndb.Key(Bookmark, id).get()
+    if bookmark:
+        bookmark.deleted = True
+        bookmark.last_modified = datetime.datetime.now()
+        bookmark.put()

@@ -29,6 +29,8 @@
 		5F24D6BB1D31C0E6000C0133 /* UIView+ParticleEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F24D6B91D31C0E6000C0133 /* UIView+ParticleEffects.swift */; };
 		5F24D6C11D31C4C4000C0133 /* UIImage+ApplyTint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F24D6C01D31C4C4000C0133 /* UIImage+ApplyTint.swift */; };
 		5F24D6C21D31C4C4000C0133 /* UIImage+ApplyTint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F24D6C01D31C4C4000C0133 /* UIImage+ApplyTint.swift */; };
+		5F28BB411D456518006E2F76 /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F28BB401D456518006E2F76 /* Cache.swift */; };
+		5F28BB421D456520006E2F76 /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F28BB401D456518006E2F76 /* Cache.swift */; };
 		5F3054311C7CE13A00E0CFE6 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3054301C7CE13A00E0CFE6 /* Color.swift */; };
 		5F3054331C7CE33200E0CFE6 /* SafariVCActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3054321C7CE33200E0CFE6 /* SafariVCActivity.swift */; };
 		5F30543B1C7D197F00E0CFE6 /* ActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F30543A1C7D197F00E0CFE6 /* ActionViewController.swift */; };
@@ -203,6 +205,7 @@
 		5F0CC63C1C6D6BEB0071A026 /* ArticleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleCell.swift; sourceTree = "<group>"; };
 		5F24D6B91D31C0E6000C0133 /* UIView+ParticleEffects.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+ParticleEffects.swift"; sourceTree = "<group>"; };
 		5F24D6C01D31C4C4000C0133 /* UIImage+ApplyTint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+ApplyTint.swift"; sourceTree = "<group>"; };
+		5F28BB401D456518006E2F76 /* Cache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
 		5F3054301C7CE13A00E0CFE6 /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		5F3054321C7CE33200E0CFE6 /* SafariVCActivity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SafariVCActivity.swift; sourceTree = "<group>"; };
 		5F3054381C7D197F00E0CFE6 /* Reader.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Reader.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -449,6 +452,7 @@
 				5F5706701C65E17C00140078 /* SubscriptionsList.swift */,
 				5F5706721C65E18300140078 /* Subscription.swift */,
 				5FB4D5DD1C8A4063005D079D /* BookmarkList.swift */,
+				5F28BB401D456518006E2F76 /* Cache.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -759,6 +763,7 @@
 				5F4FDB151C8381BB0049C61A /* FNNavigationController.swift in Sources */,
 				5F30544E1C7D1A3C00E0CFE6 /* Feed.swift in Sources */,
 				5FB4D5E51C8BE67F005D079D /* BookmarkList.swift in Sources */,
+				5F28BB421D456520006E2F76 /* Cache.swift in Sources */,
 				5F30543B1C7D197F00E0CFE6 /* ActionViewController.swift in Sources */,
 				5FB4D5E41C8BE364005D079D /* String+Substring.swift in Sources */,
 				5F40C3991C7D210300B045A4 /* Defs.swift in Sources */,
@@ -830,6 +835,7 @@
 				5FC506F41C914B0900F7A237 /* Stylesheet.swift in Sources */,
 				5F4C8A0C1C7E561B00DAD73C /* InlineWebView.swift in Sources */,
 				5FE982CA1D2CE75D009C9ECF /* RootViewController.swift in Sources */,
+				5F28BB411D456518006E2F76 /* Cache.swift in Sources */,
 				5F59D8AA1C791B1F00C3E1C3 /* UIImage+Tiny.swift in Sources */,
 				5F5E4DAC1C71014D009C3446 /* Utils.swift in Sources */,
 				5F4FDB111C8371580049C61A /* ArticlePageView.swift in Sources */,

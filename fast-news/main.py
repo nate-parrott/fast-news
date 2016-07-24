@@ -82,7 +82,8 @@ class UnsubscribeHandler(webapp2.RequestHandler):
 class BookmarksHandler(webapp2.RequestHandler):
     def get(self):
         uid = self.request.get('uid')
-        send_json(self, api.bookmarks(uid))
+        since = float(self.request.get('since')) if self.request.get('since') else None
+        send_json(self, api.bookmarks(uid, since=since))
     
     def post(self):
         uid = self.request.get('uid')

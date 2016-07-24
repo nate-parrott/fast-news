@@ -8,15 +8,22 @@
 
 import Foundation
 
-class BookmarkList: APIObject {
+class BookmarkList: APIObject, Cacheable {
     class var Shared: BookmarkList {
         get {
             return BookmarkList.objectForID("bookmarks") as! BookmarkList
         }
     }
     
+    override func setup() {
+        super.setup()
+        Cache.Shared.registerObjectAsCacheable(self)
+    }
+    
     override func jsonPath() -> (String, [String : String]?)? {
-        return ("/bookmarks", nil)
+        var args = [String: String]()
+        if let s = since { args["since"] = "\(s)" }
+        return ("/bookmarks", args)
     }
     
     override class func typeName() -> String! {
@@ -25,12 +32,32 @@ class BookmarkList: APIObject {
     
     override func importJson(json: [String : AnyObject]) {
         super.importJson(json)
+        var newBookmarks = [Bookmark]()
         if let bookmarksJson = json["bookmarks"] as? [[String: AnyObject]] {
-            bookmarks = APIObjectsFromDictionaries(bookmarksJson)
+            newBookmarks = APIObjectsFromDictionaries(bookmarksJson)
         }
+        let partial = json["partial"] as? Bool ?? false
+        if partial {
+            var allBookmarks = [Bookmark]()
+            var seenBookmarkIDs = Set<String>()
+            // keep only the most recent copy of each bookmark:
+            for bk in newBookmarks + (bookmarks ?? []) {
+                if let id = bk.id where !seenBookmarkIDs.contains(id) {
+                    allBookmarks.append(bk)
+                    seenBookmarkIDs.insert(id)
+                }
+            }
+            bookmarks = allBookmarks.filter({ !$0.deleted })
+            print("fetched \(newBookmarks.count) new bookmarks, storing total \(bookmarks!.count)")
+        } else {
+            bookmarks = newBookmarks
+            print("did not do a partial bookmark transaction")
+        }
+        since = json["since"] as? Double
     }
     
     var bookmarks: [Bookmark]?
+    var since: Double?
     
     override var supportsRelevantTransactions: Bool {
         get {
@@ -58,12 +85,28 @@ class BookmarkList: APIObject {
             return bookmarks.sort({ ($0.modified ?? now).compare($1.modified ?? now) == .OrderedDescending })
         }
     }
+    
+    override func toJson() -> [String : AnyObject]! {
+        return ["since": since ?? NSNull(), "bookmarks": bookmarks?.map({ $0.toJson() }) ?? NSNull()]
+    }
+    
+    // MARK: Caching
+    func cacheJson() -> [String: AnyObject] {
+        return toJson()
+    }
+    func importCacheJson(json: [String: AnyObject]) {
+        importJson(json)
+        print("Loaded \(bookmarks?.count ?? 0) articles from the cache")
+    }
+    var cacheKey: String? { return "BookmarkList" }
+    var versionKey: String? { return nil }
 }
 
 class Bookmark: APIObject {
     var article: Article?
     var readingPosition: AnyObject?
     var modified: NSDate?
+    var deleted = false
     
     override func importJson(json: [String : AnyObject]) {
         super.importJson(json)
@@ -72,6 +115,9 @@ class Bookmark: APIObject {
         }
         if let lastModified = json["last_modified"] as? Double {
             modified = NSDate(timeIntervalSince1970: lastModified)
+        }
+        if let d = json["deleted"] as? Bool {
+            deleted = d
         }
         if let articleJson = json["article"] as? [String: AnyObject],
            let articleID = articleJson["id"] as? String {
@@ -84,6 +130,10 @@ class Bookmark: APIObject {
     
     override class func typeName() -> String! {
         return "Bookmark"
+    }
+    
+    override func toJson() -> [String : AnyObject]! {
+        return ["article": article?.toJson() ?? NSNull(), "reading_position": readingPosition ?? NSNull(), "last_modified": modified?.timeIntervalSince1970 ?? NSNull(), "deleted": deleted, "id": self.id ?? NSNull()]
     }
 }
 

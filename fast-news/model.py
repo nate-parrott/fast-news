@@ -155,6 +155,7 @@ class Bookmark(ndb.Model):
     last_modified = ndb.DateTimeProperty(auto_now_add=True)
     reading_position = ndb.JsonProperty()
     uid = ndb.StringProperty()
+    deleted = ndb.BooleanProperty(default=False)
     
     @classmethod
     def id_for_bookmark(cls, uid, article_id):
@@ -163,6 +164,7 @@ class Bookmark(ndb.Model):
     def json(self):
         return {
             "id": self.key.id(),
+            "deleted": self.deleted,
             "article_id": self.article.id(),
             "added": timestamp_from_datetime(self.added),
             "last_modified": timestamp_from_datetime(self.last_modified),

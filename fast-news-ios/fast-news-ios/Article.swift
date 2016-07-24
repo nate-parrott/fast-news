@@ -61,4 +61,17 @@ class Article: APIObject {
     override class func typeName() -> String {
         return "article"
     }
+    
+    override func toJson() -> [String : AnyObject]! {
+        return [
+            "title": self.title ?? NSNull(),
+            "url": self.url ?? NSNull(),
+            // DON'T include content or full text in the cache
+            "top_image": self.imageURL ?? NSNull(),
+            "top_image_tiny_json": self.topImageTinyJson ?? NSNull(),
+            "description": self.articleDescription ?? NSNull(),
+            "fetch_failed": self.fetchFailed ?? NSNull(),
+            "id": self.id ?? NSNull()
+        ]
+    }
 }

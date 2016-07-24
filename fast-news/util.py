@@ -13,8 +13,15 @@ import logging
 import os
 from collections import defaultdict
 from itertools import chain
+import datetime
 
 flatten = chain.from_iterable
+
+def datetime_from_timestamp(timestamp):
+    return datetime.datetime.utcfromtimestamp(timestamp)
+
+def datetime_to_timestamp(dt):
+    return (dt - datetime.datetime(1970,1,1)).total_seconds()
 
 def url_fetch_async(url, callback, timeout=5):
     rpc = urlfetch.create_rpc(deadline=timeout)

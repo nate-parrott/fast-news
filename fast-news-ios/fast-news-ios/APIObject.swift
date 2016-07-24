@@ -21,6 +21,7 @@ func APIObjectsFromDictionaries<T:APIObject>(dicts: [[String: AnyObject]]) -> [T
 class APIObject: NSObject {
     // MARK: External initializers
     class func objectsForIDs(ids: [String]) -> [APIObject] {
+        var objectsNeedingSetup = [APIObject]()
         _ObjectsLock.lock()
         let objectForID = {
             (id: String) -> APIObject in
@@ -29,12 +30,14 @@ class APIObject: NSObject {
                 return existing
             } else {
                 let obj = self.init(id: id)
+                objectsNeedingSetup.append(obj)
                 _Objects[fullID] = _WeakRef(obj: obj)
                 return obj
             }
         }
         let objects = ids.map(objectForID)
         _ObjectsLock.unlock()
+        for obj in objectsNeedingSetup { obj.setup() }
         return objects
     }
     
@@ -78,6 +81,12 @@ class APIObject: NSObject {
         }
     }
     
+    func setup() {
+        // use the setup() function for initializing other associated APIObjects;
+        // this can't happen inside the constructor itself because a global lock
+        // is being held (see objectsForIDs...)
+    }
+    
     var _fullID: _FullID? {
         get {
             if let id = self.id {
@@ -118,6 +127,10 @@ class APIObject: NSObject {
     
     func jsonPath() -> (String, [String: String]?)? {
         return nil // ("/articles", ["id": "aihrwfpier"])
+    }
+    
+    func toJson() -> [String: AnyObject]! {
+        return nil
     }
     
     // MARK: Loading

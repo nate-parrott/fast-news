@@ -1,0 +1,41 @@
+application: fast-news
+version: 1
+runtime: python27
+api_version: 1
+threadsafe: yes
+module: tasks
+
+# automatic_scaling:
+#   min_idle_instances: 1
+
+handlers:
+- url: /favicon\.ico
+  static_files: favicon.ico
+  upload: favicon\.ico
+
+- url: /tasks/.*
+  script: tasks.app
+  login: admin
+
+- url: /admin
+  script: admin.app
+  login: admin
+
+- url: /admin/.*
+  script: admin.app
+  login: admin
+
+- url: .*
+  script: main.app
+
+libraries:
+- name: webapp2
+  version: "2.5.2"
+- name: lxml
+  version: latest
+- name: PIL
+  version: latest
+- name: ssl
+  version: latest
+- name: jinja2
+  version: latest

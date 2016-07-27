@@ -7,6 +7,7 @@ import logging
 import util
 from collections import defaultdict
 from source_search import search_sources
+from feed import Feed
 
 def subscribe(uid, url):
     source = ensure_source(url)
@@ -22,7 +23,10 @@ def subscribe(uid, url):
         sub.url = url
         sub.uid = uid
         sub.put()
-    return {"success": True, "source": source.json(include_articles=True), "subscription": sub.json()}
+    
+    Feed.get_for_user(uid).update_in_place(just_added_sources_json=[source_json])
+    
+    return {"success": True, "source": source_json, "subscription": sub.json()}
 
 def sources_subscribed_by_id(uid, just_inserted=None):
     subs = Subscription.query(Subscription.uid == uid).fetch(limit=100)
@@ -74,6 +78,7 @@ def ensure_article_at_url(url, force_fetch=False):
 
 def unsubscribe(uid, url):
     ndb.Key(Subscription, Subscription.id_for_subscription(url, uid)).delete()
+    Feed.get_for_user(uid).update_in_place(just_removed_source_urls=[url])
     return True
 
 def subscriptions(uid):
@@ -91,16 +96,9 @@ def ensure_source(url, suppress_immediate_fetch=False):
         source.fetch_now()
     return source
 
-def feed(uid, article_limit=10, source_limit=100):
-    subscriptions = Subscription.query(Subscription.uid == uid).fetch(200)
-    subscription_urls = [sub.url for sub in subscriptions if sub.url]
-    if len(subscription_urls) > 0:
-        sources = Source.query(Source.url.IN(subscription_urls)).order(-Source.most_recent_article_added_date).fetch(len(subscription_urls))
-        source_promises = [src.json(include_articles=True, article_limit=article_limit, return_promise=True) for src in sources]
-        source_json = [p() for p in source_promises]
-    return {
-        "sources": source_json
-    }
+def feed(uid):
+    f = Feed.get_for_user(uid)
+    return f.ensure_feed_content()
 
 def bookmarks(uid, since=None):
     q = Bookmark.query(Bookmark.uid == uid).order(-Bookmark.last_modified)

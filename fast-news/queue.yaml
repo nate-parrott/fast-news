@@ -5,3 +5,5 @@ queue:
   rate: 20/s
 - name: articles
   rate: 20/s
+- name: feeds
+  rate: 20/s

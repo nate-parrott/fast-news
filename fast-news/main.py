@@ -24,6 +24,7 @@ from mirror import MirrorHandler
 import dump
 import util
 import file_storage
+from template import template
 
 def send_json(handler, content):
     handler.response.headers.add_header('Content-Type', 'application/json')
@@ -60,9 +61,7 @@ class ArticleHandler(webapp2.RequestHandler):
 class FeedHandler(webapp2.RequestHandler):
     def get(self):
         uid = self.request.get('uid')
-        article_limit = int(self.request.get('article_limit', '10'))
-        source_limit = int(self.request.get('source_limit', '100'))
-        send_json(self, api.feed(uid, article_limit, source_limit))
+        send_json(self, api.feed(uid))
 
 class SubscriptionsHandler(webapp2.RequestHandler):
     def get(self):
@@ -120,51 +119,7 @@ class ArticleTestFetchHandler(webapp2.RequestHandler):
 
 class TestHandler(webapp2.RequestHandler):
     def get(self):
-        html = """
-        <form method=POST action='/subscriptions/add'>
-            <h1>Test subscribe</h1>
-            <input name=url placeholder=url>
-            <input name=uid placeholder=uid>
-            <input type=submit>
-        </form>
-        <form method=POST>
-            <h1>Test source fetch</h1>
-            <input type=hidden name=test value=source>
-            <input name=url>
-            <input type=submit>
-        </form>
-        <form method=POST action='/subscriptions/delete'>
-            <h1>Test unsubscribe</h1>
-            <input name=url placeholder=url>
-            <input name=uid placeholder=uid>
-            <input type=submit>
-        </form>
-        <form method=POST action='test/article_fetch'>
-            <h1>Test article fetch</h1>
-            <input name=url placeholder=url>
-            <p><input type=radio name=type value=default checked>Default json</p>
-            <p><input type=radio name=type value=html>Extracted HTML</p>
-            <p><input type=radio name=type value=article_json>Article JSON</p>
-            <input type=submit>
-        </form>
-        <form method=POST action='bookmarks'>
-            <h1>Bookmark</h1>
-            <input name=article_url type=url placeholder=article_url>
-            <input name=uid placeholder=uid>
-            <input type=submit>
-        </form>
-        <form method=POST action='/admin/reschedule_source_fetches'>
-            <h1>Reschedule source fetches</h1>
-            <p>Make sure to clear the <em>sources</em> queue in the AppEngine dashboard <a href='https://console.cloud.google.com/appengine/taskqueues/sources?project=fast-news&moduleId=default'>here</a> first.</p>
-            <input type=submit>
-        </form>
-        <form method=POST action='/admin/purge_source'>
-            <h1>Purge source</h1>
-            <input type=url name=url placeholder='Source URL'/>
-            <input type=submit>
-        </form>
-        """
-        self.response.write(html)
+        self.response.write(template('test.html'))
     
     def post(self):
         test = self.request.get('test')

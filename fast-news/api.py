@@ -7,7 +7,6 @@ import logging
 import util
 from collections import defaultdict
 from source_search import search_sources
-from caches import SubscribedUrlsForUserCache
 
 def subscribe(uid, url):
     source = ensure_source(url)
@@ -23,7 +22,6 @@ def subscribe(uid, url):
         sub.url = url
         sub.uid = uid
         sub.put()
-        SubscribedUrlsForUserCache(uid).update([url])    
     return {"success": True, "source": source.json(include_articles=True), "subscription": sub.json()}
 
 def sources_subscribed_by_id(uid, just_inserted=None):
@@ -76,7 +74,6 @@ def ensure_article_at_url(url, force_fetch=False):
 
 def unsubscribe(uid, url):
     ndb.Key(Subscription, Subscription.id_for_subscription(url, uid)).delete()
-    SubscribedUrlsForUserCache(uid).invalidate() # TODO: pass just_removed to the cache instead
     return True
 
 def subscriptions(uid):
@@ -95,7 +92,8 @@ def ensure_source(url, suppress_immediate_fetch=False):
     return source
 
 def feed(uid, article_limit=10, source_limit=100):
-    subscription_urls = SubscribedUrlsForUserCache(uid).get()
+    subscriptions = Subscription.query(Subscription.uid == uid).fetch(200)
+    subscription_urls = [sub.url for sub in subscriptions if sub.url]
     if len(subscription_urls) > 0:
         sources = Source.query(Source.url.IN(subscription_urls)).order(-Source.most_recent_article_added_date).fetch(len(subscription_urls))
         source_promises = [src.json(include_articles=True, article_limit=article_limit, return_promise=True) for src in sources]

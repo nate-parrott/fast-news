@@ -56,19 +56,6 @@ class FeedViewController: ArticleCollectionViewController {
         }
     }
     
-    // MARK: Feed loading
-    
-    override func update() {
-        super.update()
-        switch feed.loadingState {
-        case .Loaded(_, let cursor):
-            if (cursor as! FeedCursor).articleLimit == 1 {
-                feed.nextPage()
-            }
-        default: ()
-        }
-    }
-    
     // MARK: Navigation
     
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {

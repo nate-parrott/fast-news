@@ -5,7 +5,7 @@ from util import get_or_insert
 from model import Subscription, Source
 import copy
 
-UPDATE_INTERVAL = 10 * 60 # every 10 mins
+UPDATE_INTERVAL = 5 * 60 # every 5 mins
 
 class Feed(ndb.Model):
     uid = ndb.StringProperty()

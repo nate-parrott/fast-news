@@ -5,6 +5,8 @@ from util import truncate, timestamp_from_datetime, first_present
 import util
 import sys, traceback, StringIO
 
+SOURCE_FETCH_INTERVAL = 20 * 60
+
 class Subscription(ndb.Model):
     url = ndb.StringProperty()
     added = ndb.DateTimeProperty(auto_now_add=True)
@@ -48,7 +50,7 @@ class Source(ndb.Model):
     def create_fetch_task(self, delay):
         return taskqueue.Task(url='/tasks/sources/fetch', params={'id': self.key.id()}, countdown=delay)
     
-    def enqueue_fetch(self, delay=30*60): # every 30 minutes
+    def enqueue_fetch(self, delay=SOURCE_FETCH_INTERVAL):
         taskqueue.Queue('sources').add_async(self.create_fetch_task(delay=delay))
     
     @classmethod

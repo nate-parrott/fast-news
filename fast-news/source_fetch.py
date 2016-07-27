@@ -21,7 +21,6 @@ from logging import warning
 from logging import info as debug
 from source_entry_processor import create_source_entry_processor
 import util
-import source_search
 
 class FetchResult(object):
     def __init__(self, method, feed_title, entries):
@@ -87,7 +86,6 @@ def source_fetch(source):
     if added_any:
         source.most_recent_article_added_date = now
     source.last_fetched = now
-    source_search.add_source_to_index(source)
     source.put()
 
 def _source_fetch(source):

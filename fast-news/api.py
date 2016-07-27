@@ -7,26 +7,6 @@ import logging
 import util
 from collections import defaultdict
 from google.appengine.api import memcache
-from source_search import search_sources
-
-class SubscribedUrlsForUser(object):
-    def __init__(self, uid):
-        self.uid = uid
-        self.key = 'subscribed_urls/{0}'.format(uid)
-    
-    def invalidate(self):
-        memcache.delete(self.key)
-    
-    def update(self, just_inserted=[]):
-        subs = Subscription.query(Subscription.uid == self.uid).fetch(limit=100)
-        items = list(set([sub.url for sub in subs if sub.url] + just_inserted))
-        memcache.set(self.key, items)
-        return items
-    
-    def get(self):
-        d = memcache.get(self.key)
-        print "Subscriptions cache hit" if d else "Subscriptions cache miss"
-        return d if d is not None else self.update()
 
 def subscribe(uid, url):
     source = ensure_source(url)
@@ -42,12 +22,9 @@ def subscribe(uid, url):
         sub.url = url
         sub.uid = uid
         sub.put()
-        SubscribedUrlsForUser(uid).update([url])
+        memcache.set("subscriptions/" + uid, sources_subscribed_by_id(uid, just_inserted=sub))
     
     return {"success": True, "source": source.json(include_articles=True), "subscription": sub.json()}
-
-def source_search(query):
-    return {"sources": search_sources(query)}
 
 def sources_subscribed_by_id(uid, just_inserted=None):
     subs = Subscription.query(Subscription.uid == uid).fetch(limit=100)
@@ -121,13 +98,13 @@ def ensure_source(url, suppress_immediate_fetch=False):
     return source
 
 def feed(uid, article_limit=10, source_limit=100):
-    subscription_urls = SubscribedUrlsForUser(uid).get()
-    if len(subscription_urls) > 0:
-        sources = Source.query(Source.url.IN(subscription_urls)).order(-Source.most_recent_article_added_date).fetch(len(subscription_urls))
+    subscription_json = sources_subscribed_by_id(uid)
+    source_json = []
+    if len(subscription_json) > 0:
+        subscription_urls = set([s['url'] for s in subscription_json])
+        sources = Source.query(Source.url.IN(list(subscription_urls))).order(-Source.most_recent_article_added_date).fetch(len(subscription_urls))
         source_promises = [src.json(include_articles=True, article_limit=article_limit, return_promise=True) for src in sources]
         source_json = [p() for p in source_promises]
-    else:
-        source_json = []
     return {
         "sources": source_json
     }

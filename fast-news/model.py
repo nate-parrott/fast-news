@@ -63,9 +63,6 @@ class Source(ndb.Model):
     def from_url_async(cls, url):
         return ndb.Key(Source, cls.id_for_source(url)).get_async()
     
-    def display_title(self):
-        return first_present([self.title_override, self.title])
-    
     def json(self, include_articles=False, article_limit=50, return_promise=False):
         articles_future = None
         if include_articles:
@@ -75,7 +72,7 @@ class Source(ndb.Model):
             d = {
                 "id": self.key.id(),
                 "url": self.url,
-                "title": self.display_title(),
+                "title": first_present([self.title_override, self.title]),
                 "brand": self.brand,
                 "color": self.color,
                 "icon_url": self.icon_url

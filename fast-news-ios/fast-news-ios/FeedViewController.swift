@@ -13,6 +13,40 @@ class FeedViewController: ArticleCollectionViewController {
     // MARK: Lifecycle
     
     let feed = Feed.objectsForIDs(["shared"]).first! as! Feed
+    let status = UILabel()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "TitleBarLogo")!, style: .Plain, target: nil, action: nil)
+        navigationItem.leftBarButtonItem!.tintColor = UIColor.blackColor()
+        
+        navigationItem.title = nil
+        
+        status.font = UIFont.systemFontOfSize(17, weight: UIFontWeightMedium)
+        status.textColor = UIColor.grayColor()
+        status.sizeToFit()
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: status)
+        let s = statusText
+        statusText = s
+    }
+    
+    var statusText = "" {
+        didSet {
+            status.text = statusText
+            status.sizeToFit()
+            navigationItem.rightBarButtonItem?.width = status.frame.size.width
+        }
+    }
+    
+    override var displayTitle: String? {
+        get {
+            return statusText
+        }
+        set (val) {
+            statusText = val ?? ""
+        }
+    }
     
     // MARK: Article VC overrides
     
@@ -32,7 +66,7 @@ class FeedViewController: ArticleCollectionViewController {
     
     override var modelTitle: String {
         get {
-            return NSLocalizedString("Subscribed", comment: "")
+            return NSDateFormatter.localizedStringFromDate(NSDate(), dateStyle: .MediumStyle, timeStyle: .NoStyle)
         }
     }
     

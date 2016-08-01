@@ -122,9 +122,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         // UITabBarItem.appearance().setTitleTextAttributes([NSFontAttributeName: UIFont(name: "RobotoMono-Regular", size: 12)!, NSForegroundColorAttributeName: UIColor.whiteColor()], forState: .Selected)
         // UITabBarItem.appearance().setTitleTextAttributes([NSFontAttributeName: UIFont(name: "RobotoMono-Regular", size: 12)!, NSForegroundColorAttributeName: UIColor(white: 1, alpha: 0.5)], forState: .Normal)
         
-        UINavigationBar.appearanceWhenContainedInInstancesOfClasses([FNNavigationController.self]).titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
-        UINavigationBar.appearanceWhenContainedInInstancesOfClasses([FNNavigationController.self]).setBackgroundImage(UIImage(named: "CoolGradient")?.stretchableImageWithLeftCapWidth(0, topCapHeight: 0), forBarPosition: .Any, barMetrics: .Default)
-        UINavigationBar.appearanceWhenContainedInInstancesOfClasses([FNNavigationController.self]).shadowImage = UIImage()
+        // UINavigationBar.appearanceWhenContainedInInstancesOfClasses([FNNavigationController.self]).titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
+        // UINavigationBar.appearanceWhenContainedInInstancesOfClasses([FNNavigationController.self]).setBackgroundImage(UIImage(named: "CoolGradient")?.stretchableImageWithLeftCapWidth(0, topCapHeight: 0), forBarPosition: .Any, barMetrics: .Default)
+        // UINavigationBar.appearanceWhenContainedInInstancesOfClasses([FNNavigationController.self]).shadowImage = UIImage()
 
     }
 }

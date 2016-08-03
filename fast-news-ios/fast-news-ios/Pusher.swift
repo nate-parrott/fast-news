@@ -15,7 +15,8 @@ class Pusher<T> {
     var _subscriptionsById = [Int: Callback]()
     
     func subscribe(callback: Callback) -> Subscription {
-        let id = _lastSubscriptionId++
+        let id = _lastSubscriptionId
+        _lastSubscriptionId += 1
         _subscriptionsById[id] = callback
         let sub = Subscription()
         sub._onDispose = {
@@ -125,7 +126,7 @@ class PusherForNotification: Pusher<NSNotification> {
         _target = _PusherForNotificationTarget()
         super.init()
         _target.pusher = self
-        NSNotificationCenter.defaultCenter().addObserver(_target, selector: "_receive:", name: name, object: object)
+        NSNotificationCenter.defaultCenter().addObserver(_target, selector: #selector(_PusherForNotificationTarget._receive(_:)), name: name, object: object)
     }
     let _target: _PusherForNotificationTarget
 }

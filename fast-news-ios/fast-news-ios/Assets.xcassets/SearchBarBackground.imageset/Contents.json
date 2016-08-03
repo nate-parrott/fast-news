@@ -2,7 +2,21 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "SearchBarBackground.pdf"
+      "filename" : "SearchBarBackground.pdf",
+      "resizing" : {
+        "mode" : "9-part",
+        "center" : {
+          "mode" : "tile",
+          "width" : 1,
+          "height" : 1
+        },
+        "cap-insets" : {
+          "bottom" : 30,
+          "top" : 29,
+          "right" : 30,
+          "left" : 29
+        }
+      }
     }
   ],
   "info" : {

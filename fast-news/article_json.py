@@ -157,7 +157,6 @@ def populate_article_json(article, content):
 
     cur_segment = None
     tag_stack = []
-    class_stack = []
     block_elements = set(['p', 'div', 'table', 'header', 'section', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'caption', 'pre', 'blockquote', 'li', 'figcaption'])
     text_tag_attributes = {'strong': {'bold': True}, 'b': {'bold': True}, 'em': {'italic': True}, 'i': {'italic': True}, 'a': {}, 'code': {'monospace': True}, 'span': {}}
 
@@ -175,9 +174,6 @@ def populate_article_json(article, content):
             segments.append(segment)
         return segment
 
-    def is_descendant_of_class(class_name):
-        return len([c for c in class_stack if c is not None and class_name in c]) > 0
-
     for (event, data) in iterate_tree(soup):
         if event == 'enter' and data.name == 'br':
             event = 'text'
@@ -185,7 +181,6 @@ def populate_article_json(article, content):
 
         if event == 'enter':
             tag_stack.append(data.name)
-            class_stack.append(data.get('class'))
             if data.name in block_elements:
                 # open a new block segment:
                 kind = {'h1': 'h1', 'h2': 'h2', 'h3': 'h3', 'h4': 'h4', 'h5': 'h5', 'h6': 'h6', 'blockquote': 'blockquote', 'caption': 'caption', 'li': 'li', 'figcaption': 'caption'}.get(data.name, 'p')
@@ -208,17 +203,17 @@ def populate_article_json(article, content):
                 cur_segment.open_text_section(attrs)
         elif event == 'text':
             cur_segment = ensure_text(cur_segment)
-            if is_descendant_of_class('twitter-tweet'):
-                cur_segment.content[0]['color'] = 'twitter'
             cur_segment.add_text(data)
         elif event == 'exit':
+            if 'twitter-tweet' in data.get('class', []) and cur_segment and cur_segment.is_text_segment:
+                # cur_segment.content[0]['color'] = 'twitter' # mark only the LAST child as twitter
+                cur_segment.kind = 'caption'
             if data.name in block_elements:
                 cur_segment = None
             elif data.name in text_tag_attributes and cur_segment != None and cur_segment.is_text_segment():
                 cur_segment.close_text_section()
 
             tag_stack.pop()
-            class_stack.pop()
 
     segments = [s for s in segments if not s.is_empty()]
 

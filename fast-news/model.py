@@ -77,7 +77,7 @@ class Source(ndb.Model):
             d = {
                 "id": self.key.id(),
                 "url": self.url,
-                "title": "title": self.display_title(),
+                "title": self.display_title(),
                 "brand": self.brand,
                 "color": self.color,
                 "icon_url": self.icon_url

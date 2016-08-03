@@ -157,6 +157,8 @@
 		5FFE67481D3E00B300537BCA /* UIColor+CIELAB.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FFE67471D3E00B300537BCA /* UIColor+CIELAB.m */; };
 		5FFE67491D3E00B300537BCA /* UIColor+CIELAB.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FFE67471D3E00B300537BCA /* UIColor+CIELAB.m */; };
 		725D858EB45B62776BD1EC87 /* Pods_fast_news_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B28AF43A8234C24ACECEB84 /* Pods_fast_news_ios.framework */; };
+		AE07F28A1D52845700C94AF5 /* FeaturedSources.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE07F2891D52845700C94AF5 /* FeaturedSources.swift */; };
+		AE07F28C1D52884E00C94AF5 /* MockJson in Resources */ = {isa = PBXBuildFile; fileRef = AE07F28B1D52884E00C94AF5 /* MockJson */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -307,6 +309,8 @@
 		5FFE67461D3E00B300537BCA /* UIColor+CIELAB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+CIELAB.h"; sourceTree = "<group>"; };
 		5FFE67471D3E00B300537BCA /* UIColor+CIELAB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+CIELAB.m"; sourceTree = "<group>"; };
 		7B28AF43A8234C24ACECEB84 /* Pods_fast_news_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_fast_news_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AE07F2891D52845700C94AF5 /* FeaturedSources.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeaturedSources.swift; sourceTree = "<group>"; };
+		AE07F28B1D52884E00C94AF5 /* MockJson */ = {isa = PBXFileReference; lastKnownFileType = folder; path = MockJson; sourceTree = "<group>"; };
 		C0848AEAC746D72B580AA7EF /* Pods-fast-news-ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fast-news-ios.debug.xcconfig"; path = "Pods/Target Support Files/Pods-fast-news-ios/Pods-fast-news-ios.debug.xcconfig"; sourceTree = "<group>"; };
 		C8692EA5BF694EAB0375ECAB /* Pods-fast-news-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fast-news-ios.release.xcconfig"; path = "Pods/Target Support Files/Pods-fast-news-ios/Pods-fast-news-ios.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -451,6 +455,8 @@
 				5F5706721C65E18300140078 /* Subscription.swift */,
 				5FB4D5DD1C8A4063005D079D /* BookmarkList.swift */,
 				5F28BB401D456518006E2F76 /* Cache.swift */,
+				AE07F2891D52845700C94AF5 /* FeaturedSources.swift */,
+				AE07F28B1D52884E00C94AF5 /* MockJson */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -698,6 +704,7 @@
 				5FC506EC1C914AD800F7A237 /* huePointer@2x.png in Resources */,
 				5F0CC6211C6C51BA0071A026 /* Asap-MediumItalic.otf in Resources */,
 				5F0CC6391C6D526E0071A026 /* RobotoMono-BoldItalic.ttf in Resources */,
+				AE07F28C1D52884E00C94AF5 /* MockJson in Resources */,
 				5FC506EF1C914AD800F7A237 /* crosshairs@2x.png in Resources */,
 				5F0CC61F1C6C51BA0071A026 /* Asap-Italic.otf in Resources */,
 				5F0CC6381C6D526E0071A026 /* RobotoMono-Bold.ttf in Resources */,
@@ -876,6 +883,7 @@
 				5FC506FC1C91506C00F7A237 /* SKColorFill.m in Sources */,
 				5F0CC6331C6C661A0071A026 /* CGMath.swift in Sources */,
 				5FC506EA1C914AD800F7A237 /* RGB-HSV.c in Sources */,
+				AE07F28A1D52845700C94AF5 /* FeaturedSources.swift in Sources */,
 				5FB4D5DE1C8A4063005D079D /* BookmarkList.swift in Sources */,
 				5F8D9F321C6C0AFE00F0FFBE /* EnableSPDY.m in Sources */,
 				5F4FDB0B1C836C020049C61A /* SwipePager.swift in Sources */,

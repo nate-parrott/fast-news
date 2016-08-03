@@ -15,7 +15,7 @@ def subscribe(uid, url):
     if len(source_json['articles']) == 0:
         print "Refusing to subscribe to {0} because no articles were fetched".format(source.url)
         return {"success": False}
-    
+
     url = source.url
     id = Subscription.id_for_subscription(url, uid)
     sub, inserted = get_or_insert(Subscription, id)
@@ -23,9 +23,9 @@ def subscribe(uid, url):
         sub.url = url
         sub.uid = uid
         sub.put()
-    
+
     Feed.get_for_user(uid).update_in_place(just_added_sources_json=[source_json])
-    
+
     return {"success": True, "source": source_json, "subscription": sub.json()}
 
 def sources_subscribed_by_id(uid, just_inserted=None):
@@ -42,23 +42,23 @@ def featured_sources_by_category(category=None):
     if category: q = q.filter(Source.category == category)
     q = q.order(-Source.featured_priority)
     sources = q.fetch(400)
-    
+
     categories = util.unique_ordered_list(util.flatten(s.categories for s in sources))
     if category and category not in categories: categories.append(category)
-    
+
     sources_by_category = defaultdict(list)
     for source in sources:
         for category in source.categories:
             sources_by_category[category].append(source)
-    
+
     max_items_per_category = 60 if category else 15
     for category, items in sources_by_category.items():
         sources_by_category[category] = items[:min(len(items), max_items_per_category)]
-    
+
     category_jsons = []
     for category in categories:
-        category_jsons.append({"name": category, "sources": [s.json() for s in sources_by_category[category]]})
-    
+        category_jsons.append({"id": category, "name": category, "sources": [s.json() for s in sources_by_category[category]]})
+
     return category_jsons
 
 def ensure_article_at_url(url, force_fetch=False):
@@ -127,7 +127,7 @@ def add_or_update_bookmark(uid, reading_pos, article_id=None, article_url=None):
         else:
             logging.error("Tried to get article {0} for bookmarking, but failed".format(article_url))
             return None
-    
+
     id = Bookmark.id_for_bookmark(uid, article_id)
     bookmark, inserted = get_or_insert(Bookmark, id)
     bookmark.article = ndb.Key(Article, article_id)

@@ -33,7 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
             // self.readArticle("http://twitter.com/nateparrott")
             // self.readArticle("https://medium.com/hh-design/snapchat-reaction-emoji-a-prototype-372ba5de0bde#.4mv6jk16x")
             // self.readArticle("http://www.atlasobscura.com/articles/watch-the-saddest-political-balloon-drop-of-all-time")
-            self.readArticle("http://localhost:8081/test.html")
+            // self.readArticle("http://localhost:8081/test.html")
             
             /*let item = StatusItem(title: "hey this is a test")
             RootViewController.Shared.statusItems = [item]

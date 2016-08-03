@@ -1,0 +1,48 @@
+{
+    "categories": [
+                   {"id": "News", "name": "News", "sources": [
+                          {"id": "1", "title": "The New York Times", "color": "#f6f6f6", "icon_url": "http://localhost:8081/nytimes.png"},
+                          {"id": "2", "title": "The New York Times", "color": "#f6f6f6", "icon_url": "http://localhost:8081/nytimes.png"},
+                          {"id": "3", "title": "The New York Times", "color": "#f6f6f6", "icon_url": "http://localhost:8081/nytimes.png"},
+                          {"id": "4", "title": "The New York Times", "color": "#f6f6f6", "icon_url": "http://localhost:8081/nytimes.png"},
+                          {"id": "5", "title": "The New York Times", "color": "#f6f6f6", "icon_url": "http://localhost:8081/nytimes.png"},
+                          {"id": "6", "title": "The New York Times", "color": "#f6f6f6", "icon_url": "http://localhost:8081/nytimes.png"},
+                          {"id": "7", "title": "The New York Times", "color": "#f6f6f6", "icon_url": "http://localhost:8081/nytimes.png"},
+                          {"id": "8", "title": "The New York Times", "color": "#f6f6f6", "icon_url": "http://localhost:8081/nytimes.png"}
+
+                                                              ]},
+                   {"id": "Arts", "name": "Arts", "sources": [
+                                                              {"id": "11", "title": "The New York Times", "color": "#f6f6f6", "icon_url": "http://localhost:8081/nytimes.png"},
+                                                              {"id": "12", "title": "The New York Times", "color": "#f6f6f6", "icon_url": "http://localhost:8081/nytimes.png"},
+                                                              {"id": "13", "title": "The New York Times", "color": "#f6f6f6", "icon_url": "http://localhost:8081/nytimes.png"},
+                                                              {"id": "14", "title": "The New York Times", "color": "#f6f6f6", "icon_url": "http://localhost:8081/nytimes.png"},
+                                                              {"id": "15", "title": "The New York Times", "color": "#f6f6f6", "icon_url": "http://localhost:8081/nytimes.png"},
+                                                              {"id": "16", "title": "The New York Times", "color": "#f6f6f6", "icon_url": "http://localhost:8081/nytimes.png"},
+                                                              {"id": "17", "title": "The New York Times", "color": "#f6f6f6", "icon_url": "http://localhost:8081/nytimes.png"},
+                                                              {"id": "18", "title": "The New York Times", "color": "#f6f6f6", "icon_url": "http://localhost:8081/nytimes.png"}
+                                                              
+                                                              ]},
+                   {"id": "Sports", "name": "Sports", "sources": [
+                                                              {"id": "21", "title": "The New York Times", "color": "#f6f6f6", "icon_url": "http://localhost:8081/nytimes.png"},
+                                                              {"id": "22", "title": "The New York Times", "color": "#f6f6f6", "icon_url": "http://localhost:8081/nytimes.png"},
+                                                              {"id": "23", "title": "The New York Times", "color": "#f6f6f6", "icon_url": "http://localhost:8081/nytimes.png"},
+                                                              {"id": "24", "title": "The New York Times", "color": "#f6f6f6", "icon_url": "http://localhost:8081/nytimes.png"},
+                                                              {"id": "25", "title": "The New York Times", "color": "#f6f6f6", "icon_url": "http://localhost:8081/nytimes.png"},
+                                                              {"id": "26", "title": "The New York Times", "color": "#f6f6f6", "icon_url": "http://localhost:8081/nytimes.png"},
+                                                              {"id": "27", "title": "The New York Times", "color": "#f6f6f6", "icon_url": "http://localhost:8081/nytimes.png"},
+                                                              {"id": "28", "title": "The New York Times", "color": "#f6f6f6", "icon_url": "http://localhost:8081/nytimes.png"}
+                                                              
+                                                              ]},
+                   {"id": "Tech", "name": "Tech", "sources": [
+                                                                  {"id": "31", "title": "The New York Times", "color": "#f6f6f6", "icon_url": "http://localhost:8081/nytimes.png"},
+                                                                  {"id": "32", "title": "The New York Times", "color": "#f6f6f6", "icon_url": "http://localhost:8081/nytimes.png"},
+                                                                  {"id": "33", "title": "The New York Times", "color": "#f6f6f6", "icon_url": "http://localhost:8081/nytimes.png"},
+                                                                  {"id": "34", "title": "The New York Times", "color": "#f6f6f6", "icon_url": "http://localhost:8081/nytimes.png"},
+                                                                  {"id": "35", "title": "The New York Times", "color": "#f6f6f6", "icon_url": "http://localhost:8081/nytimes.png"},
+                                                                  {"id": "36", "title": "The New York Times", "color": "#f6f6f6", "icon_url": "http://localhost:8081/nytimes.png"},
+                                                                  {"id": "37", "title": "The New York Times", "color": "#f6f6f6", "icon_url": "http://localhost:8081/nytimes.png"},
+                                                                  {"id": "38", "title": "The New York Times", "color": "#f6f6f6", "icon_url": "http://localhost:8081/nytimes.png"}
+                                                                  
+                                                                  ]}
+    ]
+}

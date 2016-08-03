@@ -1,0 +1,12 @@
+{
+    "sources": [
+                {"id": "1", "title": "The New York Times", "color": "#f6f6f6", "icon_url": "http://localhost:8081/nytimes.png"},
+                {"id": "2", "title": "The New York Times", "color": "#f6f6f6", "icon_url": "http://localhost:8081/nytimes.png"},
+                {"id": "3", "title": "The New York Times", "color": "#f6f6f6", "icon_url": "http://localhost:8081/nytimes.png"},
+                {"id": "4", "title": "The New York Times", "color": "#f6f6f6", "icon_url": "http://localhost:8081/nytimes.png"},
+                {"id": "5", "title": "The New York Times", "color": "#f6f6f6", "icon_url": "http://localhost:8081/nytimes.png"},
+                {"id": "6", "title": "The New York Times", "color": "#f6f6f6", "icon_url": "http://localhost:8081/nytimes.png"},
+                {"id": "7", "title": "The New York Times", "color": "#f6f6f6", "icon_url": "http://localhost:8081/nytimes.png"},
+                {"id": "8", "title": "The New York Times", "color": "#f6f6f6", "icon_url": "http://localhost:8081/nytimes.png"}
+    ]
+}

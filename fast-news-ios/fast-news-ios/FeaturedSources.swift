@@ -10,6 +10,7 @@ import Foundation
 
 class FeaturedSources: APIObject {
     var categories: [FeaturedSourcesCategory]?
+    
     override func importJson(json: [String : AnyObject]) {
         super.importJson(json)
         if let categories = json["categories"] as? [[String: AnyObject]] {
@@ -44,5 +45,15 @@ class FeaturedSourcesCategory: APIObject {
     
     override class func typeName() -> String {
         return "featuredSourcesCategory"
+    }
+    
+    override func importJson(json: [String : AnyObject]) {
+        super.importJson(json)
+        if let name = json["name"] as? String {
+            self.name = name
+        }
+        if let sources = json["sources"] as? [[String: AnyObject]] {
+            self.sources = APIObjectsFromDictionaries(sources)
+        }
     }
 }

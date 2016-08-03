@@ -21,6 +21,7 @@ from logging import warning
 from logging import info as debug
 from source_entry_processor import create_source_entry_processor
 import util
+import source_search
 
 class FetchResult(object):
     def __init__(self, method, feed_title, entries):
@@ -85,6 +86,7 @@ def source_fetch(source):
     debug("SF: done enqueuing")
     if added_any:
         source.most_recent_article_added_date = now
+    source_search.add_source_to_index(self)
     source.last_fetched = now
     source.put()
 

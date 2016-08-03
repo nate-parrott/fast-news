@@ -159,6 +159,7 @@
 		725D858EB45B62776BD1EC87 /* Pods_fast_news_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B28AF43A8234C24ACECEB84 /* Pods_fast_news_ios.framework */; };
 		AE07F28A1D52845700C94AF5 /* FeaturedSources.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE07F2891D52845700C94AF5 /* FeaturedSources.swift */; };
 		AE07F28C1D52884E00C94AF5 /* MockJson in Resources */ = {isa = PBXBuildFile; fileRef = AE07F28B1D52884E00C94AF5 /* MockJson */; };
+		AE07F28E1D52950400C94AF5 /* SourceSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE07F28D1D52950400C94AF5 /* SourceSearch.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -311,6 +312,7 @@
 		7B28AF43A8234C24ACECEB84 /* Pods_fast_news_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_fast_news_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE07F2891D52845700C94AF5 /* FeaturedSources.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeaturedSources.swift; sourceTree = "<group>"; };
 		AE07F28B1D52884E00C94AF5 /* MockJson */ = {isa = PBXFileReference; lastKnownFileType = folder; path = MockJson; sourceTree = "<group>"; };
+		AE07F28D1D52950400C94AF5 /* SourceSearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SourceSearch.swift; sourceTree = "<group>"; };
 		C0848AEAC746D72B580AA7EF /* Pods-fast-news-ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fast-news-ios.debug.xcconfig"; path = "Pods/Target Support Files/Pods-fast-news-ios/Pods-fast-news-ios.debug.xcconfig"; sourceTree = "<group>"; };
 		C8692EA5BF694EAB0375ECAB /* Pods-fast-news-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fast-news-ios.release.xcconfig"; path = "Pods/Target Support Files/Pods-fast-news-ios/Pods-fast-news-ios.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -456,6 +458,7 @@
 				5FB4D5DD1C8A4063005D079D /* BookmarkList.swift */,
 				5F28BB401D456518006E2F76 /* Cache.swift */,
 				AE07F2891D52845700C94AF5 /* FeaturedSources.swift */,
+				AE07F28D1D52950400C94AF5 /* SourceSearch.swift */,
 				AE07F28B1D52884E00C94AF5 /* MockJson */,
 			);
 			name = Models;
@@ -870,6 +873,7 @@
 				5FC506E71C914AD800F7A237 /* SKFontPicker.m in Sources */,
 				5FC507031C91509800F7A237 /* CGPointExtras.m in Sources */,
 				5FC507001C91507A00F7A237 /* ConvenienceCategories.m in Sources */,
+				AE07F28E1D52950400C94AF5 /* SourceSearch.swift in Sources */,
 				5F5E4DDC1C743389009C3446 /* Content.swift in Sources */,
 				5FC506FD1C91506C00F7A237 /* SKColorView.m in Sources */,
 				5F3054331C7CE33200E0CFE6 /* SafariVCActivity.swift in Sources */,

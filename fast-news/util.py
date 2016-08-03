@@ -23,6 +23,25 @@ def datetime_from_timestamp(timestamp):
 def datetime_to_timestamp(dt):
     return (dt - datetime.datetime(1970,1,1)).total_seconds()
 
+# TODO: unify all the url_fetch functions
+
+def url_fetch(url, timeout=10, return_response_obj=False):
+    cj = CookieJar()
+    opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cj))
+    opener.addheaders = [("User-Agent", "fast-news-bot")]
+    print "url_fetch('{0}')".format(url)
+    try:
+        resp = opener.open(url, timeout=timeout)
+        if return_response_obj:
+            return resp
+        else:
+            return resp.read()
+    except HTTPException as e:
+        print "{0}: {1}".format(url, e)
+    except urllib2.URLError as e:
+        print "{0}: {1}".format(url, e)
+    return None
+
 def url_fetch_async(url, callback, timeout=5):
     rpc = urlfetch.create_rpc(deadline=timeout)
     urlfetch.make_fetch_call(rpc, url, headers={"User-Agent": "fast-news-bot"})
@@ -37,6 +56,22 @@ def url_fetch_async(url, callback, timeout=5):
         callback(content)
     rpc.callback = cb
     return rpc
+
+def url_fetch_future(url, timeout=5):
+    rpc = urlfetch.create_rpc(deadline=timeout)
+    urlfetch.make_fetch_call(rpc, url, headers={"User-Agent": "fast-news-bot"})
+    
+    def future():
+        content = None
+        try:
+            result = rpc.get_result()
+            if result.status_code == 200:
+                content = result.content
+        except urlfetch.DownloadError as e:
+            logging.warn("URL fetch error: {0}".format(url))
+        return content
+    
+    return future
 
 @ndb.transactional
 def get_or_insert(cls, id, **kwds):
@@ -56,23 +91,6 @@ def first_present(items):
     for item in items:
         if item:
             return item
-
-def url_fetch(url, timeout=10, return_response_obj=False):
-    cj = CookieJar()
-    opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cj))
-    opener.addheaders = [("User-Agent", "fast-news-bot")]
-    print "url_fetch('{0}')".format(url)
-    try:
-        resp = opener.open(url, timeout=timeout)
-        if return_response_obj:
-            return resp
-        else:
-            return resp.read()
-    except HTTPException as e:
-        print "{0}: {1}".format(url, e)
-    except urllib2.URLError as e:
-        print "{0}: {1}".format(url, e)
-    return None
 
 def truncate(text, words=None):
     # ensure we're operating on unicode strings:

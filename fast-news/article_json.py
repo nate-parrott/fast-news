@@ -5,7 +5,7 @@ import time
 import bs4
 from pprint import pprint
 import urlparse
-from util import url_fetch, normalized_compare
+from util import url_fetch, normalized_compare, url_fetch_future
 from soup_tools import iterate_tree
 from StringIO import StringIO
 from PIL import Image
@@ -114,12 +114,10 @@ class ImageSegment(Segment):
         j['tiny'] = self.tiny
         return j
 
-    def fetch_image_data(self, time_left):
-        elapsed = 0
-        if self.src and time_left > 0:
-            result, elapsed = url_fetch_and_time(self.src, time_left)
-            # print "ELAPSED", elapsed
-            time_left -= elapsed
+    def fetch_image_data_async(self, timeout):
+        result_future = url_fetch_future(self.src, timeout)
+        def future():
+            result = result_future()
             if result:
                 try:
                     f = StringIO(result)
@@ -130,7 +128,8 @@ class ImageSegment(Segment):
                     print "IO error during image fetch: {0}".format(e)
             else:
                 print "Failed to fetch image at url:", self.src
-        return elapsed
+        
+        return future
 
     def is_empty(self):
         return (self.src == None)
@@ -150,7 +149,8 @@ def populate_article_json(article, content):
         else:
             return None
 
-    time_left = 3
+    futures = []
+    fetch_timeout = 3 # TODO: raise this?
 
     soup = bs4.BeautifulSoup(content.html, 'lxml')
     segments = []
@@ -192,7 +192,7 @@ def populate_article_json(article, content):
                 segments.append(cur_segment)
             elif data.name == 'img':
                 cur_segment = ImageSegment(process_url(data.get('src')))
-                time_left -= cur_segment.fetch_image_data(time_left)
+                futures.append(cur_segment.fetch_image_data_async(fetch_timeout))
                 segments.append(cur_segment)
             else:
                 # this is an inline (text) tag:
@@ -216,7 +216,9 @@ def populate_article_json(article, content):
             tag_stack.pop()
 
     segments = [s for s in segments if not s.is_empty()]
-
+    
+    for future in futures: future()
+    
     # discard small images:
     segments = [s for s in segments if not (isinstance(s, ImageSegment) and s.size and s.size[0] * s.size[1] < (100 * 100))]
 

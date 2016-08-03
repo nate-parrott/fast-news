@@ -11,13 +11,10 @@ import UIKit
 class SubscriptionsViewController: UITableViewController, UITextFieldDelegate {
     let subs = SubscriptionsList.objectsForIDs(["main"]).first! as! SubscriptionsList
     var _subsSub: Subscription?
-    var _sourcesBeingAddedSub: Subscription?
-    var _sourcesBeingDeletedSub: Subscription?
-    var _sourcesJustAddedSub: Subscription?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "_foreground:", name: UIApplicationWillEnterForegroundNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SubscriptionsViewController._foreground(_:)), name: UIApplicationWillEnterForegroundNotification, object: nil)
         
         _subsSub = subs.onUpdate.subscribe({ [weak self] (_) -> () in
             self?._update()
@@ -123,7 +120,7 @@ class SubscriptionsViewController: UITableViewController, UITextFieldDelegate {
     }
     
     override func tableView(tableView: UITableView, performAction action: Selector, forRowAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject?) {
-        if action == "delete:" {
+        if action == #selector(NSObject.delete(_:)) {
             let sub = subs.subscriptions![indexPath.row]
             DeleteSubscriptionTransaction(url: sub.source!.url!).start({ (success) -> () in
                 if !success {

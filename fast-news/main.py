@@ -161,6 +161,10 @@ class FeaturedSourcesHandler(webapp2.RequestHandler):
     def get(self):
         send_json(self, api.featured_sources_by_category(category=self.request.get('category')))
 
+class SourceSearchHandler(webapp2.RequestHandler):
+    def get(self):
+        send_json(self, api.source_search(self.request.get('query')))
+
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
     ('/article', ArticleHandler),
@@ -171,6 +175,7 @@ app = webapp2.WSGIApplication([
     ('/subscriptions/delete', UnsubscribeHandler),
     ('/bookmarks', BookmarksHandler),
     ('/sources/featured', FeaturedSourcesHandler),
+    ('/sources/search', SourceSearchHandler),
     ('/test', TestHandler),
     ('/test/article_fetch', ArticleTestFetchHandler),
     ('/mirror', MirrorHandler),

@@ -44,6 +44,9 @@ class Source(ndb.Model):
     categories = ndb.StringProperty(repeated=True)
     keywords = ndb.TextProperty()
     
+    def display_title(self):
+        return first_present([self.title_override, self.title])
+    
     def fetch_now(self):
         source_fetch(self)
     
@@ -74,7 +77,7 @@ class Source(ndb.Model):
             d = {
                 "id": self.key.id(),
                 "url": self.url,
-                "title": first_present([self.title_override, self.title]),
+                "title": "title": self.display_title(),
                 "brand": self.brand,
                 "color": self.color,
                 "icon_url": self.icon_url

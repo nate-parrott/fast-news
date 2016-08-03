@@ -7,6 +7,7 @@ import copy
 import file_storage
 import util
 from google.appengine.api import images
+import source_search
 
 class SourcesAdminHandler(webapp2.RequestHandler):
     def get(self):
@@ -28,7 +29,8 @@ source_fields = [
     {"name": "categories", "type": "text", "split": "//"},
     {"name": "color", "type": "text"},
     {"name": "icon_url", "type": "file_url", "image": True, "max_size": 200},
-    {"name": "keywords", "type": "text"}
+    {"name": "keywords", "type": "text"},
+    {"name": "featured_priority", "type": "number", "hint": "For featured content, these should be NEGATIVE, or at least less than 1"}
 ]
 
 class SourceAdminHandler(webapp2.RequestHandler):
@@ -71,6 +73,7 @@ class SourceAdminHandler(webapp2.RequestHandler):
             if val != not_set:
                 setattr(source, field['name'], val)
         source.put()
+        source_search.add_source_to_index(source)
         self.redirect('')
 
 def store_resized_image(data, max_size):

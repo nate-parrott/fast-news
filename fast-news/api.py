@@ -28,6 +28,9 @@ def subscribe(uid, url):
 
     return {"success": True, "source": source_json, "subscription": sub.json()}
 
+def source_search(query):
+    return {"sources": search_sources(query)}
+
 def sources_subscribed_by_id(uid, just_inserted=None):
     subs = Subscription.query(Subscription.uid == uid).fetch(limit=100)
     if just_inserted and just_inserted.key.id() not in [sub.key.id() for sub in subs]:

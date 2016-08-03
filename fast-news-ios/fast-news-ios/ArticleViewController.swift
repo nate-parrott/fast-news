@@ -221,7 +221,7 @@ class ArticleViewController: SwipeAwayViewController {
     let pager = SwipePager<Int>(frame: CGRectZero)
     
     enum RowModel {
-        case Text(string: NSAttributedString, margins: (CGFloat, CGFloat), seg: ArticleContent.TextSegment)
+        case Text(string: NSAttributedString, margins: UIEdgeInsets, seg: ArticleContent.TextSegment)
         case Image(ArticleContent.ImageSegment)
     }
     
@@ -256,6 +256,7 @@ class ArticleViewController: SwipeAwayViewController {
         var i = 0
         for seg in segments {
             if let image = seg as? ArticleContent.ImageSegment {
+                // TODO: support margins on images
                 models.append(RowModel.Image(image))
                 segmentIndices.append(i)
                 trailingMargin = false
@@ -270,7 +271,8 @@ class ArticleViewController: SwipeAwayViewController {
                     let marginTop = (trailingMargin ? 0 : ArticleViewController.Margin) + text.extraTopPadding
                     let marginBottom = ArticleViewController.Margin + text.extraBottomPadding
                     substring.stripWhitespace()
-                    models.append(RowModel.Text(string: substring, margins: (marginTop, marginBottom), seg: text))
+                    let margin = UIEdgeInsetsMake(marginTop, 0, marginBottom, 0) + text.padding
+                    models.append(RowModel.Text(string: substring, margins: margin, seg: text))
                     segmentIndices.append(i)
                     trailingMargin = true
                 }
@@ -297,7 +299,7 @@ class ArticleViewController: SwipeAwayViewController {
             let cell = TextSegmentTableViewCell()
             cell.string = string
             cell.segment = seg
-            cell.margin = UIEdgeInsetsMake(margins.0, ArticleViewController.Margin, margins.1, ArticleViewController.Margin)
+            cell.margin = UIEdgeInsetsMake(0, ArticleViewController.Margin, 0, ArticleViewController.Margin) + margins
             cell.onClickedLink = {
                 [weak self]
                 (let url) in
@@ -400,8 +402,8 @@ class ArticleViewController: SwipeAwayViewController {
                         pages[pages.count - 1].rowModels.append((model, -prevLocalPoint))
                         // if this is a text field w/ no margin, or mid-text, append a margin:
                         switch model {
-                        case .Text(string: _, margins: (let topMargin, _), seg: _):
-                            if topMargin == 0 || addedYet {
+                        case .Text(string: _, margins: let margins, seg: _):
+                            if margins.top == 0 || addedYet {
                                 pages[pages.count - 1].marginTop = ArticleViewController.Margin
                             }
                         default: ()
@@ -423,15 +425,16 @@ class ArticleViewController: SwipeAwayViewController {
             case .Image(let segment):
                 return ceil(ImageSegmentTableViewCell.heightForSegment(segment, width: size.width, maxHeight: size.height))
             case .Text(let text, let margins, seg: _):
-                let margin = UIEdgeInsetsMake(margins.0, ArticleViewController.Margin, margins.1, ArticleViewController.Margin)
+                let margin = UIEdgeInsetsMake(0, ArticleViewController.Margin, 0, ArticleViewController.Margin) + margins
                 return ceil(TextSegmentTableViewCell.heightForString(text, width: size.width, margin: margin))
             }
         }
         
         func pageBreakPointsForModel(model: RowModel) -> [CGFloat] {
             switch model {
-            case .Text(string: let str, margins: (let topMargin, let bottomMargin), seg: _):
-                return TextSegmentTableViewCell.pageBreakPointsForSegment(str, width: size.width, margin: UIEdgeInsetsMake(topMargin, ArticleViewController.Margin, bottomMargin, ArticleViewController.Margin))
+            case .Text(string: let str, margins: let margins, seg: _):
+                let articleMargin = UIEdgeInsetsMake(0, ArticleViewController.Margin, 0, ArticleViewController.Margin)
+                return TextSegmentTableViewCell.pageBreakPointsForSegment(str, width: size.width, margin: articleMargin + margins)
             default:
                 return [0, heightForModel(model)]
             }

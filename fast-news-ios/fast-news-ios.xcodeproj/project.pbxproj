@@ -431,11 +431,9 @@
 			children = (
 				5FCDF4411C6BF75F00A50A75 /* ArticleViewController.swift */,
 				5F4FDB101C8371580049C61A /* ArticlePageView.swift */,
-				5F4FDB0D1C836CCE0049C61A /* ArticleSegmentCell.swift */,
-				5F73F17A1C77C91600DA2981 /* TextSegmentTableViewCell.swift */,
-				5F4C8A0B1C7E561B00DAD73C /* InlineWebView.swift */,
-				5F73F17C1C77C92300DA2981 /* ImageSegmentTableViewCell.swift */,
+				AE07F2881D5175A100C94AF5 /* Segments */,
 				5F3054321C7CE33200E0CFE6 /* SafariVCActivity.swift */,
+				5F4C8A0B1C7E561B00DAD73C /* InlineWebView.swift */,
 			);
 			name = Reading;
 			sourceTree = "<group>";
@@ -554,6 +552,16 @@
 				5FFE67471D3E00B300537BCA /* UIColor+CIELAB.m */,
 			);
 			name = CustomizationUI;
+			sourceTree = "<group>";
+		};
+		AE07F2881D5175A100C94AF5 /* Segments */ = {
+			isa = PBXGroup;
+			children = (
+				5F4FDB0D1C836CCE0049C61A /* ArticleSegmentCell.swift */,
+				5F73F17A1C77C91600DA2981 /* TextSegmentTableViewCell.swift */,
+				5F73F17C1C77C92300DA2981 /* ImageSegmentTableViewCell.swift */,
+			);
+			name = Segments;
 			sourceTree = "<group>";
 		};
 		E317CF0C2C82A3FB71929AB1 /* Pods */ = {

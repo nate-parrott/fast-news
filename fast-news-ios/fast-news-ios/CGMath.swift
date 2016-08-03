@@ -137,6 +137,10 @@ func ==(lhs: CGRect, rhs: CGRect) -> Bool {
     return lhs.origin == rhs.origin && lhs.size == rhs.size
 }
 
+func +(lhs: UIEdgeInsets, rhs: UIEdgeInsets) -> UIEdgeInsets {
+    return UIEdgeInsetsMake(lhs.top + rhs.top, lhs.left + rhs.left, lhs.bottom + rhs.bottom, lhs.right + rhs.right)
+}
+
 extension CGSize {
     func centeredInsideRect(rect: CGRect) -> CGRect {
         return CGRectMake(rect.origin.x + (rect.size.width - width)/2, rect.origin.y + (rect.size.height - height)/2, width, height)

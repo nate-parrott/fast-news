@@ -150,15 +150,34 @@ def populate_article_json(article, content):
         else:
             return None
 
-    time_left = 2
+    time_left = 3
 
     soup = bs4.BeautifulSoup(content.html, 'lxml')
     segments = []
 
     cur_segment = None
     tag_stack = []
+    class_stack = []
     block_elements = set(['p', 'div', 'table', 'header', 'section', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'caption', 'pre', 'blockquote', 'li', 'figcaption'])
     text_tag_attributes = {'strong': {'bold': True}, 'b': {'bold': True}, 'em': {'italic': True}, 'i': {'italic': True}, 'a': {}, 'code': {'monospace': True}, 'span': {}}
+
+    def create_text_segment(kind):
+        s = TextSegment(kind)
+        if 'blockquote' in tag_stack: s.left_padding += 1
+        return s
+
+    def ensure_text(segment):
+        # if the segment passed in is text, returns it
+        # otherwise, creates a new one:
+        if segment == None or not segment.is_text_segment():
+            # create a new text segment:
+            segment = create_text_segment('p')
+            segments.append(segment)
+        return segment
+
+    def is_descendant_of_class(class_name):
+        return len([c for c in class_stack if c is not None and class_name in c]) > 0
+
     for (event, data) in iterate_tree(soup):
         if event == 'enter' and data.name == 'br':
             event = 'text'
@@ -166,14 +185,15 @@ def populate_article_json(article, content):
 
         if event == 'enter':
             tag_stack.append(data.name)
+            class_stack.append(data.get('class'))
             if data.name in block_elements:
                 # open a new block segment:
                 kind = {'h1': 'h1', 'h2': 'h2', 'h3': 'h3', 'h4': 'h4', 'h5': 'h5', 'h6': 'h6', 'blockquote': 'blockquote', 'caption': 'caption', 'li': 'li', 'figcaption': 'caption'}.get(data.name, 'p')
-                cur_segment = TextSegment(kind)
+                cur_segment = create_text_segment(kind)
+
                 attrs = cur_segment.content[0]
                 if data.name == 'pre': attrs['monospace'] = True
-                if 'blockquote' in tag_stack:
-                    cur_segment.left_padding += 1
+
                 segments.append(cur_segment)
             elif data.name == 'img':
                 cur_segment = ImageSegment(process_url(data.get('src')))
@@ -181,25 +201,24 @@ def populate_article_json(article, content):
                 segments.append(cur_segment)
             else:
                 # this is an inline (text) tag:
-                if cur_segment == None or not cur_segment.is_text_segment():
-                    # create a new text segment:
-                    cur_segment = TextSegment('p')
-                    segments.append(cur_segment)
+                cur_segment = ensure_text(cur_segment)
                 attrs = dict(text_tag_attributes.get(data.name, {}))
                 if data.name == 'a':
                     attrs['link'] = process_url(data.get('href'))
                 cur_segment.open_text_section(attrs)
         elif event == 'text':
-            if cur_segment == None or not cur_segment.is_text_segment():
-                cur_segment = TextSegment('p')
-                segments.append(cur_segment)
+            cur_segment = ensure_text(cur_segment)
+            if is_descendant_of_class('twitter-tweet'):
+                cur_segment.content[0]['color'] = 'twitter'
             cur_segment.add_text(data)
         elif event == 'exit':
             if data.name in block_elements:
                 cur_segment = None
             elif data.name in text_tag_attributes and cur_segment != None and cur_segment.is_text_segment():
                 cur_segment.close_text_section()
+
             tag_stack.pop()
+            class_stack.pop()
 
     segments = [s for s in segments if not s.is_empty()]
 

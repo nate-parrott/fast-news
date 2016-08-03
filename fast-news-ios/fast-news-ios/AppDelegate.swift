@@ -28,16 +28,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         applyTheme()
 
         
-        /*delay(2) { () -> () in
+        delay(2) { () -> () in
             // self.readArticle("http://testpage2.42pag.es")
             // self.readArticle("http://twitter.com/nateparrott")
             // self.readArticle("https://medium.com/hh-design/snapchat-reaction-emoji-a-prototype-372ba5de0bde#.4mv6jk16x")
-            let item = StatusItem(title: "hey this is a test")
+            self.readArticle("http://www.atlasobscura.com/articles/watch-the-saddest-political-balloon-drop-of-all-time")
+            
+            /*let item = StatusItem(title: "hey this is a test")
             RootViewController.Shared.statusItems = [item]
             delay(3, closure: {
                 RootViewController.Shared.statusItems = []
-            })
-        }*/
+            })*/
+        }
         
         return true
     }

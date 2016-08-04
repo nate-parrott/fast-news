@@ -4,8 +4,11 @@ from google.appengine.api import taskqueue
 from util import truncate, timestamp_from_datetime, first_present
 import util
 import sys, traceback, StringIO
+import datetime
 
-SOURCE_FETCH_INTERVAL = 35 * 60
+MINUTES = 60
+HOURS = 60 * MINUTES
+DAYS = 24 * HOURS
 
 class Subscription(ndb.Model):
     url = ndb.StringProperty()
@@ -47,10 +50,26 @@ class Source(ndb.Model):
     def fetch_now(self):
         source_fetch(self)
     
-    def create_fetch_task(self, delay):
-        return taskqueue.Task(url='/tasks/sources/fetch', params={'id': self.key.id()}, countdown=delay, min_backoff_seconds=SOURCE_FETCH_INTERVAL/2)
+    def next_fetch_delay(self):
+        if self.most_recent_article_added_date is None:
+            return 20 * MINUTES
+        time_since_last_new_article = (datetime.datetime.now() - self.most_recent_article_added_date).total_seconds()
+        if time_since_last_new_article > 10 * DAYS:
+            return 7 * HOURS
+        if time_since_last_new_article > 3 * DAYS:
+            return 3 * HOURS
+        if time_since_last_new_article > 1 * DAYS:
+            return 1.5 * HOURS
+        if time_since_last_new_article > 3 * HOURS:
+            return 1 * HOURS
+        return 20 * MINUTES
     
-    def enqueue_fetch(self, delay=SOURCE_FETCH_INTERVAL):
+    def create_fetch_task(self, delay):
+        retry_options = taskqueue.TaskRetryOptions(task_retry_limit=2, min_backoff_seconds=20*MINUTES)
+        return taskqueue.Task(url='/tasks/sources/fetch', params={'id': self.key.id()}, countdown=delay, retry_options=retry_options)
+    
+    def enqueue_fetch(self, delay=None):
+        if delay is None: delay = self.next_fetch_delay()
         taskqueue.Queue('sources').add_async(self.create_fetch_task(delay=delay))
     
     @classmethod

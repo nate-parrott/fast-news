@@ -276,11 +276,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "fast-news-ios/Content.swift"
-            timestampString = "480189233.358823"
+            timestampString = "491289162.770377"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "149"
-            endingLineNumber = "149"
+            startingLineNumber = "162"
+            endingLineNumber = "162"
             landmarkName = "Span"
             landmarkType = "3">
          </BreakpointContent>

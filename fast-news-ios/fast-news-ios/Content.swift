@@ -13,7 +13,7 @@ class ArticleContent {
         let stylesheet = Stylesheets.CreateDefault()
         if let segmentsJson = json["segments"] as? [[String: AnyObject]] {
             let segments_ = segmentsJson.map({ArticleContent.segmentFromJson($0, style: stylesheet)}).filter({$0 != nil}).map({$0!})
-            segments = ArticleContent._moveTitleImageToTop(segments_)
+            segments = ArticleContent._moveTitleToTop(segments_)
         } else {
             segments = []
         }
@@ -23,14 +23,27 @@ class ArticleContent {
     let segments: [Segment]
     let lowQuality: Bool? // low-quality parse
     
-    static func _moveTitleImageToTop(segments: [Segment]) -> [Segment] {
-        var segs = segments
-        if let idx = segments.indexOf({ ($0 as? ImageSegment)?.isPartOfTitle ?? false }) {
-            let titleImage = segments[idx]
-            segs.removeAtIndex(idx)
-            segs.insert(titleImage, atIndex: 0)
+    static func _moveTitleToTop(segments: [Segment]) -> [Segment] {
+        var titleImage: ImageSegment?
+        var titleHeadline: TextSegment?
+        var meta: TextSegment?
+        for seg in segments {
+            if seg.isPartOfTitle {
+                if titleImage == nil, let img = seg as? ImageSegment {
+                    titleImage = img
+                }
+                if titleHeadline == nil, let title = seg as? TextSegment where title.kind == "title" {
+                    titleHeadline = title
+                }
+                if meta == nil, let m = seg as? TextSegment where m.kind == "meta" {
+                    meta = m
+                }
+            }
         }
-        return segs
+        let titleSegOpts: [Segment?] = [titleImage, titleHeadline, meta]
+        let titleSegs = titleSegOpts.filter({ $0 != nil }).map({ $0! })
+        let nonTitleSegs = segments.filter({ $0 !== titleImage && $0 !== titleHeadline && $0 !== meta })
+        return titleSegs + nonTitleSegs
     }
     
     static func segmentFromJson(json: [String: AnyObject], style: Stylesheet) -> Segment? {

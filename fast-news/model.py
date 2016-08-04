@@ -48,7 +48,7 @@ class Source(ndb.Model):
         source_fetch(self)
     
     def create_fetch_task(self, delay):
-        return taskqueue.Task(url='/tasks/sources/fetch', params={'id': self.key.id()}, countdown=delay)
+        return taskqueue.Task(url='/tasks/sources/fetch', params={'id': self.key.id()}, countdown=delay, min_backoff_seconds=10*60)
     
     def enqueue_fetch(self, delay=SOURCE_FETCH_INTERVAL):
         taskqueue.Queue('sources').add_async(self.create_fetch_task(delay=delay))

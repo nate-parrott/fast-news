@@ -111,7 +111,7 @@ class APIObject: NSObject {
     static var _Objects = [_FullID: _WeakRef]()
     static var _ObjectsLock = NSLock()
     
-    static var apiRoot = FN_USE_PRODUCTION ? "https://fast-news.appspot.com" : "http://localhost:15080"
+    static var apiRoot = FN_USE_PRODUCTION ? "https://fast-news.appspot.com" : "http://localhost:8080"
     
     // MARK: For subclasses
     func importJson(json: [String: AnyObject]) {

@@ -83,10 +83,19 @@ class ArticleCollectionViewController: UICollectionViewController, UICollectionV
         default:
             title = modelTitle
         }
-        navigationItem.title = title
+        displayTitle = title
         
         if !visible {
             return
+        }
+    }
+    
+    var displayTitle: String? {
+        get {
+            return navigationItem.title
+        }
+        set (val) {
+            navigationItem.title = val
         }
     }
     

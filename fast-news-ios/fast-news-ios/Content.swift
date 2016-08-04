@@ -62,8 +62,13 @@ class ArticleContent {
             if let p = json["is_part_of_title"] as? Bool {
                 isPartOfTitle = p
             }
+            
+            let leftPadding: CGFloat = json["left_padding"] as? CGFloat ?? 0
+            let rightPadding: CGFloat = json["right_padding"] as? CGFloat ?? 0
+            padding = UIEdgeInsetsMake(0, leftPadding * 10, 0, rightPadding * 10)
         }
         var isPartOfTitle = false
+        let padding: UIEdgeInsets
     }
     
     static let LinkAttributeName = "FNLinkAttributeName"

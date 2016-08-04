@@ -31,3 +31,29 @@ app = webapp2.WSGIApplication([
     ('/tasks/sources/fetch', SourceFetchHandler),
     ('/tasks/feeds/update', FeedUpdateHandler)
 ], debug=True)
+
+if True:
+    def cprofile_wsgi_middleware(app):
+        """
+        Call this middleware hook to enable cProfile on each request.  Statistics are dumped to
+        the log at the end of the request.
+        :param app: WSGI app object
+        :return: WSGI middleware wrapper
+        """
+        def _cprofile_wsgi_wrapper(environ, start_response):
+            import cProfile, cStringIO, pstats, logging
+            profile = cProfile.Profile()
+            try:
+                return profile.runcall(app, environ, start_response)
+            finally:
+                stream = cStringIO.StringIO()
+                stats = pstats.Stats(profile, stream=stream)
+                stats.strip_dirs().sort_stats('cumulative', 'time', 'calls').print_stats(50)
+                logging.info('cProfile data:\n%s', stream.getvalue())
+        return _cprofile_wsgi_wrapper
+
+    def webapp_add_wsgi_middleware(app):
+        return cprofile_wsgi_middleware(app)
+
+    app = webapp_add_wsgi_middleware(app)
+

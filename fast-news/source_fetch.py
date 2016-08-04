@@ -134,7 +134,7 @@ def rss_fetch(source, markup, url, add_rpc, got_result):
     latest_date = None
     for entry in parsed['entries']:
         if 'link' in entry:
-            print entry
+            # print entry
             link_url = urljoin(url, entry['link'].strip())
             title = entry['title']
             

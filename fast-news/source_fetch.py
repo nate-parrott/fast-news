@@ -12,6 +12,7 @@ import bs4
 from fetch_result import FetchResult
 from urlparse import urljoin
 from time import mktime
+import source_search
 
 def source_fetch(source):
     debug("SF: Doing fetch for source: {0}".format(source.url))

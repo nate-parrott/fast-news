@@ -1,39 +1,17 @@
-import urllib2
-import bs4
-from bs4 import BeautifulSoup
-import datetime
-from model import Article, Source
-from google.appengine.ext import ndb
-from model import Article
-from util import get_or_insert, url_fetch, strip_url_prefix, url_fetch_async
-from shared_suffix import shared_suffix
-from canonical_url import canonical_url
-import feedparser
-from pprint import pprint
-from urlparse import urljoin
-import random
-from brand import extract_brand
-from time import mktime
-import datetime
-from google.appengine.api import taskqueue
-import re
-from logging import warning
 from logging import info as debug
-from source_entry_processor import create_source_entry_processor
+import datetime
 import util
-import source_search
-
-class FetchResult(object):
-    def __init__(self, method, feed_title, entries):
-        self.method = method
-        self.feed_title = feed_title
-        self.entries = entries # {"url": url, "title": title, "published": datetime}
-        self.brand = None
-    
-    def __repr__(self):
-        return (u"FetchResult.{0}('{1}'): {2} ".format(self.method, self.feed_title, self.entries)).encode('utf-8')
-
-from twitter_source_fetch import fetch_twitter
+from shared_suffix import shared_suffix
+from model import Article, Source
+from canonical_url import canonical_url
+import twitter_source_fetch
+from source_entry_processor import create_source_entry_processor
+import rss_tools
+from rss_tools import parse_as_feed
+import bs4
+from fetch_result import FetchResult
+from urlparse import urljoin
+from time import mktime
 
 def source_fetch(source):
     debug("SF: Doing fetch for source: {0}".format(source.url))
@@ -91,44 +69,71 @@ def source_fetch(source):
     source.put()
 
 def _source_fetch(source):
-    fetch_type = None
-    url = util.first_present([source.fetch_url_override, source.url])
-    markup = url_fetch(url)
-    if markup:
-        results = []
-        rpcs = []
-        def got_result(res):
-            if res: results.append(res)
-        def add_rpc(rpc):
-            rpcs.append(rpc)
-        for fn in fetch_functions_for_source(source):
-            fn(source, markup, url, add_rpc, got_result)
-        while len(rpcs):
-            rpcs[0].wait()
-            del rpcs[0]
-        result = results[0] if len(results) else None
-        if result:
-            debug("SF: Fetched {0} as {1} source with {2} entries".format(url, result.method, len(result.entries)))
-        else:
-            warning("SF: Couldn't fetch {0} using any method".format(url))
-        if result:
-            debug("SF: starting brand fetch")
-            result.brand = extract_brand(markup, source.url)
-            debug("SF: done with brand fetch")
-        return result
-    else:
-        print "URL error fetching {0}".format(source.url)
-    return None
+    fetch_functions = {
+        "twitter": twitter_fetch,
+        "rss": rss_fetch
+    }
+    content = None
+    print "FETCH DATA ALREADY EXISTS" if source.direct_fetch_data else "FETCH DATA NEEDS TO BE CREATED"
+    if not source.direct_fetch_data:
+        data, feed_content = detect_fetch_data(source)
+        source.direct_fetch_data = data
+        # source.put()
 
-def fetch_functions_for_source(source):
-    return [fetch_twitter, fetch_hardcoded_rss_url, rss_fetch, fetch_wordpress_default_rss, fetch_linked_rss]
-
-def rss_fetch(source, markup, url, add_rpc, got_result):    
-    parsed = feedparser.parse(markup)
-    # pprint(parsed)
+    print "FETCH DATA:", source.direct_fetch_data    
     
-    if len(parsed['entries']) == 0:
+    if source.direct_fetch_data:    
+        fn = fetch_functions[source.direct_fetch_data['type']]
+        return fn(source.direct_fetch_data, feed_content)
+
+def detect_fetch_data(source):
+    url = util.first_present([source.fetch_url_override, source.url])
+    
+    twitter_data = twitter_source_fetch.twitter_fetch_data_from_url(url)
+    if twitter_data:
+        return twitter_data, None
+    
+    markup = util.url_fetch(url)
+    if not markup:
         return None
+    
+    # is this an rss feed itself?
+    feed = parse_as_feed(markup)
+    if feed:
+        return {"type": "rss", "url": url}, feed
+    
+    # try finding some linked rss:
+    soup = bs4.BeautifulSoup(markup, 'lxml')
+    feed_url = rss_tools.find_linked_rss(soup, url)
+    if feed_url:
+        return {"type": "rss", "url": feed_url}, None
+    
+    wp_rss_link = url + "/?feed=rss"
+    feed = parse_as_feed(util.url_fetch(wp_rss_link))
+    if feed:
+        return {"type": "rss", "url": wp_rss_link}, feed
+    
+    # is there a twitter account linked?
+    twitter_data = twitter_source_fetch.linked_twitter_fetch_data(soup)
+    if twitter_data:
+        return twitter_data, None
+    
+    return None, None
+      
+def twitter_fetch(data, _):
+    return twitter_source_fetch.fetch_timeline(data['username'])
+
+def rss_fetch(data, feed_content):
+    url = data['url']
+    if not feed_content:
+        markup = util.url_fetch(url)
+        if markup:
+            feed_content = parse_as_feed(markup)
+    
+    if not feed_content:
+        return None
+    
+    parsed = feed_content
     
     source_entry_processor = create_source_entry_processor(url)
     feed_title = parsed['feed']['title']
@@ -140,7 +145,7 @@ def rss_fetch(source, markup, url, add_rpc, got_result):
             link_url = urljoin(url, entry['link'].strip())
             title = entry['title']
             
-            pub_time = entry.get('published_parsed')
+            pub_time = entry.get('published_parsed', entry.get('updated_parsed'))
             if pub_time:
                 published = datetime.datetime.fromtimestamp(mktime(pub_time))
             else:
@@ -149,55 +154,5 @@ def rss_fetch(source, markup, url, add_rpc, got_result):
             source_entry_processor(result_entry, entry)
             entries.append(result_entry)
     
-    got_result(FetchResult('rss', feed_title, entries))
-
-def fetch_linked_rss(source, markup, url, add_rpc, got_result):
-    soup = BeautifulSoup(markup, 'lxml')
-    link = soup.find('link', attrs={'rel': 'alternate', 'type': ['application/rss+xml', 'application/atom+xml']})
-    if link and type(link) == bs4.element.Tag and link['href']:
-        feed_url = urljoin(url, link['href'])
-        print 'Found rss URL: ', feed_url
-        def callback(feed_markup):
-            if feed_markup:
-                def _got_result(result):
-                    if result:
-                        result.method = 'linked_rss'
-                        return got_result(result)
-                    else:
-                        print 'failed to parse markup'
-                return rss_fetch(source, feed_markup, feed_url, add_rpc, _got_result)
-            else:
-                print "Error fetching linked rss {0}".format(feed_url)
-        add_rpc(url_fetch_async(feed_url, callback))
-    return None
-
-def fetch_wordpress_default_rss(source, markup, url, add_rpc, got_result):
-    link = url + "/?feed=rss"
-    # print "Trying", link
-    def callback(feed_markup):
-        if feed_markup:
-            def _got_result(res):
-                if res:
-                    res.method = 'wordpress_default_rss'
-                    got_result(res)
-            rss_fetch(source, feed_markup, link, add_rpc, _got_result)
-    add_rpc(url_fetch_async(link, callback))
-    # print "MARKUP:", feed_markup
-
-def fetch_hardcoded_rss_url(source, markup, url, add_rpc, got_result):
-    lookup = {
-        'news.ycombinator.com': 'http://hnrss.org/newest?points=25',
-        'newyorker.com': 'http://www.newyorker.com/feed/everything',
-        'longform.org': 'http://longform.org/feed.rss'
-    }
-    rss_url = lookup.get(strip_url_prefix(url))
-    if rss_url:
-        def callback(feed_markup):
-            def _got_result(res):
-                if res:
-                    res.method = 'hardcoded_rss'
-                    got_result(res)
-            rss_fetch(source, feed_markup, rss_url, add_rpc, _got_result)
-        add_rpc(url_fetch_async(rss_url, callback))
-
+    return FetchResult('rss', feed_title, entries)
 

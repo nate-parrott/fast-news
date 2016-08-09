@@ -72,6 +72,7 @@ class SourceAdminHandler(webapp2.RequestHandler):
                             val = file_storage.upload_file_and_get_url(data, mime)
             if val != not_set:
                 setattr(source, field['name'], val)
+        source.direct_fetch_data = None
         source.put()
         source_search.add_source_to_index(source)
         self.redirect('')

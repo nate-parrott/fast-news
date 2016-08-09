@@ -40,6 +40,7 @@ class Source(ndb.Model):
     shared_title_suffix = ndb.TextProperty()
     
     fetch_url_override = ndb.StringProperty()
+    direct_fetch_data = ndb.JsonProperty() # this is updated directly by source_fetch when fetching; it's okay to delete
     title_override = ndb.TextProperty()
     color = ndb.StringProperty()
     icon_url = ndb.StringProperty()
@@ -156,7 +157,7 @@ class Article(ndb.Model):
             "id": self.key.id(),
             "url": self.url,
             "submission_url": self.submission_url,
-            "title": self.title,
+            "title": self.title.strip() if self.title else "",
             "fetch_failed": self.fetch_failed,
             "top_image": self.top_image,
             "top_image_tiny_json": self.top_image_tiny_json,

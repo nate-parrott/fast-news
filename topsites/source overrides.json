@@ -1,0 +1,5 @@
+{
+"news.ycombinator.com": "http://hnrss.org/newest?points=25",
+"newyorker.com": "http://www.newyorker.com/feed/everything",
+"longform.org": "http://longform.org/feed.rss"
+}

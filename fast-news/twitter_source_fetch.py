@@ -1,6 +1,22 @@
 import urlparse
 import tweepy
-from source_fetch import FetchResult
+from fetch_result import FetchResult
+
+def twitter_fetch_data_from_url(url):
+    parsed = urlparse.urlparse(url)
+    path_comps = parsed.path.split('/')
+    if parsed.netloc.endswith('twitter.com') and len(path_comps) == 2:
+        username = path_comps[1]
+        if username not in ['i']:
+            return {"type": "twitter", "username": username}
+    return None
+
+def linked_twitter_fetch_data(soup):
+    meta = soup.find('meta', attrs={'name': 'twitter:site'})
+    if meta:
+        content = meta.get('content')
+        if len(content) > 0 and content[0] == '@':
+            return {"type": "twitter", "username": content[1:]}
 
 def fetch_twitter(source, markup, url, add_rpc, got_result):
     parsed = urlparse.urlparse(url)

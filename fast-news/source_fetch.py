@@ -86,7 +86,7 @@ def source_fetch(source):
     debug("SF: done enqueuing")
     if added_any:
         source.most_recent_article_added_date = now
-    source_search.add_source_to_index(self)
+    source_search.add_source_to_index(source)
     source.last_fetched = now
     source.put()
 

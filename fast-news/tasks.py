@@ -32,7 +32,7 @@ app = webapp2.WSGIApplication([
     ('/tasks/feeds/update', FeedUpdateHandler)
 ], debug=True)
 
-if True:
+if False:
     def cprofile_wsgi_middleware(app):
         """
         Call this middleware hook to enable cProfile on each request.  Statistics are dumped to

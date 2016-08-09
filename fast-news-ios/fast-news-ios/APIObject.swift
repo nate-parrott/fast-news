@@ -196,7 +196,7 @@ class APIObject: NSObject {
         for (k,v) in cursor.URLParams() {
             t.args[k] = v
         }
-        t.start { (json, error, transaction) -> () in
+        let handleResponse = { (json: AnyObject?, error: NSError?, transaction: Transaction) in
             if let dict = json as? [String: AnyObject] {
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
                     cursor.receiveTransactionResult(dict)
@@ -213,6 +213,22 @@ class APIObject: NSObject {
                 })
             }
         }
+        if let mocked = _mockRequest(t) {
+            delay(0.5, closure: { 
+                handleResponse(mocked, nil, t)
+            })
+        } else {
+            t.start(handleResponse)
+        }
+    }
+    
+    func _mockRequest(t: Transaction) -> [String: AnyObject]? {
+        return nil
+    }
+    
+    func _loadMockJson(name: String) -> [String: AnyObject]! {
+        let path = NSBundle.mainBundle().pathForResource(name, ofType: "json", inDirectory: "MockJson")!
+        return try! NSJSONSerialization.JSONObjectWithData(NSData(contentsOfFile: path)!, options: []) as! [String : AnyObject]
     }
     
     func _loadFinished(success: Bool, cursor: LoadCursor, startTime: CFAbsoluteTime, err: NSError?) {

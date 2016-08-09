@@ -157,6 +157,11 @@
 		5FFE67481D3E00B300537BCA /* UIColor+CIELAB.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FFE67471D3E00B300537BCA /* UIColor+CIELAB.m */; };
 		5FFE67491D3E00B300537BCA /* UIColor+CIELAB.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FFE67471D3E00B300537BCA /* UIColor+CIELAB.m */; };
 		725D858EB45B62776BD1EC87 /* Pods_fast_news_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B28AF43A8234C24ACECEB84 /* Pods_fast_news_ios.framework */; };
+		AE07F28A1D52845700C94AF5 /* FeaturedSources.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE07F2891D52845700C94AF5 /* FeaturedSources.swift */; };
+		AE07F28C1D52884E00C94AF5 /* MockJson in Resources */ = {isa = PBXBuildFile; fileRef = AE07F28B1D52884E00C94AF5 /* MockJson */; };
+		AE07F28E1D52950400C94AF5 /* SourceSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE07F28D1D52950400C94AF5 /* SourceSearch.swift */; };
+		AE07F2901D52AE1100C94AF5 /* SubscriptionsViewControllerCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE07F28F1D52AE1100C94AF5 /* SubscriptionsViewControllerCells.swift */; };
+		AE07F2921D52AE9900C94AF5 /* ViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE07F2911D52AE9900C94AF5 /* ViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -307,6 +312,11 @@
 		5FFE67461D3E00B300537BCA /* UIColor+CIELAB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+CIELAB.h"; sourceTree = "<group>"; };
 		5FFE67471D3E00B300537BCA /* UIColor+CIELAB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+CIELAB.m"; sourceTree = "<group>"; };
 		7B28AF43A8234C24ACECEB84 /* Pods_fast_news_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_fast_news_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AE07F2891D52845700C94AF5 /* FeaturedSources.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeaturedSources.swift; sourceTree = "<group>"; };
+		AE07F28B1D52884E00C94AF5 /* MockJson */ = {isa = PBXFileReference; lastKnownFileType = folder; path = MockJson; sourceTree = "<group>"; };
+		AE07F28D1D52950400C94AF5 /* SourceSearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SourceSearch.swift; sourceTree = "<group>"; };
+		AE07F28F1D52AE1100C94AF5 /* SubscriptionsViewControllerCells.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionsViewControllerCells.swift; sourceTree = "<group>"; };
+		AE07F2911D52AE9900C94AF5 /* ViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewCell.swift; sourceTree = "<group>"; };
 		C0848AEAC746D72B580AA7EF /* Pods-fast-news-ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fast-news-ios.debug.xcconfig"; path = "Pods/Target Support Files/Pods-fast-news-ios/Pods-fast-news-ios.debug.xcconfig"; sourceTree = "<group>"; };
 		C8692EA5BF694EAB0375ECAB /* Pods-fast-news-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fast-news-ios.release.xcconfig"; path = "Pods/Target Support Files/Pods-fast-news-ios/Pods-fast-news-ios.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -451,6 +461,9 @@
 				5F5706721C65E18300140078 /* Subscription.swift */,
 				5FB4D5DD1C8A4063005D079D /* BookmarkList.swift */,
 				5F28BB401D456518006E2F76 /* Cache.swift */,
+				AE07F2891D52845700C94AF5 /* FeaturedSources.swift */,
+				AE07F28D1D52950400C94AF5 /* SourceSearch.swift */,
+				AE07F28B1D52884E00C94AF5 /* MockJson */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -460,8 +473,7 @@
 			children = (
 				5F0CC62F1C6C5A410071A026 /* Feeds */,
 				5F73F17E1C77C92700DA2981 /* Reading */,
-				5F5E4DA81C700D7E009C3446 /* SwipeAwayViewController.swift */,
-				5F5706761C6636C400140078 /* SubscriptionsViewController.swift */,
+				AE07F2931D52B50B00C94AF5 /* Subscriptions VC */,
 				5FE982C91D2CE75D009C9ECF /* RootViewController.swift */,
 			);
 			name = "View controllers";
@@ -470,6 +482,7 @@
 		5F8D9F2B1C6BFF7B00F0FFBE /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				5F5E4DA81C700D7E009C3446 /* SwipeAwayViewController.swift */,
 				5F24D6B91D31C0E6000C0133 /* UIView+ParticleEffects.swift */,
 				5F5E4DAA1C701BE6009C3446 /* SSWDirectionalPanGestureRecognizer.h */,
 				5FE982DA1D2F949D009C9ECF /* StatusBarOpacity+App.swift */,
@@ -484,6 +497,7 @@
 				5F0CC6241C6C551E0071A026 /* FNSplitViewController.swift */,
 				5F0CC6281C6C59CB0071A026 /* EVComplexLayout.h */,
 				5F0CC6291C6C59CB0071A026 /* EVComplexLayout.m */,
+				AE07F2911D52AE9900C94AF5 /* ViewCell.swift */,
 				5F0CC6321C6C661A0071A026 /* CGMath.swift */,
 				5F5E4DA21C6FDE79009C3446 /* NSData+MD5.swift */,
 				5F5E4DAB1C71014D009C3446 /* Utils.swift */,
@@ -562,6 +576,15 @@
 				5F73F17C1C77C92300DA2981 /* ImageSegmentTableViewCell.swift */,
 			);
 			name = Segments;
+			sourceTree = "<group>";
+		};
+		AE07F2931D52B50B00C94AF5 /* Subscriptions VC */ = {
+			isa = PBXGroup;
+			children = (
+				5F5706761C6636C400140078 /* SubscriptionsViewController.swift */,
+				AE07F28F1D52AE1100C94AF5 /* SubscriptionsViewControllerCells.swift */,
+			);
+			name = "Subscriptions VC";
 			sourceTree = "<group>";
 		};
 		E317CF0C2C82A3FB71929AB1 /* Pods */ = {
@@ -698,6 +721,7 @@
 				5FC506EC1C914AD800F7A237 /* huePointer@2x.png in Resources */,
 				5F0CC6211C6C51BA0071A026 /* Asap-MediumItalic.otf in Resources */,
 				5F0CC6391C6D526E0071A026 /* RobotoMono-BoldItalic.ttf in Resources */,
+				AE07F28C1D52884E00C94AF5 /* MockJson in Resources */,
 				5FC506EF1C914AD800F7A237 /* crosshairs@2x.png in Resources */,
 				5F0CC61F1C6C51BA0071A026 /* Asap-Italic.otf in Resources */,
 				5F0CC6381C6D526E0071A026 /* RobotoMono-Bold.ttf in Resources */,
@@ -819,6 +843,7 @@
 				5F5E4D981C6E434C009C3446 /* BookmarksViewController.swift in Sources */,
 				5F24D6BA1D31C0E6000C0133 /* UIView+ParticleEffects.swift in Sources */,
 				5F24D6C11D31C4C4000C0133 /* UIImage+ApplyTint.swift in Sources */,
+				AE07F2901D52AE1100C94AF5 /* SubscriptionsViewControllerCells.swift in Sources */,
 				5F5E4DA91C700D7E009C3446 /* SwipeAwayViewController.swift in Sources */,
 				5FE982CC1D2CEA48009C9ECF /* StatusView.swift in Sources */,
 				5F4A715B1C63237B00676F91 /* Article.swift in Sources */,
@@ -861,8 +886,10 @@
 				5F5706711C65E17C00140078 /* SubscriptionsList.swift in Sources */,
 				5FC506ED1C914AD800F7A237 /* CPBrightnessSaturationView.m in Sources */,
 				5FC506E71C914AD800F7A237 /* SKFontPicker.m in Sources */,
+				AE07F2921D52AE9900C94AF5 /* ViewCell.swift in Sources */,
 				5FC507031C91509800F7A237 /* CGPointExtras.m in Sources */,
 				5FC507001C91507A00F7A237 /* ConvenienceCategories.m in Sources */,
+				AE07F28E1D52950400C94AF5 /* SourceSearch.swift in Sources */,
 				5F5E4DDC1C743389009C3446 /* Content.swift in Sources */,
 				5FC506FD1C91506C00F7A237 /* SKColorView.m in Sources */,
 				5F3054331C7CE33200E0CFE6 /* SafariVCActivity.swift in Sources */,
@@ -876,6 +903,7 @@
 				5FC506FC1C91506C00F7A237 /* SKColorFill.m in Sources */,
 				5F0CC6331C6C661A0071A026 /* CGMath.swift in Sources */,
 				5FC506EA1C914AD800F7A237 /* RGB-HSV.c in Sources */,
+				AE07F28A1D52845700C94AF5 /* FeaturedSources.swift in Sources */,
 				5FB4D5DE1C8A4063005D079D /* BookmarkList.swift in Sources */,
 				5F8D9F321C6C0AFE00F0FFBE /* EnableSPDY.m in Sources */,
 				5F4FDB0B1C836C020049C61A /* SwipePager.swift in Sources */,

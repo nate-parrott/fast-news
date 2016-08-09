@@ -5,7 +5,7 @@ import time
 import bs4
 from pprint import pprint
 import urlparse
-from util import url_fetch, normalized_compare
+from util import url_fetch, normalized_compare, url_fetch_future
 from soup_tools import iterate_tree
 from StringIO import StringIO
 from PIL import Image
@@ -114,12 +114,10 @@ class ImageSegment(Segment):
         j['tiny'] = self.tiny
         return j
 
-    def fetch_image_data(self, time_left):
-        elapsed = 0
-        if self.src and time_left > 0:
-            result, elapsed = url_fetch_and_time(self.src, time_left)
-            # print "ELAPSED", elapsed
-            time_left -= elapsed
+    def fetch_image_data_async(self, timeout):
+        result_future = url_fetch_future(self.src, timeout)
+        def future():
+            result = result_future()
             if result:
                 try:
                     f = StringIO(result)
@@ -130,7 +128,8 @@ class ImageSegment(Segment):
                     print "IO error during image fetch: {0}".format(e)
             else:
                 print "Failed to fetch image at url:", self.src
-        return elapsed
+        
+        return future
 
     def is_empty(self):
         return (self.src == None)
@@ -150,14 +149,14 @@ def populate_article_json(article, content):
         else:
             return None
 
-    time_left = 3
+    futures = []
+    fetch_timeout = 3 # TODO: raise this?
 
     soup = bs4.BeautifulSoup(content.html, 'lxml')
     segments = []
 
     cur_segment = None
     tag_stack = []
-    class_stack = []
     block_elements = set(['p', 'div', 'table', 'header', 'section', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'caption', 'pre', 'blockquote', 'li', 'figcaption'])
     text_tag_attributes = {'strong': {'bold': True}, 'b': {'bold': True}, 'em': {'italic': True}, 'i': {'italic': True}, 'a': {}, 'code': {'monospace': True}, 'span': {}}
 
@@ -175,9 +174,6 @@ def populate_article_json(article, content):
             segments.append(segment)
         return segment
 
-    def is_descendant_of_class(class_name):
-        return len([c for c in class_stack if c is not None and class_name in c]) > 0
-
     for (event, data) in iterate_tree(soup):
         if event == 'enter' and data.name == 'br':
             event = 'text'
@@ -185,7 +181,6 @@ def populate_article_json(article, content):
 
         if event == 'enter':
             tag_stack.append(data.name)
-            class_stack.append(data.get('class'))
             if data.name in block_elements:
                 # open a new block segment:
                 kind = {'h1': 'h1', 'h2': 'h2', 'h3': 'h3', 'h4': 'h4', 'h5': 'h5', 'h6': 'h6', 'blockquote': 'blockquote', 'caption': 'caption', 'li': 'li', 'figcaption': 'caption'}.get(data.name, 'p')
@@ -197,7 +192,7 @@ def populate_article_json(article, content):
                 segments.append(cur_segment)
             elif data.name == 'img':
                 cur_segment = ImageSegment(process_url(data.get('src')))
-                time_left -= cur_segment.fetch_image_data(time_left)
+                futures.append(cur_segment.fetch_image_data_async(fetch_timeout))
                 segments.append(cur_segment)
             else:
                 # this is an inline (text) tag:
@@ -208,20 +203,22 @@ def populate_article_json(article, content):
                 cur_segment.open_text_section(attrs)
         elif event == 'text':
             cur_segment = ensure_text(cur_segment)
-            if is_descendant_of_class('twitter-tweet'):
-                cur_segment.content[0]['color'] = 'twitter'
             cur_segment.add_text(data)
         elif event == 'exit':
+            if 'twitter-tweet' in data.get('class', []) and cur_segment and cur_segment.is_text_segment:
+                # cur_segment.content[0]['color'] = 'twitter' # mark only the LAST child as twitter
+                cur_segment.kind = 'caption'
             if data.name in block_elements:
                 cur_segment = None
             elif data.name in text_tag_attributes and cur_segment != None and cur_segment.is_text_segment():
                 cur_segment.close_text_section()
 
             tag_stack.pop()
-            class_stack.pop()
 
     segments = [s for s in segments if not s.is_empty()]
-
+    
+    for future in futures: future()
+    
     # discard small images:
     segments = [s for s in segments if not (isinstance(s, ImageSegment) and s.size and s.size[0] * s.size[1] < (100 * 100))]
 

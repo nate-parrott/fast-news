@@ -10,8 +10,9 @@ import source_search
 
 class RescheduleSourceFetchesHandler(webapp2.RequestHandler):
     def post(self):
-        sources = Source.query().fetch(10000, projection=['url'])
+        sources = Source.query().fetch(10000)
         for source in sources:
+            source.most_recent_article_added_date = None
             source.enqueue_fetch()
         self.response.write('done')
 

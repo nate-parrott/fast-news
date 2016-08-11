@@ -47,7 +47,7 @@ class SubscriptionsViewController: UITableViewController, UITextFieldDelegate {
         }
         navigationItem.title = title
         
-        // _subscriptionModels = subs.subscriptionsIncludingOptimistic
+        _subscriptionModels = subs.subscriptionsIncludingOptimistic
     }
     
     // MARK: Adding sources
@@ -80,7 +80,7 @@ class SubscriptionsViewController: UITableViewController, UITextFieldDelegate {
         }
     }
     
-    /*
+    
     // MARK: TableView
     var _subscriptionModels = [SourceSubscription]() {
         didSet {
@@ -129,7 +129,7 @@ class SubscriptionsViewController: UITableViewController, UITextFieldDelegate {
                 }
             })
         }
-    }*/
+    }
     
     // MARK: Rows
     enum Row {

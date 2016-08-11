@@ -211,9 +211,9 @@ def populate_article_json(article, content):
             if data.name in block_elements:
                 cur_segment = None
             elif data.name in text_tag_attributes and cur_segment != None and cur_segment.is_text_segment():
-                cur_segment.close_text_section()
-
-            tag_stack.pop()
+                cur_segment.close_text_section()            
+            if data.name != 'br':
+                tag_stack.pop()
 
     segments = [s for s in segments if not s.is_empty()]
     
@@ -244,7 +244,7 @@ def populate_article_json(article, content):
     top_image = None
     if article.top_image and not early_image:
         top_image = ImageSegment(article.top_image)
-        time_left -= top_image.fetch_image_data(time_left)
+        top_image.fetch_image_data_async(2)()
         segments = [top_image] + segments
 
     # identify parts of the title:

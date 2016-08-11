@@ -100,7 +100,7 @@ def detect_fetch_data(source):
     
     markup = util.url_fetch(url)
     if not markup:
-        return None
+        return None, None
     
     # is this an rss feed itself?
     feed = parse_as_feed(markup)
@@ -145,7 +145,7 @@ def rss_fetch(data, feed_content):
     entries = []
     latest_date = None
     for entry in parsed['entries']:
-        if 'link' in entry:
+        if 'link' in entry and 'title' in entry:
             # print entry
             link_url = urljoin(url, entry['link'].strip())
             title = entry['title']

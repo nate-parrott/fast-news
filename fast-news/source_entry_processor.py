@@ -20,7 +20,7 @@ def create_source_entry_processor(url):
         print 'url map: {0}'.format(url_map)
         def process_reddit(entry, feed_entry):
             print 'entry url: {0}'.format(entry['url'])
-            submission_url = entry['url']
+            submission_url = entry.get('url', entry.get('link'))
             if submission_url in url_map:
                 print 'MATCHING {0} -> {1}'.format(submission_url, url_map[submission_url])
                 entry['url'] = url_map[submission_url]

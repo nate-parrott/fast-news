@@ -13,7 +13,7 @@ class RescheduleSourceFetchesHandler(webapp2.RequestHandler):
         sources = Source.query().fetch(10000)
         for source in sources:
             source.most_recent_article_added_date = None
-            source.enqueue_fetch()
+            source.enqueue_fetch(rand=True)
         self.response.write('done')
 
 class PurgeSourceHandler(webapp2.RequestHandler):

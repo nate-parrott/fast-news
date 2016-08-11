@@ -5,6 +5,7 @@ from util import truncate, timestamp_from_datetime, first_present
 import util
 import sys, traceback, StringIO
 import datetime
+import random
 
 MINUTES = 60
 HOURS = 60 * MINUTES
@@ -72,8 +73,9 @@ class Source(ndb.Model):
         retry_options = taskqueue.TaskRetryOptions(task_retry_limit=2, min_backoff_seconds=20*MINUTES)
         return taskqueue.Task(url='/tasks/sources/fetch', params={'id': self.key.id()}, countdown=delay, retry_options=retry_options)
     
-    def enqueue_fetch(self, delay=None):
+    def enqueue_fetch(self, delay=None, rand=True):
         if delay is None: delay = self.next_fetch_delay()
+        if rand: delay = int(delay * random.random())
         taskqueue.Queue('sources').add_async(self.create_fetch_task(delay=delay))
     
     @classmethod

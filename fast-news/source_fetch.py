@@ -78,7 +78,7 @@ def _source_fetch(source):
         "twitter": twitter_fetch,
         "rss": rss_fetch
     }
-    content = None
+    feed_content = None
     print "FETCH DATA ALREADY EXISTS" if source.direct_fetch_data else "FETCH DATA NEEDS TO BE CREATED"
     if not source.direct_fetch_data:
         data, feed_content = detect_fetch_data(source)

@@ -165,6 +165,13 @@ class SourceSearchHandler(webapp2.RequestHandler):
     def get(self):
         send_json(self, api.source_search(self.request.get('query')))
 
+class OkHandler(webapp2.RequestHandler):
+    def get(self):
+        self.response.write('ok')
+    
+    def post(self):
+        self.response.write('ok')
+
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
     ('/article', ArticleHandler),
@@ -182,7 +189,8 @@ app = webapp2.WSGIApplication([
     ('/stats', StatsHandler),
     ('/dump/articles', ArticleDumpHandler),
     ('/extract', SimpleExtractHandler),
-    ('/_dbFile', file_storage._DBFileHandler)
+    ('/_dbFile', file_storage._DBFileHandler),
+    ('/_ah/start', OkHandler)
 ], debug=True)
 
 if False:

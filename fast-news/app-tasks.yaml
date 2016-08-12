@@ -9,6 +9,7 @@ module: tasks
 # 	min_idle_instances: 1
 # 	max_concurrent_requests: 20
 
+instance_class: B1
 manual_scaling:
   instances: 1
 

@@ -5,8 +5,10 @@ api_version: 1
 threadsafe: yes
 module: default
 
-automatic_scaling:
-  min_idle_instances: 1
+# automatic_scaling:
+#   min_idle_instances: 1
+manual_scaling:
+  instances: 1
 
 handlers:
 - url: /favicon\.ico

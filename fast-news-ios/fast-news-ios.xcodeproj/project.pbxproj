@@ -34,6 +34,7 @@
 		5F28BB441D5D9062006E2F76 /* SourceSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F28BB431D5D9062006E2F76 /* SourceSearchBar.swift */; };
 		5F28BB461D5D9079006E2F76 /* FeaturedSourcesCarousel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F28BB451D5D9079006E2F76 /* FeaturedSourcesCarousel.swift */; };
 		5F28BB481D5D9591006E2F76 /* SubscriptionRowCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F28BB471D5D9591006E2F76 /* SubscriptionRowCell.swift */; };
+		5F28BB4A1D5D9BEF006E2F76 /* SourceSearchBarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F28BB491D5D9BEF006E2F76 /* SourceSearchBarCell.swift */; };
 		5F3054311C7CE13A00E0CFE6 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3054301C7CE13A00E0CFE6 /* Color.swift */; };
 		5F3054331C7CE33200E0CFE6 /* SafariVCActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3054321C7CE33200E0CFE6 /* SafariVCActivity.swift */; };
 		5F30543B1C7D197F00E0CFE6 /* ActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F30543A1C7D197F00E0CFE6 /* ActionViewController.swift */; };
@@ -216,6 +217,7 @@
 		5F28BB431D5D9062006E2F76 /* SourceSearchBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SourceSearchBar.swift; sourceTree = "<group>"; };
 		5F28BB451D5D9079006E2F76 /* FeaturedSourcesCarousel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeaturedSourcesCarousel.swift; sourceTree = "<group>"; };
 		5F28BB471D5D9591006E2F76 /* SubscriptionRowCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionRowCell.swift; sourceTree = "<group>"; };
+		5F28BB491D5D9BEF006E2F76 /* SourceSearchBarCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SourceSearchBarCell.swift; sourceTree = "<group>"; };
 		5F3054301C7CE13A00E0CFE6 /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		5F3054321C7CE33200E0CFE6 /* SafariVCActivity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SafariVCActivity.swift; sourceTree = "<group>"; };
 		5F3054381C7D197F00E0CFE6 /* Reader.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Reader.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -588,6 +590,7 @@
 				5F5706761C6636C400140078 /* SubscriptionsViewController.swift */,
 				5F28BB451D5D9079006E2F76 /* FeaturedSourcesCarousel.swift */,
 				5F28BB471D5D9591006E2F76 /* SubscriptionRowCell.swift */,
+				5F28BB491D5D9BEF006E2F76 /* SourceSearchBarCell.swift */,
 				5F28BB431D5D9062006E2F76 /* SourceSearchBar.swift */,
 			);
 			name = "Subscriptions VC";
@@ -919,6 +922,7 @@
 				5F4A71571C63236C00676F91 /* Source.swift in Sources */,
 				5F0CC6311C6C5FD20071A026 /* Queues.swift in Sources */,
 				5F4A715D1C63288000676F91 /* Pusher.swift in Sources */,
+				5F28BB4A1D5D9BEF006E2F76 /* SourceSearchBarCell.swift in Sources */,
 				5F73F17D1C77C92300DA2981 /* ImageSegmentTableViewCell.swift in Sources */,
 				5FCDF4401C6BCD6700A50A75 /* CommonExtensions.swift in Sources */,
 				5FC506EB1C914AD800F7A237 /* CPHueWheel.m in Sources */,

@@ -24,7 +24,7 @@ class SubscriptionsViewController: UITableViewController, UITextFieldDelegate {
             self?._update()
         })
         
-        tableView.tableHeaderView = addSourceTextField
+        // tableView.tableHeaderView = addSourceTextField
     }
     
     let _preferredRecency: CFAbsoluteTime = 5 * 60
@@ -61,13 +61,16 @@ class SubscriptionsViewController: UITableViewController, UITextFieldDelegate {
         
         let subscriptionRows = subs.subscriptionsIncludingOptimistic.map({ SubscriptionRow(subscription: $0) })
         sections = [
+            Section(title: nil, rows: [SearchBarRow(bar: searchBar)]),
             Section(title: NSLocalizedString("Subscriptions", comment: ""), rows: subscriptionRows)
         ]
     }
     
     // MARK: Adding sources
     
-    @IBOutlet var addSourceTextField: UITextField!
+    let searchBar = SourceSearchBar(frame: CGRectZero)
+    
+    /*@IBOutlet var addSourceTextField: UITextField!
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         if let url = (textField.text ?? "").asURLString() {
             _addsInProgress += 1
@@ -89,6 +92,7 @@ class SubscriptionsViewController: UITableViewController, UITextFieldDelegate {
         }
         return true
     }
+    */
     var _addsInProgress = 0 {
         didSet {
             _update()
@@ -114,6 +118,11 @@ class SubscriptionsViewController: UITableViewController, UITextFieldDelegate {
         return cell
     }
     
+    override func tableView(tableView: UITableView, shouldHighlightRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        let row = sections[indexPath.section].rows[indexPath.row]
+        return row.canSelect
+    }
+    
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return sections[section].title
     }
@@ -132,8 +141,13 @@ class SubscriptionsViewController: UITableViewController, UITextFieldDelegate {
         }
     }
     
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let row = sections[indexPath.section].rows[indexPath.row]
+        row.select(self)
+    }
+    
     override func scrollViewWillBeginDragging(scrollView: UIScrollView) {
-        addSourceTextField.resignFirstResponder()
+        // addSourceTextField.resignFirstResponder()
     }
     
     override func tableView(tableView: UITableView, performAction action: Selector, forRowAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject?) {
@@ -163,6 +177,9 @@ class SubscriptionsViewController: UITableViewController, UITextFieldDelegate {
         func configureCell(cell: UITableViewCell) {
             
         }
+        func height(width: CGFloat) -> CGFloat {
+            return 44
+        }
         // MARK: Actions
         var canDelete: Bool {
             get {
@@ -170,6 +187,14 @@ class SubscriptionsViewController: UITableViewController, UITextFieldDelegate {
             }
         }
         func delete(vc: SubscriptionsViewController) {
+            
+        }
+        var canSelect: Bool {
+            get {
+                return false
+            }
+        }
+        func select(vc: SubscriptionsViewController) {
             
         }
     }
@@ -202,16 +227,32 @@ class SubscriptionsViewController: UITableViewController, UITextFieldDelegate {
             })
         }
     }
-        
-    let allRowClasses: [Row.Type] = [SubscriptionRow.self]
     
-    var rows = [Row]() {
-        didSet {
-            tableView.reloadData()
+    class SearchBarRow: Row {
+        init(bar: SourceSearchBar) {
+            self.bar = bar
+        }
+        let bar: SourceSearchBar
+        override class var cellClass: UITableViewCell.Type {
+            get {
+                return SourceSearchBarCell.self
+            }
+        }
+        override func configureCell(cell: UITableViewCell) {
+            cell.backgroundColor = nil
+            // ugh seriously apple?
+            for view in cell.subviews {
+                if view !== cell.contentView {
+                    view.removeFromSuperview()
+                }
+            }
+            (cell as! SourceSearchBarCell).searchBar = bar
+        }
+        override func height(width: CGFloat) -> CGFloat {
+            return SourceSearchBar.Height
         }
     }
-    
-    // MARK: TableView
-    
+        
+    let allRowClasses: [Row.Type] = [SubscriptionRow.self, SearchBarRow.self]
 }
 

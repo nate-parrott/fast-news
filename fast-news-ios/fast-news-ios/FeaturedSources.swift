@@ -27,7 +27,8 @@ class FeaturedSources: APIObject {
     }
     
     override func _mockRequest(t: Transaction) -> [String: AnyObject]? {
-        return _loadMockJson("FeaturedSources")
+        return nil
+        // return _loadMockJson("FeaturedSources")
     }
 }
 

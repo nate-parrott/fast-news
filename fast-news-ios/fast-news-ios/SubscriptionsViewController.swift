@@ -16,6 +16,10 @@ class SubscriptionsViewController: UITableViewController, UITextFieldDelegate {
         super.viewDidLoad()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SubscriptionsViewController._foreground(_:)), name: UIApplicationWillEnterForegroundNotification, object: nil)
         
+        for rowClass in allRowClasses {
+            tableView.registerClass(rowClass.cellClass, forCellReuseIdentifier: NSStringFromClass(rowClass.cellClass))
+        }
+        
         _subsSub = subs.onUpdate.subscribe({ [weak self] (_) -> () in
             self?._update()
         })
@@ -34,6 +38,14 @@ class SubscriptionsViewController: UITableViewController, UITextFieldDelegate {
         subs.ensureRecency(_preferredRecency)
     }
     
+    // MARK: Data
+    
+    var sections = [Section]() {
+        didSet {
+            tableView.reloadData()
+        }
+    }
+    
     func _update() {
         var title = navigationItem.title
         if _addsInProgress > 0 {
@@ -47,7 +59,10 @@ class SubscriptionsViewController: UITableViewController, UITextFieldDelegate {
         }
         navigationItem.title = title
         
-        _subscriptionModels = subs.subscriptionsIncludingOptimistic
+        let subscriptionRows = subs.subscriptionsIncludingOptimistic.map({ SubscriptionRow(subscription: $0) })
+        sections = [
+            Section(title: NSLocalizedString("Subscriptions", comment: ""), rows: subscriptionRows)
+        ]
     }
     
     // MARK: Adding sources
@@ -82,36 +97,37 @@ class SubscriptionsViewController: UITableViewController, UITextFieldDelegate {
     
     
     // MARK: TableView
-    var _subscriptionModels = [SourceSubscription]() {
-        didSet {
-            tableView.reloadData()
-        }
+    
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return sections.count
     }
+    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return _subscriptionModels.count
+        return sections[section].rows.count
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
-        let sub = _subscriptionModels[indexPath.row]
-        cell.textLabel!.text = sub.source!.title
-        cell.detailTextLabel!.text = sub.source!.url
+        let row = sections[indexPath.section].rows[indexPath.row]
+        let cellIdentifier = NSStringFromClass(row.dynamicType.cellClass)
+        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath)
+        row.configureCell(cell)
         return cell
     }
     
+    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return sections[section].title
+    }
+    
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return true
+        let row = sections[indexPath.section].rows[indexPath.row]
+        return row.canDelete
     }
     
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        let row = sections[indexPath.section].rows[indexPath.row]
         switch editingStyle {
         case .Delete:
-            let sub = _subscriptionModels[indexPath.row]
-            DeleteSubscriptionTransaction(url: sub.source!.url!).start({ (success) -> () in
-                if !success {
-                    self.showError(NSLocalizedString("Couldn't unsubscribe.", comment: ""))
-                }
-            })
+            row.delete(self)
         default: ()
         }
     }
@@ -131,14 +147,64 @@ class SubscriptionsViewController: UITableViewController, UITextFieldDelegate {
         }
     }
     
-    // MARK: Rows
-    enum Row {
-        case SearchBar
-        case CategoryRow(FeaturedSourcesCategory)
-        case SubscriptionRow(Subscription)
-        case Header(String)
-        // case Message(String)
+    // MARK: Row/section model classes
+    
+    struct Section {
+        let title: String?
+        let rows: [Row]
     }
+    
+    class Row {
+        class var cellClass: UITableViewCell.Type {
+            get {
+                return UITableViewCell.self
+            }
+        }
+        func configureCell(cell: UITableViewCell) {
+            
+        }
+        // MARK: Actions
+        var canDelete: Bool {
+            get {
+                return false
+            }
+        }
+        func delete(vc: SubscriptionsViewController) {
+            
+        }
+    }
+    
+    class SubscriptionRow: Row {
+        init(subscription: SourceSubscription) {
+            self.subscription = subscription
+        }
+        override class var cellClass: UITableViewCell.Type {
+            get {
+                return SubscriptionRowCell.self
+            }
+        }
+        let subscription: SourceSubscription
+        override func configureCell(cell: UITableViewCell) {
+            super.configureCell(cell)
+            cell.textLabel!.text = subscription.source!.title
+            cell.detailTextLabel!.text = subscription.source!.url
+        }
+        override var canDelete: Bool {
+            get {
+                return true
+            }
+        }
+        override func delete(vc: SubscriptionsViewController) {
+            DeleteSubscriptionTransaction(url: subscription.source!.url!).start({ (success) -> () in
+                if !success {
+                    vc.showError(NSLocalizedString("Couldn't unsubscribe.", comment: ""))
+                }
+            })
+        }
+    }
+        
+    let allRowClasses: [Row.Type] = [SubscriptionRow.self]
+    
     var rows = [Row]() {
         didSet {
             tableView.reloadData()

@@ -26,7 +26,6 @@ source_fields = [
     {"name": "title_override", "type": "text"},
     {"name": "short_title", "type": "text"},
     {"name": "fetch_url_override", "type": "text"},
-    {"name": "featured_priority", "type": "number"},
     {"name": "categories", "type": "text", "split": "//"},
     {"name": "color", "type": "text"},
     {"name": "icon_url", "type": "file_url", "image": True, "max_size": 200},

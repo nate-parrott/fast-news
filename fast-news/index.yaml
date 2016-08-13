@@ -25,6 +25,17 @@ indexes:
 
 - kind: Source
   properties:
+  - name: categories
+  - name: featured_priority
+
+- kind: Source
+  properties:
+  - name: categories
+  - name: featured_priority
+    direction: desc
+
+- kind: Source
+  properties:
   - name: url
   - name: most_recent_article_added_date
     direction: desc

@@ -23,8 +23,7 @@ def upload_file_and_get_url(data, mimetype='application/octet-stream'):
         f.put()
         return '/_dbFile?id=' + urllib.quote(f.key.urlsafe())
     else:
-        bucket_name = os.environ.get('BUCKET_NAME',
-                                     app_identity.get_default_gcs_bucket_name())
+        bucket_name = 'fast-news' # os.environ.get('BUCKET_NAME', app_identity.get_default_gcs_bucket_name())
         filename = uuid.uuid4().hex
         write_retry_params = gcs.RetryParams(backoff_factor=1.1)
         gcs_file = gcs.open('/' + bucket_name + '/' + filename,

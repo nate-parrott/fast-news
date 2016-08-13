@@ -41,13 +41,16 @@ def sources_subscribed_by_id(uid, just_inserted=None):
     return jsons
 
 def featured_sources_by_category(category=None):
-    q = Source.query(Source.featured_priority > 0)
-    if category: q = q.filter(Source.category == category)
-    q = q.order(-Source.featured_priority)
+    q = Source.query(Source.featured_priority < 1)
+    if category: q = q.filter(Source.categories == category)
+    q = q.order(Source.featured_priority)
     sources = q.fetch(400)
 
     categories = util.unique_ordered_list(util.flatten(s.categories for s in sources))
     if category and category not in categories: categories.append(category)
+    
+    category_order = {category: i for i, category in enumerate(["Newspapers", "Culture", "Politics", "Tech", "Humor", "Local", "Longform"])}
+    categories.sort(key=lambda x: category_order.get(x, 99999))
 
     sources_by_category = defaultdict(list)
     for source in sources:

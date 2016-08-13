@@ -24,6 +24,7 @@ class SourcesAdminHandler(webapp2.RequestHandler):
 source_fields = [
     {"name": "title"},
     {"name": "title_override", "type": "text"},
+    {"name": "short_title", "type": "text"},
     {"name": "fetch_url_override", "type": "text"},
     {"name": "featured_priority", "type": "number"},
     {"name": "categories", "type": "text", "split": "//"},

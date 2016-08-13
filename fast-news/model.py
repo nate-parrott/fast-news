@@ -35,6 +35,7 @@ class Source(ndb.Model):
     url = ndb.StringProperty()
     last_fetched = ndb.DateTimeProperty()
     title = ndb.TextProperty()
+    short_title = ndb.TextProperty()
     most_recent_article_added_date = ndb.DateTimeProperty()
     brand = ndb.JsonProperty()
     
@@ -100,6 +101,7 @@ class Source(ndb.Model):
                 "id": self.key.id(),
                 "url": self.url,
                 "title": self.display_title(),
+                "short_title": self.short_title,
                 "brand": self.brand,
                 "color": self.color,
                 "icon_url": self.icon_url

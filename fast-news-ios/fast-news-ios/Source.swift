@@ -10,15 +10,23 @@ import UIKit
 
 class Source: APIObject {
     var title: String?
+    var shortTitle: String?
     var url: String?
     var articles: [Article]?
     var textColor: UIColor?
     var backgroundColor: UIColor?
+    var color: UIColor?
+    var iconUrl: String?
     override func importJson(json: [String : AnyObject]) {
         super.importJson(json)
         
         self.title = json["title"] as? String ?? self.title
         self.url = json["url"] as? String ?? self.url
+        self.shortTitle = json["short_title"] as? String ?? self.shortTitle
+        self.iconUrl = json["icon_url"] as? String ?? self.iconUrl
+        if let c = json["color"] as? String {
+            self.color = UIColor(hex: "#" + c)
+        }
         
         let sourceHost = url != nil ? Utils.HostFromURLString(url!) : nil
         

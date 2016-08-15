@@ -159,11 +159,11 @@ class SimpleExtractHandler(webapp2.RequestHandler):
 
 class FeaturedSourcesHandler(webapp2.RequestHandler):
     def get(self):
-        send_json(self, api.featured_sources_by_category(category=self.request.get('category')))
+        send_json(self, {"categories": api.featured_sources_by_category(category=self.request.get('category'))})
 
 class SourceSearchHandler(webapp2.RequestHandler):
     def get(self):
-        send_json(self, api.source_search(self.request.get('query')))
+        send_json(self, {"results": api.source_search(self.request.get('query'))})
 
 class OkHandler(webapp2.RequestHandler):
     def get(self):

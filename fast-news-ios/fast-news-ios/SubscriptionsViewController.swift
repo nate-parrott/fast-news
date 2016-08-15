@@ -11,6 +11,8 @@ import UIKit
 class SubscriptionsViewController: UITableViewController, UITextFieldDelegate {
     let subs = SubscriptionsList.objectsForIDs(["main"]).first! as! SubscriptionsList
     var _subsSub: Subscription?
+    let featured = FeaturedSources.objectForID("featured") as! FeaturedSources
+    var _featuredSub: Subscription?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +26,9 @@ class SubscriptionsViewController: UITableViewController, UITextFieldDelegate {
             self?._update()
         })
         
+        _featuredSub = featured.onUpdate.subscribe({ [weak self] (_) -> () in
+            self?._update()
+        })
         // tableView.tableHeaderView = addSourceTextField
     }
     
@@ -32,6 +37,7 @@ class SubscriptionsViewController: UITableViewController, UITextFieldDelegate {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         subs.ensureRecency(_preferredRecency)
+        featured.ensureRecency(30 * 60) // 30 mins
     }
     
     func _foreground(notif: NSNotification) {
@@ -60,8 +66,10 @@ class SubscriptionsViewController: UITableViewController, UITextFieldDelegate {
         navigationItem.title = title
         
         let subscriptionRows = subs.subscriptionsIncludingOptimistic.map({ SubscriptionRow(subscription: $0) })
+        let featuredSourceRows = (featured.categories ?? []).map({ FeaturedSourcesCarouselRow(category: $0) })
         sections = [
             Section(title: nil, rows: [SearchBarRow(bar: searchBar)]),
+            Section(title: nil, rows: featuredSourceRows),
             Section(title: NSLocalizedString("Subscriptions", comment: ""), rows: subscriptionRows)
         ]
     }
@@ -141,6 +149,11 @@ class SubscriptionsViewController: UITableViewController, UITextFieldDelegate {
         }
     }
     
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        let row = sections[indexPath.section].rows[indexPath.row]
+        return row.height(tableView.bounds.width)
+    }
+    
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let row = sections[indexPath.section].rows[indexPath.row]
         row.select(self)
@@ -197,6 +210,15 @@ class SubscriptionsViewController: UITableViewController, UITextFieldDelegate {
         func select(vc: SubscriptionsViewController) {
             
         }
+        // MARK: Special helpers
+        func _removeDividersFromCell(cell: UITableViewCell) {
+            // ugh seriously apple?
+            for view in cell.subviews {
+                if view !== cell.contentView {
+                    view.removeFromSuperview()
+                }
+            }
+        }
     }
     
     class SubscriptionRow: Row {
@@ -240,19 +262,34 @@ class SubscriptionsViewController: UITableViewController, UITextFieldDelegate {
         }
         override func configureCell(cell: UITableViewCell) {
             cell.backgroundColor = nil
-            // ugh seriously apple?
-            for view in cell.subviews {
-                if view !== cell.contentView {
-                    view.removeFromSuperview()
-                }
-            }
+            _removeDividersFromCell(cell)
             (cell as! SourceSearchBarCell).searchBar = bar
         }
         override func height(width: CGFloat) -> CGFloat {
             return SourceSearchBar.Height
         }
     }
-        
-    let allRowClasses: [Row.Type] = [SubscriptionRow.self, SearchBarRow.self]
+    
+    class FeaturedSourcesCarouselRow: Row {
+        init(category: FeaturedSourcesCategory) {
+            self.category = category
+        }
+        let category: FeaturedSourcesCategory
+        override func height(width: CGFloat) -> CGFloat {
+            return FeaturedSourcesCarousel.Height
+        }
+        override class var cellClass: UITableViewCell.Type {
+            get {
+                return FeaturedSourcesCarouselCell.self
+            }
+        }
+        override func configureCell(cell: UITableViewCell) {
+            super.configureCell(cell)
+            _removeDividersFromCell(cell)
+            (cell as! FeaturedSourcesCarouselCell).carousel.content = FeaturedSourcesCarousel.Content(sources: category.sources ?? [], selectedIndices: []) // TODO: support selection
+        }
+    }
+    
+    let allRowClasses: [Row.Type] = [SubscriptionRow.self, SearchBarRow.self, FeaturedSourcesCarouselRow.self]
 }
 

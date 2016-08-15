@@ -66,7 +66,10 @@ class FeedViewController: ArticleCollectionViewController {
     
     override var modelTitle: String {
         get {
-            return NSDateFormatter.localizedStringFromDate(NSDate(), dateStyle: .MediumStyle, timeStyle: .NoStyle)
+            // return NSDateFormatter.localizedStringFromDate(NSDate(), dateStyle: .MediumStyle, timeStyle: .NoStyle)
+            let fmt = NSDateFormatter()
+            fmt.setLocalizedDateFormatFromTemplate("EEEE, MMMM d")
+            return fmt.stringFromDate(NSDate())
         }
     }
     

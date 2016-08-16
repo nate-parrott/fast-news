@@ -30,8 +30,9 @@ class FeaturedSourcesCarousel: UICollectionView, UICollectionViewDataSource, UIC
     init() {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .Horizontal
-        layout.itemSize = CGSizeMake(84, FeaturedSourcesCarousel.ThumbnailHeight)
+        layout.itemSize = CGSizeMake(84, FeaturedSourcesCarousel.Height)
         layout.minimumInteritemSpacing = FeaturedSourcesCarousel.XInset
+        layout.sectionInset = UIEdgeInsetsMake(0, FeaturedSourcesCarousel.XInset, 0, FeaturedSourcesCarousel.XInset)
         super.init(frame: CGRectZero, collectionViewLayout: layout)
         registerClass(Cell.self, forCellWithReuseIdentifier: "Cell")
         showsHorizontalScrollIndicator = false
@@ -45,7 +46,7 @@ class FeaturedSourcesCarousel: UICollectionView, UICollectionViewDataSource, UIC
         fatalError("init(coder:) has not been implemented")
     }
     
-    static let XInset: CGFloat = 14
+    static let XInset: CGFloat = 10
     static let YInset: CGFloat = XInset/2
     static let ThumbnailHeight: CGFloat = 100
     static let Height: CGFloat = ThumbnailHeight + 20 + YInset * 2
@@ -76,6 +77,7 @@ class FeaturedSourcesCarousel: UICollectionView, UICollectionViewDataSource, UIC
         let label = UILabel()
         let thumbnail = UIView()
         let imageView = NetImageView()
+        let sourceBorder = UIImageView()
         var _setupYet = false
         var source: Source? {
             didSet {
@@ -85,6 +87,7 @@ class FeaturedSourcesCarousel: UICollectionView, UICollectionViewDataSource, UIC
                     addSubview(label)
                     addSubview(thumbnail)
                     addSubview(imageView)
+                    addSubview(sourceBorder)
                     label.textAlignment = .Center
                     label.font = UIFont.systemFontOfSize(12)
                     label.textColor = UIColor(hexString: "#6D6D72")
@@ -105,7 +108,7 @@ class FeaturedSourcesCarousel: UICollectionView, UICollectionViewDataSource, UIC
         }
         var indicateSelected = false {
             didSet {
-                // TODO
+                sourceBorder.image = UIImage(named: indicateSelected ? "SelectedSourceBorder" : "DeselectedSourceBorder")!
             }
         }
         override func layoutSubviews() {
@@ -114,6 +117,7 @@ class FeaturedSourcesCarousel: UICollectionView, UICollectionViewDataSource, UIC
             thumbnail.frame = CGRectMake(0, 0, bounds.width, t)
             imageView.frame = CGRectInset(thumbnail.frame, 15, 15)
             label.frame = CGRectMake(0, t, bounds.width, bounds.height - t)
+            sourceBorder.frame = CGRectMake(-1, 0, thumbnail.bounds.width + 2, thumbnail.bounds.height + 2)
         }
     }
 }

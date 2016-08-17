@@ -146,6 +146,7 @@
 		5FCDF4421C6BF75F00A50A75 /* ArticleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCDF4411C6BF75F00A50A75 /* ArticleViewController.swift */; };
 		5FCDF4441C6BF77000A50A75 /* SourceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCDF4431C6BF77000A50A75 /* SourceViewController.swift */; };
 		5FCDF4481C6BFAFB00A50A75 /* ArticleCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCDF4471C6BFAFB00A50A75 /* ArticleCollectionViewController.swift */; };
+		5FCFF8D91D642E2A004E8113 /* KeyboardTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCFF8D81D642E2A004E8113 /* KeyboardTracker.swift */; };
 		5FD30E3C1C8F4AD90089788C /* Merriweather-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5FD30E3B1C8F4AD90089788C /* Merriweather-Regular.ttf */; };
 		5FD30E3D1C8F4AD90089788C /* Merriweather-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5FD30E3B1C8F4AD90089788C /* Merriweather-Regular.ttf */; };
 		5FD30E3F1C8F4CDD0089788C /* Merriweather-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5FD30E3E1C8F4CDD0089788C /* Merriweather-Bold.ttf */; };
@@ -307,6 +308,7 @@
 		5FCDF4411C6BF75F00A50A75 /* ArticleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleViewController.swift; sourceTree = "<group>"; };
 		5FCDF4431C6BF77000A50A75 /* SourceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SourceViewController.swift; sourceTree = "<group>"; };
 		5FCDF4471C6BFAFB00A50A75 /* ArticleCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleCollectionViewController.swift; sourceTree = "<group>"; };
+		5FCFF8D81D642E2A004E8113 /* KeyboardTracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardTracker.swift; sourceTree = "<group>"; };
 		5FD30E3B1C8F4AD90089788C /* Merriweather-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Merriweather-Regular.ttf"; sourceTree = "<group>"; };
 		5FD30E3E1C8F4CDD0089788C /* Merriweather-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Merriweather-Bold.ttf"; sourceTree = "<group>"; };
 		5FE982C91D2CE75D009C9ECF /* RootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
@@ -517,6 +519,7 @@
 				5FB4D5DF1C8BE276005D079D /* UIColor+Hex.swift */,
 				5FB4D5E21C8BE364005D079D /* String+Substring.swift */,
 				5FC3BFD81C9EED68000A2D9E /* NPSoftModalPresentationController.swift */,
+				5FCFF8D81D642E2A004E8113 /* KeyboardTracker.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -907,6 +910,7 @@
 				5F73F17B1C77C91600DA2981 /* TextSegmentTableViewCell.swift in Sources */,
 				5F4FDB0E1C836CCE0049C61A /* ArticleSegmentCell.swift in Sources */,
 				5FC506E81C914AD800F7A237 /* CPColorPicker.m in Sources */,
+				5FCFF8D91D642E2A004E8113 /* KeyboardTracker.swift in Sources */,
 				5F0CC6251C6C551E0071A026 /* FNSplitViewController.swift in Sources */,
 				5F28BB481D5D9591006E2F76 /* SubscriptionRowCell.swift in Sources */,
 				5FB4D5E01C8BE276005D079D /* UIColor+Hex.swift in Sources */,

@@ -18,6 +18,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
             // EnableSPDY.enableSPDY()
         }
         
+        KeyboardTracker.Shared // just make sure this is initialized
+        
         let URLCache = NSURLCache(memoryCapacity: 40 * 1024 * 1024, diskCapacity: 0, diskPath: nil)
         NSURLCache.setSharedURLCache(URLCache)
         

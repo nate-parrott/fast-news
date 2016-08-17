@@ -433,11 +433,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "fast-news-ios/SubscriptionsViewController.swift"
-            timestampString = "493100580.652853"
+            timestampString = "493107703.18986"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "162"
-            endingLineNumber = "162"
+            startingLineNumber = "207"
+            endingLineNumber = "207"
             landmarkName = "SubscriptionsViewController"
             landmarkType = "3">
          </BreakpointContent>

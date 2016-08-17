@@ -29,10 +29,22 @@ class SubscriptionsViewController: UITableViewController, UITextFieldDelegate {
         _featuredSub = featured.onUpdate.subscribe({ [weak self] (_) -> () in
             self?._update()
         })
-        // tableView.tableHeaderView = addSourceTextField
+        
         tableView.sectionHeaderHeight = 1
         tableView.sectionFooterHeight = 30
         tableView.contentInset = UIEdgeInsetsZero
+        
+        _searchActiveSub = searchBar.active.subscribe({ [weak self] (active) in
+            self?.searchActive = active
+        })
+        
+        searchContentCover.backgroundColor = UIColor.groupTableViewBackgroundColor()
+        searchContentCover.alpha = 0
+        view.addSubview(searchContentCover)
+        let tapRec = UITapGestureRecognizer(target: searchBar, action: #selector(SourceSearchBar.cancelEditing))
+        searchContentCover.addGestureRecognizer(tapRec)
+        
+        view.addSubview(searchBar)
     }
     
     let _preferredRecency: CFAbsoluteTime = 5 * 60
@@ -52,6 +64,7 @@ class SubscriptionsViewController: UITableViewController, UITextFieldDelegate {
     var sections = [Section]() {
         didSet {
             tableView.reloadData()
+            _updateSearchBarFrame()
         }
     }
     
@@ -79,8 +92,6 @@ class SubscriptionsViewController: UITableViewController, UITextFieldDelegate {
     }
     
     // MARK: Adding/removing sources
-    
-    let searchBar = SourceSearchBar(frame: CGRectZero)
     
     /*@IBOutlet var addSourceTextField: UITextField!
     func textFieldShouldReturn(textField: UITextField) -> Bool {
@@ -149,6 +160,40 @@ class SubscriptionsViewController: UITableViewController, UITextFieldDelegate {
         return false
     }
     
+    // MARK: Search
+    
+    let searchBar = SourceSearchBar(frame: CGRectZero)
+    var _searchActiveSub: Subscription?
+    let searchContentCover = UIView()
+    
+    var searchActive = false {
+        didSet(old) {
+            if old == searchActive { return }
+            if searchActive {
+                tableView.setContentOffset(CGPointMake(0, -tableView.contentInset.top), animated: true)
+            }
+            viewDidLayoutSubviews()
+            UIView.animateWithDuration(0.25, delay: 0, options: [], animations: {
+                self.searchContentCover.alpha = self.searchActive ? 0.75 : 0
+                }, completion: nil)
+        }
+    }
+    
+    // MARK: Layout
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        searchContentCover.frame = view.bounds
+        _updateSearchBarFrame()
+    }
+    
+    func _updateSearchBarFrame() {
+        if let searchBarCell = tableView.visibleCells.map({ ($0 as? SourceSearchBarCell) }).filter({ $0 != nil }).map({ $0! }).first {
+            searchBar.hidden = false
+            searchBar.frame = view.convertRect(searchBarCell.barFrame, fromView: searchBarCell)
+        } else {
+            searchBar.hidden = true
+        }
+    }
     
     // MARK: TableView
     
@@ -202,7 +247,11 @@ class SubscriptionsViewController: UITableViewController, UITextFieldDelegate {
     }
     
     override func scrollViewWillBeginDragging(scrollView: UIScrollView) {
-        // addSourceTextField.resignFirstResponder()
+        searchBar.cancelEditing()
+    }
+    
+    override func scrollViewDidScroll(scrollView: UIScrollView) {
+        _updateSearchBarFrame()
     }
     
     override func tableView(tableView: UITableView, performAction action: Selector, forRowAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject?) {
@@ -304,7 +353,6 @@ class SubscriptionsViewController: UITableViewController, UITextFieldDelegate {
             super.configureCell(cell, vc: vc)
             cell.backgroundColor = nil
             _removeDividersFromCell(cell)
-            (cell as! SourceSearchBarCell).searchBar = bar
         }
         override func height(width: CGFloat) -> CGFloat {
             return SourceSearchBar.Height

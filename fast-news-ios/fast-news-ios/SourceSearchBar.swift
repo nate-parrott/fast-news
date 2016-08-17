@@ -36,6 +36,7 @@ class SourceSearchBar: UIView, UITextFieldDelegate {
     let border = UIImageView(image: UIImage(named: "SearchBarBackground"))
     
     let query = Observable<String>(val: "")
+    let active = Observable<Bool>(val: false)
     var results = [Source]() {
         didSet {
             _update()
@@ -53,15 +54,23 @@ class SourceSearchBar: UIView, UITextFieldDelegate {
     
     func textFieldDidBeginEditing(textField: UITextField) {
         _update()
+        active.val = true
     }
     
     func textFieldDidEndEditing(textField: UITextField) {
         _update()
+        active.val = false
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         // TODO: should we execute the default action (select the first result)?
         return false
+    }
+    
+    func cancelEditing() {
+        field.text = ""
+        field.resignFirstResponder()
+        active.val = false
     }
     
     // MARK: Layout

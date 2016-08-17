@@ -23,6 +23,7 @@ class KeyboardTracker: NSObject {
         UIView.animateWithDuration(duration, delay: 0, options: [.CurveEaseInOut], animations: { 
             self.keyboardFrame.val = toFrame
             }, completion: nil)
+        print("Duration: \(duration)")
     }
     func keyboardHeightInView(view: UIView) -> CGFloat {
         if let k = keyboardFrame.val {

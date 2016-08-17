@@ -30,8 +30,8 @@ class SubscriptionsViewController: UITableViewController, UITextFieldDelegate {
             self?._update()
         })
         // tableView.tableHeaderView = addSourceTextField
-        tableView.sectionHeaderHeight = 5
-        tableView.sectionFooterHeight = 5
+        tableView.sectionHeaderHeight = 1
+        tableView.sectionFooterHeight = 30
         tableView.contentInset = UIEdgeInsetsZero
     }
     
@@ -78,7 +78,7 @@ class SubscriptionsViewController: UITableViewController, UITextFieldDelegate {
         ]
     }
     
-    // MARK: Adding sources
+    // MARK: Adding/removing sources
     
     let searchBar = SourceSearchBar(frame: CGRectZero)
     
@@ -111,6 +111,44 @@ class SubscriptionsViewController: UITableViewController, UITextFieldDelegate {
         }
     }
     
+    func toggleSourceSubscribed(source: Source) {
+        if !currentlySubscribedToSource(source) {
+            subscribeToSource(source, url: nil)
+        } else {
+            unsubscribeFromSource(source)
+        }
+    }
+    
+    func subscribeToSource(source: Source?, url: String?) {
+        // either source or url must be present
+        _addsInProgress += 1
+        AddSubscriptionTransaction(source: source, url: url).start({ (success) -> () in
+            self._addsInProgress -= 1
+            if !success {
+                self.showError(NSLocalizedString("Couldn't add that news source.", comment: ""))
+            }
+        })
+    }
+    
+    func unsubscribeFromSource(source: Source) {
+        DeleteSubscriptionTransaction(url: source.url!).start({ (success) -> () in
+            if !success {
+                self.showError(NSLocalizedString("Couldn't unsubscribe.", comment: ""))
+            }
+        })
+    }
+    
+    func currentlySubscribedToSource(source: Source) -> Bool {
+        if let sourceId = source.id {
+            for sub in subs.subscriptionsIncludingOptimistic {
+                if let id = sub.source?.id where id == sourceId {
+                    return true
+                }
+            }
+        }
+        return false
+    }
+    
     
     // MARK: TableView
     
@@ -126,7 +164,7 @@ class SubscriptionsViewController: UITableViewController, UITextFieldDelegate {
         let row = sections[indexPath.section].rows[indexPath.row]
         let cellIdentifier = NSStringFromClass(row.dynamicType.cellClass)
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath)
-        row.configureCell(cell)
+        row.configureCell(cell, vc: self)
         return cell
     }
     
@@ -191,7 +229,7 @@ class SubscriptionsViewController: UITableViewController, UITextFieldDelegate {
                 return UITableViewCell.self
             }
         }
-        func configureCell(cell: UITableViewCell) {
+        func configureCell(cell: UITableViewCell, vc: SubscriptionsViewController) {
             
         }
         func height(width: CGFloat) -> CGFloat {
@@ -235,8 +273,8 @@ class SubscriptionsViewController: UITableViewController, UITextFieldDelegate {
             }
         }
         let subscription: SourceSubscription
-        override func configureCell(cell: UITableViewCell) {
-            super.configureCell(cell)
+        override func configureCell(cell: UITableViewCell, vc: SubscriptionsViewController) {
+            super.configureCell(cell, vc: vc)
             cell.textLabel!.text = subscription.source!.title
             cell.detailTextLabel!.text = subscription.source!.url
         }
@@ -246,11 +284,9 @@ class SubscriptionsViewController: UITableViewController, UITextFieldDelegate {
             }
         }
         override func delete(vc: SubscriptionsViewController) {
-            DeleteSubscriptionTransaction(url: subscription.source!.url!).start({ (success) -> () in
-                if !success {
-                    vc.showError(NSLocalizedString("Couldn't unsubscribe.", comment: ""))
-                }
-            })
+            if let s = subscription.source {
+                vc.unsubscribeFromSource(s)
+            }
         }
     }
     
@@ -264,7 +300,8 @@ class SubscriptionsViewController: UITableViewController, UITextFieldDelegate {
                 return SourceSearchBarCell.self
             }
         }
-        override func configureCell(cell: UITableViewCell) {
+        override func configureCell(cell: UITableViewCell, vc: SubscriptionsViewController) {
+            super.configureCell(cell, vc: vc)
             cell.backgroundColor = nil
             _removeDividersFromCell(cell)
             (cell as! SourceSearchBarCell).searchBar = bar
@@ -298,10 +335,15 @@ class SubscriptionsViewController: UITableViewController, UITextFieldDelegate {
                 return FeaturedSourcesCarouselCell.self
             }
         }
-        override func configureCell(cell: UITableViewCell) {
-            super.configureCell(cell)
-            _removeDividersFromCell(cell)
-            (cell as! FeaturedSourcesCarouselCell).carousel.content = FeaturedSourcesCarousel.Content(sources: category.sources ?? [], selectedIndices: selectedSourceIndices)
+        override func configureCell(cell: UITableViewCell, vc: SubscriptionsViewController) {
+            super.configureCell(cell, vc: vc)
+            let carouselCell = cell as! FeaturedSourcesCarouselCell
+            _removeDividersFromCell(carouselCell)
+            carouselCell.carousel.content = FeaturedSourcesCarousel.Content(sources: category.sources ?? [], selectedIndices: selectedSourceIndices)
+            carouselCell.carousel.onSelectSource = {
+                [weak vc] (source) in
+                vc?.toggleSourceSubscribed(source)
+            }
         }
     }
     

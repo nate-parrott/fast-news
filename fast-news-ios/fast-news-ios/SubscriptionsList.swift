@@ -51,20 +51,25 @@ class SubscriptionsList: APIObject {
 }
 
 class AddSubscriptionTransaction: Transaction {
-    init(url: String) {
+    init(source: Source?, url: String?) { // accepts either a source or a url
         // add optimistic data models:
-        optimisticSource = Source.optimisticObject() as! Source
-        optimisticSource.title = url
-        optimisticSource.url = url
+        if let s = source {
+            optimisticSource = s
+        } else {
+            optimisticSource = Source.optimisticObject() as! Source
+            optimisticSource.title = url
+            optimisticSource.url = url
+        }
         optimisticSub = SourceSubscription(id: nil)
         optimisticSub.source = optimisticSource
         
-        statusItem = StatusItem(title: "Subscribing to \(url)")
+        let statusItemTitle = optimisticSource.title ?? ""
+        statusItem = StatusItem(title: "Subscribing to \(statusItemTitle)")
         statusItem.add()
         
         super.init()
         
-        args["url"] = url
+        args["url"] = optimisticSource.url!
         method = "POST"
         endpoint = "/subscriptions/add"
     }

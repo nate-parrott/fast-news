@@ -62,6 +62,8 @@ class FeaturedSourcesCarousel: UICollectionView, UICollectionViewDataSource, UIC
         }
     }
     
+    var onSelectSource: (Source -> ())?
+    
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return content.sources.count
     }
@@ -71,6 +73,12 @@ class FeaturedSourcesCarousel: UICollectionView, UICollectionViewDataSource, UIC
         cell.source = content.sources[indexPath.item]
         cell.indicateSelected = content.selectedIndices.contains(indexPath.item)
         return cell
+    }
+    
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        if let o = onSelectSource {
+            o(content.sources[indexPath.item])
+        }
     }
     
     class Cell: UICollectionViewCell {

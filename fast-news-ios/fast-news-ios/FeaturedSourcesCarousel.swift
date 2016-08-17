@@ -81,7 +81,6 @@ class FeaturedSourcesCarousel: UICollectionView, UICollectionViewDataSource, UIC
         var _setupYet = false
         var source: Source? {
             didSet {
-                // TODO
                 if !_setupYet {
                     _setupYet = true
                     addSubview(label)

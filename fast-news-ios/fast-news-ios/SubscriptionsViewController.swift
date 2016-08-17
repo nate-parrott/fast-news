@@ -30,6 +30,9 @@ class SubscriptionsViewController: UITableViewController, UITextFieldDelegate {
             self?._update()
         })
         // tableView.tableHeaderView = addSourceTextField
+        tableView.sectionHeaderHeight = 5
+        tableView.sectionFooterHeight = 5
+        tableView.contentInset = UIEdgeInsetsZero
     }
     
     let _preferredRecency: CFAbsoluteTime = 5 * 60
@@ -66,7 +69,8 @@ class SubscriptionsViewController: UITableViewController, UITextFieldDelegate {
         navigationItem.title = title
         
         let subscriptionRows = subs.subscriptionsIncludingOptimistic.map({ SubscriptionRow(subscription: $0) })
-        let featuredSourceRows = (featured.categories ?? []).map({ FeaturedSourcesCarouselRow(category: $0) })
+        let selectedSourceIds = Set<String>(subs.subscriptionsIncludingOptimistic.map({ $0.source?.id ?? "" }))
+        let featuredSourceRows = (featured.categories ?? []).map({ FeaturedSourcesCarouselRow(category: $0, selectedSourceIds: selectedSourceIds) })
         sections = [
             Section(title: nil, rows: [SearchBarRow(bar: searchBar)]),
             Section(title: nil, rows: featuredSourceRows),
@@ -271,10 +275,21 @@ class SubscriptionsViewController: UITableViewController, UITextFieldDelegate {
     }
     
     class FeaturedSourcesCarouselRow: Row {
-        init(category: FeaturedSourcesCategory) {
+        init(category: FeaturedSourcesCategory, selectedSourceIds: Set<String>) {
             self.category = category
+            
+            var selectedSourceIndices = [Int]()
+            var i = 0
+            for source in category.sources ?? [] {
+                if selectedSourceIds.contains(source.id ?? "") {
+                    selectedSourceIndices.append(i)
+                }
+                i += 1
+            }
+            self.selectedSourceIndices = selectedSourceIndices
         }
         let category: FeaturedSourcesCategory
+        let selectedSourceIndices: [Int]
         override func height(width: CGFloat) -> CGFloat {
             return FeaturedSourcesCarousel.Height
         }
@@ -286,7 +301,7 @@ class SubscriptionsViewController: UITableViewController, UITextFieldDelegate {
         override func configureCell(cell: UITableViewCell) {
             super.configureCell(cell)
             _removeDividersFromCell(cell)
-            (cell as! FeaturedSourcesCarouselCell).carousel.content = FeaturedSourcesCarousel.Content(sources: category.sources ?? [], selectedIndices: []) // TODO: support selection
+            (cell as! FeaturedSourcesCarouselCell).carousel.content = FeaturedSourcesCarousel.Content(sources: category.sources ?? [], selectedIndices: selectedSourceIndices)
         }
     }
     

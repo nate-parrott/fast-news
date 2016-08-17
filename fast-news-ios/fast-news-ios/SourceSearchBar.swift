@@ -39,13 +39,15 @@ class SourceSearchBar: UIView, UITextFieldDelegate {
     let active = Observable<Bool>(val: false)
     var results = [Source]() {
         didSet {
-            _update()
+            _resultButtons = results.map({ (let source) -> UIButton in
+                let b = UIButton()
+                b.titleLabel!.textAlignment = .Left
+                b.setTitle(source.title, forState: .Normal)
+                b.addTarget(self, action: #selector(SourceSearchBar._tappedResult), forControlEvents: .TouchUpInside)
+                b.setTitleColor(UIColor.blackColor(), forState: .Normal)
+                return b
+            })
         }
-    }
-    
-    func _update() {
-        // TODO
-        setNeedsLayout()
     }
     
     func _textChanged(sender: UITextFieldDelegate) {
@@ -53,12 +55,10 @@ class SourceSearchBar: UIView, UITextFieldDelegate {
     }
     
     func textFieldDidBeginEditing(textField: UITextField) {
-        _update()
         active.val = true
     }
     
     func textFieldDidEndEditing(textField: UITextField) {
-        _update()
         active.val = false
     }
     
@@ -73,6 +73,22 @@ class SourceSearchBar: UIView, UITextFieldDelegate {
         active.val = false
     }
     
+    var resultHeight: CGFloat = 44
+    var _resultButtons = [UIButton]() {
+        didSet(old) {
+            for b in old {
+                b.removeFromSuperview()
+            }
+            for v in _resultButtons {
+                addSubview(v)
+            }
+        }
+    }
+    
+    func _tappedResult(result: UIButton) {
+        // TODO
+    }
+    
     // MARK: Layout
     static let Height: CGFloat = 42
     override func layoutSubviews() {
@@ -82,7 +98,15 @@ class SourceSearchBar: UIView, UITextFieldDelegate {
         
         icon.sizeToFit()
         let hasQuery = (field.text ?? "") != ""
-        icon.hidden = !hasQuery
+        icon.hidden = hasQuery
         icon.center = CGPointMake(icon.frame.width/2 + 15, bounds.height/2)
+        
+        var i = 0
+        var y: CGFloat = field.frame.size.height
+        for button in _resultButtons {
+            button.frame = CGRectMake(0, y, bounds.width, resultHeight)
+            y += resultHeight
+            button.backgroundColor = UIColor(white: i%2 == 0 ? 0.05 : 0, alpha: 1)
+        }
     }
 }

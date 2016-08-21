@@ -56,6 +56,7 @@ class SourceSearchBar: UIView, UITextFieldDelegate {
                 b.titleLabel!.font = self.field.font
                 b.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 10)
                 b.userInteractionEnabled = (result.callback != nil)
+                b.titleLabel!.lineBreakMode = .ByTruncatingTail
                 return b
             })
             _updateHeight()
@@ -90,6 +91,7 @@ class SourceSearchBar: UIView, UITextFieldDelegate {
         field.text = ""
         field.resignFirstResponder()
         active.val = false
+        results = []
     }
     
     var resultHeight: CGFloat = 44

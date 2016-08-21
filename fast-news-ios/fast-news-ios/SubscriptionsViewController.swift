@@ -78,7 +78,7 @@ class SubscriptionsViewController: UITableViewController, UITextFieldDelegate {
         
         let dismissSearch: () -> () = {
             [weak self] in
-            self?.searchBar.field.resignFirstResponder()
+            self?.searchBar.cancelEditing()
         }
         
         for source in sources {

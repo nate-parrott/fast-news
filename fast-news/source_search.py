@@ -4,6 +4,7 @@ import webapp2
 from template import template
 import json
 import model
+from google.appengine.api import memcache
 
 index = search.Index('Sources')
 WORD_END_TOKEN = '_END'
@@ -90,7 +91,7 @@ def doc_to_json(doc):
 def doc_to_dict(doc):
     return {field.name: field.value for field in doc.fields}
 
-def search_sources(query):
+def _search_sources(query):
     words = tokenize(query, remove_empty=False)
     for i in xrange(len(words)-1): words[i] = words[i] + WORD_END_TOKEN
     query = u" ".join(words)
@@ -98,6 +99,15 @@ def search_sources(query):
     options = search.QueryOptions(limit=10, sort_options=search.SortOptions(expressions=[sort_rank]))
     results = index.search(search.Query(query_string=query, options=options))
     return map(doc_to_json, results)
+
+def search_sources(query):
+    CACHE_SECONDS = 20 * 60
+    key = 'source_search/' + query.encode('utf-8')
+    res = memcache.get(key)
+    if not res:
+        res = _search_sources(query)
+        memcache.set(key, res, CACHE_SECONDS)
+    return res
 
 def add_existing_sources(offset=0):
     i = 0

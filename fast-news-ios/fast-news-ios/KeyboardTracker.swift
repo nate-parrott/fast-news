@@ -26,8 +26,9 @@ class KeyboardTracker: NSObject {
         print("Duration: \(duration)")
     }
     func keyboardHeightInView(view: UIView) -> CGFloat {
+        guard let window = view.window else { return 0 }
         if let k = keyboardFrame.val {
-            let boundsInWindow = view.window!.convertRect(view.bounds, fromView: view)
+            let boundsInWindow = window.convertRect(view.bounds, fromView: view)
             if CGRectIntersectsRect(boundsInWindow, k) {
                 return CGRectIntersection(boundsInWindow, k).size.height
             }

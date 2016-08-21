@@ -43,8 +43,18 @@ class SubscriptionsViewController: UITableViewController, UITextFieldDelegate {
         view.addSubview(searchContentCover)
         let tapRec = UITapGestureRecognizer(target: searchBar, action: #selector(SourceSearchBar.cancelEditing))
         searchContentCover.addGestureRecognizer(tapRec)
-        
+                
         view.addSubview(searchBar)
+        
+        _querySub = searchBar.query.subscribe({ [weak self] (let q) in
+            self?.sourceSearch.query = q
+        })
+        
+        _searchResultsSub = sourceSearch.sources.subscribe({ [weak self] (let sources) in
+            if let s = self {
+                s.searchBar.results = s._createSearchResults(sources)
+            }
+        })
     }
     
     let _preferredRecency: CFAbsoluteTime = 5 * 60
@@ -59,7 +69,55 @@ class SubscriptionsViewController: UITableViewController, UITextFieldDelegate {
         subs.ensureRecency(_preferredRecency)
     }
     
+    let sourceSearch = SourceSearchManager()
+    
     // MARK: Data
+    
+    func _createSearchResults(sources: [Source]) -> [SourceSearchBar.Result] {
+        var results: [SourceSearchBar.Result] = []
+        
+        let dismissSearch: () -> () = {
+            [weak self] in
+            self?.searchBar.field.resignFirstResponder()
+        }
+        
+        for source in sources {
+            let res = SourceSearchBar.Result(title: source.title ?? source.url ?? "", callback: {
+                [weak self] in
+                self?.subscribeToSource(source, url: nil)
+                dismissSearch()
+                }, grayed: false)
+            results.append(res)
+        }
+        
+        let query = searchBar.query.val
+        
+        if let url = _URLFromString(query) {
+            let title = NSString(format: NSLocalizedString("Subscribe to “%@“", comment: ""), url.absoluteString) as String
+            let res = SourceSearchBar.Result(title: title, callback: { 
+                [weak self] in
+                self?.subscribeToSource(nil, url: url.absoluteString)
+                dismissSearch()
+                }, grayed: false)
+            results.append(res)
+        }
+        
+        if let url = _twitterURLFromString(query) {
+            let title = NSString(format: NSLocalizedString("Subscribe to “%@“", comment: ""), query) as String
+            let res = SourceSearchBar.Result(title: title, callback: {
+                [weak self] in
+                self?.subscribeToSource(nil, url: url.absoluteString)
+                dismissSearch()
+                }, grayed: false)
+            results.append(res)
+        }
+        
+        if results.count == 0 {
+            results.append(SourceSearchBar.Result(title: NSLocalizedString("No results. Paste a URL?", comment: ""), callback: nil, grayed: true))
+        }
+        
+        return results
+    }
     
     var sections = [Section]() {
         didSet {
@@ -93,33 +151,31 @@ class SubscriptionsViewController: UITableViewController, UITextFieldDelegate {
     
     // MARK: Adding/removing sources
     
-    /*@IBOutlet var addSourceTextField: UITextField!
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
-        if let url = (textField.text ?? "").asURLString() {
-            _addsInProgress += 1
-            AddSubscriptionTransaction(url: url).start({ (success) -> () in
-                self._addsInProgress -= 1
-                if !success {
-                    self.showError(NSLocalizedString("Couldn't add that news source.", comment: ""))
-                }
-            })
-        }
-        textField.text = ""
-        textField.resignFirstResponder()
-        return false
-    }
-    
-    func textFieldShouldClear(textField: UITextField) -> Bool {
-        delay(0.01) { () -> () in
-            textField.resignFirstResponder()
-        }
-        return true
-    }
-    */
     var _addsInProgress = 0 {
         didSet {
             _update()
         }
+    }
+    
+    func _URLFromString(str: String) -> NSURL? {
+        return [str, "http://" + str].map({ self._URLFromStringInner($0) }).filter({ $0 != nil }).map({ $0! }).first
+    }
+    
+    func _URLFromStringInner(str: String) -> NSURL? {
+        if let components = NSURLComponents(string: str) {
+            if !(components.host ?? "").containsString(".") {
+                return nil
+            }
+            return components.URL
+        }
+        return nil
+    }
+    
+    func _twitterURLFromString(str: String) -> NSURL? {
+        if str != "" && str.substringToIndex(str.startIndex.advancedBy(1)) == "@" {
+            return NSURL(string: "http://twitter.com/" + str.substringFromIndex(str.startIndex.advancedBy(1)))
+        }
+        return nil
     }
     
     func toggleSourceSubscribed(source: Source) {
@@ -164,6 +220,8 @@ class SubscriptionsViewController: UITableViewController, UITextFieldDelegate {
     
     let searchBar = SourceSearchBar(frame: CGRectZero)
     var _searchActiveSub: Subscription?
+    var _querySub: Subscription?
+    var _searchResultsSub: Subscription?
     let searchContentCover = UIView()
     
     var searchActive = false {
@@ -189,7 +247,11 @@ class SubscriptionsViewController: UITableViewController, UITextFieldDelegate {
     func _updateSearchBarFrame() {
         if let searchBarCell = tableView.visibleCells.map({ ($0 as? SourceSearchBarCell) }).filter({ $0 != nil }).map({ $0! }).first {
             searchBar.hidden = false
-            searchBar.frame = view.convertRect(searchBarCell.barFrame, fromView: searchBarCell)
+            var searchBarFrame = view.convertRect(searchBarCell.barFrame, fromView: searchBarCell)
+            searchBarFrame.size.height = searchBar.frame.size.height
+            searchBar.frame = searchBarFrame
+            let searchMaxHeight = view.bounds.size.height + view.bounds.origin.y - searchBar.frame.origin.y - KeyboardTracker.Shared.keyboardHeightInView(view) - 10
+            searchBar.maximumHeight = searchMaxHeight
         } else {
             searchBar.hidden = true
         }

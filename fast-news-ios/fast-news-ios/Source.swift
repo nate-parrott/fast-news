@@ -25,7 +25,8 @@ class Source: APIObject {
         self.shortTitle = json["short_title"] as? String ?? self.shortTitle
         self.iconUrl = json["icon_url"] as? String ?? self.iconUrl
         if let c = json["color"] as? String {
-            self.color = UIColor(hex: "#" + c)
+            let colorStr = c.containsString("#") ? c : "#" + c
+            self.color = UIColor(hex: colorStr)
         }
         
         let sourceHost = url != nil ? Utils.HostFromURLString(url!) : nil

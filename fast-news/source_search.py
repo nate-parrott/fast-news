@@ -83,7 +83,8 @@ def doc_to_json(doc):
     return {
         "title": doc.get('title'),
         "url": doc.get('url'),
-        "category": doc.get('category')
+        "category": doc.get('category'),
+        "id": model.Source.id_for_source(doc.get('url'))
     }
 
 def doc_to_dict(doc):

@@ -21,7 +21,8 @@ class SourceSearch: APIObject {
     
     override func importJson(json: [String : AnyObject]) {
         super.importJson(json)
-        if let sources = json["sources"] as? [[String: AnyObject]] {
+        if let results = json["results"] as? [String: AnyObject],
+           let sources = results["sources"] as? [[String: AnyObject]] {
             self.sources = APIObjectsFromDictionaries(sources)
         }
     }
@@ -31,7 +32,8 @@ class SourceSearch: APIObject {
     }
     
     override func _mockRequest(t: Transaction) -> [String: AnyObject]? {
-        return _loadMockJson("SourceSearch")
+        return nil
+        // return _loadMockJson("SourceSearch")
     }
 }
 
@@ -55,12 +57,20 @@ class SourceSearchManager {
         let s = SourceSearch(id: query)
         _currentSearch = s
         _currentSearchSub = s.onUpdate.subscribe { (_) in
-            self._currentSearch = nil
-            self._currentSearchSub = nil
-            self._currentQuery = nil
-            self.sources.val = s.sources ?? []
-            if query != self.query {
-                self._search(self.query)
+            var done: Bool
+            switch s.loadingState {
+            case .Error(_): done = true
+            case .Loaded(_, _): done = true
+            default: done = false
+            }
+            if done {
+                self._currentSearch = nil
+                self._currentSearchSub = nil
+                self._currentQuery = nil
+                self.sources.val = s.sources ?? []
+                if query != self.query {
+                    self._search(self.query)
+                }
             }
         }
         s.reloadImmediately()

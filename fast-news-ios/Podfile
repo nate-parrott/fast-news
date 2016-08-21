@@ -10,6 +10,7 @@ pod 'ChameleonFramework'
 pod 'SloppySwiper'
 pod 'GradientView'
 pod 'Shimmer'
+pod 'AsyncDisplayKit'
 
 end
 

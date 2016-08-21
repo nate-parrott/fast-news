@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>AsyncDisplayKit.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>ChameleonFramework.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -15,6 +20,16 @@
 			<false/>
 		</dict>
 		<key>GradientView.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>PINCache.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>PINRemoteImage.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -42,7 +57,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>5525C4D1633398DAE3E1871E74097712</key>
+		<key>49B91E90AF509ED076AF6ECF080EAFF4</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>4D9C9DDDA5E7F021EDEA2D82E2999C30</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>84557E7991EFE2CF1E43D66FE8557B2C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -52,7 +77,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B67E175E1C901CEE5B91D1B89E198440</key>
+		<key>B921BD50111648A14880AC066DA89BC0</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C7F6FAAD727A801367AE31C1C65F1E3D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -62,7 +92,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>F9DED41C0CBB32DB4473C12BB2995CEE</key>
+		<key>EF5DC46358F706B07086A9AB022AB4B7</key>
 		<dict>
 			<key>primary</key>
 			<true/>

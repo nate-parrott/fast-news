@@ -1,13 +1,27 @@
 PODS:
+  - AsyncDisplayKit (1.9.81):
+    - AsyncDisplayKit/PINRemoteImage (= 1.9.81)
+  - AsyncDisplayKit/ASDealloc2MainObject (1.9.81)
+  - AsyncDisplayKit/Core (1.9.81):
+    - AsyncDisplayKit/ASDealloc2MainObject
+  - AsyncDisplayKit/PINRemoteImage (1.9.81):
+    - AsyncDisplayKit/Core
+    - PINRemoteImage/iOS (>= 3.0.0-beta.2)
   - ChameleonFramework (2.1.0):
     - ChameleonFramework/Default (= 2.1.0)
   - ChameleonFramework/Default (2.1.0)
   - CocoaSPDY (1.2)
   - GradientView (2.1.0)
+  - PINCache (3.0.1-beta)
+  - PINRemoteImage/Core (3.0.0-beta.3):
+    - PINCache (>= 3.0.0-beta)
+  - PINRemoteImage/iOS (3.0.0-beta.3):
+    - PINRemoteImage/Core
   - Shimmer (1.0.2)
   - SloppySwiper (0.5)
 
 DEPENDENCIES:
+  - AsyncDisplayKit
   - ChameleonFramework
   - CocoaSPDY
   - GradientView
@@ -15,9 +29,12 @@ DEPENDENCIES:
   - SloppySwiper
 
 SPEC CHECKSUMS:
+  AsyncDisplayKit: 011ea22a76a79a5bbfc14501fede6e0196a3c2f0
   ChameleonFramework: d21a3cc247abfe5e37609a283a8238b03575cf64
   CocoaSPDY: c920d4ba67587f011c888506148f7f6fc6ae6467
   GradientView: 4a961b8e9e1787beaf6880b9fc2dd08c6345533d
+  PINCache: 6911fe422a633e18b3d3ddf2bd4f0e55e36e2892
+  PINRemoteImage: 308731aa6534500e58fc211b9cc2bb7252df25ba
   Shimmer: c5374be1c2b0c9e292fb05b339a513cf291cac86
   SloppySwiper: 7fdffc91062af8fb80574dee80082cb9e0cee507
 

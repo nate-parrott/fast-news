@@ -115,6 +115,7 @@
 		5F73F17D1C77C92300DA2981 /* ImageSegmentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F73F17C1C77C92300DA2981 /* ImageSegmentTableViewCell.swift */; };
 		5F87A7781D69752E00AC07DB /* UIView+ElasticLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F87A7771D69752E00AC07DB /* UIView+ElasticLayout.m */; };
 		5F87A77B1D69754C00AC07DB /* EVCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F87A77A1D69754C00AC07DB /* EVCommon.m */; };
+		5F87A77F1D6A8A4000AC07DB /* VerticalFeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F87A77E1D6A8A4000AC07DB /* VerticalFeedCell.swift */; };
 		5F8D9F321C6C0AFE00F0FFBE /* EnableSPDY.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F8D9F311C6C0AFE00F0FFBE /* EnableSPDY.m */; };
 		5FB4D5DE1C8A4063005D079D /* BookmarkList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB4D5DD1C8A4063005D079D /* BookmarkList.swift */; };
 		5FB4D5E01C8BE276005D079D /* UIColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB4D5DF1C8BE276005D079D /* UIColor+Hex.swift */; };
@@ -273,6 +274,7 @@
 		5F87A7771D69752E00AC07DB /* UIView+ElasticLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+ElasticLayout.m"; sourceTree = "<group>"; };
 		5F87A7791D69754C00AC07DB /* EVCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EVCommon.h; sourceTree = "<group>"; };
 		5F87A77A1D69754C00AC07DB /* EVCommon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EVCommon.m; sourceTree = "<group>"; };
+		5F87A77E1D6A8A4000AC07DB /* VerticalFeedCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerticalFeedCell.swift; sourceTree = "<group>"; };
 		5F8D9F2C1C6C08DC00F0FFBE /* fast-news-ios-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "fast-news-ios-Bridging-Header.h"; sourceTree = "<group>"; };
 		5F8D9F301C6C0AFE00F0FFBE /* EnableSPDY.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnableSPDY.h; sourceTree = "<group>"; };
 		5F8D9F311C6C0AFE00F0FFBE /* EnableSPDY.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EnableSPDY.m; sourceTree = "<group>"; };
@@ -390,6 +392,7 @@
 				5F57066E1C63C74400140078 /* FeedViewController.swift */,
 				5F0CC62D1C6C5A320071A026 /* FeedCell.swift */,
 				5F0CC63C1C6D6BEB0071A026 /* ArticleCell.swift */,
+				5F87A77E1D6A8A4000AC07DB /* VerticalFeedCell.swift */,
 				5FCDF4431C6BF77000A50A75 /* SourceViewController.swift */,
 				5F5E4D971C6E434C009C3446 /* BookmarksViewController.swift */,
 			);
@@ -921,6 +924,7 @@
 				5F73F17B1C77C91600DA2981 /* TextSegmentTableViewCell.swift in Sources */,
 				5F4FDB0E1C836CCE0049C61A /* ArticleSegmentCell.swift in Sources */,
 				5FC506E81C914AD800F7A237 /* CPColorPicker.m in Sources */,
+				5F87A77F1D6A8A4000AC07DB /* VerticalFeedCell.swift in Sources */,
 				5FCFF8D91D642E2A004E8113 /* KeyboardTracker.swift in Sources */,
 				5F0CC6251C6C551E0071A026 /* FNSplitViewController.swift in Sources */,
 				5F87A7781D69752E00AC07DB /* UIView+ElasticLayout.m in Sources */,

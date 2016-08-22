@@ -74,4 +74,13 @@ class Article: APIObject {
             "id": self.id ?? NSNull()
         ]
     }
+    
+    var imageSize: CGSize? {
+        get {
+            if let j = topImageTinyJson, let size = j["real_size"] as? [CGFloat] where size.count == 2 {
+                return CGSizeMake(size[0], size[1])
+            }
+            return nil
+        }
+    }
 }

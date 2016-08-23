@@ -107,10 +107,7 @@ class ArticleCollectionViewController: UICollectionViewController, UICollectionV
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath)
-        if indexPath.item < collectionModels.count {
-            // TODO: actually fix this bug instead of papering over it
-            applyModelToCell(cell, model: collectionModels[indexPath.item])
-        }
+        applyModelToCell(cell, model: collectionModels[indexPath.item])
         return cell
     }
     
@@ -137,8 +134,9 @@ class ArticleCollectionViewController: UICollectionViewController, UICollectionV
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        let flow = collectionView!.collectionViewLayout as! UICollectionViewFlowLayout
-        flow.estimatedItemSize = CGSizeMake(view.bounds.size.width * 0.7, 200)
+        if let flow = collectionView!.collectionViewLayout as? UICollectionViewFlowLayout {
+            flow.estimatedItemSize = CGSizeMake(view.bounds.size.width * 0.7, 200)
+        }
     }
     
     // MARK: Image preloading

@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>ARCollectionViewMasonryLayout.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>AsyncDisplayKit.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -57,22 +62,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>49B91E90AF509ED076AF6ECF080EAFF4</key>
+		<key>55A2C1F9610464296DD5A884D7E1EBBE</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>4D9C9DDDA5E7F021EDEA2D82E2999C30</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>84557E7991EFE2CF1E43D66FE8557B2C</key>
+		<key>73181B8C4D57A1978AB8C7BE709187D7</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>9B57F4EE4746045CEAE2D933A3C8EC9E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B08AD8669F8DC0D9B26EFE859ED6DB99</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -88,6 +93,11 @@
 			<true/>
 		</dict>
 		<key>D714037593A1D0448AF01C98C0203714</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>EF056628A6F368E5CACF1B8A07942D0C</key>
 		<dict>
 			<key>primary</key>
 			<true/>

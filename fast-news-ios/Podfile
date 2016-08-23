@@ -11,6 +11,7 @@ pod 'SloppySwiper'
 pod 'GradientView'
 pod 'Shimmer'
 pod 'AsyncDisplayKit'
+pod 'ARCollectionViewMasonryLayout'
 
 end
 

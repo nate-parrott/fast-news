@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FeedViewController: ArticleCollectionViewController {
+class FeedViewController: ArticleCollectionViewController, MasonryCollectionViewLayoutDelegate {
     
     // MARK: Lifecycle
     
@@ -52,16 +52,20 @@ class FeedViewController: ArticleCollectionViewController {
     
     override func applyModelToCell(cell: UICollectionViewCell, model: APIObject) {
         super.applyModelToCell(cell, model: model)
-        let feedCell = cell as! FeedCell
+        let feedCell = cell as! VerticalFeedCell
         feedCell.source = (model as! Source)
-        feedCell.onTappedSourceName = {
+        feedCell.onTappedSource = {
             [weak self] (let source) in
             self?.showSource(source)
+        }
+        feedCell.onTappedArticle = {
+            [weak self] (let article) in
+            self?.showArticle(article)
         }
     }
     
     override var cellClass: UICollectionViewCell.Type {
-        return FeedCell.self
+        return VerticalFeedCell.self
     }
     
     override var modelTitle: String {
@@ -93,17 +97,14 @@ class FeedViewController: ArticleCollectionViewController {
         }
     }
     
-    // MARK: Navigation
+    let padding: CGFloat = 8
     
-    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        let source = feed.sources![indexPath.item]
-        if let cell = collectionView.cellForItemAtIndexPath(indexPath) as? FeedCell,
-           let article = cell.articleView.article {
-            showArticle(article)
-        } else {
-            showSource(source)
-        }
+    func collectionView(collectionView: UICollectionView, heightForItemAtIndex: NSIndexPath, width: CGFloat) -> CGFloat {
+        let source = collectionModels[heightForItemAtIndex.item] as! Source
+        return VerticalFeedCell.HeightForSource(source, width: width)
     }
+    
+    // MARK: Navigation
     
     func showArticle(article: Article) {
         let articleVC = storyboard!.instantiateViewControllerWithIdentifier("Article") as! ArticleViewController

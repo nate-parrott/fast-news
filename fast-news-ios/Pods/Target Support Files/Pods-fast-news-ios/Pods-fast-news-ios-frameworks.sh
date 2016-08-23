@@ -84,6 +84,7 @@ strip_invalid_archs() {
 
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
+  install_framework "Pods-fast-news-ios/ARCollectionViewMasonryLayout.framework"
   install_framework "Pods-fast-news-ios/AsyncDisplayKit.framework"
   install_framework "Pods-fast-news-ios/ChameleonFramework.framework"
   install_framework "Pods-fast-news-ios/CocoaSPDY.framework"
@@ -94,6 +95,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods-fast-news-ios/SloppySwiper.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
+  install_framework "Pods-fast-news-ios/ARCollectionViewMasonryLayout.framework"
   install_framework "Pods-fast-news-ios/AsyncDisplayKit.framework"
   install_framework "Pods-fast-news-ios/ChameleonFramework.framework"
   install_framework "Pods-fast-news-ios/CocoaSPDY.framework"

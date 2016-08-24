@@ -14,6 +14,7 @@ import os
 from collections import defaultdict
 from itertools import chain
 import datetime
+import json
 
 flatten = chain.from_iterable
 
@@ -148,3 +149,8 @@ def group_by(items, key_func):
     for item in items:
         d[key_func(item)].append(item)
     return d
+
+def send_json(handler, content):
+    handler.response.headers.add_header('Content-Type', 'application/json')
+    handler.response.write(json.dumps(content))
+

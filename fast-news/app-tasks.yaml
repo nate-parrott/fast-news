@@ -18,6 +18,9 @@ handlers:
   static_files: favicon.ico
   upload: favicon\.ico
 
+- url: /tasks/ml/.*
+  script: tasks.app
+
 - url: /tasks/.*
   script: tasks.app
   login: admin

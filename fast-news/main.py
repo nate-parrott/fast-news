@@ -25,10 +25,7 @@ import dump
 import util
 import file_storage
 from template import template
-
-def send_json(handler, content):
-    handler.response.headers.add_header('Content-Type', 'application/json')
-    handler.response.write(json.dumps(content))
+from util import send_json
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):

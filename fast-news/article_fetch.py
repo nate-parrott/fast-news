@@ -8,6 +8,7 @@ from urlparse import urljoin
 from article_json import populate_article_json
 import re
 import article_extractor
+import util
 # also look at https://github.com/seomoz/dragnet/blob/master/README.md
 
 def find_meta_value(soup, prop):
@@ -73,6 +74,7 @@ def article_fetch(article):
     else:
         article.fetch_failed = True
     article.fetch_date = datetime.datetime.now()
+    article.ml_service_time = util.datetime_from_timestamp(0) # mark this article as ready to be consumed by the ml service
     content.put()
     article.put()
 

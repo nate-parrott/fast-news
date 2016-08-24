@@ -2,6 +2,7 @@ import webapp2
 from model import Article, Source, ErrorReport
 from google.appengine.ext import ndb
 from feed import Feed
+import ml
 
 class ArticleFetchHandler(webapp2.RequestHandler):
     def post(self):
@@ -29,7 +30,8 @@ class FeedUpdateHandler(webapp2.RequestHandler):
 app = webapp2.WSGIApplication([
     ('/tasks/articles/fetch', ArticleFetchHandler),
     ('/tasks/sources/fetch', SourceFetchHandler),
-    ('/tasks/feeds/update', FeedUpdateHandler)
+    ('/tasks/feeds/update', FeedUpdateHandler),
+    ('/tasks/ml/articles', ml.ArticlesHandler)
 ], debug=True)
 
 if False:

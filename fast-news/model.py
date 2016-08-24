@@ -137,6 +137,15 @@ class Article(ndb.Model):
     fetch_date = ndb.DateTimeProperty()
     content = ndb.KeyProperty(kind=ArticleContent)
     
+    """
+    ml_service_time is None unless eligible for being sent to ML service; i.e. there is article content and ml service hasn't processed it before.
+    the time is set to now when the item is dispensed to ml service, and
+    it's set to None when ml-service calls back.
+    """
+    ml_service_time = ndb.DateTimeProperty()
+    processed_by_ml_service = ndb.BooleanProperty(default=False)
+    ml_topics = ndb.StringProperty(repeated=True)
+    
     @classmethod
     def id_for_article(cls, url, source_url):
         source_string = canonical_url(source_url) if source_url else u"standalone"

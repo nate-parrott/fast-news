@@ -74,7 +74,7 @@ class ArticleView: UIView {
     
     static let ImageSize: CGFloat = 120
     static let Padding: CGFloat = 8
-    static let MaxLabelHeight: CGFloat = 124
+    static let MaxLabelHeight: CGFloat = ImageSize - Padding * 2
     
     var imageHasPadding = false {
         didSet {

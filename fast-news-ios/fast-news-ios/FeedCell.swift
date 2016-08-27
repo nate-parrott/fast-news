@@ -94,6 +94,7 @@ class FeedCell: UICollectionViewCell {
             articleView.frame = CGRectMake(xPadding, y, articleWidth, articleHeight)
             y = articleView.frame.bottom
         }
+        
         return y
     }
     

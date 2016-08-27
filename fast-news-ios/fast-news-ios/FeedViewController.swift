@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FeedViewController: ArticleCollectionViewController, MasonryCollectionViewLayoutDelegate {
+class FeedViewController: ArticleCollectionViewController {
     
     // MARK: Lifecycle
     
@@ -52,20 +52,24 @@ class FeedViewController: ArticleCollectionViewController, MasonryCollectionView
     
     override func applyModelToCell(cell: UICollectionViewCell, model: APIObject) {
         super.applyModelToCell(cell, model: model)
-        let feedCell = cell as! VerticalFeedCell
+        let feedCell = cell as! FeedCell
         feedCell.source = (model as! Source)
-        feedCell.onTappedSource = {
+        feedCell.onTappedSourceName = {
             [weak self] (let source) in
             self?.showSource(source)
         }
-        feedCell.onTappedArticle = {
-            [weak self] (let article) in
-            self?.showArticle(article)
-        }
+//        feedCell.onTappedSource = {
+//            [weak self] (let source) in
+//            self?.showSource(source)
+//        }
+//        feedCell.onTappedArticle = {
+//            [weak self] (let article) in
+//            self?.showArticle(article)
+//        }
     }
     
     override var cellClass: UICollectionViewCell.Type {
-        return VerticalFeedCell.self
+        return FeedCell.self
     }
     
     override var modelTitle: String {
@@ -99,10 +103,16 @@ class FeedViewController: ArticleCollectionViewController, MasonryCollectionView
     
     let padding: CGFloat = 8
     
-    func collectionView(collectionView: UICollectionView, heightForItemAtIndex: NSIndexPath, width: CGFloat) -> CGFloat {
+    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        if let article = (collectionModels[indexPath.item] as! Source).highlightedArticle {
+            showArticle(article)
+        }
+    }
+    
+    /*func collectionView(collectionView: UICollectionView, heightForItemAtIndex: NSIndexPath, width: CGFloat) -> CGFloat {
         let source = collectionModels[heightForItemAtIndex.item] as! Source
         return VerticalFeedCell.HeightForSource(source, width: width)
-    }
+    }*/
     
     // MARK: Navigation
     

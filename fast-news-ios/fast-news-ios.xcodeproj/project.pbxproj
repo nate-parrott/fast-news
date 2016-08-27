@@ -39,7 +39,6 @@
 		5F3054331C7CE33200E0CFE6 /* SafariVCActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3054321C7CE33200E0CFE6 /* SafariVCActivity.swift */; };
 		5F30543B1C7D197F00E0CFE6 /* ActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F30543A1C7D197F00E0CFE6 /* ActionViewController.swift */; };
 		5F30543E1C7D197F00E0CFE6 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F30543C1C7D197F00E0CFE6 /* MainInterface.storyboard */; };
-		5F3054421C7D197F00E0CFE6 /* Reader.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 5F3054381C7D197F00E0CFE6 /* Reader.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		5F3054471C7D1A3700E0CFE6 /* ArticleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCDF4411C6BF75F00A50A75 /* ArticleViewController.swift */; };
 		5F3054481C7D1A3700E0CFE6 /* TextSegmentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F73F17A1C77C91600DA2981 /* TextSegmentTableViewCell.swift */; };
 		5F3054491C7D1A3700E0CFE6 /* ImageSegmentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F73F17C1C77C92300DA2981 /* ImageSegmentTableViewCell.swift */; };
@@ -171,30 +170,6 @@
 		AE07F28E1D52950400C94AF5 /* SourceSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE07F28D1D52950400C94AF5 /* SourceSearch.swift */; };
 		AE07F2921D52AE9900C94AF5 /* ViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE07F2911D52AE9900C94AF5 /* ViewCell.swift */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		5F3054401C7D197F00E0CFE6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 5F4A71351C6319E000676F91 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 5F3054371C7D197F00E0CFE6;
-			remoteInfo = Reader;
-		};
-/* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		5F3054461C7D198000E0CFE6 /* Embed App Extensions */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 13;
-			files = (
-				5F3054421C7D197F00E0CFE6 /* Reader.appex in Embed App Extensions */,
-			);
-			name = "Embed App Extensions";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		5F0CC6171C6C51BA0071A026 /* Asap-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Asap-Bold.otf"; sourceTree = "<group>"; };
@@ -654,12 +629,10 @@
 				5F4A713B1C6319E000676F91 /* Resources */,
 				2DA6F9F7E5918072C7A05B08 /* Embed Pods Frameworks */,
 				6C2BA2CC68822CDF3347E7A6 /* Copy Pods Resources */,
-				5F3054461C7D198000E0CFE6 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				5F3054411C7D197F00E0CFE6 /* PBXTargetDependency */,
 			);
 			name = "fast-news-ios";
 			productName = "fast-news-ios";
@@ -958,14 +931,6 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXTargetDependency section */
-		5F3054411C7D197F00E0CFE6 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 5F3054371C7D197F00E0CFE6 /* Reader */;
-			targetProxy = 5F3054401C7D197F00E0CFE6 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
 /* Begin PBXVariantGroup section */
 		5F30543C1C7D197F00E0CFE6 /* MainInterface.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -1119,7 +1084,6 @@
 				CODE_SIGN_ENTITLEMENTS = "fast-news-ios/fast-news-ios.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = "fast-news-ios/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.nateparrott.subscribed;
@@ -1127,6 +1091,7 @@
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "fast-news-ios/fast-news-ios-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 2.3;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -1141,13 +1106,13 @@
 				CODE_SIGN_ENTITLEMENTS = "fast-news-ios/fast-news-ios.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = "fast-news-ios/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.nateparrott.subscribed;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "fast-news-ios/fast-news-ios-Bridging-Header.h";
+				SWIFT_VERSION = 2.3;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

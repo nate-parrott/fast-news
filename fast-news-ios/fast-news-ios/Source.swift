@@ -17,6 +17,7 @@ class Source: APIObject {
     var backgroundColor: UIColor?
     var color: UIColor?
     var iconUrl: String?
+    var sharedHostname: String?
     override func importJson(json: [String : AnyObject]) {
         super.importJson(json)
         
@@ -28,8 +29,9 @@ class Source: APIObject {
             let colorStr = c.containsString("#") ? c : "#" + c
             self.color = UIColor(hex: colorStr)
         }
+        self.sharedHostname = json["shared_hostname"] as? String ?? self.sharedHostname
         
-        let sourceHost = url != nil ? Utils.HostFromURLString(url!) : nil
+        let sourceHost = sharedHostname ?? (url != nil ? Utils.HostFromURLString(url!) : nil)
         
         if let articles = json["articles"] as? [[String: AnyObject]] {
             self.articles = APIObjectsFromDictionaries(articles)

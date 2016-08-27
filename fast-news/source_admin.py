@@ -31,8 +31,8 @@ source_fields = [
     {"name": "icon_url", "type": "file_url", "image": True, "max_size": 200},
     {"name": "keywords", "type": "text"},
     {"name": "featured_priority", "type": "number", "hint": "For featured content, these should be NEGATIVE, or at least less than 1"},
-    {"name": "shared_title_suffix", "type": "text"},
-    {"name": "shared_hostname", "type": "text"}
+    {"name": "shared_title_suffix"},
+    {"name": "shared_hostname"}
 ]
 
 class SourceAdminHandler(webapp2.RequestHandler):

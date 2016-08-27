@@ -1,7 +1,7 @@
 from logging import info as debug
 import datetime
 import util
-from shared_suffix import shared_suffix
+from shared_suffix import shared_suffix, shared_hostname
 from model import Article, Source
 from canonical_url import canonical_url
 import twitter_source_fetch
@@ -30,8 +30,12 @@ def source_fetch(source):
         if result.brand:
             source.brand = result.brand
         
-        titles = [entry['title'] for entry in result.entries if entry['title']]
-        source.shared_title_suffix = shared_suffix(titles)
+        # titles = [entry['title'] for entry in result.entries if entry['title']]
+        urls = [entry['url'] for entry in result.entries]
+        if len(urls) >= 3:
+            source.shared_hostname = shared_hostname(urls)
+        else:
+            source.shared_hostname = None
         
         entries = result.entries[:min(25, len(result.entries))]
         entry_ids = [Article.id_for_article(entry['url'], source.url) for entry in entries]

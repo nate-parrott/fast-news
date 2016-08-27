@@ -40,6 +40,7 @@ class Source(ndb.Model):
     brand = ndb.JsonProperty()
     
     shared_title_suffix = ndb.TextProperty()
+    shared_hostname = ndb.StringProperty()
     
     fetch_url_override = ndb.StringProperty()
     direct_fetch_data = ndb.JsonProperty() # this is updated directly by source_fetch when fetching; it's okay to delete
@@ -104,7 +105,8 @@ class Source(ndb.Model):
                 "short_title": self.short_title,
                 "brand": self.brand,
                 "color": self.color,
-                "icon_url": self.icon_url
+                "icon_url": self.icon_url,
+                "shared_hostname": self.shared_hostname
             }
             if include_articles:
                 d['articles'] = [a.json() for a in articles_future.get_result()]

@@ -1,4 +1,9 @@
+import urlparse
+
 def shared_suffix(strings):
+    for s in strings:
+        if s is None: return ""
+    
     if len(strings) == 0:
         return ""
     elif len(strings) == 1:
@@ -14,6 +19,17 @@ def shared_suffix(strings):
         first_half = shared_suffix(strings[:len(strings)/2])
         second_half = shared_suffix(strings[len(strings)/2:])
         return shared_suffix([first_half, second_half])
+
+
+def get_hostname(url):
+    return urlparse.urlparse(url).netloc
+
+def shared_hostname(urls):
+    hostnames = map(get_hostname, urls)
+    if len(set(hostnames)) == 1:
+        return hostnames[0]
+    else:
+        return None
 
 if __name__ == '__main__':
     assert shared_suffix([]) == ""

@@ -152,5 +152,6 @@ def group_by(items, key_func):
 
 def send_json(handler, content):
     handler.response.headers.add_header('Content-Type', 'application/json')
+    handler.response.headers.add_header('Access-Control-Allow-Origin', '*')
     handler.response.write(json.dumps(content))
 

@@ -6,6 +6,7 @@ import util
 import sys, traceback, StringIO
 import datetime
 import random
+from article_title_processor import article_title_processor
 
 MINUTES = 60
 HOURS = 60 * MINUTES
@@ -113,6 +114,7 @@ class Source(ndb.Model):
             if include_articles:
                 d['articles'] = [a.json() for a in articles_future.get_result()]
                 d['articles'] = util.deduplicate_json(d['articles'], ['published', 'title'])
+                d['articles'] = article_title_processor(d['articles'])
             return d
         return promise if return_promise else promise()
 

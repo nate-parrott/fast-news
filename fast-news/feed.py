@@ -57,7 +57,7 @@ def generate_feed(uid):
     subscription_urls = [sub.url for sub in subscriptions if sub.url]
     if len(subscription_urls) > 0:
         sources = Source.query(Source.url.IN(subscription_urls)).order(-Source.most_recent_article_added_date).fetch(len(subscription_urls))
-        source_promises = [src.json(include_articles=True, article_limit=5, return_promise=True) for src in sources]
+        source_promises = [src.json(include_articles=True, article_limit=4, return_promise=True) for src in sources]
         source_json = [p() for p in source_promises]
     else:
         source_json = []

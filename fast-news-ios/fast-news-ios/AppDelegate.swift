@@ -43,7 +43,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
                 RootViewController.Shared.statusItems = []
             })*/
             
-            self.readArticle("http://unparseable.42pag.es/")
+            // self.readArticle("http://unparseable.42pag.es/")
         }
         
         return true

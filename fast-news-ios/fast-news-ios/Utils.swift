@@ -28,6 +28,18 @@ struct Utils {
         }
     }
     
+    static func ConciseDisplayHostFromURLString(string: String) -> String? {
+        if let s = HostFromURLString(string) {
+            if s.hasPrefix("www.") {
+                return s.substringFromIndex(s.startIndex.advancedBy(4))
+            } else {
+                return s
+            }
+        } else {
+            return nil
+        }
+    }
+    
     static func TopLevelDomainsMatch(host1: String, host2: String) -> Bool {
         let s1 = host1.componentsSeparatedByString(".")
         let s2 = host2.componentsSeparatedByString(".")

@@ -32,15 +32,15 @@ class ArticleView: UIView {
         let headlineAttributes = [NSFontAttributeName: UIFont.boldSystemFontOfSize(17), NSForegroundColorAttributeName: UIColor(white: 0, alpha: 1)]
         let secondLineFont = UIFont.systemFontOfSize(13)
         let descriptionAttributes = [NSFontAttributeName: secondLineFont, NSForegroundColorAttributeName: UIColor(white: 0, alpha: 0.5)]
-        let hostAttributes = [NSFontAttributeName: UIFont.systemFontOfSize(13), NSForegroundColorAttributeName: FN_PURPLE]
+        let hostAttributes = descriptionAttributes // [NSFontAttributeName: UIFont.systemFontOfSize(13), NSForegroundColorAttributeName: FN_PURPLE]
         
         let headline = NSAttributedString(string: (article?.title ?? ""), attributes: headlineAttributes)
         
         var secondLine = [NSAttributedString]()
         if let diff = article?.differentWebsiteFromSource,
             let url = article?.url,
-            let host = Utils.HostFromURLString(url) where diff {
-                secondLine.append(NSAttributedString(string: host, attributes: hostAttributes))
+            let host = Utils.ConciseDisplayHostFromURLString(url) where diff {
+                secondLine.append(NSAttributedString(string: "[" + host + "]", attributes: hostAttributes))
         }
         if let desc = article?.articleDescription {
             secondLine.append(NSAttributedString(string: desc, attributes: descriptionAttributes))

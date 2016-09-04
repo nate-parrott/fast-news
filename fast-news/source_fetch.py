@@ -81,6 +81,7 @@ def source_fetch(source):
         source.most_recent_article_added_date = now
     source_search.add_source_to_index(source)
     source.last_fetched = now
+    source.last_fetch_failed = False
     source.put()
 
 def _source_fetch(source):

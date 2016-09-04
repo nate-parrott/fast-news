@@ -51,6 +51,8 @@ class Source(ndb.Model):
     categories = ndb.StringProperty(repeated=True)
     keywords = ndb.TextProperty()
     
+    last_fetch_failed = ndb.BooleanProperty(default=False)
+    
     def display_title(self):
         return first_present([self.title_override, self.title])
     

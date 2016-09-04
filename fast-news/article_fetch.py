@@ -37,7 +37,7 @@ def article_fetch(article):
     if response and response.info().getheader('content-type', 'text/html').lower().split(';')[0].strip() == 'text/html':
         markup = response.read()
     else:
-        print 'BAD MIME TYPE'
+        print 'BAD MIME TYPE' if response else 'NO SUCCESSFUL RESPONSE'
         markup = None
     
     if markup:

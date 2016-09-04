@@ -17,7 +17,12 @@ class ArticleFetchHandler(webapp2.RequestHandler):
 class SourceFetchHandler(webapp2.RequestHandler):
     def post(self):
         source = ndb.Key('Source', self.request.get('id')).get()
-        source.fetch_now()
+        try:
+            source.fetch_now()
+        except Exception as e:
+            source.last_fetch_failed = True
+            source.put()
+            ErrorReport.with_current_exception('source_fetch')
         source.enqueue_fetch()
 
 class FeedUpdateHandler(webapp2.RequestHandler):

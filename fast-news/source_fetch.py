@@ -30,11 +30,17 @@ def source_fetch(source):
         if result.brand:
             source.brand = result.brand
         
+        # too many entries? limit max:
+        # result.entries = result.entries[:min(len(result.entries), 15)]
+        
         # titles = [entry['title'] for entry in result.entries if entry['title']]
         urls = [entry['url'] for entry in result.entries]
         if len(urls) >= 3:
+            print 'SHARED:', shared_hostname(urls)
             source.shared_hostname = shared_hostname(urls)
+            print 'gOT', source.shared_hostname
         else:
+            print 'NAHHH'
             source.shared_hostname = None
         
         entries = result.entries[:min(25, len(result.entries))]

@@ -121,12 +121,18 @@ class TestHandler(webapp2.RequestHandler):
     def post(self):
         test = self.request.get('test')
         if test == 'source':
-            from source_fetch import _source_fetch
+            type = self.request.get('type')
             from api import ensure_source
             url = self.request.get('url')
             source = ensure_source(url, suppress_immediate_fetch=True)
-            self.response.headers.add_header('Content-Type', 'text/plain')
-            pprint(_source_fetch(source), self.response.out)
+            if type == 'content':
+                from source_fetch import _source_fetch
+                self.response.headers.add_header('Content-Type', 'text/plain')
+                pprint(_source_fetch(source), self.response.out)
+            elif type == 'json':
+                from source_fetch import source_fetch
+                source_fetch(source)
+                send_json(self, source.json())
 
 class StatsHandler(webapp2.RequestHandler):
     def get(self):

@@ -42,6 +42,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
             delay(3, closure: {
                 RootViewController.Shared.statusItems = []
             })*/
+            
+            self.readArticle("http://unparseable.42pag.es/")
         }
         
         return true

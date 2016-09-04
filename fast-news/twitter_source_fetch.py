@@ -14,7 +14,8 @@ def twitter_fetch_data_from_url(url):
 def linked_twitter_fetch_data(soup):
     meta = soup.find('meta', attrs={'name': 'twitter:site'})
     if meta:
-        content = meta.get('content')
+        content = meta.get('content', meta.get('value'))
+        print 'META', meta
         if len(content) > 0 and content[0] == '@':
             return {"type": "twitter", "username": content[1:]}
 

@@ -60,17 +60,7 @@ class InlineWebView: UIView, WKNavigationDelegate {
     var state = State.None {
         didSet {
             UIView.animateWithDuration(0.1, delay: 0, options: .AllowUserInteraction, animations: { () -> Void in
-                var progress: CGFloat = 0
-                var show = false
-                
-                switch self.state {
-                case .Loading(progress: let p):
-                    progress = CGFloat(p)
-                    show = true
-                default: ()
-                }
-                
-                self.loadingBar.frame = CGRectMake(0, 0, self.bounds.size.width * progress, show ? 2 : 0)
+                self._updateLoadingBar()
                 }, completion: nil)
             
             switch state {
@@ -86,6 +76,21 @@ class InlineWebView: UIView, WKNavigationDelegate {
         webView.frame = bounds
         errorView.sizeToFit()
         errorView.center = CGPointMake(bounds.size.width/2, bounds.size.height/2)
+        _updateLoadingBar()
+    }
+    
+    func _updateLoadingBar() {
+        var progress: CGFloat = 0
+        var show = false
+        
+        switch self.state {
+        case .Loading(progress: let p):
+            progress = CGFloat(p)
+            show = true
+        default: ()
+        }
+        
+        self.loadingBar.frame = CGRectMake(0, 0, self.bounds.size.width * (0.2 + progress * 0.8), show ? 2 : 0)
     }
     
     func webView(webView: WKWebView, decidePolicyForNavigationAction navigationAction: WKNavigationAction, decisionHandler: (WKNavigationActionPolicy) -> Void) {

@@ -184,7 +184,7 @@ class ArticleViewController: SwipeAwayViewController {
                             }, completion: nil)
                     })
                 case .ShowWeb:
-                    webView = InlineWebView()
+                    if webView == nil { webView = InlineWebView() }
                     webView?.article = article
                     webView?.onClickedLink = {
                         [weak self] (url) in

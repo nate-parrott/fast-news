@@ -10,8 +10,10 @@
         </form>
         <form method=POST>
             <h1>Test source fetch</h1>
-            <input type=hidden name=test value=source>
             <input name=url>
+            <input type=hidden name=test value=source>
+            <p><input type=radio name=type value=content checked>Result content</p>
+            <p><input type=radio name=type value=json>Source JSON</p>
             <input type=submit>
         </form>
         <form method=POST action='/subscriptions/delete'>

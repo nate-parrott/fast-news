@@ -110,6 +110,8 @@ class DeleteSubscriptionTransaction: Transaction {
     func start(callback: (success: Bool) -> ()) {
         start { (json, error, transaction) -> () in
             callback(success: json?["success"] as? Bool ?? false)
+            let feed = Feed.objectsForIDs(["shared"]).first! as! Feed
+            feed.reloadImmediately()
         }
     }
 }

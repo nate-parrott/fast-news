@@ -69,6 +69,8 @@ class ArticleView: UIView {
             backgroundColor = UIColor.whiteColor()
             imageView.contentMode = .ScaleAspectFill
             imageView.clipsToBounds = true
+            
+            addDividers()
         }
     }
     

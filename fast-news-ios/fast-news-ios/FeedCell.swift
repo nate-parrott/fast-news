@@ -45,7 +45,7 @@ class FeedCell: UICollectionViewCell {
             let sourceNameFontSize = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline).pointSize
             sourceName.font = UIFont.boldSystemFontOfSize(sourceNameFontSize) // UIFont(name: "RobotoMono-Regular", size: 14)
             sourceTapView.backgroundColor = UIColor.clearColor()
-            sourceTapView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(FeedCell._tappedSourceName(_:))))
+            sourceTapView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(FeedCell._tappedSourceName(_:))))            
         }
     }
     

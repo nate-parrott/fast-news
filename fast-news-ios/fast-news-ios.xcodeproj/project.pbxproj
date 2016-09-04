@@ -123,6 +123,7 @@
 		5FB4D5E31C8BE364005D079D /* String+Substring.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB4D5E21C8BE364005D079D /* String+Substring.swift */; };
 		5FB4D5E41C8BE364005D079D /* String+Substring.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB4D5E21C8BE364005D079D /* String+Substring.swift */; };
 		5FB4D5E51C8BE67F005D079D /* BookmarkList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB4D5DD1C8A4063005D079D /* BookmarkList.swift */; };
+		5FC04A8E1D7BEFCE00D33B6C /* UIView+Dividers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC04A8D1D7BEFCD00D33B6C /* UIView+Dividers.swift */; };
 		5FC3BFD71C9EEBB0000A2D9E /* ElementStyleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC3BFD61C9EEBB0000A2D9E /* ElementStyleCell.swift */; };
 		5FC3BFD91C9EED68000A2D9E /* NPSoftModalPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC3BFD81C9EED68000A2D9E /* NPSoftModalPresentationController.swift */; };
 		5FC3BFDB1C9EEDF7000A2D9E /* StylesheetEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC3BFDA1C9EEDF7000A2D9E /* StylesheetEditorViewController.swift */; };
@@ -258,6 +259,7 @@
 		5FB4D5DD1C8A4063005D079D /* BookmarkList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookmarkList.swift; sourceTree = "<group>"; };
 		5FB4D5DF1C8BE276005D079D /* UIColor+Hex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Hex.swift"; sourceTree = "<group>"; };
 		5FB4D5E21C8BE364005D079D /* String+Substring.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Substring.swift"; sourceTree = "<group>"; };
+		5FC04A8D1D7BEFCD00D33B6C /* UIView+Dividers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Dividers.swift"; sourceTree = "<group>"; };
 		5FC3BFD61C9EEBB0000A2D9E /* ElementStyleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ElementStyleCell.swift; sourceTree = "<group>"; };
 		5FC3BFD81C9EED68000A2D9E /* NPSoftModalPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NPSoftModalPresentationController.swift; sourceTree = "<group>"; };
 		5FC3BFDA1C9EEDF7000A2D9E /* StylesheetEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StylesheetEditorViewController.swift; sourceTree = "<group>"; };
@@ -511,6 +513,7 @@
 				5F87A77A1D69754C00AC07DB /* EVCommon.m */,
 				5F87A7761D69752E00AC07DB /* UIView+ElasticLayout.h */,
 				5F87A7771D69752E00AC07DB /* UIView+ElasticLayout.m */,
+				5FC04A8D1D7BEFCD00D33B6C /* UIView+Dividers.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -909,6 +912,7 @@
 				5FB4D5E01C8BE276005D079D /* UIColor+Hex.swift in Sources */,
 				5F0CC62E1C6C5A320071A026 /* FeedCell.swift in Sources */,
 				5FC506FC1C91506C00F7A237 /* SKColorFill.m in Sources */,
+				5FC04A8E1D7BEFCE00D33B6C /* UIView+Dividers.swift in Sources */,
 				5F0CC6331C6C661A0071A026 /* CGMath.swift in Sources */,
 				5FC506EA1C914AD800F7A237 /* RGB-HSV.c in Sources */,
 				AE07F28A1D52845700C94AF5 /* FeaturedSources.swift in Sources */,

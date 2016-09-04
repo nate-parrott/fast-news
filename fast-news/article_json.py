@@ -259,7 +259,7 @@ def populate_article_json(article, content):
     meta_line.is_part_of_title = True
     segments.insert(index_to_insert_meta_line, meta_line)
 
-    content.text = u"\n".join([seg.text_content() for seg in segments if seg.is_text_segment() and seg.kind != 'title'])
+    content.text = u"\n".join([seg.text_content() for seg in segments if seg.is_text_segment() and seg.kind not in ('title', 'meta')])
     content.is_low_quality_parse = len(content.text.split(" ")) < 50
     content.article_json = {"segments": [s.json() for s in segments], "is_low_quality_parse": content.is_low_quality_parse}
 

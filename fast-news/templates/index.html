@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block body %}
+
+<div class='fullscreen'>
+	<div>
+		<div class='column'>
+			<img src='/static/logo.svg' id='logo'/>
+			<img id='iphones' src='/static/iphonez.png' />
+			<h1 id='title'><img src='/static/title.svg' alt='a faster, simpler news reader'/></h1>
+			<p>
+				<a id='try' href='#'><img src='/static/try.svg'/></a>
+			</p>
+		</div>
+	</div>
+</div>
+
+<div class='modal' id='signup-modal' style='display: none'>
+	<div>
+		<div class='box'>
+			<form id='signup'>
+				<h4>Join the A1 Beta</h4>
+				<p>We know, it's annoying when companies make you sign up for some email list before you can try their product.</p>
+				<p>Trust us – we're doing this because we want to build the best product we can, and that means releasing A1 slowly and deliberately, learning as much from early users as we can.</p>
+				<p>If you're excited about A1, leave us your email, and we'll be in touch when we're ready to show you A1.</p>
+				<p><input type='email' placeholder='email@domain.co.uk' /></p>
+				<p><input type='submit'/></p>
+			</form>
+		</div>
+	</div>
+</div>
+
+<div class='modal' id='confirm-modal' style='display: none'>
+	<div>
+		<div class='box'>
+			<form id='confirm'>
+				<h4>Thanks! We'll be in touch as soon as our beta group has room.</h4>
+				<p><input type='submit'/></p>
+			</form>
+		</div>
+	</div>
+</div>
+
+<script src='/static/index.js'></script>
+
+
+{% endblock %}

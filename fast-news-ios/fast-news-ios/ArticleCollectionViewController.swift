@@ -90,7 +90,7 @@ class ArticleCollectionViewController: UICollectionViewController, UICollectionV
             return
         }
     }
-    
+        
     var displayTitle: String? {
         get {
             return navigationItem.title

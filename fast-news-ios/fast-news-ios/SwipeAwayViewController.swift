@@ -81,7 +81,7 @@ class SwipeAwayViewController: UIViewController, UIViewControllerAnimatedTransit
         let toVC = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)!
         // let fromVC = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)!
         let presenting = (toVC === self)
-        let root = transitionContext.containerView()!
+        let root = transitionContext.containerView()
         
         if presenting {
             root.addSubview(view)

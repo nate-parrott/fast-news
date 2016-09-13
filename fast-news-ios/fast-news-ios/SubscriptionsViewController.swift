@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SubscriptionsViewController: UITableViewController, UITextFieldDelegate {
+class SubscriptionsViewController: UITableViewController, UITextFieldDelegate, ScrollUpController {
     let subs = SubscriptionsList.objectsForIDs(["main"]).first! as! SubscriptionsList
     var _subsSub: Subscription?
     let featured = FeaturedSources.objectForID("featured") as! FeaturedSources
@@ -93,7 +93,7 @@ class SubscriptionsViewController: UITableViewController, UITextFieldDelegate {
         let query = searchBar.query.val
         
         if let url = _URLFromString(query) {
-            let title = NSString(format: NSLocalizedString("Subscribe to “%@“", comment: ""), url.absoluteString) as String
+            let title = NSString(format: NSLocalizedString("Subscribe to “%@“", comment: ""), url.absoluteString!) as String
             let res = SourceSearchBar.Result(title: title, callback: { 
                 [weak self] in
                 self?.subscribeToSource(nil, url: url.absoluteString)
@@ -317,7 +317,7 @@ class SubscriptionsViewController: UITableViewController, UITextFieldDelegate {
     }
     
     override func tableView(tableView: UITableView, performAction action: Selector, forRowAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject?) {
-        if action == #selector(NSObject.delete(_:)) {
+        if action == #selector(Row.delete(_:)) {
             let sub = subs.subscriptions![indexPath.row]
             DeleteSubscriptionTransaction(url: sub.source!.url!).start({ (success) -> () in
                 if !success {
@@ -325,6 +325,10 @@ class SubscriptionsViewController: UITableViewController, UITextFieldDelegate {
                 }
             })
         }
+    }
+    
+    func scrollUp() {
+        tableView.setContentOffset(CGPointZero, animated: true)
     }
     
     // MARK: Row/section model classes
@@ -352,7 +356,7 @@ class SubscriptionsViewController: UITableViewController, UITextFieldDelegate {
                 return false
             }
         }
-        func delete(vc: SubscriptionsViewController) {
+        @objc func delete(vc: SubscriptionsViewController) {
             
         }
         var canSelect: Bool {

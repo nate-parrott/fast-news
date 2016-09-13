@@ -84,7 +84,7 @@ class NPSoftModalPresentationController: UIPresentationController, UIViewControl
         let vc = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)!
         let view = vc.view
         view.frame = transitionContext.finalFrameForViewController(vc)
-        let container = transitionContext.containerView()!
+        let container = transitionContext.containerView()
         container.addSubview(view)
         let translation = (container.bounds.size.height - view.frame.origin.y) * 0.5
         view.alpha = 0
@@ -129,7 +129,7 @@ class NPSoftModalPresentationController: UIPresentationController, UIViewControl
     private func _animateDismissal(transitionContext: UIViewControllerContextTransitioning) {
         let vc = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)!
         let view = vc.view
-        let container = transitionContext.containerView()!
+        let container = transitionContext.containerView()
         let translation = (container.bounds.size.height - view.frame.origin.y) * 0.5
         let duration = transitionDuration(transitionContext)
         UIView.animateWithDuration(duration, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: [], animations: { () -> Void in
@@ -147,7 +147,7 @@ class NPSoftModalPresentationController: UIPresentationController, UIViewControl
     
     // MARK: Transition Delegate
     // (private implementation, used for presentViewController())
-    func presentationControllerForPresentedViewController(presented: UIViewController, presentingViewController presenting: UIViewController, sourceViewController source: UIViewController) -> UIPresentationController? {
+    func presentationControllerForPresentedViewController(presented: UIViewController, presentingViewController presenting: UIViewController?, sourceViewController source: UIViewController) -> UIPresentationController? {
         return NPSoftModalPresentationController(presentedViewController: presented, presentingViewController: presenting)
     }
     

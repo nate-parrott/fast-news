@@ -20,8 +20,8 @@ class Cache {
     static let Shared = Cache()
     
     init() {
-        if !NSFileManager.defaultManager().fileExistsAtPath(_cacheURL.path!) {
-            try! NSFileManager.defaultManager().createDirectoryAtURL(_cacheURL, withIntermediateDirectories: true, attributes: nil)
+        if !NSFileManager.defaultManager().fileExistsAtPath(_cacheURL!.path!) {
+            try! NSFileManager.defaultManager().createDirectoryAtURL(_cacheURL!, withIntermediateDirectories: true, attributes: nil)
         }
     }
     
@@ -29,7 +29,7 @@ class Cache {
     
     func pathForKey(key: String) -> NSURL {
         let b64 = String(data: key.dataUsingEncoding(NSUTF8StringEncoding)!.base64EncodedDataWithOptions([]), encoding: NSUTF8StringEncoding)!
-        return _cacheURL.URLByAppendingPathComponent(b64)
+        return _cacheURL!.URLByAppendingPathComponent(b64)!
     }
     
     func get(key: String) -> [String: AnyObject]? {

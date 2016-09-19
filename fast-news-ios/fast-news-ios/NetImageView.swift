@@ -30,7 +30,7 @@ class NetImageView: UIImageView {
             
             if let url_ = newURL {
                 let cacheID = url_.absoluteString
-                if let cached = NetImageView.imageCache[cacheID]?.image {
+                if let cached = NetImageView.imageCache[cacheID!]?.image {
                     image = cached
                 } else {
                     loadInProgress = true
@@ -48,7 +48,7 @@ class NetImageView: UIImageView {
                                         
                                         let weakImage = WeakImage()
                                         weakImage.image = image
-                                        NetImageView.imageCache[cacheID] = weakImage
+                                        NetImageView.imageCache[cacheID!] = weakImage
                                         
                                         self_.loadInProgress = false
                                     }

@@ -38,7 +38,7 @@ func imageFromARGB32Bitmap(pixels: UnsafeMutablePointer<PixelData>, width: Int, 
         width * Int(sizeof(PixelData)),
         rgbColorSpace,
         bitmapInfo,
-        providerRef,
+        providerRef!,
         nil,
         true,
         .RenderingIntentDefault

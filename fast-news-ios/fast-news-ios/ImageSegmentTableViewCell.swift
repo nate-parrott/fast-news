@@ -73,7 +73,7 @@ class ImageSegmentTableViewCell: ArticleSegmentCell {
     }
     func _load() {
         if let url = _imageURL where _imageSize.width > 0 && _imageSize.height > 0 {
-            let mirrored = NetImageView.mirroredURLForImage(url.absoluteString, size: _imageSize * UIScreen.mainScreen().scale)
+            let mirrored = NetImageView.mirroredURLForImage(url.absoluteString!, size: _imageSize * UIScreen.mainScreen().scale)
             netImageView.setURL(mirrored, placeholder: segment?.tinyImage)
         }
     }

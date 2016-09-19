@@ -252,7 +252,7 @@ class ArticleContent {
             if italic {
                 traits.insert(.TraitItalic)
             }
-            desc = desc.fontDescriptorWithSymbolicTraits(traits)
+            desc = desc.fontDescriptorWithSymbolicTraits(traits)!
             if monospace {
                 return UIFont(name: "Courier", size: pointSize)!
             } else {

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BookmarksViewController: ArticleCollectionViewController {
+class BookmarksViewController: ArticleCollectionViewController, ScrollUpController {
 
     let bookmarkList = BookmarkList.Shared
     
@@ -62,5 +62,9 @@ class BookmarksViewController: ArticleCollectionViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         collectionView!.contentInset = UIEdgeInsetsMake(8 + topLayoutGuide.length, 0, 0, 0)
+    }
+    
+    func scrollUp() {
+        collectionView!.setContentOffset(CGPointZero, animated: true)
     }
 }

@@ -11,11 +11,11 @@ import UIKit
 extension UIImage {
     func applyTint(color: UIColor) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(size, false, scale)
-        CGContextClipToMask(UIGraphicsGetCurrentContext(), CGRectMake(0, 0, size.width, size.height), CGImage!)
+        CGContextClipToMask(UIGraphicsGetCurrentContext()!, CGRectMake(0, 0, size.width, size.height), CGImage!)
         color.setFill()
         UIBezierPath(rect: CGRectMake(0, 0, size.width, size.height)).fill()
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-        return image
+        return image!
     }
 }

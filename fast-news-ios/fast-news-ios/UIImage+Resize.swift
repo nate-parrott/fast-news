@@ -14,7 +14,7 @@ extension UIImage {
         self.drawInRect(CGRectMake(0, 0, size.width, size.height))
         let resized = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-        return resized
+        return resized!
     }
     func resizedWithMaxDimension(maxDimension: CGFloat) -> UIImage {
         let scale = min(maxDimension / size.width, maxDimension / size.height)

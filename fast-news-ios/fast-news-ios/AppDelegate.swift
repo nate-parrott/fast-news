@@ -9,7 +9,7 @@
 import UIKit
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate, UITabBarControllerDelegate {
 
     var window: UIWindow?
 
@@ -50,7 +50,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     }
     
     func application(app: UIApplication, openURL url: NSURL, options: [String : AnyObject]) -> Bool {
-        switch url.scheme {
+        switch url.scheme! {
             case "subscribed-article":
                 if let comps = NSURLComponents(URL: url, resolvingAgainstBaseURL: false) {
                     if let url: String = (comps.queryItems ?? []).filter({ $0.name == "url" && $0.value != nil }).map({ $0.value! }).first {

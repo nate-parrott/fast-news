@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FeedViewController: ArticleCollectionViewController {
+class FeedViewController: ArticleCollectionViewController, ScrollUpController {
     
     // MARK: Lifecycle
     
@@ -129,5 +129,9 @@ class FeedViewController: ArticleCollectionViewController {
         let sourceVC = storyboard!.instantiateViewControllerWithIdentifier("Source") as! SourceViewController
         sourceVC.source = source
         navigationController!.pushViewController(sourceVC, animated: true)
+    }
+    
+    func scrollUp() {
+        collectionView!.setContentOffset(CGPointZero, animated: true)
     }
 }

@@ -89,6 +89,21 @@ class NetImageView: UIImageView {
     }
     
     class func mirroredURLForImage(imageURL: String, size: CGSize) -> NSURL {
+        if let comps = NSURLComponents(string: imageURL) {
+            comps.host = (comps.host ?? "") + ".rsz.io"
+            comps.scheme = "http"
+            comps.queryItems = [
+                NSURLQueryItem(name: "width", value: "\(size.width)"),
+                NSURLQueryItem(name: "height", value: "\(size.height)"),
+                NSURLQueryItem(name: "mode", value: "crop")
+            ]
+            return comps.URL!
+        } else {
+            return NSURL(string: "about:blank")!
+        }
+    }
+    
+    class func mirroredURLForImage_old(imageURL: String, size: CGSize) -> NSURL {
         let comps = NSURLComponents(string: APIObject.apiRoot + "/mirror.jpg")!
         comps.queryItems = [NSURLQueryItem(name: "url", value: imageURL), NSURLQueryItem(name: "resize", value: "\(size.width),\(size.height)")]
         return comps.URL!

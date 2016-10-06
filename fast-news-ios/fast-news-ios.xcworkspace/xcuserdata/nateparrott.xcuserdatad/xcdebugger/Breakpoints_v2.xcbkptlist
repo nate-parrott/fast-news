@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "fast-news-ios/ArticleCollectionViewController.swift"
-            timestampString = "494025553.742328"
+            timestampString = "497418421.147731"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "160"
-            endingLineNumber = "160"
+            startingLineNumber = "170"
+            endingLineNumber = "170"
             landmarkName = "preloadImagesForVisibleRange(range:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -390,8 +390,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "418"
             endingLineNumber = "418"
-            landmarkName = "computeWithModels(_:segmentIndices:)"
-            landmarkType = "5">
+            landmarkName = "computeWithModels(models:segmentIndices:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -406,8 +406,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "398"
             endingLineNumber = "398"
-            landmarkName = "computeWithModels(_:segmentIndices:)"
-            landmarkType = "5">
+            landmarkName = "computeWithModels(models:segmentIndices:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -422,8 +422,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "401"
             endingLineNumber = "401"
-            landmarkName = "computeWithModels(_:segmentIndices:)"
-            landmarkType = "5">
+            landmarkName = "computeWithModels(models:segmentIndices:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -615,7 +615,7 @@
             startingLineNumber = "149"
             endingLineNumber = "149"
             landmarkName = "layoutSubviews()"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -630,8 +630,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "131"
             endingLineNumber = "131"
-            landmarkName = "collectionView(collectionView:layout:sizeForItemAtIndexPath:)"
-            landmarkType = "7">
+            landmarkName = "ArticleCollectionViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

@@ -65,7 +65,8 @@ class ArticleView: UIView {
                 addSubview(v)
             }
             headline.numberOfLines = 0
-            headline.font = UIFont.boldSystemFontOfSize(17)
+            let headlineFontSize: CGFloat = UIScreen.mainScreen().bounds.size.width > 340 ? 16 : 14
+            headline.font = UIFont.boldSystemFontOfSize(headlineFontSize)
             backgroundColor = UIColor.whiteColor()
             imageView.contentMode = .ScaleAspectFill
             imageView.clipsToBounds = true

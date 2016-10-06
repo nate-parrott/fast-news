@@ -7,6 +7,7 @@ import ml
 class ArticleFetchHandler(webapp2.RequestHandler):
     def post(self):
         article = ndb.Key('Article', self.request.get('id')).get()
+        print "Fetching article with ID", self.request.get('id')
         try:
             article.fetch_now()
         except Exception as e:
@@ -17,6 +18,7 @@ class ArticleFetchHandler(webapp2.RequestHandler):
 class SourceFetchHandler(webapp2.RequestHandler):
     def post(self):
         source = ndb.Key('Source', self.request.get('id')).get()
+        print "Fetching source with id", self.request.get('id')
         try:
             source.fetch_now()
         except Exception as e:
@@ -29,6 +31,7 @@ class FeedUpdateHandler(webapp2.RequestHandler):
     def post(self):
         # TODO: wrap in try-catch
         feed = Feed.get_for_user(self.request.get('uid'))
+        print 'Updating feed for user', self.request.get('uid')
         feed.update()
         feed.schedule_update()
 

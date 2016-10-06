@@ -7,6 +7,7 @@ from google.appengine.ext import ndb
 import source_admin
 import template
 import source_search
+import health
 
 class RescheduleSourceFetchesHandler(webapp2.RequestHandler):
     def post(self):
@@ -38,5 +39,6 @@ app = webapp2.WSGIApplication([
     ('/admin/purge_source', PurgeSourceHandler),
     ('/admin/sources', source_admin.SourcesAdminHandler),
     ('/admin/sources/(.+)', source_admin.SourceAdminHandler),
+    ('/admin/health', health.Handler),
     ('/admin/source_search', source_search.SourceSearchAdmin)
 ], debug=True)

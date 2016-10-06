@@ -15,10 +15,6 @@ handlers:
   script: google.appengine.ext.admin.application
   login: admin
 
-- url: /favicon\.ico
-  static_files: favicon.ico
-  upload: favicon\.ico
-
 - url: /static
   static_dir: static
 

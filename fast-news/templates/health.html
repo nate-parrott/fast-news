@@ -1,0 +1,26 @@
+{% extends "admin_base.html" %}
+
+{% block content %}
+
+<h1>API Health</h1>
+
+{% if result %}
+<h3>{{ result_type }}</h3>
+<p><code>{{ result }}</code></p>
+{% endif %}
+
+<h3>Actions</h3>
+
+<form method='POST'>
+	<input type='hidden' name='type' value='unfetched_sources'/>
+	<input type='submit' value='Unfetched sources'/>
+</form>
+
+<br/>
+
+<form method='POST'>
+	<input type='hidden' name='type' value='unrefreshed_feeds'/>
+	<input type='submit' value='Unrefreshed feeds'/>
+</form>
+
+{% endblock %}

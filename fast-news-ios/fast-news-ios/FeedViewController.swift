@@ -18,7 +18,9 @@ class FeedViewController: ArticleCollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "TitleBarLogo")!, style: .Plain, target: nil, action: nil)
+        let logoImageView = UIImageView(image: UIImage(named: "TitleBarLogo")!)
+        logoImageView.sizeToFit()
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: logoImageView)
         navigationItem.leftBarButtonItem!.tintColor = UIColor.blackColor()
         
         navigationItem.title = nil

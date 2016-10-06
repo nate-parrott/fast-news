@@ -115,21 +115,28 @@ class ImageSegment(Segment):
         return j
 
     def fetch_image_data_async(self, timeout):
-        result_future = url_fetch_future(self.src, timeout)
-        def future():
-            result = result_future()
-            if result:
-                try:
-                    f = StringIO(result)
-                    image = Image.open(f)
-                    self.size = image.size
-                    self.tiny = tinyimg(image)
-                except IOError as e:
-                    print "IO error during image fetch: {0}".format(e)
-            else:
-                print "Failed to fetch image at url:", self.src
+        if self.src.startswith('data:'):
+            self.src = None
         
-        return future
+        if self.src:
+            result_future = url_fetch_future(self.src, timeout)
+            def future():
+                result = result_future()
+                if result:
+                    try:
+                        f = StringIO(result)
+                        image = Image.open(f)
+                        self.size = image.size
+                        self.tiny = tinyimg(image)
+                    except IOError as e:
+                        print "IO error during image fetch: {0}".format(e)
+                else:
+                    print "Failed to fetch image at url:", self.src
+        
+            return future
+        else:
+            def future(): pass
+            return future
 
     def is_empty(self):
         return (self.src == None)

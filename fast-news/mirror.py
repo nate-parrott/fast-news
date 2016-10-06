@@ -31,7 +31,7 @@ class MirrorHandler(webapp2.RequestHandler):
 			ow, oh = img.width, img.height
 			scale = min(w/ow, h/oh, 1)
 			img.resize(int(ow*scale), int(oh*scale))
-			if content_type == 'image/jpeg':
+			if content_type == 'image/jpeg' or True: # ALWAYS send jpeg, never png
 				output_encoding = images.JPEG
 			else:
 				output_encoding = images.PNG

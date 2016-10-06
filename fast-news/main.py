@@ -196,6 +196,7 @@ app = webapp2.WSGIApplication([
     ('/test', TestHandler),
     ('/test/article_fetch', ArticleTestFetchHandler),
     ('/mirror', MirrorHandler),
+    ('/mirror.jpg', MirrorHandler),
     ('/stats', StatsHandler),
     ('/dump/articles', ArticleDumpHandler),
     ('/extract', SimpleExtractHandler),

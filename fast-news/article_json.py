@@ -14,6 +14,7 @@ import re
 import relative_time
 import article_extractor
 from collections import defaultdict
+import text_blacklist
 
 def url_fetch_and_time(url, timeout):
     t1 = time.time()
@@ -228,6 +229,9 @@ def populate_article_json(article, content):
     
     # discard small images:
     segments = [s for s in segments if not (isinstance(s, ImageSegment) and s.size and s.size[0] * s.size[1] < (100 * 100))]
+    
+    # discard things on the text blacklist:
+    segments = [s for s in segments if not (isinstance(s, TextSegment) and text_blacklist.should_remove(s.text_content()))]
 
     content.article_text = u"\n"
 

@@ -483,6 +483,7 @@ class ArticleViewController: SwipeAwayViewController {
             webView?.removeFromSuperview()
             if let new = newVal {
                 contentView.insertSubview(new, aboveSubview: pager)
+                view.setNeedsLayout()
             }
         }
     }

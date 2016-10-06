@@ -96,8 +96,11 @@ class InlineWebView: UIView, WKNavigationDelegate {
     func webView(webView: WKWebView, decidePolicyForNavigationAction navigationAction: WKNavigationAction, decisionHandler: (WKNavigationActionPolicy) -> Void) {
         let navType = navigationAction.navigationType
         if navType == .LinkActivated || navType == .FormSubmitted {
-            if let cb = onClickedLink, let url = navigationAction.request.URL {
-                cb(url)
+            let isWeirdFormSubmit = navType == .FormSubmitted && !(navigationAction.targetFrame?.mainFrame ?? true)
+            if !isWeirdFormSubmit {
+                if let cb = onClickedLink, let url = navigationAction.request.URL {
+                    cb(url)
+                }
             }
             decisionHandler(.Cancel)
         } else {

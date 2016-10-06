@@ -54,7 +54,15 @@ class ArticleCollectionViewController: UICollectionViewController, UICollectionV
     
     let _preferredRecency: CFAbsoluteTime = 5 * 60
     
-    var visible = false
+    var visible = false {
+        didSet {
+            if needsUpdateOnVisible {
+                needsUpdateOnVisible = false
+                update()
+            }
+        }
+    }
+    var needsUpdateOnVisible = false
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
@@ -73,6 +81,11 @@ class ArticleCollectionViewController: UICollectionViewController, UICollectionV
     }
     
     func update() {
+        if !visible {
+            needsUpdateOnVisible = true
+            return
+        }
+        
         collectionView?.reloadData()
         
         var title = ""
@@ -85,10 +98,6 @@ class ArticleCollectionViewController: UICollectionViewController, UICollectionV
             title = modelTitle
         }
         displayTitle = title
-        
-        if !visible {
-            return
-        }
     }
         
     var displayTitle: String? {
@@ -101,6 +110,7 @@ class ArticleCollectionViewController: UICollectionViewController, UICollectionV
     }
     
     // MARK: Collection
+    
     var _sizingCell: UICollectionViewCell!
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return collectionModels.count

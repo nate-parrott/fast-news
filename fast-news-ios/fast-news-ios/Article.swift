@@ -48,6 +48,12 @@ class Article: APIObject {
         }
     }
     
+    var showImagePreview: Bool {
+        get {
+            return imageURL != nil && topImageTinyJson != nil
+        }
+    }
+    
     override func jsonPath() -> (String, [String : String]?)? {
         if let id = self.id {
             return ("/article", ["id": id])

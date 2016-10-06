@@ -15,7 +15,7 @@ class ArticleView: UIView {
             _setup()
             if let a = article {
                 headline.attributedText = getPreviewText()
-                if let url = a.imageURL {
+                if let url = a.imageURL where a.showImagePreview {
                     imageView.setURL(ArticleView.resizedURLForImageAtURL(url), placeholder: a.imagePlaceholder)
                     // imageView.url = NSURL(string: url)
                 } else {
@@ -90,7 +90,7 @@ class ArticleView: UIView {
         let minLabelHeight: CGFloat = 56
         let padding: CGFloat = ArticleView.Padding
         let imagePadding = imageHasPadding ? padding : 0
-        let hasImage = imageView.url != nil
+        let hasImage = article?.showImagePreview ?? false
         let headlineWidth = hasImage ? width - ArticleView.ImageSize - padding * 2 : width - padding * 2 - imagePadding
         let headlineHeight = min(maxLabelHeight, headline.sizeThatFits(CGSizeMake(headlineWidth, maxLabelHeight)).height)
         let height = max(headlineHeight + padding * 2, hasImage ? ArticleView.ImageSize + imagePadding * 2 : 0, minLabelHeight)

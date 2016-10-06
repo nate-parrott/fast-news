@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BookmarksViewController: ArticleCollectionViewController, ScrollUpController {
+class BookmarksViewController: ArticleCollectionViewController {
 
     let bookmarkList = BookmarkList.Shared
     

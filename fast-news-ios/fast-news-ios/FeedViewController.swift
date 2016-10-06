@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FeedViewController: ArticleCollectionViewController, ScrollUpController {
+class FeedViewController: ArticleCollectionViewController {
     
     // MARK: Lifecycle
     

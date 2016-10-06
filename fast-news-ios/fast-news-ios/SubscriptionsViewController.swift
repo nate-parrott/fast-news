@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SubscriptionsViewController: UITableViewController, UITextFieldDelegate, ScrollUpController {
+class SubscriptionsViewController: UITableViewController, UITextFieldDelegate {
     let subs = SubscriptionsList.objectsForIDs(["main"]).first! as! SubscriptionsList
     var _subsSub: Subscription?
     let featured = FeaturedSources.objectForID("featured") as! FeaturedSources

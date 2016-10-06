@@ -102,9 +102,9 @@ def ensure_source(url, suppress_immediate_fetch=False):
         source.fetch_now()
     return source
 
-def feed(uid):
+def feed(uid, force=False):
     f = Feed.get_for_user(uid)
-    return f.ensure_feed_content()
+    return f.ensure_feed_content(force=force)
 
 def bookmarks(uid, since=None):
     q = Bookmark.query(Bookmark.uid == uid).order(-Bookmark.last_modified)

@@ -11,6 +11,10 @@ automatic_scaling:
   min_pending_latency: 2000ms
 
 handlers:
+- url: /admin/console/.*
+  script: google.appengine.ext.admin.application
+  login: admin
+
 - url: /favicon\.ico
   static_files: favicon.ico
   upload: favicon\.ico

@@ -59,7 +59,8 @@ class ArticleHandler(webapp2.RequestHandler):
 class FeedHandler(webapp2.RequestHandler):
     def get(self):
         uid = self.request.get('uid')
-        send_json(self, api.feed(uid))
+        force = self.request.get('force') is not None
+        send_json(self, api.feed(uid, force=force))
 
 class SubscriptionsHandler(webapp2.RequestHandler):
     def get(self):

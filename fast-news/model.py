@@ -7,6 +7,7 @@ import sys, traceback, StringIO
 import datetime
 import random
 from article_title_processor import article_title_processor
+from google.appengine.api import memcache
 
 MINUTES = 60
 HOURS = 60 * MINUTES
@@ -117,6 +118,15 @@ class Source(ndb.Model):
                 d['articles'] = article_title_processor(d['articles'])
             return d
         return promise if return_promise else promise()
+    
+    def feed_cache_key(self):
+        return "source/feed_cache/{0}".format(self.url)
+    
+    def invalidate_cache(self):
+        memcache.delete(self.feed_cache_key())
+    
+    def _pre_put_hook(self):
+        self.invalidate_cache()
 
 class ArticleContent(ndb.Model):
     html = ndb.TextProperty()

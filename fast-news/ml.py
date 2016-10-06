@@ -59,6 +59,6 @@ class ArticlesHandler(webapp2.RequestHandler):
         send_json(self, {"success": True})
 
 def apply_ml_payload_to_article(payload, article):
-    article.ml_topics = payload.get('topics', [])
+    # article.ml_topics = payload.get('topics', []) # BAIL OUT until we get fewer topics per article
     article.ml_service_time = None
     article.processed_by_ml_service = True

@@ -77,6 +77,7 @@ def article_fetch(article):
     article.ml_service_time = util.datetime_from_timestamp(0) # mark this article as ready to be consumed by the ml service
     content.put()
     article.put()
+    if article.source: article.source.get().invalidate_cache()
 
 def find_author(markup_soup):
     print 'LOOKING FOR AUTHOR'

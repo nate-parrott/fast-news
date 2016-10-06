@@ -8,13 +8,27 @@ import source_admin
 import template
 import source_search
 import health
+from feed import Feed
+from google.appengine.api import taskqueue
+import time
 
 class RescheduleSourceFetchesHandler(webapp2.RequestHandler):
     def post(self):
-        sources = Source.query().fetch(10000)
-        for source in sources:
+        taskqueue.Queue('sources').purge()
+        time.sleep(1) # TODO: anything but this; we need to wait 1 seconds, but how?
+        
+        for source in Source.query():
             source.most_recent_article_added_date = None
             source.enqueue_fetch(rand=True)
+        self.response.write('done')
+
+class RescheduleFeedRefreshHandler(webapp2.RequestHandler):
+    def post(self):
+        taskqueue.Queue('feeds').purge()
+        time.sleep(1) # TODO: anything but this; we need to wait 1 seconds, but how?
+        
+        for feed in Feed.query():
+            feed.schedule_update()
         self.response.write('done')
 
 class PurgeSourceHandler(webapp2.RequestHandler):
@@ -36,6 +50,7 @@ class AdminHandler(webapp2.RequestHandler):
 app = webapp2.WSGIApplication([
     ('/admin', AdminHandler),
     ('/admin/reschedule_source_fetches', RescheduleSourceFetchesHandler),
+    ('/admin/reschedule_feed_refresh', RescheduleFeedRefreshHandler),
     ('/admin/purge_source', PurgeSourceHandler),
     ('/admin/sources', source_admin.SourcesAdminHandler),
     ('/admin/sources/(.+)', source_admin.SourceAdminHandler),

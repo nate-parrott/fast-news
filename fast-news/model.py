@@ -8,6 +8,7 @@ import datetime
 import random
 from article_title_processor import article_title_processor
 from google.appengine.api import memcache
+from strip_twitter_handle import strip_twitter_handle_from_title
 
 MINUTES = 60
 HOURS = 60 * MINUTES
@@ -56,7 +57,12 @@ class Source(ndb.Model):
     last_fetch_failed = ndb.BooleanProperty(default=False)
     
     def display_title(self):
-        return first_present([self.title_override, self.title])
+        if self.title_override:
+            return self.title_override
+        title = self.title
+        if title:
+            title = strip_twitter_handle_from_title(title)
+        return title
     
     def fetch_now(self):
         source_fetch(self)

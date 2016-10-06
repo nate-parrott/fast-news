@@ -50,7 +50,7 @@ class BookmarksViewController: ArticleCollectionViewController {
     }
     
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        showArticle(collectionModels[indexPath.item] as! Article)
+        showArticle(_collectionModelsForDisplay[indexPath.item] as! Article)
     }
     
     func showArticle(article: Article) {

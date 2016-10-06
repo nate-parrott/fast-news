@@ -104,7 +104,7 @@ class FeedViewController: ArticleCollectionViewController {
     let padding: CGFloat = 8
     
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        if let article = (collectionModels[indexPath.item] as! Source).highlightedArticle {
+        if let article = (_collectionModelsForDisplay[indexPath.item] as! Source).highlightedArticle {
             showArticle(article)
         }
     }

@@ -19,6 +19,11 @@ class ArticleCollectionViewController: UICollectionViewController, UICollectionV
             return []
         }
     }
+    var _collectionModelsForDisplay = [APIObject]() {
+        didSet {
+            collectionView?.reloadData()
+        }
+    }
     func applyModelToCell(cell: UICollectionViewCell, model: APIObject) {
         
     }
@@ -86,7 +91,7 @@ class ArticleCollectionViewController: UICollectionViewController, UICollectionV
             return
         }
         
-        collectionView?.reloadData()
+        _collectionModelsForDisplay = collectionModels
         
         var title = ""
         switch model.loadingState {
@@ -113,12 +118,12 @@ class ArticleCollectionViewController: UICollectionViewController, UICollectionV
     
     var _sizingCell: UICollectionViewCell!
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return collectionModels.count
+        return _collectionModelsForDisplay.count
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath)
-        applyModelToCell(cell, model: collectionModels[indexPath.item])
+        applyModelToCell(cell, model: _collectionModelsForDisplay[indexPath.item])
         return cell
     }
     
@@ -138,7 +143,10 @@ class ArticleCollectionViewController: UICollectionViewController, UICollectionV
     
     // MARK: Layout
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        let model = collectionModels[indexPath.item]
+        if indexPath.item >= _collectionModelsForDisplay.count {
+            return CGSizeZero
+        }
+        let model = _collectionModelsForDisplay[indexPath.item]
         applyModelToCell(_sizingCell, model: model)
         return _sizingCell.sizeThatFits(CGSizeMake(collectionView.bounds.size.width, 1000))
     }
@@ -160,7 +168,7 @@ class ArticleCollectionViewController: UICollectionViewController, UICollectionV
             // print("removing \(idx)")
         }
         var indices = [Int]()
-        let models = collectionModels
+        let models = _collectionModelsForDisplay
         for i in 1..<(preloadCountInEachDirection+1) {
             indices.append(range.location - i)
             indices.append(range.location + range.length + i)

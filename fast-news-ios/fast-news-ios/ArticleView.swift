@@ -25,7 +25,7 @@ class ArticleView: UIView {
         }
     }
     class func resizedURLForImageAtURL(url: String) -> NSURL {
-        let scale = UIScreen.mainScreen().scale * 2
+        let scale = UIScreen.mainScreen().scale * 1.5
         return NetImageView.mirroredURLForImage(url, size: CGSizeMake(ArticleView.ImageSize * scale, (ArticleView.MaxLabelHeight + ArticleView.Padding * 2) * scale))
     }
     func getPreviewText() -> NSAttributedString {

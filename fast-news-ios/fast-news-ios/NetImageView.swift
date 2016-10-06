@@ -88,7 +88,16 @@ class NetImageView: UIImageView {
         }
     }
     
-    class func mirroredURLForImage(imageURL: String, size: CGSize) -> NSURL {
+    class func mirroredURLForImage(imageURL: String, size: CGSize, transparent: Bool = false) -> NSURL {
+        let schemeless = imageURL.componentsSeparatedByString("://").last!.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!
+        let format = transparent ? "png" : "jpg"
+        let w = Int(size.width)
+        let h = Int(size.height)
+        let s = "https://images.weserv.nl/?url=\(schemeless)&w=\(w)&h=\(h)&t=fit&output=\(format)"
+        return NSURL(string: s)!
+    }
+    
+    class func mirroredURLForImage_rsz(imageURL: String, size: CGSize, format: String = "jpeg") -> NSURL {
         if let comps = NSURLComponents(string: imageURL) {
             comps.host = (comps.host ?? "") + ".rsz.io"
             comps.scheme = "http"

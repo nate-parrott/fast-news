@@ -106,7 +106,7 @@ class FeaturedSourcesCarousel: UICollectionView, UICollectionViewDataSource, UIC
                     thumbnail.backgroundColor = s.color ?? UIColor.whiteColor()
                     if let iconUrl = s.iconUrl {
                         let imageSize = CGSizeMake(FeaturedSourcesCarousel.ThumbnailHeight * 3, FeaturedSourcesCarousel.ThumbnailHeight * 3)
-                        imageView.setURL(NetImageView.mirroredURLForImage(iconUrl, size: imageSize), placeholder: nil)
+                        imageView.setURL(NetImageView.mirroredURLForImage(iconUrl, size: imageSize, transparent: true), placeholder: nil)
                     } else {
                         imageView.setURL(nil, placeholder: nil)
                     }

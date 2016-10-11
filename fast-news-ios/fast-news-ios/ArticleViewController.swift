@@ -293,6 +293,9 @@ class ArticleViewController: SwipeAwayViewController {
         switch model {
         case .Image(let segment):
             let cell = ImageSegmentTableViewCell()
+            cell.onViewImageInLightbox = { [weak self] (imageView: NetImageView) in
+                self?.showImageInLightbox(imageView)
+            }
             cell.segment = segment
             return cell
         case .Text(let string, let margins, let seg):
@@ -493,6 +496,20 @@ class ArticleViewController: SwipeAwayViewController {
         if sender.state == .Ended {
             presentHiddenSettingsUIFromArticle(self)
         }
+    }
+    
+    // MARK: Interactivity
+    
+    func showImageInLightbox(imageView: NetImageView) {
+        let imageViewCopy = NetImageView(image: imageView.image)
+        let imageViewer = A1ImageViewer()
+        if let size = imageViewCopy.image?.size where size.height > 0 {
+            imageViewer.imageAspectRatio = size.width / size.height
+        } else {
+            imageViewer.imageAspectRatio = 1
+        }
+        imageViewer.imageView = imageViewCopy
+        imageViewer.presentInContainerView(view, originalImageView: imageView)
     }
 }
 

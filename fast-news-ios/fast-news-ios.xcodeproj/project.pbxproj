@@ -35,6 +35,7 @@
 		5F28BB461D5D9079006E2F76 /* FeaturedSourcesCarousel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F28BB451D5D9079006E2F76 /* FeaturedSourcesCarousel.swift */; };
 		5F28BB481D5D9591006E2F76 /* SubscriptionRowCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F28BB471D5D9591006E2F76 /* SubscriptionRowCell.swift */; };
 		5F28BB4A1D5D9BEF006E2F76 /* SourceSearchBarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F28BB491D5D9BEF006E2F76 /* SourceSearchBarCell.swift */; };
+		5F2CA9AA1DAC9F46002B1E64 /* A1ImageViewer.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F2CA9A91DAC9F46002B1E64 /* A1ImageViewer.m */; };
 		5F3054311C7CE13A00E0CFE6 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3054301C7CE13A00E0CFE6 /* Color.swift */; };
 		5F3054331C7CE33200E0CFE6 /* SafariVCActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3054321C7CE33200E0CFE6 /* SafariVCActivity.swift */; };
 		5F30543B1C7D197F00E0CFE6 /* ActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F30543A1C7D197F00E0CFE6 /* ActionViewController.swift */; };
@@ -199,6 +200,8 @@
 		5F28BB451D5D9079006E2F76 /* FeaturedSourcesCarousel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeaturedSourcesCarousel.swift; sourceTree = "<group>"; };
 		5F28BB471D5D9591006E2F76 /* SubscriptionRowCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionRowCell.swift; sourceTree = "<group>"; };
 		5F28BB491D5D9BEF006E2F76 /* SourceSearchBarCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SourceSearchBarCell.swift; sourceTree = "<group>"; };
+		5F2CA9A81DAC9F46002B1E64 /* A1ImageViewer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = A1ImageViewer.h; sourceTree = "<group>"; };
+		5F2CA9A91DAC9F46002B1E64 /* A1ImageViewer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = A1ImageViewer.m; sourceTree = "<group>"; };
 		5F3054301C7CE13A00E0CFE6 /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		5F3054321C7CE33200E0CFE6 /* SafariVCActivity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SafariVCActivity.swift; sourceTree = "<group>"; };
 		5F3054381C7D197F00E0CFE6 /* Reader.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Reader.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -521,6 +524,8 @@
 		5FBBBBDB1C83AAEE00871C73 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				5F2CA9A81DAC9F46002B1E64 /* A1ImageViewer.h */,
+				5F2CA9A91DAC9F46002B1E64 /* A1ImageViewer.m */,
 				5F4FDB0A1C836C020049C61A /* SwipePager.swift */,
 				5F4FDB161C839EC70049C61A /* GradientIndicator.swift */,
 				5F5E4D991C6E45A1009C3446 /* ArticleView.swift */,
@@ -917,6 +922,7 @@
 				5FC506EA1C914AD800F7A237 /* RGB-HSV.c in Sources */,
 				AE07F28A1D52845700C94AF5 /* FeaturedSources.swift in Sources */,
 				5FB4D5DE1C8A4063005D079D /* BookmarkList.swift in Sources */,
+				5F2CA9AA1DAC9F46002B1E64 /* A1ImageViewer.m in Sources */,
 				5F8D9F321C6C0AFE00F0FFBE /* EnableSPDY.m in Sources */,
 				5F4FDB0B1C836C020049C61A /* SwipePager.swift in Sources */,
 				5F5E4D9E1C6F0D29009C3446 /* UIImage+Resize.swift in Sources */,

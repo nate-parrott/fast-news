@@ -20,6 +20,9 @@ class ImageSegmentTableViewCell: ArticleSegmentCell {
             netImageView.contentMode = .ScaleAspectFill
             netImageView.clipsToBounds = true
             backgroundColor = UIColor(white: 1, alpha: 1)
+            let tapRec = UITapGestureRecognizer(target: self, action: #selector(ImageSegmentTableViewCell.tapped))
+            netImageView.addGestureRecognizer(tapRec)
+            netImageView.userInteractionEnabled = true
         }
     }
     
@@ -92,5 +95,11 @@ class ImageSegmentTableViewCell: ArticleSegmentCell {
             setNeedsLayout()
             layoutIfNeeded()
         }
+    }
+    
+    var onViewImageInLightbox: (NetImageView -> ())?
+    
+    func tapped(sender: UITapGestureRecognizer) {
+        if let cb = onViewImageInLightbox { cb(netImageView) }
     }
 }

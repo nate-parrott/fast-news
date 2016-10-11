@@ -20,9 +20,20 @@ class ArticleCollectionViewController: UICollectionViewController, UICollectionV
         }
     }
     var _collectionModelsForDisplay = [APIObject]() {
-        didSet {
-            collectionView?.reloadData()
+        didSet(old) {
+            let needsReload = _collectionModelsForDisplay.count != old.count || zip(_collectionModelsForDisplay, old).any({ (let models) -> Bool in
+                let c1 = self.comparisonStringForModel(models.0)
+                let c2 = self.comparisonStringForModel(models.1)
+                return c1 == nil || c2 == nil || c1 != c2
+            })
+            if needsReload {
+                collectionView?.reloadData()
+            }
         }
+    }
+    func comparisonStringForModel(model: APIObject) -> String? {
+        // if, during a content update, the string for a model is unchanged, it's assumed that the row doesn't need to be reloaded; if nil, it'll always be reloaded
+        return nil
     }
     func applyModelToCell(cell: UICollectionViewCell, model: APIObject) {
         

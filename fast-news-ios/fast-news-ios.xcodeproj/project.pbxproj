@@ -36,6 +36,7 @@
 		5F28BB481D5D9591006E2F76 /* SubscriptionRowCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F28BB471D5D9591006E2F76 /* SubscriptionRowCell.swift */; };
 		5F28BB4A1D5D9BEF006E2F76 /* SourceSearchBarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F28BB491D5D9BEF006E2F76 /* SourceSearchBarCell.swift */; };
 		5F2CA9AA1DAC9F46002B1E64 /* A1ImageViewer.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F2CA9A91DAC9F46002B1E64 /* A1ImageViewer.m */; };
+		5F2CA9AC1DACBA6A002B1E64 /* CollectionHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F2CA9AB1DACBA6A002B1E64 /* CollectionHelpers.swift */; };
 		5F3054311C7CE13A00E0CFE6 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3054301C7CE13A00E0CFE6 /* Color.swift */; };
 		5F3054331C7CE33200E0CFE6 /* SafariVCActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3054321C7CE33200E0CFE6 /* SafariVCActivity.swift */; };
 		5F30543B1C7D197F00E0CFE6 /* ActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F30543A1C7D197F00E0CFE6 /* ActionViewController.swift */; };
@@ -202,6 +203,7 @@
 		5F28BB491D5D9BEF006E2F76 /* SourceSearchBarCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SourceSearchBarCell.swift; sourceTree = "<group>"; };
 		5F2CA9A81DAC9F46002B1E64 /* A1ImageViewer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = A1ImageViewer.h; sourceTree = "<group>"; };
 		5F2CA9A91DAC9F46002B1E64 /* A1ImageViewer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = A1ImageViewer.m; sourceTree = "<group>"; };
+		5F2CA9AB1DACBA6A002B1E64 /* CollectionHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionHelpers.swift; sourceTree = "<group>"; };
 		5F3054301C7CE13A00E0CFE6 /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		5F3054321C7CE33200E0CFE6 /* SafariVCActivity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SafariVCActivity.swift; sourceTree = "<group>"; };
 		5F3054381C7D197F00E0CFE6 /* Reader.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Reader.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -516,6 +518,7 @@
 				5F87A77A1D69754C00AC07DB /* EVCommon.m */,
 				5F87A7761D69752E00AC07DB /* UIView+ElasticLayout.h */,
 				5F87A7771D69752E00AC07DB /* UIView+ElasticLayout.m */,
+				5F2CA9AB1DACBA6A002B1E64 /* CollectionHelpers.swift */,
 				5FC04A8D1D7BEFCD00D33B6C /* UIView+Dividers.swift */,
 			);
 			name = Utilities;
@@ -864,6 +867,7 @@
 				5F87A7891D6C1F8D00AC07DB /* MasonryCollectionViewLayout.swift in Sources */,
 				5FC506FB1C91506C00F7A237 /* SKFill.m in Sources */,
 				5FC3BFDF1C9F0720000A2D9E /* Stylesheets.swift in Sources */,
+				5F2CA9AC1DACBA6A002B1E64 /* CollectionHelpers.swift in Sources */,
 				5F30546C1C7D1BFD00E0CFE6 /* Defs.swift in Sources */,
 				5F73F1791C76A8DF00DA2981 /* NSAttributedString+TrimWhitespace.swift in Sources */,
 				5F4FDB171C839EC70049C61A /* GradientIndicator.swift in Sources */,

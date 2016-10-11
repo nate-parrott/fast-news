@@ -67,4 +67,15 @@ class BookmarksViewController: ArticleCollectionViewController {
     func scrollUp() {
         collectionView!.setContentOffset(CGPointZero, animated: true)
     }
+    
+    override func comparisonStringForModel(model: APIObject) -> String? {
+        if let b = model as? Article {
+            let t = b.title
+            let s = b.articleDescription
+            let src = b.url
+            // TODO: make sure this is exhaustive
+            return "\(t) \(s) \(src)"
+        }
+        return nil
+    }
 }

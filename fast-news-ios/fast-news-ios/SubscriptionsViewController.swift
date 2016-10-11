@@ -63,6 +63,9 @@ class SubscriptionsViewController: UITableViewController, UITextFieldDelegate {
         super.viewWillAppear(animated)
         subs.ensureRecency(_preferredRecency)
         featured.ensureRecency(30 * 60) // 30 mins
+        if let selectionIndex = tableView.indexPathForSelectedRow {
+            tableView.deselectRowAtIndexPath(selectionIndex, animated: animated)
+        }
     }
     
     func _foreground(notif: NSNotification) {
@@ -392,6 +395,12 @@ class SubscriptionsViewController: UITableViewController, UITextFieldDelegate {
             super.configureCell(cell, vc: vc)
             cell.textLabel!.text = subscription.source!.title
             cell.detailTextLabel!.text = subscription.source!.url
+            cell.accessoryType = canSelect ? .DisclosureIndicator : .None
+        }
+        override var canSelect: Bool {
+            get {
+                return self.subscription.source?.id != nil
+            }
         }
         override var canDelete: Bool {
             get {
@@ -401,6 +410,13 @@ class SubscriptionsViewController: UITableViewController, UITextFieldDelegate {
         override func delete(vc: SubscriptionsViewController) {
             if let s = subscription.source {
                 vc.unsubscribeFromSource(s)
+            }
+        }
+        override func select(vc: SubscriptionsViewController) {
+            if canSelect {
+                let sourceVC = vc.storyboard!.instantiateViewControllerWithIdentifier("Source") as! SourceViewController
+                sourceVC.source = subscription.source!
+                vc.navigationController!.pushViewController(sourceVC, animated: true)
             }
         }
     }

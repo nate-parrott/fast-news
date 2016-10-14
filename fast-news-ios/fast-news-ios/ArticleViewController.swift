@@ -502,6 +502,8 @@ class ArticleViewController: SwipeAwayViewController {
     
     func showImageInLightbox(imageView: NetImageView) {
         let imageViewCopy = NetImageView(image: imageView.image)
+        imageViewCopy.contentMode = .ScaleAspectFill
+        imageViewCopy.clipsToBounds = true
         let imageViewer = A1ImageViewer()
         if let size = imageViewCopy.image?.size where size.height > 0 {
             imageViewer.imageAspectRatio = size.width / size.height

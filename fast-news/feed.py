@@ -10,7 +10,7 @@ UPDATE_INTERVAL = 5 * 60 # every 5 mins
 
 class Feed(ndb.Model):
     uid = ndb.StringProperty()
-    feed = ndb.JsonProperty()
+    feed = ndb.JsonProperty(compressed=True)
     updated = ndb.DateTimeProperty()
     
     # TODO: make feed updates transactional

@@ -36,7 +36,7 @@ class SubscribeHandler(webapp2.RequestHandler):
     def post(self):
         url = self.request.get('url')
         uid = self.request.get('uid')
-        send_json(self, api.subscribe(uid, url))
+        send_json(self, api.subscribe(url, uid))
 
 class SourceHandler(webapp2.RequestHandler):
     def get(self):

@@ -9,24 +9,37 @@ from collections import defaultdict
 from source_search import search_sources
 from feed import Feed
 
-def subscribe(uid, url):
-    source = ensure_source(url)
-    source_json = source.json(include_articles=True)
-    if len(source_json['articles']) == 0:
-        print "Refusing to subscribe to {0} because no articles were fetched".format(source.url)
+def subscribe(url, uid):
+    d = _subscribe_multi(uid, [url])
+    if url in d['source_jsons']:
+        return {"success": True, "source": d['source_jsons'][url], "subscription": d['subscription_jsons'][url]}
+    else:
         return {"success": False}
 
-    url = source.url
-    id = Subscription.id_for_subscription(url, uid)
-    sub, inserted = get_or_insert(Subscription, id)
-    if inserted:
-        sub.url = url
+def _subscribe_multi(uid, urls):
+    sources = {url: ensure_source(url) for url in urls}
+    
+    # TODO: make 4 a shared value
+    source_json_futures = {url: source.json(include_articles=True, return_promise=True, article_limit=4)  for url, source in sources.iteritems()}
+    source_json = {url: f() for url, f in source_json_futures.iteritems()}
+    source_json = {url: source_json for url, source_json in source_json.iteritems() if len(source_json['articles'])}
+    
+    subscription_futures = {url: Subscription.get_or_insert_async(Subscription.id_for_subscription(source.url, uid)) for url, source in sources.iteritems()}
+    subscriptions = {url: f.get_result() for url, f in subscription_futures.iteritems()}
+    
+    for url, sub in subscriptions.iteritems():
+        canonical_url = sources[url].url
+        sub.url = canonical_url
         sub.uid = uid
-        sub.put()
+    
+    ndb.put_multi(subscriptions.values())
 
-    Feed.get_for_user(uid).update_in_place(just_added_sources_json=[source_json])
-
-    return {"success": True, "source": source_json, "subscription": sub.json()}
+    Feed.get_for_user(uid).update_in_place(just_added_sources_json=source_json.values())
+    
+    sub_json_promises = {url: sub.json(return_promise=True) for url, sub in subscriptions.iteritems()}
+    sub_jsons = {url: f() for url, f in sub_json_promises.iteritems()}
+    
+    return {"source_jsons": source_json, "subscription_jsons": sub_jsons}
 
 def source_search(query):
     return {"sources": search_sources(query)}
@@ -102,7 +115,10 @@ def ensure_source(url, suppress_immediate_fetch=False):
         source.fetch_now()
     return source
 
+import users
+
 def feed(uid, force=False):
+    users.ensure_user_exists(uid)
     f = Feed.get_for_user(uid)
     return f.ensure_feed_content(force=force)
 

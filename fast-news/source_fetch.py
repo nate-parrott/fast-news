@@ -15,6 +15,7 @@ from time import mktime
 import source_search
 from google.appengine.ext import ndb
 from google.appengine.api import taskqueue
+import amp
 
 def source_fetch(source):
     debug("SF: Doing fetch for source: {0}".format(source.url))
@@ -22,7 +23,7 @@ def source_fetch(source):
     debug("SF: Done with source fetch for {0}; result type: {1}".format(source.url, (result.method if result else None)))
     added_any = False
     now = datetime.datetime.now()
-    to_put = []
+    new_articles = []
     tasks_to_enqueue = []
     if result:
         if result.feed_title:
@@ -65,12 +66,13 @@ def source_fetch(source):
                     article.published = datetime.datetime.now()
                 if not article.title:
                     article.title = entry['title']
-                to_put.append(article)
+                new_articles.append(article)
                 delay = (i+1) * 4 # wait 5 seconds between each
                 tasks_to_enqueue.append(article.create_fetch_task(delay=delay))
-    debug("SF: About to put {0} items".format(len(to_put)))
-    if len(to_put):
-        ndb.put_multi(to_put)
+    debug("SF: About to put {0} items".format(len(new_articles)))
+    if len(new_articles):
+        amp.fetch_amp_urls_for_articles(new_articles)
+        ndb.put_multi(new_articles)
     debug("SF: About to enqueue")
     if len(tasks_to_enqueue):
         taskqueue.Queue('articles').add_async(tasks_to_enqueue)

@@ -154,6 +154,7 @@ class Article(ndb.Model):
     author = ndb.TextProperty()
     section = ndb.StringProperty()
     site_name = ndb.StringProperty()
+    amp_url = ndb.StringProperty()
     
     fetch_failed = ndb.BooleanProperty()
     fetch_date = ndb.DateTimeProperty()
@@ -191,6 +192,7 @@ class Article(ndb.Model):
         d = {
             "id": self.key.id(),
             "url": self.url,
+            "amp_url": self.amp_url,
             "submission_url": self.submission_url,
             "title": self.title.strip() if self.title else "",
             "fetch_failed": self.fetch_failed,

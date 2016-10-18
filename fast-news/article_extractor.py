@@ -70,6 +70,8 @@ def create_soup_with_ids(html):
         if kind == 'enter':
             data['data-subscribed-id'] = str(i)
             i += 1
+            if data.name == 'amp-img':
+                data.name = 'img'
     return soup
 
 def ids_preserved_by_readability(html):

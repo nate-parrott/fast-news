@@ -32,7 +32,11 @@ def article_fetch(article):
     def make_url_absolute(url):
         return urljoin(article.url, url) if url else None
     
-    url = article.amp_url or article.url
+    FORCE_AMP = False
+    if FORCE_AMP:
+        url = article.amp_url or article.url
+    else:
+        url = article.url
     response = url_fetch(url, return_response_obj=True)
     # print 'INFO', response.info()
     if response and response.info().getheader('content-type', 'text/html').lower().split(';')[0].strip() == 'text/html':

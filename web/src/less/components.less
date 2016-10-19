@@ -1,0 +1,21 @@
+.Chevron {
+	display: inline-block;
+	width: 0.35em;
+	height: 0.35em;
+	transform: rotate(45deg);
+	margin-bottom: 0.15em;
+	border: 1px solid black;
+	border-width: 1.5px 1.5px 0px 0px;
+}
+.Chevron.reversed {
+	transform: rotate(-135deg);
+}
+.clickable {
+	cursor: pointer;
+	&:hover {
+		opacity: 0.5;
+	}
+	&:active {
+		opacity: 0.25;
+	}
+}

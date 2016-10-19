@@ -1,0 +1,60 @@
+@import 'shared';
+
+.Article {
+	height: 100%;
+	.ArticleExternalLink {
+		height: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		a {
+			color: white;
+			background-color: #555;
+			padding: 1em 2em;
+			text-decoration: none;
+			border-radius: @rounding;
+		}
+	}
+}
+
+.ArticleContent {
+	font-size: large;
+	margin: auto;
+	padding: @padding * 2;
+	max-width: 800px;
+	line-height: 1.5;
+	
+	a {
+		color: inherit;
+	}
+	
+	h1 {
+		font-size: 1.5em;
+	}
+	
+	h2 {
+		font-size: 1.25em;
+	}
+	
+	figcaption {
+		font-size: small;
+		opacity: @dimmed;
+	}
+	
+	.meta {
+		font-size: small;
+		opacity: @dimmed;
+		font-weight: bold;
+		text-transform: uppercase;
+		letter-spacing: 2;
+	}
+	
+	.ImageSegment {
+		margin-top: 1em;
+		margin-bottom: 1em;
+	}
+	
+	& > *:first-child {
+		margin-top: 0;
+	}
+}

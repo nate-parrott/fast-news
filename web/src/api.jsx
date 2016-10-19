@@ -8,11 +8,14 @@ var getUID = function() {
 	return localStorage.uid;
 }
 
+var USE_LOCAL = false;
+var API_ROOT = USE_LOCAL ? 'http://localhost:8080' : 'http://a1.nateparrott.com';
+
 var req = function(method, path, params, cb) {
 	params = JSON.parse(JSON.stringify(params || {}))
 	params.uid = getUID();
 	var options = {
-		url: 'https://fast-news.appspot.com/' + path + queryString(params),
+		url: API_ROOT + path + queryString(params),
 		method: method
 	};
 	xhr(options, function(err, resp, body) {
@@ -29,3 +32,18 @@ var queryString = function(obj) {
 }
 
 module.exports.req = req;
+
+var feed = function(callback) {
+	req('GET', '/feed', null, callback);
+}
+module.exports.feed = feed;
+
+var article = function(id, callback) {
+	req('GET', '/article', {id: id}, callback);
+}
+module.exports.article = article;
+
+var source = function(id, callback) {
+	req('GET', '/source', {id: id}, callback);
+}
+module.exports.source = source;

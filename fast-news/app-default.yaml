@@ -18,6 +18,16 @@ handlers:
 - url: /static
   static_dir: static
 
+- url: /reader
+  static_files: app/index.html
+  upload: app/index\.html
+
+- url: /app
+  static_dir: app
+
+- url: /app-static
+  static_dir: app-static
+ 
 - url: /tasks/ml/.*
   script: tasks.app
 

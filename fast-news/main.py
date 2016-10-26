@@ -101,7 +101,9 @@ class BookmarksHandler(webapp2.RequestHandler):
 class ArticleTestFetchHandler(webapp2.RequestHandler):
     def post(self):
         url = self.request.get('url')
-        article = api.ensure_article_at_url(url, force_fetch=True)
+        force_mercury = (not not self.request.get('force_mercury'))
+        # print 'force mercury:', force_mercury
+        article = api.ensure_article_at_url(url, force_fetch=True, force_mercury=force_mercury)
         type = self.request.get('type')
         if type == 'html':
             self.response.write(article.content.get().html)

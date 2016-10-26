@@ -80,7 +80,7 @@ def featured_sources_by_category(category=None):
 
     return category_jsons
 
-def ensure_article_at_url(url, force_fetch=False):
+def ensure_article_at_url(url, force_fetch=False, force_mercury=False):
     id = Article.id_for_article(url, None)
     article, inserted = get_or_insert(Article, id)
     if inserted:
@@ -92,7 +92,7 @@ def ensure_article_at_url(url, force_fetch=False):
     # article.title = None
     article.put()
     if not article.content or force_fetch:
-        article.fetch_now()
+        article.fetch_now(force_mercury=force_mercury)
     return article
 
 def unsubscribe(uid, url):

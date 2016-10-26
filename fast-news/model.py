@@ -174,8 +174,8 @@ class Article(ndb.Model):
         source_string = canonical_url(source_url) if source_url else u"standalone"
         return canonical_url(url) + u" " + source_string
     
-    def fetch_now(self):
-        article_fetch(self)
+    def fetch_now(self, force_mercury=False):
+        article_fetch(self, force_mercury=force_mercury)
     
     def fetch_if_needed(self, ignore_previous_failure=False):
         if not self.content and (ignore_previous_failure or not self.fetch_failed):

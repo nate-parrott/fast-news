@@ -54,7 +54,7 @@ class ArticleCollectionViewController: UICollectionViewController, UICollectionV
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // collectionView?.backgroundColor = UIColor.whiteColor()
+        collectionView!.backgroundColor = UIColor.whiteColor()
         collectionView!.decelerationRate = (UIScrollViewDecelerationRateFast + UIScrollViewDecelerationRateNormal) / 2
         automaticallyAdjustsScrollViewInsets = false
         _modelSub = model.onUpdate.subscribe { [weak self] (state) -> () in

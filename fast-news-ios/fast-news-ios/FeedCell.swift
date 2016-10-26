@@ -42,8 +42,7 @@ class FeedCell: UICollectionViewCell {
             chevron.tintColor = outerTextColor
             chevron.alpha = 0.6
             sourceName.textColor = outerTextColor
-            let sourceNameFontSize = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline).pointSize
-            sourceName.font = UIFont.boldSystemFontOfSize(sourceNameFontSize) // UIFont(name: "RobotoMono-Regular", size: 14)
+            sourceName.font = UIFont.boldSystemFontOfSize(ArticleView.headlineFontSize()) // UIFont(name: "RobotoMono-Regular", size: 14)
             sourceTapView.backgroundColor = UIColor.clearColor()
             sourceTapView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(FeedCell._tappedSourceName(_:))))            
         }
@@ -77,7 +76,7 @@ class FeedCell: UICollectionViewCell {
     }
     
     func _layout(width: CGFloat) -> CGFloat {
-        let padding: CGFloat = 8
+        let padding: CGFloat = ArticleView.Padding
         let xPadding: CGFloat = 0
         var y: CGFloat = padding
         

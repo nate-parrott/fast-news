@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5F07637C1DC0EA2000FFB878 /* TopAlignedLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F07637B1DC0EA2000FFB878 /* TopAlignedLabel.swift */; };
 		5F0CC61D1C6C51BA0071A026 /* Asap-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5F0CC6171C6C51BA0071A026 /* Asap-Bold.otf */; };
 		5F0CC61E1C6C51BA0071A026 /* Asap-BoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5F0CC6181C6C51BA0071A026 /* Asap-BoldItalic.otf */; };
 		5F0CC61F1C6C51BA0071A026 /* Asap-Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5F0CC6191C6C51BA0071A026 /* Asap-Italic.otf */; };
@@ -175,6 +176,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5F07637B1DC0EA2000FFB878 /* TopAlignedLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopAlignedLabel.swift; sourceTree = "<group>"; };
 		5F0CC6171C6C51BA0071A026 /* Asap-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Asap-Bold.otf"; sourceTree = "<group>"; };
 		5F0CC6181C6C51BA0071A026 /* Asap-BoldItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Asap-BoldItalic.otf"; sourceTree = "<group>"; };
 		5F0CC6191C6C51BA0071A026 /* Asap-Italic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Asap-Italic.otf"; sourceTree = "<group>"; };
@@ -534,6 +536,7 @@
 				5F5E4D991C6E45A1009C3446 /* ArticleView.swift */,
 				5FE982CB1D2CEA48009C9ECF /* StatusView.swift */,
 				5FE982D71D2CF4C8009C9ECF /* StatusItem.swift */,
+				5F07637B1DC0EA2000FFB878 /* TopAlignedLabel.swift */,
 				5FE982CD1D2CF405009C9ECF /* StatusItem+App.swift */,
 				5FE982CF1D2CF41E009C9ECF /* StatusItem+Extension.swift */,
 			);
@@ -891,6 +894,7 @@
 				5F5E4DA51C6FDEA7009C3446 /* APIIdentity.swift in Sources */,
 				5FC3BFD91C9EED68000A2D9E /* NPSoftModalPresentationController.swift in Sources */,
 				5F0CC62C1C6C5A1F0071A026 /* NetImageView.swift in Sources */,
+				5F07637C1DC0EA2000FFB878 /* TopAlignedLabel.swift in Sources */,
 				5FE982CE1D2CF405009C9ECF /* StatusItem+App.swift in Sources */,
 				5FE982D81D2CF4C8009C9ECF /* StatusItem.swift in Sources */,
 				5FC3BFDB1C9EEDF7000A2D9E /* StylesheetEditorViewController.swift in Sources */,

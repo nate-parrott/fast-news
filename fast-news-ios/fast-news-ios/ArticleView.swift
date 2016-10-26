@@ -28,9 +28,12 @@ class ArticleView: UIView {
         let scale = UIScreen.mainScreen().scale * 1.5
         return NetImageView.mirroredURLForImage(url, size: CGSizeMake(ArticleView.ImageSize * scale, (ArticleView.MaxLabelHeight + ArticleView.Padding * 2) * scale))
     }
+    class func headlineFontSize() -> CGFloat {
+        return 15
+    }
     func getPreviewText() -> NSAttributedString {
-        let headlineAttributes = [NSFontAttributeName: UIFont.boldSystemFontOfSize(17), NSForegroundColorAttributeName: UIColor(white: 0, alpha: 1)]
-        let secondLineFont = UIFont.systemFontOfSize(13)
+        let headlineAttributes = [NSFontAttributeName: UIFont.boldSystemFontOfSize(ArticleView.headlineFontSize()), NSForegroundColorAttributeName: UIColor(white: 0, alpha: 1)]
+        let secondLineFont = UIFont.systemFontOfSize(12)
         let descriptionAttributes = [NSFontAttributeName: secondLineFont, NSForegroundColorAttributeName: UIColor(white: 0, alpha: 0.5)]
         let hostAttributes = descriptionAttributes // [NSFontAttributeName: UIFont.systemFontOfSize(13), NSForegroundColorAttributeName: FN_PURPLE]
         
@@ -56,7 +59,7 @@ class ArticleView: UIView {
     }
     
     let imageView = NetImageView()
-    let headline = UILabel()
+    let headline = TopAlignedLabel()
     var _setupYet = false
     func _setup() {
         if !_setupYet {
@@ -70,13 +73,13 @@ class ArticleView: UIView {
             backgroundColor = UIColor.whiteColor()
             imageView.contentMode = .ScaleAspectFill
             imageView.clipsToBounds = true
-            
-            addDividers()
+            imageView.layer.cornerRadius = 3
+            // addDividers()
         }
     }
     
-    static let ImageSize: CGFloat = 120
-    static let Padding: CGFloat = 8
+    static let ImageSize: CGFloat = 90
+    static let Padding: CGFloat = 7
     static let MaxLabelHeight: CGFloat = ImageSize - Padding * 2
     
     var imageHasPadding = false {
@@ -88,15 +91,17 @@ class ArticleView: UIView {
     func _layout(width: CGFloat) -> CGFloat {
         let maxLabelHeight: CGFloat = ArticleView.MaxLabelHeight
         let minLabelHeight: CGFloat = 56
-        let padding: CGFloat = ArticleView.Padding
-        let imagePadding = imageHasPadding ? padding : 0
+        
+        let hPadding: CGFloat = ArticleView.Padding
+        let vPadding: CGFloat = ArticleView.Padding
+        
         let hasImage = article?.showImagePreview ?? false
-        let headlineWidth = hasImage ? width - ArticleView.ImageSize - padding * 2 : width - padding * 2 - imagePadding
+        let headlineWidth = hasImage ? width - ArticleView.ImageSize - hPadding * 3 : width - hPadding * 2
         let headlineHeight = min(maxLabelHeight, headline.sizeThatFits(CGSizeMake(headlineWidth, maxLabelHeight)).height)
-        let height = max(headlineHeight + padding * 2, hasImage ? ArticleView.ImageSize + imagePadding * 2 : 0, minLabelHeight)
+        let height = max(headlineHeight + vPadding * 2, hasImage ? ArticleView.ImageSize + vPadding * 2 : 0, minLabelHeight)
         imageView.hidden = !hasImage
-        imageView.frame = CGRectMake(width - ArticleView.ImageSize - imagePadding, imagePadding, ArticleView.ImageSize, height)
-        headline.frame = CGRectMake(padding, padding, headlineWidth, height - padding * 2)
+        imageView.frame = CGRectMake(width - ArticleView.ImageSize - hPadding, vPadding, ArticleView.ImageSize, ArticleView.ImageSize)
+        headline.frame = CGRectMake(hPadding, vPadding, headlineWidth, height - vPadding * 2)
         return height
     }
     

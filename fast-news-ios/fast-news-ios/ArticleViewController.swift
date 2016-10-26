@@ -462,7 +462,11 @@ class ArticleViewController: SwipeAwayViewController {
     
     @IBAction func share(sender: AnyObject) {
         let safariVCActivity = SafariVCActivity(parentViewController: self)
-        let activityVC = UIActivityViewController(activityItems: [NSURL(string: article.url!)!], applicationActivities: [safariVCActivity])
+        var items: [AnyObject] = [NSURL(string: article.url!)!]
+        if let amp = article.ampURL {
+            items.append(SafariVCActivityOverrideURL(url: NSURL(string: amp)!))
+        }
+        let activityVC = UIActivityViewController(activityItems: items, applicationActivities: [safariVCActivity])
         // activityVC.excludedActivityTypes = []
         presentViewController(activityVC, animated: true, completion: nil)
     }

@@ -233,8 +233,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "216"
             endingLineNumber = "216"
-            landmarkName = "ArticleViewController"
-            landmarkType = "3">
+            landmarkName = "gestureRecognizer(gestureRecognizer:shouldReceiveTouch:)"
+            landmarkType = "7">
             <Locations>
                <Location
                   shouldBeEnabled = "No"
@@ -353,13 +353,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "fast-news-ios/ArticleViewController.swift"
-            timestampString = "498097687.747916"
+            timestampString = "499136822.592288"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "495"
-            endingLineNumber = "495"
-            landmarkName = "ArticleViewController"
-            landmarkType = "3">
+            startingLineNumber = "499"
+            endingLineNumber = "499"
+            landmarkName = "_longPressed(sender:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -369,11 +369,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "fast-news-ios/ArticleViewController.swift"
-            timestampString = "498097687.747916"
+            timestampString = "499136822.592288"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "493"
-            endingLineNumber = "493"
+            startingLineNumber = "497"
+            endingLineNumber = "497"
             landmarkName = "ArticleViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -390,7 +390,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "430"
             endingLineNumber = "430"
-            landmarkName = "computeWithModels(_:segmentIndices:)"
+            landmarkName = "heightForModel(model:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -406,7 +406,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "410"
             endingLineNumber = "410"
-            landmarkName = "computeWithModels(_:segmentIndices:)"
+            landmarkName = "computeWithModels(models:segmentIndices:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -422,7 +422,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "413"
             endingLineNumber = "413"
-            landmarkName = "computeWithModels(_:segmentIndices:)"
+            landmarkName = "computeWithModels(models:segmentIndices:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -696,6 +696,38 @@
             endingLineNumber = "27"
             landmarkName = "ArticleCollectionViewController"
             landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "fast-news-ios/ArticleViewController.swift"
+            timestampString = "499136822.592288"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "469"
+            endingLineNumber = "469"
+            landmarkName = "share(sender:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "fast-news-ios/SafariVCActivity.swift"
+            timestampString = "499136856.598126"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "41"
+            endingLineNumber = "41"
+            landmarkName = "prepareWithActivityItems(activityItems:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

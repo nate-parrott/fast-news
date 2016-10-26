@@ -27952,7 +27952,7 @@
 						{ href: this.props.article.url, target: '_blank' },
 						siteName,
 						' ',
-						_react2.default.createElement('img', { src: '/static/outbound.svg' })
+						_react2.default.createElement('img', { src: '/app-static/outbound.svg' })
 					)
 				);
 			}

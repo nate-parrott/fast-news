@@ -47,7 +47,7 @@ class ArticleExternalLink extends React.Component {
 		var siteName = this.props.article.site_name || parseURL(this.props.article.url).host;
 		return (
 			<div className='ArticleExternalLink'>
-				<a href={this.props.article.url} target='_blank'>{siteName} <img src='/static/outbound.svg'/></a>
+				<a href={this.props.article.url} target='_blank'>{siteName} <img src='/app-static/outbound.svg'/></a>
 			</div>
 		)
 	}

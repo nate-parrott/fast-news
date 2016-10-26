@@ -13,6 +13,7 @@ class Article: APIObject {
     var text: String?
     var articleDescription: String?
     var url: String?
+    var ampURL: String?
     var fetchFailed: Bool?
     var imageURL: String?
     var topImageTinyJson: [String: AnyObject]?
@@ -23,6 +24,7 @@ class Article: APIObject {
         super.importJson(json)
         self.title = json["title"] as? String ?? self.title
         self.url = json["url"] as? String ?? self.url
+        self.ampURL = json["amp_url"] as? String ?? self.ampURL
         if let content = json["content"] as? [String: AnyObject] {
             self.text = content["article_text"] as? String ?? self.text
         }

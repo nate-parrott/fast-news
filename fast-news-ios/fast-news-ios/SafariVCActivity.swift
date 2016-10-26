@@ -9,6 +9,13 @@
 import UIKit
 import SafariServices
 
+@objc class SafariVCActivityOverrideURL: NSObject {
+    init(url: NSURL) {
+        self.url = url
+    }
+    let url: NSURL
+}
+
 class SafariVCActivity: UIActivity, SFSafariViewControllerDelegate {
     
     init(parentViewController: UIViewController) {
@@ -22,15 +29,16 @@ class SafariVCActivity: UIActivity, SFSafariViewControllerDelegate {
             if (item as? NSURL) != nil {
                 return true
             }
+            if (item as? SafariVCActivityOverrideURL) != nil {
+                return true
+            }
         }
         return false
     }
     override func prepareWithActivityItems(activityItems: [AnyObject]) {
-        for item in activityItems {
-            if let aURL = item as? NSURL {
-                url = aURL
-            }
-        }
+        let override = activityItems.filter({ ($0 as? SafariVCActivityOverrideURL) != nil }).first as? SafariVCActivityOverrideURL
+        let url = activityItems.filter({ ($0 as? NSURL) != nil }).first as? NSURL
+        self.url = override?.url ?? url
     }
     /*override func activityViewController() -> UIViewController? {
         let vc = SFSafariViewController(URL: url!)

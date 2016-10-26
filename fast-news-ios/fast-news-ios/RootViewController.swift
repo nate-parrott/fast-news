@@ -24,8 +24,8 @@ class RootViewController: UIViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         let tabViewController = segue.destinationViewController as! UITabBarController
         tabViewController.tabBar.tintColor = FN_PURPLE
-        let splitViewController = tabViewController.viewControllers!.first as! UISplitViewController
-        splitViewController.delegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        // let splitViewController = tabViewController.viewControllers!.first as! UISplitViewController
+        // splitViewController.delegate = UIApplication.sharedApplication().delegate as! AppDelegate
         child = segue.destinationViewController
         setNeedsStatusBarAppearanceUpdate()
     }

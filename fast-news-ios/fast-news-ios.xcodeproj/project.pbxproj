@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		5F07637C1DC0EA2000FFB878 /* TopAlignedLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F07637B1DC0EA2000FFB878 /* TopAlignedLabel.swift */; };
+		5F07637E1DC0F64000FFB878 /* FeedHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F07637D1DC0F64000FFB878 /* FeedHeader.swift */; };
+		5F0763801DC1125000FFB878 /* FNViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F07637F1DC1125000FFB878 /* FNViewController.swift */; };
 		5F0CC61D1C6C51BA0071A026 /* Asap-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5F0CC6171C6C51BA0071A026 /* Asap-Bold.otf */; };
 		5F0CC61E1C6C51BA0071A026 /* Asap-BoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5F0CC6181C6C51BA0071A026 /* Asap-BoldItalic.otf */; };
 		5F0CC61F1C6C51BA0071A026 /* Asap-Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5F0CC6191C6C51BA0071A026 /* Asap-Italic.otf */; };
@@ -177,6 +179,8 @@
 
 /* Begin PBXFileReference section */
 		5F07637B1DC0EA2000FFB878 /* TopAlignedLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopAlignedLabel.swift; sourceTree = "<group>"; };
+		5F07637D1DC0F64000FFB878 /* FeedHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedHeader.swift; sourceTree = "<group>"; };
+		5F07637F1DC1125000FFB878 /* FNViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FNViewController.swift; sourceTree = "<group>"; };
 		5F0CC6171C6C51BA0071A026 /* Asap-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Asap-Bold.otf"; sourceTree = "<group>"; };
 		5F0CC6181C6C51BA0071A026 /* Asap-BoldItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Asap-BoldItalic.otf"; sourceTree = "<group>"; };
 		5F0CC6191C6C51BA0071A026 /* Asap-Italic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Asap-Italic.otf"; sourceTree = "<group>"; };
@@ -499,6 +503,7 @@
 				5F5E4D9D1C6F0D29009C3446 /* UIImage+Resize.swift */,
 				5F4A715C1C63288000676F91 /* Pusher.swift */,
 				5F0CC6241C6C551E0071A026 /* FNSplitViewController.swift */,
+				5F07637F1DC1125000FFB878 /* FNViewController.swift */,
 				5F0CC6281C6C59CB0071A026 /* EVComplexLayout.h */,
 				5F0CC6291C6C59CB0071A026 /* EVComplexLayout.m */,
 				AE07F2911D52AE9900C94AF5 /* ViewCell.swift */,
@@ -533,6 +538,7 @@
 				5F2CA9A91DAC9F46002B1E64 /* A1ImageViewer.m */,
 				5F4FDB0A1C836C020049C61A /* SwipePager.swift */,
 				5F4FDB161C839EC70049C61A /* GradientIndicator.swift */,
+				5F07637D1DC0F64000FFB878 /* FeedHeader.swift */,
 				5F5E4D991C6E45A1009C3446 /* ArticleView.swift */,
 				5FE982CB1D2CEA48009C9ECF /* StatusView.swift */,
 				5FE982D71D2CF4C8009C9ECF /* StatusItem.swift */,
@@ -919,6 +925,7 @@
 				5FC506E81C914AD800F7A237 /* CPColorPicker.m in Sources */,
 				5F87A77F1D6A8A4000AC07DB /* VerticalFeedCell.swift in Sources */,
 				5FCFF8D91D642E2A004E8113 /* KeyboardTracker.swift in Sources */,
+				5F0763801DC1125000FFB878 /* FNViewController.swift in Sources */,
 				5F0CC6251C6C551E0071A026 /* FNSplitViewController.swift in Sources */,
 				5F87A7781D69752E00AC07DB /* UIView+ElasticLayout.m in Sources */,
 				5F28BB481D5D9591006E2F76 /* SubscriptionRowCell.swift in Sources */,
@@ -937,6 +944,7 @@
 				5F4A71571C63236C00676F91 /* Source.swift in Sources */,
 				5F0CC6311C6C5FD20071A026 /* Queues.swift in Sources */,
 				5F4A715D1C63288000676F91 /* Pusher.swift in Sources */,
+				5F07637E1DC0F64000FFB878 /* FeedHeader.swift in Sources */,
 				5F28BB4A1D5D9BEF006E2F76 /* SourceSearchBarCell.swift in Sources */,
 				5F73F17D1C77C92300DA2981 /* ImageSegmentTableViewCell.swift in Sources */,
 				5FCDF4401C6BCD6700A50A75 /* CommonExtensions.swift in Sources */,

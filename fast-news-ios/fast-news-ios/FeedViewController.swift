@@ -13,31 +13,41 @@ class FeedViewController: ArticleCollectionViewController {
     // MARK: Lifecycle
     
     let feed = Feed.objectsForIDs(["shared"]).first! as! Feed
-    let status = UILabel()
+    let header = FeedHeader()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let logoImageView = UIImageView(image: UIImage(named: "TitleBarLogo")!)
-        logoImageView.sizeToFit()
-        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: logoImageView)
-        navigationItem.leftBarButtonItem!.tintColor = UIColor.blackColor()
+        collectionView?.addSubview(header)
         
-        navigationItem.title = nil
-        
-        status.font = UIFont.systemFontOfSize(17, weight: UIFontWeightMedium)
-        status.textColor = UIColor.grayColor()
-        status.sizeToFit()
-        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: status)
         let s = statusText
         statusText = s
+        
+        collectionView?.contentInset = UIEdgeInsetsMake(FeedHeader.Height, 0, 0, 0)
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        header.frame = CGRectMake(0, -FeedHeader.Height, collectionView!.bounds.width, FeedHeader.Height)
+    }
+    
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return .LightContent
     }
     
     var statusText = "" {
         didSet {
-            status.text = statusText
-            status.sizeToFit()
-            navigationItem.rightBarButtonItem?.width = status.frame.size.width
+            header.label.text = statusText
         }
     }
     
@@ -137,3 +147,5 @@ class FeedViewController: ArticleCollectionViewController {
         collectionView!.setContentOffset(CGPointZero, animated: true)
     }
 }
+
+

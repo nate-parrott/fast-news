@@ -23,11 +23,18 @@ class RootViewController: UIViewController {
     var child: UIViewController!
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         let tabViewController = segue.destinationViewController as! UITabBarController
-        tabViewController.tabBar.tintColor = FN_PURPLE
+        // tabViewController.tabBar.tintColor = FN_PURPLE
         // let splitViewController = tabViewController.viewControllers!.first as! UISplitViewController
         // splitViewController.delegate = UIApplication.sharedApplication().delegate as! AppDelegate
         child = segue.destinationViewController
         setNeedsStatusBarAppearanceUpdate()
+        setupTabBar(tabViewController)
+    }
+    func setupTabBar(barController: UITabBarController) {
+//        for vc in barController.viewControllers ?? [] {
+//            vc.tabBarItem.image = nil
+//        }
+//        barController.tabBarItem.titlePositionAdjustment = UIOffset(horizontal: 0, vertical: -20)
     }
     override func childViewControllerForStatusBarStyle() -> UIViewController? {
         return child

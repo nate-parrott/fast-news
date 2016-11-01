@@ -47,7 +47,7 @@ class FeedViewController: ArticleCollectionViewController {
     
     var statusText = "" {
         didSet {
-            header.label.text = statusText
+            header.label.text = statusText.uppercaseString
         }
     }
     

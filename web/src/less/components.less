@@ -1,3 +1,5 @@
+@import 'shared';
+
 .Chevron {
 	display: inline-block;
 	width: 0.35em;
@@ -17,5 +19,33 @@
 	}
 	&:active {
 		opacity: 0.25;
+	}
+}
+
+.scrollable-with-header {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	.scrollable-content {
+		flex-grow: 1;
+		overflow-y: auto;
+		padding: @padding;
+	}
+}
+
+.ListHeader {
+	padding: @padding;
+	background-color: #f5f5f5;
+	text-align: center;
+	font-weight: bold;
+	.left {
+		float: left;
+	}
+	.right {
+		float: right;
+	}
+	.left, .right {
+		opacity: @dimmed;
+		font-weight: normal;
 	}
 }

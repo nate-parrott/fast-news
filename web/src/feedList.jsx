@@ -2,8 +2,8 @@ import React from 'react';
 var api = require('./api.jsx');
 require('./less/feedList.less');
 import { Image } from './image.jsx';
-import { Chevron } from './components.jsx';
-import { Link } from 'react-router';
+import { Chevron, Header } from './components.jsx';
+import { Link, browserHistory } from 'react-router';
 
 class SourceDetail extends React.Component {
 	constructor(props) {
@@ -31,16 +31,11 @@ class SourceDetail extends React.Component {
 	}
 	render() {
 		return (
-			<div className='SourceDetail'>
-				{this.renderHeader()}
-				<div className='articles'>{ this.state.articles.map( (article, i) => <ArticleCell key={i} article={article} /> ) }</div>
+			<div className='SourceDetail scrollable-with-header'>
+				<Header title={this.props.source.title} onBack={this.props.onBack} />
+				<div className='articles scrollable-content'>{ this.state.articles.map( (article, i) => <ArticleCell key={i} article={article} /> ) }</div>
 			</div>
 		)
-	}
-	renderHeader() {
-		var backContent = <div className='back' onClick={this.props.onBack}><Chevron reversed={true} /> Back</div>
-		var back = <div className='clickable' onClick={this.props.onBack}>{backContent}</div>;
-		return <div className='header'>{back} {this.props.source.title}</div>
 	}
 }
 
@@ -60,7 +55,12 @@ class FeedList extends React.Component {
 		})
 	}
 	render() {
-		return <div className='FeedList'>{ this.renderInner() }</div>
+		return (
+			<div className='FeedList scrollable-with-header'>
+				<Header title="A1 News" rightButton={{title: 'Subscriptions', onClick: this.props.onShowSources}}/> 
+				<div className='feedItems scrollable-content'>{ this.renderInner() }</div>
+			</div>
+		)
 	}
 	renderInner() {
 		var onClickedSource = this.props.onClickedSource;

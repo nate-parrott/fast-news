@@ -63,6 +63,8 @@
 	
 	var _feedList = __webpack_require__(/*! ./feedList.jsx */ 275);
 	
+	var _sourceList = __webpack_require__(/*! ./sourceList.jsx */ 284);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -71,8 +73,8 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	__webpack_require__(/*! ./cloud-login.js */ 281);
-	__webpack_require__(/*! ./less/index.less */ 282);
+	__webpack_require__(/*! ./cloud-login.js */ 276);
+	__webpack_require__(/*! ./less/index.less */ 277);
 	
 	var api = __webpack_require__(/*! ./api.jsx */ 244);
 	
@@ -110,15 +112,27 @@
 			key: 'renderSidebar',
 			value: function renderSidebar() {
 				var self = this;
-				if (this.state.source) {
+				if (this.state.showSources) {
+					return _react2.default.createElement(_sourceList.SourceList, { onBack: function onBack() {
+							return self.showFeed(true);
+						} });
+				} else if (this.state.source) {
 					return _react2.default.createElement(_feedList.SourceDetail, { source: this.state.source, onBack: function onBack() {
-							return self.setState({ source: null });
+							return self.showFeed(false);
 						} });
 				} else {
 					return _react2.default.createElement(_feedList.FeedList, { onClickedSource: function onClickedSource(source) {
 							return self.setState({ source: source });
+						}, onShowSources: function onShowSources() {
+							return self.setState({ showSources: true });
 						} });
 				}
+			}
+		}, {
+			key: 'showFeed',
+			value: function showFeed(refresh) {
+				// TODO: refresh
+				this.setState({ showSources: false, source: null });
 			}
 		}]);
 	
@@ -33468,7 +33482,7 @@
 	
 	var _image = __webpack_require__(/*! ./image.jsx */ 239);
 	
-	var _components = __webpack_require__(/*! ./components.jsx */ 276);
+	var _components = __webpack_require__(/*! ./components.jsx */ 279);
 	
 	var _reactRouter = __webpack_require__(/*! react-router */ 173);
 	
@@ -33481,7 +33495,7 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
 	var api = __webpack_require__(/*! ./api.jsx */ 244);
-	__webpack_require__(/*! ./less/feedList.less */ 279);
+	__webpack_require__(/*! ./less/feedList.less */ 282);
 	
 	var SourceDetail = function (_React$Component) {
 		_inherits(SourceDetail, _React$Component);
@@ -33525,37 +33539,15 @@
 			value: function render() {
 				return _react2.default.createElement(
 					'div',
-					{ className: 'SourceDetail' },
-					this.renderHeader(),
+					{ className: 'SourceDetail scrollable-with-header' },
+					_react2.default.createElement(_components.Header, { title: this.props.source.title, onBack: this.props.onBack }),
 					_react2.default.createElement(
 						'div',
-						{ className: 'articles' },
+						{ className: 'articles scrollable-content' },
 						this.state.articles.map(function (article, i) {
 							return _react2.default.createElement(ArticleCell, { key: i, article: article });
 						})
 					)
-				);
-			}
-		}, {
-			key: 'renderHeader',
-			value: function renderHeader() {
-				var backContent = _react2.default.createElement(
-					'div',
-					{ className: 'back', onClick: this.props.onBack },
-					_react2.default.createElement(_components.Chevron, { reversed: true }),
-					' Back'
-				);
-				var back = _react2.default.createElement(
-					'div',
-					{ className: 'clickable', onClick: this.props.onBack },
-					backContent
-				);
-				return _react2.default.createElement(
-					'div',
-					{ className: 'header' },
-					back,
-					' ',
-					this.props.source.title
 				);
 			}
 		}]);
@@ -33594,8 +33586,13 @@
 			value: function render() {
 				return _react2.default.createElement(
 					'div',
-					{ className: 'FeedList' },
-					this.renderInner()
+					{ className: 'FeedList scrollable-with-header' },
+					_react2.default.createElement(_components.Header, { title: 'A1 News', rightButton: { title: 'Subscriptions', onClick: this.props.onShowSources } }),
+					_react2.default.createElement(
+						'div',
+						{ className: 'feedItems scrollable-content' },
+						this.renderInner()
+					)
 				);
 			}
 		}, {
@@ -33731,146 +33728,6 @@
 /***/ },
 /* 276 */
 /*!****************************!*\
-  !*** ./src/components.jsx ***!
-  \****************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(/*! react */ 2);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	__webpack_require__(/*! ./less/components.less */ 277);
-	
-	var Chevron = function (_React$Component) {
-		_inherits(Chevron, _React$Component);
-	
-		function Chevron() {
-			_classCallCheck(this, Chevron);
-	
-			return _possibleConstructorReturn(this, (Chevron.__proto__ || Object.getPrototypeOf(Chevron)).apply(this, arguments));
-		}
-	
-		_createClass(Chevron, [{
-			key: 'render',
-			value: function render() {
-				var cls = 'Chevron';
-				if (this.props.reversed) cls += ' reversed';
-				return _react2.default.createElement('div', { className: cls });
-			}
-		}]);
-	
-		return Chevron;
-	}(_react2.default.Component);
-	
-	module.exports.Chevron = Chevron;
-
-/***/ },
-/* 277 */
-/*!**********************************!*\
-  !*** ./src/less/components.less ***!
-  \**********************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-	
-	// load the styles
-	var content = __webpack_require__(/*! !./../../~/css-loader!./../../~/less-loader!./components.less */ 278);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(/*! ./../../~/style-loader/addStyles.js */ 243)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/less-loader/index.js!./components.less", function() {
-				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/less-loader/index.js!./components.less");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-/* 278 */
-/*!*****************************************************************!*\
-  !*** ./~/css-loader!./~/less-loader!./src/less/components.less ***!
-  \*****************************************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(/*! ./../../~/css-loader/lib/css-base.js */ 242)();
-	// imports
-	
-	
-	// module
-	exports.push([module.id, ".Chevron {\n  display: inline-block;\n  width: 0.35em;\n  height: 0.35em;\n  transform: rotate(45deg);\n  margin-bottom: 0.15em;\n  border: 1px solid black;\n  border-width: 1.5px 1.5px 0px 0px;\n}\n.Chevron.reversed {\n  transform: rotate(-135deg);\n}\n.clickable {\n  cursor: pointer;\n}\n.clickable:hover {\n  opacity: 0.5;\n}\n.clickable:active {\n  opacity: 0.25;\n}\n", ""]);
-	
-	// exports
-
-
-/***/ },
-/* 279 */
-/*!********************************!*\
-  !*** ./src/less/feedList.less ***!
-  \********************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-	
-	// load the styles
-	var content = __webpack_require__(/*! !./../../~/css-loader!./../../~/less-loader!./feedList.less */ 280);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(/*! ./../../~/style-loader/addStyles.js */ 243)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/less-loader/index.js!./feedList.less", function() {
-				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/less-loader/index.js!./feedList.less");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-/* 280 */
-/*!***************************************************************!*\
-  !*** ./~/css-loader!./~/less-loader!./src/less/feedList.less ***!
-  \***************************************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(/*! ./../../~/css-loader/lib/css-base.js */ 242)();
-	// imports
-	
-	
-	// module
-	exports.push([module.id, ".FeedList {\n  height: 100%;\n  overflow-y: auto;\n  box-sizing: border-box;\n  padding: 16px;\n}\n.FeedList .error {\n  text-align: center;\n  opacity: 0.55;\n}\n.FeedCell {\n  margin-bottom: 16px;\n  cursor: default;\n}\n.FeedCell .sourceName {\n  margin-bottom: 8px;\n  font-weight: bold;\n  opacity: 0.55;\n}\n.ArticleCell {\n  display: flex;\n  color: inherit;\n  text-decoration: none;\n}\n.ArticleCell > div:first-child {\n  flex-grow: 1;\n}\n.ArticleCell h4,\n.ArticleCell p {\n  margin: 0;\n}\n.ArticleCell h4 {\n  margin-bottom: 8px;\n}\n.ArticleCell p {\n  opacity: 0.55;\n}\n.ArticleCell .Image {\n  margin-left: 8px;\n  width: 100px;\n  height: 100px;\n  border-radius: 3px;\n}\n.SourceDetail {\n  display: flex;\n  flex-direction: column;\n  height: 100%;\n}\n.SourceDetail .header {\n  padding: 16px;\n  background-color: #f5f5f5;\n  text-align: center;\n  font-weight: bold;\n}\n.SourceDetail .header .back {\n  float: left;\n  opacity: 0.55;\n  font-weight: normal;\n}\n.SourceDetail .articles {\n  flex-grow: 1;\n  overflow-y: auto;\n  padding: 16px;\n}\n.SourceDetail .ArticleCell {\n  margin-bottom: 16px;\n}\n", ""]);
-	
-	// exports
-
-
-/***/ },
-/* 281 */
-/*!****************************!*\
   !*** ./src/cloud-login.js ***!
   \****************************/
 /***/ function(module, exports) {
@@ -33895,7 +33752,7 @@
 	});
 
 /***/ },
-/* 282 */
+/* 277 */
 /*!*****************************!*\
   !*** ./src/less/index.less ***!
   \*****************************/
@@ -33904,7 +33761,7 @@
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(/*! !./../../~/css-loader!./../../~/less-loader!./index.less */ 283);
+	var content = __webpack_require__(/*! !./../../~/css-loader!./../../~/less-loader!./index.less */ 278);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(/*! ./../../~/style-loader/addStyles.js */ 243)(content, {});
@@ -33924,7 +33781,7 @@
 	}
 
 /***/ },
-/* 283 */
+/* 278 */
 /*!************************************************************!*\
   !*** ./~/css-loader!./~/less-loader!./src/less/index.less ***!
   \************************************************************/
@@ -33936,6 +33793,349 @@
 	
 	// module
 	exports.push([module.id, "html,\nbody {\n  margin: 0;\n  font-family: -apple-system, BlinkMacSystemFont, sans-serif;\n  font-size: small;\n  height: 100%;\n}\n#app {\n  height: 100%;\n}\n.Main {\n  height: 100%;\n}\n.Main .sidebar {\n  width: 400px;\n  height: 100%;\n  position: fixed;\n  left: 0;\n  top: 0;\n  box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.2);\n}\n.Main .content {\n  margin-left: 400px;\n  height: 100%;\n}\n", ""]);
+	
+	// exports
+
+
+/***/ },
+/* 279 */
+/*!****************************!*\
+  !*** ./src/components.jsx ***!
+  \****************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	__webpack_require__(/*! ./less/components.less */ 280);
+	
+	var Chevron = function (_React$Component) {
+		_inherits(Chevron, _React$Component);
+	
+		function Chevron() {
+			_classCallCheck(this, Chevron);
+	
+			return _possibleConstructorReturn(this, (Chevron.__proto__ || Object.getPrototypeOf(Chevron)).apply(this, arguments));
+		}
+	
+		_createClass(Chevron, [{
+			key: 'render',
+			value: function render() {
+				var cls = 'Chevron';
+				if (this.props.reversed) cls += ' reversed';
+				return _react2.default.createElement('div', { className: cls });
+			}
+		}]);
+	
+		return Chevron;
+	}(_react2.default.Component);
+	
+	var Header = function (_React$Component2) {
+		_inherits(Header, _React$Component2);
+	
+		function Header() {
+			_classCallCheck(this, Header);
+	
+			return _possibleConstructorReturn(this, (Header.__proto__ || Object.getPrototypeOf(Header)).apply(this, arguments));
+		}
+	
+		_createClass(Header, [{
+			key: 'render',
+			value: function render() {
+				var left = null;
+				if (this.props.onBack) {
+					var backContent = _react2.default.createElement(
+						'div',
+						{ className: 'back left', onClick: this.props.onBack },
+						_react2.default.createElement(Chevron, { reversed: true }),
+						' Back'
+					);
+					left = _react2.default.createElement(
+						'div',
+						{ className: 'clickable', onClick: this.props.onBack },
+						backContent
+					);
+				}
+				var right = null;
+				if (this.props.rightButton) {
+					right = _react2.default.createElement(
+						'div',
+						{ className: 'clickable right', onClick: this.props.rightButton.onClick },
+						this.props.rightButton.title
+					);
+				}
+				return _react2.default.createElement(
+					'div',
+					{ className: 'ListHeader' },
+					left,
+					' ',
+					this.props.title,
+					' ',
+					right
+				);
+			}
+		}]);
+	
+		return Header;
+	}(_react2.default.Component);
+	
+	module.exports.Header = Header;
+	module.exports.Chevron = Chevron;
+
+/***/ },
+/* 280 */
+/*!**********************************!*\
+  !*** ./src/less/components.less ***!
+  \**********************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+	
+	// load the styles
+	var content = __webpack_require__(/*! !./../../~/css-loader!./../../~/less-loader!./components.less */ 281);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(/*! ./../../~/style-loader/addStyles.js */ 243)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/less-loader/index.js!./components.less", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/less-loader/index.js!./components.less");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 281 */
+/*!*****************************************************************!*\
+  !*** ./~/css-loader!./~/less-loader!./src/less/components.less ***!
+  \*****************************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(/*! ./../../~/css-loader/lib/css-base.js */ 242)();
+	// imports
+	
+	
+	// module
+	exports.push([module.id, ".Chevron {\n  display: inline-block;\n  width: 0.35em;\n  height: 0.35em;\n  transform: rotate(45deg);\n  margin-bottom: 0.15em;\n  border: 1px solid black;\n  border-width: 1.5px 1.5px 0px 0px;\n}\n.Chevron.reversed {\n  transform: rotate(-135deg);\n}\n.clickable {\n  cursor: pointer;\n}\n.clickable:hover {\n  opacity: 0.5;\n}\n.clickable:active {\n  opacity: 0.25;\n}\n.scrollable-with-header {\n  display: flex;\n  flex-direction: column;\n  height: 100%;\n}\n.scrollable-with-header .scrollable-content {\n  flex-grow: 1;\n  overflow-y: auto;\n  padding: 16px;\n}\n.ListHeader {\n  padding: 16px;\n  background-color: #f5f5f5;\n  text-align: center;\n  font-weight: bold;\n}\n.ListHeader .left {\n  float: left;\n}\n.ListHeader .right {\n  float: right;\n}\n.ListHeader .left,\n.ListHeader .right {\n  opacity: 0.55;\n  font-weight: normal;\n}\n", ""]);
+	
+	// exports
+
+
+/***/ },
+/* 282 */
+/*!********************************!*\
+  !*** ./src/less/feedList.less ***!
+  \********************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+	
+	// load the styles
+	var content = __webpack_require__(/*! !./../../~/css-loader!./../../~/less-loader!./feedList.less */ 283);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(/*! ./../../~/style-loader/addStyles.js */ 243)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/less-loader/index.js!./feedList.less", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/less-loader/index.js!./feedList.less");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 283 */
+/*!***************************************************************!*\
+  !*** ./~/css-loader!./~/less-loader!./src/less/feedList.less ***!
+  \***************************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(/*! ./../../~/css-loader/lib/css-base.js */ 242)();
+	// imports
+	
+	
+	// module
+	exports.push([module.id, ".FeedList .error {\n  text-align: center;\n  opacity: 0.55;\n}\n.FeedCell {\n  margin-bottom: 16px;\n  cursor: default;\n}\n.FeedCell .sourceName {\n  margin-bottom: 8px;\n  font-weight: bold;\n  opacity: 0.55;\n}\n.ArticleCell {\n  display: flex;\n  color: inherit;\n  text-decoration: none;\n}\n.ArticleCell > div:first-child {\n  flex-grow: 1;\n}\n.ArticleCell h4,\n.ArticleCell p {\n  margin: 0;\n}\n.ArticleCell h4 {\n  margin-bottom: 8px;\n}\n.ArticleCell p {\n  opacity: 0.55;\n}\n.ArticleCell .Image {\n  margin-left: 8px;\n  width: 100px;\n  height: 100px;\n  border-radius: 3px;\n}\n.SourceDetail {\n  display: flex;\n  flex-direction: column;\n  height: 100%;\n}\n.SourceDetail .articles {\n  flex-grow: 1;\n  overflow-y: auto;\n  padding: 16px;\n}\n.SourceDetail .ArticleCell {\n  margin-bottom: 16px;\n}\n", ""]);
+	
+	// exports
+
+
+/***/ },
+/* 284 */
+/*!****************************!*\
+  !*** ./src/sourceList.jsx ***!
+  \****************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _components = __webpack_require__(/*! ./components.jsx */ 279);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	__webpack_require__(/*! ./less/sourceList.less */ 285);
+	
+	var SourceList = function (_React$Component) {
+		_inherits(SourceList, _React$Component);
+	
+		function SourceList(props) {
+			_classCallCheck(this, SourceList);
+	
+			var _this = _possibleConstructorReturn(this, (SourceList.__proto__ || Object.getPrototypeOf(SourceList)).call(this, props));
+	
+			_this.state = { subscriptions: null };
+			return _this;
+		}
+	
+		_createClass(SourceList, [{
+			key: 'render',
+			value: function render() {
+				return _react2.default.createElement(
+					'div',
+					{ className: 'SourceList scrollable-with-header' },
+					_react2.default.createElement(_components.Header, { title: 'Subscriptions', onBack: this.props.onBack }),
+					_react2.default.createElement(
+						'div',
+						{ className: 'scrollable-content' },
+						_react2.default.createElement(SourceForm, { onAdd: this.addSource }),
+						_react2.default.createElement(SubscriptionList, { subscriptions: this.state.subscriptions })
+					)
+				);
+			}
+		}]);
+	
+		return SourceList;
+	}(_react2.default.Component);
+	
+	var SourceForm = function (_React$Component2) {
+		_inherits(SourceForm, _React$Component2);
+	
+		function SourceForm() {
+			_classCallCheck(this, SourceForm);
+	
+			return _possibleConstructorReturn(this, (SourceForm.__proto__ || Object.getPrototypeOf(SourceForm)).apply(this, arguments));
+		}
+	
+		_createClass(SourceForm, [{
+			key: 'render',
+			value: function render() {
+				return _react2.default.createElement(
+					'form',
+					{ className: 'SourceForm', onSubmit: this.submit },
+					_react2.default.createElement('input', { type: 'text', placeholder: 'Site URL' })
+				);
+			}
+		}]);
+	
+		return SourceForm;
+	}(_react2.default.Component);
+	
+	var SubscriptionList = function (_React$Component3) {
+		_inherits(SubscriptionList, _React$Component3);
+	
+		function SubscriptionList() {
+			_classCallCheck(this, SubscriptionList);
+	
+			return _possibleConstructorReturn(this, (SubscriptionList.__proto__ || Object.getPrototypeOf(SubscriptionList)).apply(this, arguments));
+		}
+	
+		_createClass(SubscriptionList, [{
+			key: 'render',
+			value: function render() {
+				return _react2.default.createElement(
+					'div',
+					{ className: 'SourceList' },
+					'nothing here'
+				);
+			}
+		}]);
+	
+		return SubscriptionList;
+	}(_react2.default.Component);
+	
+	module.exports.SourceList = SourceList;
+
+/***/ },
+/* 285 */
+/*!**********************************!*\
+  !*** ./src/less/sourceList.less ***!
+  \**********************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+	
+	// load the styles
+	var content = __webpack_require__(/*! !./../../~/css-loader!./../../~/less-loader!./sourceList.less */ 286);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(/*! ./../../~/style-loader/addStyles.js */ 243)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/less-loader/index.js!./sourceList.less", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/less-loader/index.js!./sourceList.less");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 286 */
+/*!*****************************************************************!*\
+  !*** ./~/css-loader!./~/less-loader!./src/less/sourceList.less ***!
+  \*****************************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(/*! ./../../~/css-loader/lib/css-base.js */ 242)();
+	// imports
+	
+	
+	// module
+	exports.push([module.id, "", ""]);
 	
 	// exports
 

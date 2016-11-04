@@ -8,6 +8,7 @@ var api = require('./api.jsx');
 import { Router, Route, Link, hashHistory } from 'react-router';
 import { Article } from './article.jsx';
 import { FeedList, SourceDetail } from './feedList.jsx';
+import { SourceList } from './sourceList.jsx';
 
 class Main extends React.Component {
 	constructor(props) {
@@ -24,11 +25,17 @@ class Main extends React.Component {
 	}
 	renderSidebar() {
 		var self = this;
-		if (this.state.source) {
-			return <SourceDetail source={this.state.source} onBack={ () => self.setState({source: null}) } />
+		if (this.state.showSources) {
+			return <SourceList onBack={ () => self.showFeed(true) } />;
+		} else if (this.state.source) {
+			return <SourceDetail source={this.state.source} onBack={ () => self.showFeed(false) } />
 		} else {
-			return <FeedList onClickedSource={ (source) => self.setState({source: source}) } />
+			return <FeedList onClickedSource={ (source) => self.setState({source: source}) } onShowSources={ () => self.setState({showSources: true}) } />
 		}
+	}
+	showFeed(refresh) {
+		// TODO: refresh
+		this.setState({ showSources: false, source: null })
 	}
 }
 

@@ -11,10 +11,10 @@
           "height" : 1
         },
         "cap-insets" : {
-          "bottom" : 30,
-          "top" : 29,
-          "right" : 30,
-          "left" : 29
+          "bottom" : 17,
+          "top" : 17,
+          "right" : 17,
+          "left" : 17
         }
       }
     }

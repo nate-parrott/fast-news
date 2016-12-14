@@ -16,7 +16,7 @@ class SourceSearchBar: UIView, UITextFieldDelegate {
         
         addSubview(resultsContainer)
         resultsContainer.clipsToBounds = true
-        resultsContainer.layer.cornerRadius = 20
+        resultsContainer.layer.cornerRadius = 9
         
         addSubview(field)
         field.placeholder = "Search for or paste a site"
@@ -28,9 +28,7 @@ class SourceSearchBar: UIView, UITextFieldDelegate {
         field.addTarget(self, action: #selector(SourceSearchBar._textChanged(_:)), forControlEvents: .EditingChanged)
         field.delegate = self
         
-        addSubview(icon)
-        
-        addSubview(border)
+        addSubview(icon)        
     }
     
     required init?(coder aDecoder: NSCoder) {

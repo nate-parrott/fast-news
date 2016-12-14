@@ -98,9 +98,13 @@ class AddSubscriptionTransaction: Transaction {
     }
     
     func showSuccessStatusItem() {
-        let statusItemTitle = optimisticSource.title ?? ""
+        let source = optimisticSource
+        let statusItemTitle = source.title ?? ""
         let item = StatusItem(title: "Subscribed to \(statusItemTitle)")
         item.iconView = UIImageView(image: UIImage(named: "TinyChevron"))
+        item.tapBlock = {
+            AppDelegate.Shared.showSource(source)
+        }
         item.add()
         item.removeAfterStandardDelay()
     }

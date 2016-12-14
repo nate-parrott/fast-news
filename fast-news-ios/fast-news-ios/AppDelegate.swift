@@ -10,6 +10,12 @@ import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate, UITabBarControllerDelegate {
+    
+    static var Shared: AppDelegate {
+        get {
+            return UIApplication.sharedApplication().delegate as! AppDelegate
+        }
+    }
 
     var window: UIWindow?
 
@@ -62,22 +68,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         default: ()
         }
         return false
-    }
-    
-    func readArticle(url: String) {
-        let article = Article(id: nil)
-        article.importJson([ "url": url ])
-        let articleVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("Article") as! ArticleViewController
-        articleVC.article = article
-        articleVC.presentFrom(viewControllerForModalPresentation())
-    }
-    
-    func viewControllerForModalPresentation() -> UIViewController {
-        var vc = window!.rootViewController!
-        while let presented = vc.presentedViewController {
-            vc = presented
-        }
-        return vc
     }
 
     func applicationWillResignActive(application: UIApplication) {

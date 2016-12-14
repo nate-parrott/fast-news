@@ -68,7 +68,7 @@ class RootViewController: UIViewController {
     var currentStatusView: StatusView? {
         didSet(old) {
             if let oldView = old {
-                UIView.animateWithDuration(0.15, delay: 0, options: [.CurveEaseIn, .AllowUserInteraction], animations: {
+                UIView.animateWithDuration(0.15, delay: 0, options: [.AllowUserInteraction], animations: {
                         oldView.transform = CGAffineTransformMakeTranslation(0, 40)
                         oldView.alpha = 0
                     }, completion: { (_) in
@@ -80,7 +80,7 @@ class RootViewController: UIViewController {
                 viewDidLayoutSubviews()
                 newView.transform = CGAffineTransformMakeTranslation(0, 40)
                 newView.alpha = 0
-                UIView.animateWithDuration(0.15, delay: 0, options: [.CurveEaseOut, .AllowUserInteraction], animations: {
+                UIView.animateWithDuration(0.15, delay: 0, options: [.AllowUserInteraction], animations: {
                     newView.transform = CGAffineTransformIdentity
                     newView.alpha = 1
                     }, completion: { (_) in

@@ -29,6 +29,7 @@
 		5F0CC63B1C6D526E0071A026 /* RobotoMono-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5F0CC6371C6D526E0071A026 /* RobotoMono-Regular.ttf */; };
 		5F0CC63D1C6D6BEB0071A026 /* ArticleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F0CC63C1C6D6BEB0071A026 /* ArticleCell.swift */; };
 		5F13F7451E01015600CCE2B4 /* TinySpinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F13F7441E01015600CCE2B4 /* TinySpinner.swift */; };
+		5F13F7471E01BCC500CCE2B4 /* AppDelegate+Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F13F7461E01BCC500CCE2B4 /* AppDelegate+Navigation.swift */; };
 		5F24D6BA1D31C0E6000C0133 /* UIView+ParticleEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F24D6B91D31C0E6000C0133 /* UIView+ParticleEffects.swift */; };
 		5F24D6BB1D31C0E6000C0133 /* UIView+ParticleEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F24D6B91D31C0E6000C0133 /* UIView+ParticleEffects.swift */; };
 		5F24D6C11D31C4C4000C0133 /* UIImage+ApplyTint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F24D6C01D31C4C4000C0133 /* UIImage+ApplyTint.swift */; };
@@ -202,6 +203,7 @@
 		5F0CC6371C6D526E0071A026 /* RobotoMono-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoMono-Regular.ttf"; sourceTree = "<group>"; };
 		5F0CC63C1C6D6BEB0071A026 /* ArticleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleCell.swift; sourceTree = "<group>"; };
 		5F13F7441E01015600CCE2B4 /* TinySpinner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TinySpinner.swift; sourceTree = "<group>"; };
+		5F13F7461E01BCC500CCE2B4 /* AppDelegate+Navigation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Navigation.swift"; sourceTree = "<group>"; };
 		5F24D6B91D31C0E6000C0133 /* UIView+ParticleEffects.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+ParticleEffects.swift"; sourceTree = "<group>"; };
 		5F24D6C01D31C4C4000C0133 /* UIImage+ApplyTint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+ApplyTint.swift"; sourceTree = "<group>"; };
 		5F28BB401D456518006E2F76 /* Cache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
@@ -428,6 +430,7 @@
 			isa = PBXGroup;
 			children = (
 				5F4A71401C6319E000676F91 /* AppDelegate.swift */,
+				5F13F7461E01BCC500CCE2B4 /* AppDelegate+Navigation.swift */,
 				5F30546B1C7D1BFD00E0CFE6 /* Defs.swift */,
 				5F8D9F2A1C6BFF7300F0FFBE /* View controllers */,
 				5F8D9F291C6BFF6C00F0FFBE /* Models */,
@@ -955,6 +958,7 @@
 				5FE982DB1D2F949D009C9ECF /* StatusBarOpacity+App.swift in Sources */,
 				5F4A71551C631E9400676F91 /* APIObject.swift in Sources */,
 				5FCDF4481C6BFAFB00A50A75 /* ArticleCollectionViewController.swift in Sources */,
+				5F13F7471E01BCC500CCE2B4 /* AppDelegate+Navigation.swift in Sources */,
 				5F13F7451E01015600CCE2B4 /* TinySpinner.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

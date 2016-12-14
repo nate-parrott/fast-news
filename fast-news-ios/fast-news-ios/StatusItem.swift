@@ -18,7 +18,7 @@ class StatusItem {
     }
     var iconView: UIView? // icon views have about 40px of space
     func tapped() {
-        // TODO
+        if let t = tapBlock { t() }
     }
     func populateIconWithSpinner() {
         let spinner = UIActivityIndicatorView(activityIndicatorStyle: .White)
@@ -26,6 +26,7 @@ class StatusItem {
         iconView = spinner
         spinner.startAnimating()
     }
+    var tapBlock: (() -> ())?
 }
 
 

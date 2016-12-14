@@ -7,38 +7,76 @@
 //
 
 import UIKit
-import Shimmer
 
 class StatusView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = UIColor.blackColor()
+        backgroundColor = UIColor(hex: "#272727")
+        
         label.textAlignment = .Center
-        label.font = UIFont.boldSystemFontOfSize(14)
-        label.textColor = UIColor(white: 0.8, alpha: 1)
-        label.numberOfLines = 1
+        label.font = UIFont.boldSystemFontOfSize(12)
+        label.textColor = UIColor.whiteColor()
+        label.numberOfLines = 0
+        label.lineBreakMode = .ByWordWrapping
+        addSubview(label)
         
-        addSubview(shimmer)
-        shimmer.contentView = label
+        let swipeRec = UISwipeGestureRecognizer(target: self, action: #selector(StatusView.dismiss))
+        addGestureRecognizer(swipeRec)
         
-        shimmer.shimmeringPauseDuration = 0.1
-        
-        clipsToBounds = true
-        
-        label.alpha = 0
+        let tapRec = UITapGestureRecognizer(target: self, action: #selector(StatusView.tapped))
+        addGestureRecognizer(tapRec)
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    var item: StatusItem? {
+        didSet {
+            if let i = item {
+                label.text = i.title
+                iconView = i.iconView
+            }
+        }
+    }
     
     let label = UILabel()
-    let shimmer = FBShimmeringView()
+    
+    var iconView: UIView? {
+        didSet(old) {
+            old?.removeFromSuperview()
+            if let v = iconView {
+                addSubview(v)
+            }
+        }
+    }
+    let horizontalPadding: CGFloat = 40
+    let verticalPadding: CGFloat = 14
+    
     override func layoutSubviews() {
         super.layoutSubviews()
-        shimmer.frame = bounds
-        label.bounds = CGRectMake(0, 0, bounds.size.width - 20, height)
-        label.center = bounds.center
+        label.frame = CGRectMake(horizontalPadding, verticalPadding, bounds.width - horizontalPadding * 2, bounds.height - verticalPadding * 2)
+        iconView?.sizeToFit()
+        iconView?.center = CGPointMake(bounds.width - horizontalPadding/2, bounds.height / 2)
+        
+        layer.shadowOffset = CGSizeMake(0, 3)
+        layer.shadowRadius = 10
+        layer.shadowPath = UIBezierPath(rect: bounds).CGPath
+        layer.shadowColor = UIColor(white: 0, alpha: 0.5).CGColor
+        layer.shadowOpacity = 1
     }
-    let height: CGFloat = 26
+    
+    var height: CGFloat {
+        get {
+            return 60
+        }
+    }
+    
+    func dismiss() {
+        item?.remove()
+    }
+    
+    func tapped() {
+        item?.tapped()
+        dismiss()
+    }
 }
 

@@ -10,13 +10,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "fast-news-ios/SubscriptionsList.swift"
-            timestampString = "493100580.652853"
+            timestampString = "503385039.391621"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "100"
-            endingLineNumber = "100"
+            startingLineNumber = "110"
+            endingLineNumber = "110"
             landmarkName = "init(url:)"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -90,13 +90,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "fast-news-ios/SubscriptionsList.swift"
-            timestampString = "493100580.652853"
+            timestampString = "503385039.391621"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "81"
-            endingLineNumber = "81"
-            landmarkName = "start(_:)"
-            landmarkType = "5">
+            startingLineNumber = "82"
+            endingLineNumber = "82"
+            landmarkName = "start(callback:)"
+            landmarkType = "7">
             <Locations>
                <Location
                   shouldBeEnabled = "No"
@@ -138,13 +138,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "fast-news-ios/SubscriptionsList.swift"
-            timestampString = "493100580.652853"
+            timestampString = "503385039.391621"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "83"
-            endingLineNumber = "83"
-            landmarkName = "start(_:)"
-            landmarkType = "5">
+            startingLineNumber = "84"
+            endingLineNumber = "84"
+            landmarkName = "start(callback:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -154,13 +154,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "fast-news-ios/SubscriptionsList.swift"
-            timestampString = "493100580.652853"
+            timestampString = "503385039.391621"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "80"
-            endingLineNumber = "80"
-            landmarkName = "start(_:)"
-            landmarkType = "5">
+            startingLineNumber = "81"
+            endingLineNumber = "81"
+            landmarkName = "start(callback:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy

@@ -65,6 +65,7 @@ class AddSubscriptionTransaction: Transaction {
         
         let statusItemTitle = optimisticSource.title ?? ""
         statusItem = StatusItem(title: "Subscribing to \(statusItemTitle)")
+        statusItem.populateIconWithSpinner()
         statusItem.add()
         
         super.init()
@@ -88,11 +89,20 @@ class AddSubscriptionTransaction: Transaction {
                 callback(success: true)
                 let feed = Feed.objectsForIDs(["shared"]).first! as! Feed
                 feed.reloadImmediately()
+                self.showSuccessStatusItem()
             } else {
                 self.failed = true
                 callback(success: false)
             }
         }
+    }
+    
+    func showSuccessStatusItem() {
+        let statusItemTitle = optimisticSource.title ?? ""
+        let item = StatusItem(title: "Subscribed to \(statusItemTitle)")
+        item.iconView = UIImageView(image: UIImage(named: "TinyChevron"))
+        item.add()
+        item.removeAfterStandardDelay()
     }
 }
 

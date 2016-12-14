@@ -16,10 +16,6 @@ class RootViewController: UIViewController {
         }
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.addSubview(statusView)
-    }
     var child: UIViewController!
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         let tabViewController = segue.destinationViewController as! UITabBarController
@@ -42,27 +38,55 @@ class RootViewController: UIViewController {
     override func childViewControllerForStatusBarHidden() -> UIViewController? {
         return child
     }
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        child?.view.frame = view.bounds
+        
+        if let status = currentStatusView {
+            let height: CGFloat = status.height
+            status.frame = CGRectMake(20, view.bounds.height - 50 - 20 - height, view.bounds.width - 20 * 2, height)
+        }
+    }
     var statusItems = [StatusItem]() {
         didSet (old) {
-            if let item = statusItems.last {
-                var otherItems = statusItems
-                otherItems.removeLast(1)
-                statusView.label.text = item.coalescleWithItems(otherItems).title
-            }
-            if (old.count > 0) != (statusItems.count > 0) {
-                UIView.animateWithDuration(0.2, delay: 0, options: [.AllowUserInteraction], animations: {
-                    self.statusView.label.alpha = self.statusItems.count > 0 ? 1 : 0
-                    self.viewDidLayoutSubviews()
-                    }, completion: nil)
-                statusView.shimmer.shimmering = statusItems.count > 0
+            currentStatusItem = statusItems.last
+        }
+    }
+    var currentStatusItem: StatusItem? {
+        didSet(old) {
+            if currentStatusItem !== old {
+                if let item = currentStatusItem {
+                    let view = StatusView()
+                    view.item = item
+                    currentStatusView = view
+                } else {
+                    currentStatusView = nil
+                }
             }
         }
     }
-    let statusView = StatusView(frame: CGRectZero)
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        let statusHeight = statusItems.count == 0 ? 0 : statusView.height
-        statusView.frame = CGRectMake(0, view.bounds.size.height - statusHeight, view.bounds.size.width, statusHeight)
-        child?.view.frame = CGRectMake(0, 0, view.bounds.size.width, view.bounds.size.height - statusHeight)
+    var currentStatusView: StatusView? {
+        didSet(old) {
+            if let oldView = old {
+                UIView.animateWithDuration(0.15, delay: 0, options: [.CurveEaseIn, .AllowUserInteraction], animations: {
+                        oldView.transform = CGAffineTransformMakeTranslation(0, 40)
+                        oldView.alpha = 0
+                    }, completion: { (_) in
+                        oldView.removeFromSuperview()
+                })
+            }
+            if let newView = currentStatusView {
+                view.addSubview(newView)
+                viewDidLayoutSubviews()
+                newView.transform = CGAffineTransformMakeTranslation(0, 40)
+                newView.alpha = 0
+                UIView.animateWithDuration(0.15, delay: 0, options: [.CurveEaseOut, .AllowUserInteraction], animations: {
+                    newView.transform = CGAffineTransformIdentity
+                    newView.alpha = 1
+                    }, completion: { (_) in
+                        // pass
+                })
+            }
+        }
     }
 }

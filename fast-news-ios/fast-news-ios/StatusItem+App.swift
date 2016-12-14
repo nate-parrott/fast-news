@@ -23,6 +23,11 @@ extension StatusItem {
             i += 1
         }
     }
+    func removeAfterStandardDelay() {
+        delay(2.5) {
+            self.remove()
+        }
+    }
 }
 
 

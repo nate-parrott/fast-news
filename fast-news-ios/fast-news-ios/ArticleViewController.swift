@@ -84,6 +84,8 @@ class ArticleViewController: SwipeAwayViewController {
     }
     
     func _update() {
+        let oldState = _viewState
+        
         title = article.title
         if _articleContentLoadTimedOut {
             _viewState = .ShowWeb
@@ -91,6 +93,21 @@ class ArticleViewController: SwipeAwayViewController {
             if content.lowQuality ?? false {
                 _viewState = .ShowWeb
             } else {
+                var shouldCrossfade = false
+                switch oldState {
+                case .ShowContent: shouldCrossfade = true
+                default: ()
+                }
+                if shouldCrossfade, let old = view.snapshotViewAfterScreenUpdates(false) {
+                    view.addSubview(old)
+                    old.frame = view.bounds
+                    UIView.animateWithDuration(0.2, delay: 0, options: [.AllowUserInteraction], animations: { 
+                        old.alpha = 0
+                        }, completion: { (_) in
+                            old.removeFromSuperview()
+                    })
+                }
+                
                 let (models, indices) = _createRowModelsFromSegments(content.segments)
                 _segmentIndicesForRowModels = indices
                 rowModels = models

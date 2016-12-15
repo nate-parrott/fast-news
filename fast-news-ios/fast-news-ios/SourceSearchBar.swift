@@ -28,7 +28,7 @@ class SourceSearchBar: UIView, UITextFieldDelegate {
         field.addTarget(self, action: #selector(SourceSearchBar._textChanged(_:)), forControlEvents: .EditingChanged)
         field.delegate = self
         
-        addSubview(icon)        
+        addSubview(icon)
     }
     
     required init?(coder aDecoder: NSCoder) {

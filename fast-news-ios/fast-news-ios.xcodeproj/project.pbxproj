@@ -153,6 +153,7 @@
 		5FC506FD1C91506C00F7A237 /* SKColorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FC506FA1C91506C00F7A237 /* SKColorView.m */; };
 		5FC507001C91507A00F7A237 /* ConvenienceCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FC506FF1C91507A00F7A237 /* ConvenienceCategories.m */; };
 		5FC507031C91509800F7A237 /* CGPointExtras.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FC507021C91509800F7A237 /* CGPointExtras.m */; };
+		5FC644491E024F020079FC78 /* ContentPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC644481E024F020079FC78 /* ContentPreview.swift */; };
 		5FCDF4401C6BCD6700A50A75 /* CommonExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCDF43F1C6BCD6700A50A75 /* CommonExtensions.swift */; };
 		5FCDF4421C6BF75F00A50A75 /* ArticleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCDF4411C6BF75F00A50A75 /* ArticleViewController.swift */; };
 		5FCDF4441C6BF77000A50A75 /* SourceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCDF4431C6BF77000A50A75 /* SourceViewController.swift */; };
@@ -306,6 +307,7 @@
 		5FC506FF1C91507A00F7A237 /* ConvenienceCategories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConvenienceCategories.m; sourceTree = "<group>"; };
 		5FC507011C91509800F7A237 /* CGPointExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGPointExtras.h; sourceTree = "<group>"; };
 		5FC507021C91509800F7A237 /* CGPointExtras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGPointExtras.m; sourceTree = "<group>"; };
+		5FC644481E024F020079FC78 /* ContentPreview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentPreview.swift; sourceTree = "<group>"; };
 		5FCDF43F1C6BCD6700A50A75 /* CommonExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonExtensions.swift; sourceTree = "<group>"; };
 		5FCDF4411C6BF75F00A50A75 /* ArticleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleViewController.swift; sourceTree = "<group>"; };
 		5FCDF4431C6BF77000A50A75 /* SourceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SourceViewController.swift; sourceTree = "<group>"; };
@@ -469,6 +471,7 @@
 				5F4A71561C63236C00676F91 /* Source.swift */,
 				5F4A715A1C63237B00676F91 /* Article.swift */,
 				5F5E4DDB1C743389009C3446 /* Content.swift */,
+				5FC644481E024F020079FC78 /* ContentPreview.swift */,
 				5F5706701C65E17C00140078 /* SubscriptionsList.swift */,
 				5F5706721C65E18300140078 /* Subscription.swift */,
 				5FB4D5DD1C8A4063005D079D /* BookmarkList.swift */,
@@ -879,6 +882,7 @@
 				5F59D8AC1C791D7600C3E1C3 /* Pixel.swift in Sources */,
 				5F0CC62A1C6C59CB0071A026 /* EVComplexLayout.m in Sources */,
 				5F4A71591C63237300676F91 /* Feed.swift in Sources */,
+				5FC644491E024F020079FC78 /* ContentPreview.swift in Sources */,
 				5F87A7891D6C1F8D00AC07DB /* MasonryCollectionViewLayout.swift in Sources */,
 				5FC506FB1C91506C00F7A237 /* SKFill.m in Sources */,
 				5FC3BFDF1C9F0720000A2D9E /* Stylesheets.swift in Sources */,

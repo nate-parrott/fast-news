@@ -87,7 +87,7 @@ class ArticleViewController: SwipeAwayViewController {
         title = article.title
         if _articleContentLoadTimedOut {
             _viewState = .ShowWeb
-        } else if let content = article.content {
+        } else if let content = article.content ?? article.contentPreview {
             if content.lowQuality ?? false {
                 _viewState = .ShowWeb
             } else {
@@ -194,7 +194,7 @@ class ArticleViewController: SwipeAwayViewController {
                 default: ()
                 }
                 
-                UIView.animateWithDuration(0.2, delay: 0, options: .AllowUserInteraction, animations: { () -> Void in
+                UIView.animateWithDuration(0.2, delay: 0, options: [.AllowUserInteraction], animations: { 
                     self.pager.alpha = contentAlpha
                     self.loadingContainer.alpha = loaderAlpha
                     }, completion: nil)
@@ -372,10 +372,12 @@ class ArticleViewController: SwipeAwayViewController {
         }
         
         if let models = rowModels, let segmentIndices = _segmentIndicesForRowModels {
-            dispatch_async(_layoutQueue, { 
+            /*dispatch_async(_layoutQueue, {
                 info.computeWithModels(models, segmentIndices: segmentIndices)
                 mainThread(done)
-            })
+            })*/
+            info.computeWithModels(models, segmentIndices: segmentIndices)
+            done()
         } else {
             done()
         }

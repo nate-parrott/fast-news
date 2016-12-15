@@ -20,6 +20,12 @@ class Article: APIObject {
     weak var source: Source?
     var differentWebsiteFromSource: Bool?
     var content: ArticleContent?
+    var contentPreview: ArticleContent? {
+        get {
+            if let failed = fetchFailed where failed { return nil }
+            return ArticleContent.createPreviewForArticle(self)
+        }
+    }
     override func importJson(json: [String : AnyObject]) {
         super.importJson(json)
         self.title = json["title"] as? String ?? self.title

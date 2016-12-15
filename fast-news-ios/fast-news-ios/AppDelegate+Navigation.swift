@@ -27,6 +27,8 @@ extension AppDelegate {
     
     var tabBarController: UITabBarController {
         get {
+            let root = window!.rootViewController as! RootViewController
+            return root.child as! UITabBarController
             return (window!.rootViewController as! RootViewController).child as! UITabBarController
         }
     }

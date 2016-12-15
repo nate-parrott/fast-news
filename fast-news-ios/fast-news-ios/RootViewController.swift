@@ -31,6 +31,14 @@ class RootViewController: UIViewController {
 //            vc.tabBarItem.image = nil
 //        }
 //        barController.tabBarItem.titlePositionAdjustment = UIOffset(horizontal: 0, vertical: -20)
+        
+        for vc in barController.viewControllers ?? [] {
+            if let item = vc.tabBarItem {
+                item.titlePositionAdjustment = UIOffsetMake(0, 20)
+                item.imageInsets = UIEdgeInsetsMake(5.5, 0, -5.5, 0)
+            }
+        }
+        
     }
     override func childViewControllerForStatusBarStyle() -> UIViewController? {
         return child

@@ -154,6 +154,8 @@
 		5FC507001C91507A00F7A237 /* ConvenienceCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FC506FF1C91507A00F7A237 /* ConvenienceCategories.m */; };
 		5FC507031C91509800F7A237 /* CGPointExtras.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FC507021C91509800F7A237 /* CGPointExtras.m */; };
 		5FC644491E024F020079FC78 /* ContentPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC644481E024F020079FC78 /* ContentPreview.swift */; };
+		5FC6444B1E03A16B0079FC78 /* Topics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC6444A1E03A16B0079FC78 /* Topics.swift */; };
+		5FC6444C1E03A1BF0079FC78 /* Topics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC6444A1E03A16B0079FC78 /* Topics.swift */; };
 		5FCDF4401C6BCD6700A50A75 /* CommonExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCDF43F1C6BCD6700A50A75 /* CommonExtensions.swift */; };
 		5FCDF4421C6BF75F00A50A75 /* ArticleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCDF4411C6BF75F00A50A75 /* ArticleViewController.swift */; };
 		5FCDF4441C6BF77000A50A75 /* SourceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCDF4431C6BF77000A50A75 /* SourceViewController.swift */; };
@@ -308,6 +310,7 @@
 		5FC507011C91509800F7A237 /* CGPointExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGPointExtras.h; sourceTree = "<group>"; };
 		5FC507021C91509800F7A237 /* CGPointExtras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGPointExtras.m; sourceTree = "<group>"; };
 		5FC644481E024F020079FC78 /* ContentPreview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentPreview.swift; sourceTree = "<group>"; };
+		5FC6444A1E03A16B0079FC78 /* Topics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Topics.swift; sourceTree = "<group>"; };
 		5FCDF43F1C6BCD6700A50A75 /* CommonExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonExtensions.swift; sourceTree = "<group>"; };
 		5FCDF4411C6BF75F00A50A75 /* ArticleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleViewController.swift; sourceTree = "<group>"; };
 		5FCDF4431C6BF77000A50A75 /* SourceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SourceViewController.swift; sourceTree = "<group>"; };
@@ -470,6 +473,7 @@
 				5F4A71581C63237300676F91 /* Feed.swift */,
 				5F4A71561C63236C00676F91 /* Source.swift */,
 				5F4A715A1C63237B00676F91 /* Article.swift */,
+				5FC6444A1E03A16B0079FC78 /* Topics.swift */,
 				5F5E4DDB1C743389009C3446 /* Content.swift */,
 				5FC644481E024F020079FC78 /* ContentPreview.swift */,
 				5F5706701C65E17C00140078 /* SubscriptionsList.swift */,
@@ -822,6 +826,7 @@
 				5F30544D1C7D1A3C00E0CFE6 /* APIIdentity.swift in Sources */,
 				5F4FDB0F1C836CCE0049C61A /* ArticleSegmentCell.swift in Sources */,
 				5F30545A1C7D1A5B00E0CFE6 /* CGMath.swift in Sources */,
+				5FC6444C1E03A1BF0079FC78 /* Topics.swift in Sources */,
 				5F4FDB151C8381BB0049C61A /* FNNavigationController.swift in Sources */,
 				5F30544E1C7D1A3C00E0CFE6 /* Feed.swift in Sources */,
 				5FB4D5E51C8BE67F005D079D /* BookmarkList.swift in Sources */,
@@ -927,6 +932,7 @@
 				5FC507001C91507A00F7A237 /* ConvenienceCategories.m in Sources */,
 				AE07F28E1D52950400C94AF5 /* SourceSearch.swift in Sources */,
 				5F5E4DDC1C743389009C3446 /* Content.swift in Sources */,
+				5FC6444B1E03A16B0079FC78 /* Topics.swift in Sources */,
 				5FC506FD1C91506C00F7A237 /* SKColorView.m in Sources */,
 				5F3054331C7CE33200E0CFE6 /* SafariVCActivity.swift in Sources */,
 				5FCDF4421C6BF75F00A50A75 /* ArticleViewController.swift in Sources */,

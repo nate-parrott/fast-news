@@ -97,4 +97,7 @@ class Article: APIObject {
             return nil
         }
     }
+    lazy var topics: [Topic] = {
+        return self._computeTopics()
+    }()
 }

@@ -25,6 +25,9 @@ class ArticleViewController: SwipeAwayViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let topics = article.topics.map({ $0.text }).joinWithSeparator(", ")
+        print("Topics: \(topics)")
+        
         pager.alpha = 0
         loadingContainer.alpha = 0
         

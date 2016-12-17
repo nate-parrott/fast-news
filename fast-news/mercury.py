@@ -1,9 +1,14 @@
 import urllib2, urllib, json
+from util import url_fetch_future
 
-def fetch(article_url):
+def fetch(article_url, future=False):
     URL = "https://mercury.postlight.com/parser?" + urllib.urlencode({"url": article_url})
-    request = urllib2.Request(URL, headers={"x-api-key": 'bktV0YzhaQ7pL8lriDrfS1ehxat1bicT4y5sSAAF'})
-    resp = json.load(urllib2.urlopen(request))
+    content_future = url_fetch_future(URL, headers={"x-api-key": 'bktV0YzhaQ7pL8lriDrfS1ehxat1bicT4y5sSAAF'})
+    
+    def future_fn():
+        return json.loads(content_future())
+    
+    return future_fn if future else future_fn()
     """
     Cool fields:
     - lead_image_url (og:image)
@@ -14,7 +19,7 @@ def fetch(article_url):
     - title
     - content (HTML) (is an empty div if unparseable)
     """
-    return resp
+    
 
 if __name__ == '__main__':
     print json.dumps(fetch('http://google.com'))

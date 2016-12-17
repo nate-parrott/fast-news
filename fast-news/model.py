@@ -155,6 +155,7 @@ class Article(ndb.Model):
     section = ndb.StringProperty()
     site_name = ndb.StringProperty()
     amp_url = ndb.StringProperty()
+    tags = ndb.StringProperty(repeated=True)
     
     fetch_failed = ndb.BooleanProperty()
     fetch_date = ndb.DateTimeProperty()
@@ -201,7 +202,8 @@ class Article(ndb.Model):
             "author": self.author,
             "site_name": self.site_name,
             "published": timestamp_from_datetime(self.published) if self.published else None,
-            "description": self.description
+            "description": self.description,
+            "tags": self.tags
         }
         if include_article_json:
             # print 'getting json; j: ', (not not self.content)

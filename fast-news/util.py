@@ -58,9 +58,10 @@ def url_fetch_async(url, callback, timeout=5):
     rpc.callback = cb
     return rpc
 
-def url_fetch_future(url, timeout=5):
+def url_fetch_future(url, timeout=5, headers={}):
+    all_headers = dict(headers.items() + {"User-Agent": "fast-news-bot"}.items())
     rpc = urlfetch.create_rpc(deadline=timeout)
-    urlfetch.make_fetch_call(rpc, url, headers={"User-Agent": "fast-news-bot"})
+    urlfetch.make_fetch_call(rpc, url, headers=all_headers)
     
     def future():
         content = None

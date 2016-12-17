@@ -1,7 +1,7 @@
 import urllib2, urllib
 import datetime
 import json
-from util import url_fetch, first_present, truncate
+from util import url_fetch, first_present, truncate, url_fetch_future
 from bs4 import BeautifulSoup
 from model import ArticleContent
 from urlparse import urljoin
@@ -10,6 +10,7 @@ import re
 import article_extractor
 import util
 import mercury
+from find_tags import find_tags
 # also look at https://github.com/seomoz/dragnet/blob/master/README.md
 
 def find_meta_value(soup, prop):
@@ -58,7 +59,9 @@ def article_fetch(article, force_mercury=False):
             title_field = find_title(markup_soup)
         
             article.site_name = find_meta_value(markup_soup, 'og:site_name')
-        
+            
+            article.tags = list(find_tags(markup_soup))
+            
             # find author:
             article.author = find_author(markup_soup)
         
@@ -84,7 +87,16 @@ def article_fetch(article, force_mercury=False):
             return False
     
     def fetch_mercury():
-        merc = mercury.fetch(article.url)
+        merc_future = mercury.fetch(article.url, future=True)
+        doc_future = url_fetch_future(article.url)
+        merc = merc_future()
+        doc = doc_future()
+        
+        if doc:
+            markup_soup = BeautifulSoup(doc, 'lxml')
+            article.tags = list(find_tags(markup_soup))
+            article.site_name = find_meta_value(markup_soup, 'og:site_name')
+        
         if merc and len(merc.get('content') or "") >= 50:
             article.title = merc['title']
             article.top_image = merc['lead_image_url']

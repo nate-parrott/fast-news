@@ -21,7 +21,21 @@ def find_tags(soup):
 if __name__ == '__main__':
     import urllib2
     from bs4 import BeautifulSoup
-    for url in ['http://www.vice.com/read/how-weed-is-curbing-opioid-addiction-for-some-canadians', 'http://gothamist.com/2016/11/02/smooth_subway_map_nyc.php', 'http://www.vice.com/read/the-14-year-old-syrian-refugee-who-built-the-aleppo-of-his-dreams']:
-        soup = BeautifulSoup(urllib2.urlopen(url).read(), 'lxml')
+    from cookielib import CookieJar
+    
+    def fetch(url):
+        cj = CookieJar()
+        opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cj))
+        p = opener.open(url)
+        return p.read()
+    
+    urls = [
+        'http://www.nytimes.com/2016/12/17/opinion/sunday/the-tent-cities-of-san-francisco.html?smid=fb-nytimes&smtyp=cur'
+        # 'http://www.vice.com/read/how-weed-is-curbing-opioid-addiction-for-some-canadians',
+        # 'http://gothamist.com/2016/11/02/smooth_subway_map_nyc.php',
+        # 'http://www.vice.com/read/the-14-year-old-syrian-refugee-who-built-the-aleppo-of-his-dreams'
+    ]
+    for url in urls:
+        soup = BeautifulSoup(fetch(url), 'lxml')
         print url
         print find_tags(soup)

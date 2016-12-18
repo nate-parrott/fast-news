@@ -87,11 +87,16 @@ def article_fetch(article, force_mercury=False):
             return False
     
     def fetch_mercury():
-        merc_future = mercury.fetch(article.url, future=True)
-        doc_future = url_fetch_future(article.url)
-        merc = merc_future()
-        doc = doc_future()
+        force_sync_doc_fetch = 'nytimes.com' in article.url # cookie-jar issue prevents using async urlfetch to get page content
         
+        merc_future = mercury.fetch(article.url, future=True)
+        if not force_sync_doc_fetch: doc_future = url_fetch_future(article.url)
+        
+        merc = merc_future()
+        doc = url_fetch(article.url) if force_sync_doc_fetch else doc_future()
+        
+        print 'article fetch'
+        print 'has doc:', doc is not None
         if doc:
             markup_soup = BeautifulSoup(doc, 'lxml')
             article.tags = list(find_tags(markup_soup))

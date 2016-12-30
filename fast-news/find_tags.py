@@ -12,7 +12,6 @@ def find_tags(soup):
             tags.add(keyword.strip())
     
     for a in soup.find_all('a'):
-        
         is_tag_rel = a.has_attr('rel') and a['rel'] == 'tag'
         has_tag_class = a.has_attr('class') and 'tag' in a['class']
         

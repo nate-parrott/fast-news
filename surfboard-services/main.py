@@ -15,10 +15,11 @@
 # limitations under the License.
 #
 import webapp2
-from file_storage import upload_file_and_get_url
+from file_storage import upload_file_and_get_url, upload_file_with_name
 import json
 import urllib2
 from google.appengine.api import images
+import uuid
 
 class MainHandler(webapp2.RequestHandler):
 		def get(self):
@@ -27,8 +28,9 @@ class MainHandler(webapp2.RequestHandler):
 class RawUploadHandler(webapp2.RequestHandler):
 	def post(self):
 		content_type = self.request.get('content-type')
+		filename = self.request.get('filename', uuid.uuid4().hex)
 		data = self.request.body
-		url = upload_file_and_get_url(self.request.body, mimetype=self.request.get('content-type'))
+		url = upload_file_with_name(self.request.body, filename, mimetype=self.request.get('content-type'))
 		self.response.headers['Content-Type'] = 'application/json'
 		self.response.write(json.dumps({"url": url}))
 
@@ -37,7 +39,8 @@ class UploadHandler(webapp2.RequestHandler):
 		self.response.headers.add_header('Access-Control-Allow-Origin', '*')
 		self.response.headers['Content-Type'] = 'application/json'
 		file = self.request.POST['file']
-		url = upload_file_and_get_url(file.value, mimetype=file.type)
+		filename = self.request.get('filename', uuid.uuid4().hex)
+		url = upload_file_with_name(file.value, filename, mimetype=file.type)
 		self.response.write(json.dumps({"url": url, "mimeType": file.type, "filename": file.filename}))
 	
 	def options(self):			

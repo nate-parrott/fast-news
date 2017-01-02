@@ -171,7 +171,6 @@ def delete_bookmark(uid, article_id):
 
 def bulk_articles(ids):
     keys = [ndb.Key('Article', id) for id in ids]
-    
     articles = get_multi_dict(keys)
     contents = get_multi_dict([a.content for a in articles.values() if a.content])
     

@@ -29,3 +29,16 @@ extension UIViewController {
         presentViewController(alert, animated: true, completion: nil)
     }
 }
+
+extension Array {
+    func makeBatches(count: Int) -> [[Element]] {
+        var batches = [[Element]]()
+        for item in self {
+            if batches.count == 0 || batches[batches.count-1].count == count {
+                batches.append([])
+            }
+            batches[batches.count-1].append(item)
+        }
+        return batches
+    }
+}

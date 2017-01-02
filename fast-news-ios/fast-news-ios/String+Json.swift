@@ -7,3 +7,13 @@
 //
 
 import Foundation
+
+extension String {
+    static func fromJson(json: AnyObject) -> String? {
+        if let data = try? NSJSONSerialization.dataWithJSONObject(json, options: []) {
+            return String(data: data, encoding: NSUTF8StringEncoding)
+        } else {
+            return nil
+        }
+    }
+}

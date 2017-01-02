@@ -48,12 +48,14 @@ class BookmarkList: APIObject, Cacheable {
                 }
             }
             bookmarks = allBookmarks.filter({ !$0.deleted })
+            // TODO: remove deleted bookmarks from offline cache
             print("fetched \(newBookmarks.count) new bookmarks, storing total \(bookmarks!.count)")
         } else {
             bookmarks = newBookmarks
             print("did not do a partial bookmark transaction")
         }
         since = json["since"] as? Double
+        OfflineBookmarksFetcher.Shared.cacheBookmarksOffline(bookmarks ?? [])
     }
     
     var bookmarks: [Bookmark]?
@@ -135,6 +137,16 @@ class Bookmark: APIObject {
     override func toJson() -> [String : AnyObject]! {
         return ["article": article?.toJson() ?? NSNull(), "reading_position": readingPosition ?? NSNull(), "last_modified": modified?.timeIntervalSince1970 ?? NSNull(), "deleted": deleted, "id": self.id ?? NSNull()]
     }
+    
+    var offlineCacheKey: String? {
+        get {
+            if let id = article?.id {
+                return "articleCache.\(id)"
+            } else {
+                return nil
+            }
+        }
+    }
 }
 
 class UpdateBookmarkTransaction: Transaction {
@@ -162,6 +174,10 @@ class UpdateBookmarkTransaction: Transaction {
             b.modified = NSDate()
             b.readingPosition = readingPosition
             bookmark = b
+            if b.id == nil {
+                // we're creating this for the first time:
+                OfflineBookmarksFetcher.Shared.cacheBookmarksOffline([b])
+            }
         }
         
         start { (json, error, transaction) -> () in

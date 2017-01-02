@@ -54,6 +54,12 @@ class BookmarksViewController: ArticleCollectionViewController {
     }
     
     func showArticle(article: Article) {
+        // find the matching bookmark:
+        if let matchingBookmark = bookmarkList.bookmarksIncludingOptimistic.filter({ $0.article === article }).first {
+            OfflineBookmarksFetcher.Shared.loadBookmarkContentFromOfflineCache(matchingBookmark)
+        }
+        
+        
         let articleVC = storyboard!.instantiateViewControllerWithIdentifier("Article") as! ArticleViewController
         articleVC.article = article
         articleVC.presentFrom(self)

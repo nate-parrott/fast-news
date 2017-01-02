@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5F00239A1E1A38C20049BBFF /* OfflineBookmarksFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F0023991E1A38C20049BBFF /* OfflineBookmarksFetcher.swift */; };
+		5F00239C1E1A44000049BBFF /* String+Json.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F00239B1E1A44000049BBFF /* String+Json.swift */; };
 		5F07637C1DC0EA2000FFB878 /* TopAlignedLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F07637B1DC0EA2000FFB878 /* TopAlignedLabel.swift */; };
 		5F07637E1DC0F64000FFB878 /* FeedHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F07637D1DC0F64000FFB878 /* FeedHeader.swift */; };
 		5F0763801DC1125000FFB878 /* FNViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F07637F1DC1125000FFB878 /* FNViewController.swift */; };
@@ -183,6 +185,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5F0023991E1A38C20049BBFF /* OfflineBookmarksFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OfflineBookmarksFetcher.swift; sourceTree = "<group>"; };
+		5F00239B1E1A44000049BBFF /* String+Json.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Json.swift"; sourceTree = "<group>"; };
 		5F07637B1DC0EA2000FFB878 /* TopAlignedLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopAlignedLabel.swift; sourceTree = "<group>"; };
 		5F07637D1DC0F64000FFB878 /* FeedHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedHeader.swift; sourceTree = "<group>"; };
 		5F07637F1DC1125000FFB878 /* FNViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FNViewController.swift; sourceTree = "<group>"; };
@@ -480,6 +484,7 @@
 				5F5706721C65E18300140078 /* Subscription.swift */,
 				5FB4D5DD1C8A4063005D079D /* BookmarkList.swift */,
 				5F28BB401D456518006E2F76 /* Cache.swift */,
+				5F0023991E1A38C20049BBFF /* OfflineBookmarksFetcher.swift */,
 				AE07F2891D52845700C94AF5 /* FeaturedSources.swift */,
 				AE07F28D1D52950400C94AF5 /* SourceSearch.swift */,
 				AE07F28B1D52884E00C94AF5 /* MockJson */,
@@ -522,6 +527,7 @@
 				5F0CC6321C6C661A0071A026 /* CGMath.swift */,
 				5F5E4DA21C6FDE79009C3446 /* NSData+MD5.swift */,
 				5F5E4DAB1C71014D009C3446 /* Utils.swift */,
+				5F00239B1E1A44000049BBFF /* String+Json.swift */,
 				5F73F1781C76A8DE00DA2981 /* NSAttributedString+TrimWhitespace.swift */,
 				5FCDF43F1C6BCD6700A50A75 /* CommonExtensions.swift */,
 				5F24D6C01D31C4C4000C0133 /* UIImage+ApplyTint.swift */,
@@ -880,6 +886,7 @@
 				5F24D6BA1D31C0E6000C0133 /* UIView+ParticleEffects.swift in Sources */,
 				5F24D6C11D31C4C4000C0133 /* UIImage+ApplyTint.swift in Sources */,
 				5F5E4DA91C700D7E009C3446 /* SwipeAwayViewController.swift in Sources */,
+				5F00239A1E1A38C20049BBFF /* OfflineBookmarksFetcher.swift in Sources */,
 				5FE982CC1D2CEA48009C9ECF /* StatusView.swift in Sources */,
 				5F4A715B1C63237B00676F91 /* Article.swift in Sources */,
 				5F57066F1C63C74400140078 /* FeedViewController.swift in Sources */,
@@ -889,6 +896,7 @@
 				5F4A71591C63237300676F91 /* Feed.swift in Sources */,
 				5FC644491E024F020079FC78 /* ContentPreview.swift in Sources */,
 				5F87A7891D6C1F8D00AC07DB /* MasonryCollectionViewLayout.swift in Sources */,
+				5F00239C1E1A44000049BBFF /* String+Json.swift in Sources */,
 				5FC506FB1C91506C00F7A237 /* SKFill.m in Sources */,
 				5FC3BFDF1C9F0720000A2D9E /* Stylesheets.swift in Sources */,
 				5F2CA9AC1DACBA6A002B1E64 /* CollectionHelpers.swift in Sources */,

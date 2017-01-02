@@ -1,5 +1,5 @@
 from model import Source, Article, Subscription, Bookmark
-from util import get_or_insert
+from util import get_or_insert, get_multi_dict
 from canonical_url import canonical_url
 from google.appengine.ext import ndb
 import datetime
@@ -168,3 +168,21 @@ def delete_bookmark(uid, article_id):
         bookmark.deleted = True
         bookmark.last_modified = datetime.datetime.now()
         bookmark.put()
+
+def bulk_articles(ids):
+    keys = [ndb.Key('Article', id) for id in ids]
+    
+    articles = get_multi_dict(keys)
+    contents = get_multi_dict([a.content for a in articles.values() if a.content])
+    
+    results = {id: None for id in ids}
+    for key in keys:
+        id = key.id()
+        if key in articles:
+            article = articles[key]
+            content_key = article.content
+            if content_key and content_key in contents:
+                content = contents[content_key]
+                results[id] = article.json(include_article_json=True, content_obj=content)
+    
+    return results

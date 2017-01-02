@@ -155,3 +155,8 @@ def send_json(handler, content):
     handler.response.headers.add_header('Content-Type', 'application/json')
     handler.response.headers.add_header('Access-Control-Allow-Origin', '*')
     handler.response.write(json.dumps(content))
+
+def get_multi_dict(keys):
+    # ndb.get_multi, but returns a {key: entity} dict with only the found entities:
+    entities = ndb.get_multi(keys)
+    return {k: ent for k, ent in zip(keys, entities) if ent}

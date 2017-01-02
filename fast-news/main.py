@@ -25,7 +25,7 @@ import dump
 import util
 import file_storage
 from template import template
-from util import send_json
+from util import send_json, get_multi_dict
 import email_list
 
 class MainHandler(webapp2.RequestHandler):
@@ -55,6 +55,12 @@ class ArticleHandler(webapp2.RequestHandler):
             article = api.ensure_article_at_url(url)
         
         send_json(self, article.json(include_article_json=True))
+
+class BulkArticlesHandler(webapp2.RequestHandler):
+    def get(self):
+        ids = json.loads(self.request.get('ids'))
+        results = api.bulk_articles(ids)
+        send_json(self, results)
 
 class FeedHandler(webapp2.RequestHandler):
     def get(self):
@@ -189,6 +195,7 @@ app = webapp2.WSGIApplication([
     ('/article', ArticleHandler),
     ('/source', SourceHandler),
     ('/feed', FeedHandler),
+    ('/bulk_articles', BulkArticlesHandler),
     ('/subscriptions', SubscriptionsHandler),
     ('/subscriptions/add', SubscribeHandler),
     ('/subscriptions/delete', UnsubscribeHandler),

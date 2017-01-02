@@ -57,5 +57,16 @@
             <input type=text name=uid placeholder='uid'/>
             <input type=submit>
         </form>
+        <form id='bulk' method=GET action='/bulk_articles'>
+            <h1>Test bulk article download</h1>
+			<p>Article ids, on separate lines:</p>
+			<textarea style='width: 300px; height: 200px' id='bulk_ids'>http://www.nytimes.com/2017/01/01/nyregion/as-second-avenue-subway-opens-a-train-delay-ends-in-happy-tears.html?_r=0 standalone</textarea>
+            <input type=hidden name=ids id='bulk_ids_encoded'/>
+            <input type=submit>
+			<script>$("#bulk").submit(function(e) {
+				// e.preventDefault()
+				$('#bulk_ids_encoded').val(JSON.stringify($('#bulk_ids').val().split('\n')));
+			})</script>
+        </form>
 
 {% endblock %}

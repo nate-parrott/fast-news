@@ -189,7 +189,7 @@ class Article(ndb.Model):
     def enqueue_fetch(self, **kwargs):
         taskqueue.Queue('articles').add_async(self.create_fetch_task(**kwargs))
     
-    def json(self, include_article_json=False):
+    def json(self, include_article_json=False, content_obj=None):
         d = {
             "id": self.key.id(),
             "url": self.url,
@@ -207,7 +207,9 @@ class Article(ndb.Model):
         }
         if include_article_json:
             # print 'getting json; j: ', (not not self.content)
-            d['article_json'] = self.content.get().article_json if self.content else None
+            content = content_obj
+            if content is None and self.content: content = self.content.get()
+            d['article_json'] = content.article_json if content else None
         return d
 
 from source_fetch import source_fetch
